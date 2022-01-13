@@ -1,0 +1,36 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use App\Models\AwardLetter;
+use App\Models\BankReference;
+
+class BankReferenceFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = BankReference::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'reference_date' => $this->faker->dateTime(),
+            'volume_no' => $this->faker->randomNumber(),
+            'reference_no' => $this->faker->randomNumber(),
+            'created_by' => $this->faker->randomNumber(),
+            'in_name_of' => $this->faker->word,
+            'affliate_id' => $this->faker->randomNumber(),
+            'award_letter_id' => AwardLetter::factory(),
+        ];
+    }
+}

@@ -1,0 +1,138 @@
+created:
+    - app/Http/Controllers/AwardLetterController.php
+    - app/Http/Controllers/BankController.php
+    - app/Http/Controllers/BankReferenceController.php
+    - app/Http/Controllers/ChartController.php
+    - app/Http/Controllers/ChartCategoryController.php
+    - app/Http/Controllers/ChartProviderController.php
+    - app/Http/Controllers/ChartTypeController.php
+    - app/Http/Controllers/ContractorController.php
+    - app/Http/Controllers/ContractorAffliateController.php
+    - app/Http/Controllers/DashboardSettingController.php
+    - app/Http/Controllers/ModuleController.php
+    - app/Http/Controllers/ProjectController.php
+    - app/Http/Controllers/PropertyTypeController.php
+    - app/Http/Controllers/StateController.php
+    - app/Http/Controllers/SubmoduleController.php
+    - database/factories/ProjectFactory.php
+    - database/factories/SubmoduleFactory.php
+    - database/factories/ChartProviderFactory.php
+    - database/factories/ContractorFactory.php
+    - database/factories/PropertyTypeFactory.php
+    - database/factories/StateFactory.php
+    - database/factories/AwardLetterFactory.php
+    - database/factories/BankFactory.php
+    - database/factories/BankReferenceFactory.php
+    - database/factories/ChartCategoryFactory.php
+    - database/factories/ChartTypeFactory.php
+    - database/factories/ChartFactory.php
+    - database/factories/ContractorAffliateFactory.php
+    - database/factories/DashboardSettingFactory.php
+    - database/factories/ModuleFactory.php
+    - database/migrations/2022_01_13_104827_create_projects_table.php
+    - database/migrations/2022_01_13_104828_create_submodules_table.php
+    - database/migrations/2022_01_13_104829_create_chart_providers_table.php
+    - database/migrations/2022_01_13_104830_create_contractors_table.php
+    - database/migrations/2022_01_13_104831_create_property_types_table.php
+    - database/migrations/2022_01_13_104832_create_states_table.php
+    - database/migrations/2022_01_13_104833_create_award_letters_table.php
+    - database/migrations/2022_01_13_104834_create_banks_table.php
+    - database/migrations/2022_01_13_104835_create_bank_references_table.php
+    - database/migrations/2022_01_13_104836_create_chart_categories_table.php
+    - database/migrations/2022_01_13_104837_create_chart_types_table.php
+    - database/migrations/2022_01_13_104838_create_charts_table.php
+    - database/migrations/2022_01_13_104839_create_contractor_affliates_table.php
+    - database/migrations/2022_01_13_104840_create_dashboard_settings_table.php
+    - database/migrations/2022_01_13_104841_create_modules_table.php
+    - app/Models/Project.php
+    - app/Models/Submodule.php
+    - app/Models/ChartProvider.php
+    - app/Models/Contractor.php
+    - app/Models/PropertyType.php
+    - app/Models/State.php
+    - app/Models/AwardLetter.php
+    - app/Models/Bank.php
+    - app/Models/BankReference.php
+    - app/Models/ChartCategory.php
+    - app/Models/ChartType.php
+    - app/Models/Chart.php
+    - app/Models/ContractorAffliate.php
+    - app/Models/DashboardSetting.php
+    - app/Models/Module.php
+    - database/seeders/AwardLetterSeeder.php
+    - database/seeders/BankSeeder.php
+    - database/seeders/BankReferenceSeeder.php
+    - database/seeders/ChartSeeder.php
+    - database/seeders/ChartCategorySeeder.php
+    - database/seeders/ChartProviderSeeder.php
+    - database/seeders/ChartTypeSeeder.php
+    - database/seeders/ContractorSeeder.php
+    - database/seeders/ContractorAffliateSeeder.php
+    - database/seeders/DashboardSettingSeeder.php
+    - database/seeders/ModuleSeeder.php
+    - database/seeders/ProjectSeeder.php
+    - database/seeders/PropertyTypeSeeder.php
+    - database/seeders/StateSeeder.php
+    - database/seeders/SubmoduleSeeder.php
+    - tests/Feature/Http/Controllers/AwardLetterControllerTest.php
+    - tests/Feature/Http/Controllers/BankControllerTest.php
+    - tests/Feature/Http/Controllers/BankReferenceControllerTest.php
+    - tests/Feature/Http/Controllers/ChartControllerTest.php
+    - tests/Feature/Http/Controllers/ChartCategoryControllerTest.php
+    - tests/Feature/Http/Controllers/ChartProviderControllerTest.php
+    - tests/Feature/Http/Controllers/ChartTypeControllerTest.php
+    - tests/Feature/Http/Controllers/ContractorControllerTest.php
+    - tests/Feature/Http/Controllers/ContractorAffliateControllerTest.php
+    - tests/Feature/Http/Controllers/DashboardSettingControllerTest.php
+    - tests/Feature/Http/Controllers/ModuleControllerTest.php
+    - tests/Feature/Http/Controllers/ProjectControllerTest.php
+    - tests/Feature/Http/Controllers/PropertyTypeControllerTest.php
+    - tests/Feature/Http/Controllers/StateControllerTest.php
+    - tests/Feature/Http/Controllers/SubmoduleControllerTest.php
+    - app/Http/Resources/AwardLetterResource.php
+    - app/Http/Resources/BankCollection.php
+    - app/Http/Resources/BankResource.php
+    - app/Http/Resources/BankReferenceCollection.php
+    - app/Http/Resources/BankReferenceResource.php
+    - app/Http/Resources/ChartCollection.php
+    - app/Http/Resources/ChartResource.php
+    - app/Http/Resources/ChartCategoryCollection.php
+    - app/Http/Resources/ChartCategoryResource.php
+    - app/Http/Resources/ChartProviderCollection.php
+    - app/Http/Resources/ChartProviderResource.php
+    - app/Http/Resources/ChartTypeCollection.php
+    - app/Http/Resources/ChartTypeResource.php
+    - app/Http/Resources/ContractorCollection.php
+    - app/Http/Resources/ContractorResource.php
+    - app/Http/Resources/ContractorAffliateCollection.php
+    - app/Http/Resources/ContractorAffliateResource.php
+    - app/Http/Resources/DashboardSettingCollection.php
+    - app/Http/Resources/DashboardSettingResource.php
+    - app/Http/Resources/ModuleCollection.php
+    - app/Http/Resources/ModuleResource.php
+    - app/Http/Resources/ProjectCollection.php
+    - app/Http/Resources/ProjectResource.php
+    - app/Http/Resources/PropertyTypeCollection.php
+    - app/Http/Resources/PropertyTypeResource.php
+    - app/Http/Resources/StateCollection.php
+    - app/Http/Resources/StateResource.php
+    - app/Http/Resources/SubmoduleCollection.php
+    - app/Http/Resources/SubmoduleResource.php
+updated:
+    - routes/api.php
+models:
+    Project: { name: string, project_code: string, softdeletes: softDeletes }
+    Submodule: { name: string, module_id: unsignedInteger, is_active: 'boolean default:true', softdeletes: softDeletes }
+    ChartProvider: { chart_provider: string, softdeletes: softDeletes, relationships: { hasMany: ChartCategory } }
+    Contractor: { contractor_name: string, address: string, location: string, email: string, phone_no: string, contact_name: string, contact_email: string, contact_phone: string, softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
+    PropertyType: { name: string, property_code: string, softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
+    State: { name: string, state_code: string, region_id: 'unsignedInteger nullable', state_code2: 'string nullable', is_active: 'boolean default:true', softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
+    AwardLetter: { unit_price: float, no_units: unsignedInteger, no_rooms: unsignedInteger, date_awarded: date, reference_no: string, award_no: unsignedInteger, volume_no: unsignedInteger, contractor_id: 'id foreign', property_type_id: 'id foreign', state_id: 'id foreign', project_id: 'id foreign', posted_by: unsignedInteger, softdeletes: softDeletes, relationships: { hasMany: BankReference } }
+    Bank: { name: string, created_by: unsignedInteger, modified_by: unsignedInteger, bank_code: string, softdeletes: softDeletes, relationships: { hasMany: ContractorAffliate } }
+    BankReference: { reference_date: datetime, volume_no: unsignedInteger, reference_no: unsignedInteger, created_by: unsignedInteger, in_name_of: string, affliate_id: 'unsignedInteger nullable', award_letter_id: 'id foreign', softdeletes: softDeletes }
+    ChartCategory: { chart_category: string, chart_provider_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: 'ChartType,DashboardSetting' } }
+    ChartType: { chart_type: string, chart_category_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
+    Chart: { chart_title: string, sql_query: string, is_active: 'boolean default:true', module_id: 'id foreign', filter_column: string, chart_type_id: 'id foreign', chart_category_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
+    ContractorAffliate: { name: string, account_no: string, account_officer: string, account_officer_email: string, bank_address: string, sort_code: string, bank_id: 'id foreign', softdeletes: softDeletes }
+    DashboardSetting: { chart_title: string, is_active: 'boolean default:true', orderby: unsignedInteger, is_group: 'boolean default:true', sub_module_id: unsignedInteger, chart_id: 'id foreign', module_id: 'id foreign', chart_type_id: 'id foreign', chart_category_id: 'id foreign', softdeletes: softDeletes }
+    Module: { name: string, order_by: unsignedInteger, active_id: unsignedInteger, url: string, created_by: unsignedInteger, modified_by: unsignedInteger, icon: string, bg_class: string, softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
