@@ -17,7 +17,7 @@ class ChartCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $chartCategories = ChartCategory::all();
+        $chartCategories = ChartCategory::with('chartProvider')->get();
 
         return new ChartCategoryCollection($chartCategories);
     }

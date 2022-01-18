@@ -24,7 +24,11 @@ class StateStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'state' => ['required'],
+            'name' => ['required', 'string'],
+            'state_code' => ['required', 'string'],
+            'region_id' => ['integer', 'gt:0'],
+            'state_code2' => ['string'],
+            'is_active' => ['required'],
         ];
     }
 }

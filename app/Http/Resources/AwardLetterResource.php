@@ -23,11 +23,11 @@ class AwardLetterResource extends JsonResource
             'reference_no' => $this->reference_no,
             'award_no' => $this->award_no,
             'volume_no' => $this->volume_no,
-            'contractor_id' => $this->contractor_id,
-            'property_type_id' => $this->property_type_id,
-            'state_id' => $this->state_id,
-            'project_id' => $this->project_id,
-            'posted_by' => $this->posted_by,
+            'contractor' => new ContractorResource($this->whenLoaded('contractor')),
+            'propertyType' => new PropertyTypeResource($this->whenLoaded('propertyType')),
+            'state' => new StateResource($this->whenLoaded('state')),
+            'project' => new ProjectResource($this->whenLoaded('project')),
+            'posted_by' => new UserResource($this->whenLoaded('posted_by')),
             'bankReferences' => BankReferenceCollection::make($this->whenLoaded('bankReferences')),
         ];
     }

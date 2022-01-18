@@ -24,7 +24,13 @@ class ContractorAffliateStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'contractorAffliate' => ['required'],
+            'name' => ['required', 'string'],
+            'account_no' => ['required', 'string'],
+            'account_officer' => ['required', 'string'],
+            'account_officer_email' => ['required', 'string'],
+            'bank_address' => ['required', 'string'],
+            'sort_code' => ['required', 'string'],
+            'bank_id' => ['required', 'integer', 'exists:banks,id'],
         ];
     }
 }

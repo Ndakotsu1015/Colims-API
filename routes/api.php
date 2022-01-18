@@ -30,8 +30,33 @@ Route::group([
 
     Route::group(['middleware' => 'auth:sanctum',], function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::post('/profile', [AuthController::class, 'profile'])->name('profile');
         Route::post('/refresh', [AuthController::class, 'refresh'])->name('token.refresh');
+
+        // previleges
+        Route::apiResource('privilege', App\Http\Controllers\PrivilegeController::class);
+
+        Route::apiResource('privilege-class', App\Http\Controllers\PrivilegeClassController::class);
+
+        Route::apiResource('privilege-detail', App\Http\Controllers\PrivilegeDetailController::class);
+
+        Route::apiResource('menu', App\Http\Controllers\MenuController::class);
+
+        Route::apiResource('menu-authorization', App\Http\Controllers\MenuAuthorizationController::class);
     });
+});
+
+Route::group(['middleware' => 'auth:sanctum',], function () {   
+    // previleges
+    Route::apiResource('privilege', App\Http\Controllers\PrivilegeController::class);
+
+    Route::apiResource('privilege-class', App\Http\Controllers\PrivilegeClassController::class);
+
+    Route::apiResource('privilege-detail', App\Http\Controllers\PrivilegeDetailController::class);
+
+    Route::apiResource('menu', App\Http\Controllers\MenuController::class);
+
+    Route::apiResource('menu-authorization', App\Http\Controllers\MenuAuthorizationController::class);
 });
 
 

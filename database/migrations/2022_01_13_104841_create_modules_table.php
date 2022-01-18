@@ -22,7 +22,7 @@ class CreateModulesTable extends Migration
             $table->unsignedInteger('active_id');
             $table->string('url');
             $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
+            $table->unsignedInteger('modified_by')->nullable();
             $table->string('icon');
             $table->string('bg_class');
             $table->softDeletes();

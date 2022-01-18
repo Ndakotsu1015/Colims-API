@@ -24,7 +24,8 @@ class ChartCategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'chartCategory' => ['required'],
+            'chart_category' => ['required', 'string'],
+            'chart_provider_id' => ['required', 'integer', 'exists:chart_providers,id'],
         ];
     }
 }

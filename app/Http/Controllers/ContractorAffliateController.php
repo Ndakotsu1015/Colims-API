@@ -17,7 +17,7 @@ class ContractorAffliateController extends Controller
      */
     public function index(Request $request)
     {
-        $contractorAffliates = ContractorAffliate::all();
+        $contractorAffliates = ContractorAffliate::with('bank')->get();
 
         return new ContractorAffliateCollection($contractorAffliates);
     }

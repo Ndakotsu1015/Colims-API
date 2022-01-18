@@ -22,7 +22,7 @@ class ContractorAffliateResource extends JsonResource
             'account_officer_email' => $this->account_officer_email,
             'bank_address' => $this->bank_address,
             'sort_code' => $this->sort_code,
-            'bank_id' => $this->bank_id,
+            'bank' => new BankResource($this->whenLoaded('bank')),
         ];
     }
 }

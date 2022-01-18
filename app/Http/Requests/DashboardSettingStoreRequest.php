@@ -24,7 +24,15 @@ class DashboardSettingStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'dashboardSetting' => ['required'],
+            'chart_title' => ['required', 'string'],
+            'is_active' => ['required'],
+            'orderby' => ['required', 'integer', 'gt:0'],
+            'is_group' => ['required'],
+            'sub_module_id' => ['required', 'integer', 'gt:0'],
+            'chart_id' => ['required', 'integer', 'exists:charts,id'],
+            'module_id' => ['required', 'integer', 'exists:modules,id'],
+            'chart_type_id' => ['required', 'integer', 'exists:chart_types,id'],
+            'chart_category_id' => ['required', 'integer', 'exists:chart_categories,id'],
         ];
     }
 }

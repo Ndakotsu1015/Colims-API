@@ -19,10 +19,10 @@ class ChartResource extends JsonResource
             'chart_title' => $this->chart_title,
             'sql_query' => $this->sql_query,
             'is_active' => $this->is_active,
-            'module_id' => $this->module_id,
+            'module' => new ModuleResource($this->whenLoaded('module')),
             'filter_column' => $this->filter_column,
-            'chart_type_id' => $this->chart_type_id,
-            'chart_category_id' => $this->chart_category_id,
+            'chartType' => new ChartTypeResource($this->whenLoaded('chartType')),
+            'chartCategory' => new ChartCategoryResource($this->whenLoaded('chartCategory')),
             'dashboardSettings' => DashboardSettingCollection::make($this->whenLoaded('dashboardSettings')),
         ];
     }

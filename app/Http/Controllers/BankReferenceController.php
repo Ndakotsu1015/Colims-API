@@ -17,7 +17,7 @@ class BankReferenceController extends Controller
      */
     public function index(Request $request)
     {
-        $bankReferences = BankReference::all();
+        $bankReferences = BankReference::with('awardLetter')->get();
 
         return new BankReferenceCollection($bankReferences);
     }

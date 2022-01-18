@@ -24,7 +24,14 @@ class ContractorStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'contractor' => ['required'],
+            'contractor_name' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'location' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'phone_no' => ['required', 'string'],
+            'contact_name' => ['required', 'string'],
+            'contact_email' => ['required', 'string'],
+            'contact_phone' => ['required', 'string'],
         ];
     }
 }

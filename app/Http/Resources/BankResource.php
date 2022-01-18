@@ -16,9 +16,7 @@ class BankResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'created_by' => $this->created_by,
-            'modified_by' => $this->modified_by,
+            'name' => $this->name,            
             'bank_code' => $this->bank_code,
             'contractorAffliates' => ContractorAffliateCollection::make($this->whenLoaded('contractorAffliates')),
         ];

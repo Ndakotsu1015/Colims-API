@@ -24,7 +24,10 @@ class BankStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'bank' => ['required'],
+            'name' => ['required', 'string'],
+            // 'created_by' => ['required', 'integer', 'gt:0'],
+            // 'modified_by' => ['required', 'integer', 'gt:0'],
+            'bank_code' => ['required', 'string'],
         ];
     }
 }

@@ -24,7 +24,8 @@ class ProjectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'project' => ['required'],
+            'name' => ['required', 'string'],
+            'project_code' => ['required', 'string'],
         ];
     }
 }

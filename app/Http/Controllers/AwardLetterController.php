@@ -17,7 +17,7 @@ class AwardLetterController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetters = AwardLetter::all();
+        $awardLetters = AwardLetter::with('contractor', 'propertyType', 'state', 'project')->get();
 
         return new AwardLetterCollection($awardLetters);
     }

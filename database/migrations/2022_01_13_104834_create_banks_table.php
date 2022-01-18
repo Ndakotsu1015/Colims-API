@@ -18,8 +18,8 @@ class CreateBanksTable extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
+            // $table->unsignedInteger('created_by');
+            // $table->unsignedInteger('modified_by');
             $table->string('bank_code');
             $table->softDeletes();
             $table->timestamps();

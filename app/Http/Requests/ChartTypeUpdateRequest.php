@@ -24,7 +24,8 @@ class ChartTypeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'chartType' => ['required'],
+            'chart_type' => ['required', 'string'],
+            'chart_category_id' => ['required', 'integer', 'exists:chart_categories,id'],
         ];
     }
 }

@@ -31,4 +31,9 @@ class Submodule extends Model
         'module_id' => 'integer',
         'is_active' => 'boolean',
     ];
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
 }

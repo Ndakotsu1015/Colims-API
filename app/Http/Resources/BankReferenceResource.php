@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\AwardLetter;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BankReferenceResource extends JsonResource
@@ -18,11 +19,10 @@ class BankReferenceResource extends JsonResource
             'id' => $this->id,
             'reference_date' => $this->reference_date,
             'volume_no' => $this->volume_no,
-            'reference_no' => $this->reference_no,
-            'created_by' => $this->created_by,
+            'reference_no' => $this->reference_no,            
             'in_name_of' => $this->in_name_of,
             'affliate_id' => $this->affliate_id,
-            'award_letter_id' => $this->award_letter_id,
+            'awardLetter' => new AwardLetter($this->whenLoaded('awardLetter')),
         ];
     }
 }

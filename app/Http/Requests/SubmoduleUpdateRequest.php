@@ -24,7 +24,9 @@ class SubmoduleUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'submodule' => ['required'],
+            'name' => ['required', 'string'],
+            'module_id' => ['required', 'integer', 'gt:0'],
+            'is_active' => ['required'],
         ];
     }
 }

@@ -24,7 +24,14 @@ class ModuleStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'module' => ['required'],
+            'name' => ['required', 'string'],
+            'order_by' => ['required', 'integer', 'gt:0'],
+            'active_id' => ['required', 'integer', 'gt:0'],
+            'url' => ['required', 'string'],
+            'created_by' => ['required', 'integer', 'gt:0'],
+            'modified_by' => ['required', 'integer', 'gt:0'],
+            'icon' => ['required', 'string'],
+            'bg_class' => ['required', 'string'],
         ];
     }
 }

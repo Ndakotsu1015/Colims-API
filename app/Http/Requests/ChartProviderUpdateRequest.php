@@ -24,7 +24,7 @@ class ChartProviderUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'chartProvider' => ['required'],
+            'chart_provider' => ['required', 'string'],
         ];
     }
 }

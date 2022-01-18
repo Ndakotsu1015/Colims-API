@@ -120,9 +120,7 @@ models:
     name: string
     order_by: unsignedInteger
     active_id: unsignedInteger
-    url: string
-    created_by: unsignedInteger
-    modified_by: unsignedInteger
+    url: string    
     icon: string
     bg_class: string
     softDeletes

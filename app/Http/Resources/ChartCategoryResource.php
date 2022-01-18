@@ -17,7 +17,7 @@ class ChartCategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'chart_category' => $this->chart_category,
-            'chart_provider_id' => $this->chart_provider_id,
+            'chartProvider' => new ChartProviderResource($this->whenLoaded('chartProvider')),
             'dashboardSettings' => DashboardSettingCollection::make($this->whenLoaded('dashboardSettings')),
         ];
     }

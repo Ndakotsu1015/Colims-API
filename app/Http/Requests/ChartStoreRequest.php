@@ -24,7 +24,13 @@ class ChartStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'chart' => ['required'],
+            'chart_title' => ['required', 'string'],
+            'sql_query' => ['required', 'string'],
+            'is_active' => ['required'],
+            'module_id' => ['required', 'integer', 'exists:modules,id'],
+            'filter_column' => ['required', 'string'],
+            'chart_type_id' => ['required', 'integer', 'exists:chart_types,id'],
+            'chart_category_id' => ['required', 'integer', 'exists:chart_categories,id'],
         ];
     }
 }
