@@ -17,8 +17,8 @@ class Bank extends Model
      */
     protected $fillable = [
         'name',
-        'created_by',
-        'modified_by',
+        // 'created_by',
+        // 'modified_by',
         'bank_code',
     ];
 
@@ -29,8 +29,8 @@ class Bank extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'created_by' => 'integer',
-        'modified_by' => 'integer',
+        // 'created_by' => 'integer',
+        // 'modified_by' => 'integer',
     ];
 
     public function contractorAffliates()

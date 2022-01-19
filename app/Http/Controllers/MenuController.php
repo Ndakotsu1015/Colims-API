@@ -17,7 +17,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $menus = Menu::with('parent', 'module')->get();
+        $menus = Menu::with('parentMenu', 'module')->get();
 
         return new MenuCollection($menus);
     }

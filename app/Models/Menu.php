@@ -39,7 +39,7 @@ class Menu extends Model
         'module_id' => 'integer',
     ];
 
-    public function parent()
+    public function parentMenu()
     {
         return $this->belongsTo(Menu::class);
     }

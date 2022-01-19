@@ -24,8 +24,8 @@ class BankFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'created_by' => $this->faker->randomNumber(),
-            'modified_by' => $this->faker->randomNumber(),
+            // 'created_by' => $this->faker->randomNumber(),
+            // 'modified_by' => $this->faker->randomNumber(),
             'bank_code' => $this->faker->word,
         ];
     }
