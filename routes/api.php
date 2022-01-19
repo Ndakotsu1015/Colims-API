@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,22 +32,19 @@ Route::group([
     Route::group(['middleware' => 'auth:sanctum',], function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::post('/profile', [AuthController::class, 'profile'])->name('profile');
-        Route::post('/refresh', [AuthController::class, 'refresh'])->name('token.refresh');
-
-        // previleges
-        // Route::apiResource('privilege', App\Http\Controllers\PrivilegeController::class);
-
-        // Route::apiResource('privilege-class', App\Http\Controllers\PrivilegeClassController::class);
-
-        // Route::apiResource('privilege-detail', App\Http\Controllers\PrivilegeDetailController::class);
-
-        // Route::apiResource('menu', App\Http\Controllers\MenuController::class);
-
-        // Route::apiResource('menu-authorization', App\Http\Controllers\MenuAuthorizationController::class);
+        Route::post('/refresh', [AuthController::class, 'refresh'])->name('token.refresh');        
     });
 });
 
-Route::group(['middleware' => 'auth:sanctum',], function () {   
+// fileupload route group
+Route::prefix('file')/*->middleware('auth:api')*/->group(function () {
+    Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
+
+    Route::get('/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
+
+}); 
+
+Route::group(['middleware' => 'auth:sanctum',], function () {      
     // previleges
     Route::apiResource('privilege', App\Http\Controllers\PrivilegeController::class);
     
@@ -57,97 +55,34 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('menu', App\Http\Controllers\MenuController::class);
     
     Route::apiResource('menu-authorization', App\Http\Controllers\MenuAuthorizationController::class);
+        
+    Route::apiResource('award-letter', App\Http\Controllers\AwardLetterController::class);
+
+    Route::apiResource('bank', App\Http\Controllers\BankController::class);
+
+    Route::apiResource('bank-reference', App\Http\Controllers\BankReferenceController::class);
+
+    Route::apiResource('chart', App\Http\Controllers\ChartController::class);
+
+    Route::apiResource('chart-category', App\Http\Controllers\ChartCategoryController::class);
+
+    Route::apiResource('chart-provider', App\Http\Controllers\ChartProviderController::class);
+
+    Route::apiResource('chart-type', App\Http\Controllers\ChartTypeController::class);
+
+    Route::apiResource('contractor', App\Http\Controllers\ContractorController::class);
+
+    Route::apiResource('contractor-affliate', App\Http\Controllers\ContractorAffliateController::class);
+
+    Route::apiResource('dashboard-setting', App\Http\Controllers\DashboardSettingController::class);
+
+    Route::apiResource('module', App\Http\Controllers\ModuleController::class);
+
+    Route::apiResource('project', App\Http\Controllers\ProjectController::class);
+
+    Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
+
+    Route::apiResource('state', App\Http\Controllers\StateController::class);
+
+    Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
 });
-
-
-Route::apiResource('award-letter', App\Http\Controllers\AwardLetterController::class);
-
-Route::apiResource('bank', App\Http\Controllers\BankController::class);
-
-Route::apiResource('bank-reference', App\Http\Controllers\BankReferenceController::class);
-
-Route::apiResource('chart', App\Http\Controllers\ChartController::class);
-
-Route::apiResource('chart-category', App\Http\Controllers\ChartCategoryController::class);
-
-Route::apiResource('chart-provider', App\Http\Controllers\ChartProviderController::class);
-
-Route::apiResource('chart-type', App\Http\Controllers\ChartTypeController::class);
-
-Route::apiResource('contractor', App\Http\Controllers\ContractorController::class);
-
-Route::apiResource('contractor-affliate', App\Http\Controllers\ContractorAffliateController::class);
-
-Route::apiResource('dashboard-setting', App\Http\Controllers\DashboardSettingController::class);
-
-Route::apiResource('module', App\Http\Controllers\ModuleController::class);
-
-Route::apiResource('project', App\Http\Controllers\ProjectController::class);
-
-Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
-
-Route::apiResource('state', App\Http\Controllers\StateController::class);
-
-Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
-
-
-Route::apiResource('award-letter', App\Http\Controllers\AwardLetterController::class);
-
-Route::apiResource('bank', App\Http\Controllers\BankController::class);
-
-Route::apiResource('bank-reference', App\Http\Controllers\BankReferenceController::class);
-
-Route::apiResource('chart', App\Http\Controllers\ChartController::class);
-
-Route::apiResource('chart-category', App\Http\Controllers\ChartCategoryController::class);
-
-Route::apiResource('chart-provider', App\Http\Controllers\ChartProviderController::class);
-
-Route::apiResource('chart-type', App\Http\Controllers\ChartTypeController::class);
-
-Route::apiResource('contractor', App\Http\Controllers\ContractorController::class);
-
-Route::apiResource('contractor-affliate', App\Http\Controllers\ContractorAffliateController::class);
-
-Route::apiResource('dashboard-setting', App\Http\Controllers\DashboardSettingController::class);
-
-Route::apiResource('module', App\Http\Controllers\ModuleController::class);
-
-Route::apiResource('project', App\Http\Controllers\ProjectController::class);
-
-Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
-
-Route::apiResource('state', App\Http\Controllers\StateController::class);
-
-Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
-
-
-Route::apiResource('award-letter', App\Http\Controllers\AwardLetterController::class);
-
-Route::apiResource('bank', App\Http\Controllers\BankController::class);
-
-Route::apiResource('bank-reference', App\Http\Controllers\BankReferenceController::class);
-
-Route::apiResource('chart', App\Http\Controllers\ChartController::class);
-
-Route::apiResource('chart-category', App\Http\Controllers\ChartCategoryController::class);
-
-Route::apiResource('chart-provider', App\Http\Controllers\ChartProviderController::class);
-
-Route::apiResource('chart-type', App\Http\Controllers\ChartTypeController::class);
-
-Route::apiResource('contractor', App\Http\Controllers\ContractorController::class);
-
-Route::apiResource('contractor-affliate', App\Http\Controllers\ContractorAffliateController::class);
-
-Route::apiResource('dashboard-setting', App\Http\Controllers\DashboardSettingController::class);
-
-Route::apiResource('module', App\Http\Controllers\ModuleController::class);
-
-Route::apiResource('project', App\Http\Controllers\ProjectController::class);
-
-Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
-
-Route::apiResource('state', App\Http\Controllers\StateController::class);
-
-Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
