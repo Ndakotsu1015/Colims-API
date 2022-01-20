@@ -1,0 +1,24 @@
+Fetch Single Case Activity
+
+URL: http://127.0.0.1:8000/api/case-activity/1
+
+Body:
+
+{    
+    "description": "description",
+    "court_case_id": 1,    
+    "user_id": 1,
+    "status": "in-appeal-court",
+    "location": "ABJ C"
+}
+
+Response: 
+
+{
+    "data": {
+        "id": 1,
+        "description": "description",
+        "status": "in-appeal-court",
+        "location": "ABJ C"
+    }
+}

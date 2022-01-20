@@ -7,9 +7,11 @@ use App\Models\ChartCategory;
 use App\Models\ChartType;
 use App\Models\DashboardSetting;
 use App\Models\Module;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /**
@@ -18,6 +20,30 @@ use Tests\TestCase;
 class DashboardSettingControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
+
+    /**
+     * @var \Illuminate\Foundation\Auth\User
+     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // $this->seed();
+        $this->withHeader('X-Requested-With', 'XMLHttpRequest');
+        $this->withHeader('Accept', 'application/json');
+
+        
+        User::withoutEvents(function () {
+            $this->user = User::factory()->create([
+                'name' => 'abdul',
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => bcrypt("123456"),
+            ]);
+        });
+
+        Sanctum::actingAs($this->user);
+    }
 
     /**
      * @test
@@ -54,7 +80,7 @@ class DashboardSettingControllerTest extends TestCase
         $is_active = $this->faker->boolean;
         $orderby = $this->faker->randomNumber();
         $is_group = $this->faker->boolean;
-        $sub_module_id = $this->faker->randomNumber();
+        $sub_module_id = 12;
         $chart = Chart::factory()->create();
         $module = Module::factory()->create();
         $chart_type = ChartType::factory()->create();

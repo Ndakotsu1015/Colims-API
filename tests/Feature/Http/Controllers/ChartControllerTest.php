@@ -6,9 +6,11 @@ use App\Models\Chart;
 use App\Models\ChartCategory;
 use App\Models\ChartType;
 use App\Models\Module;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /**
@@ -17,6 +19,31 @@ use Tests\TestCase;
 class ChartControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
+
+    
+    /**
+     * @var \Illuminate\Foundation\Auth\User
+     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // $this->seed();
+        $this->withHeader('X-Requested-With', 'XMLHttpRequest');
+        $this->withHeader('Accept', 'application/json');
+
+        
+        User::withoutEvents(function () {
+            $this->user = User::factory()->create([
+                'name' => 'abdul',
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => bcrypt("123456"),
+            ]);
+        });
+
+        Sanctum::actingAs($this->user);
+    }
 
     /**
      * @test

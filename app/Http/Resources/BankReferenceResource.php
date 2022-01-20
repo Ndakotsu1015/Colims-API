@@ -22,7 +22,7 @@ class BankReferenceResource extends JsonResource
             'reference_no' => $this->reference_no,            
             'in_name_of' => $this->in_name_of,
             'affliate_id' => $this->affliate_id,
-            'awardLetter' => new AwardLetter($this->whenLoaded('awardLetter')),
+            'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),
         ];
     }
 }

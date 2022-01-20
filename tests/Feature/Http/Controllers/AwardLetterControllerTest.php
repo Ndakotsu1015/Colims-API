@@ -7,10 +7,13 @@ use App\Models\Contractor;
 use App\Models\Project;
 use App\Models\PropertyType;
 use App\Models\State;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /**
@@ -19,6 +22,30 @@ use Tests\TestCase;
 class AwardLetterControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
+
+    /**
+     * @var \Illuminate\Foundation\Auth\User
+     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // $this->seed();
+        $this->withHeader('X-Requested-With', 'XMLHttpRequest');
+        $this->withHeader('Accept', 'application/json');
+
+        
+        User::withoutEvents(function () {
+            $this->user = User::factory()->create([
+                'name' => 'abdul',
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => bcrypt("123456"),
+            ]);
+        });
+
+        Sanctum::actingAs($this->user);
+    }
 
     /**
      * @test
@@ -57,12 +84,14 @@ class AwardLetterControllerTest extends TestCase
         $date_awarded = $this->faker->date();
         $reference_no = $this->faker->word;
         $award_no = $this->faker->randomNumber();
-        $volume_no = $this->faker->randomNumber();
+        $volume_no = $this->faker->randomDigit()+1;
         $contractor = Contractor::factory()->create();
         $property_type = PropertyType::factory()->create();
         $state = State::factory()->create();
         $project = Project::factory()->create();
         $posted_by = $this->faker->randomNumber();
+
+        Log::debug($contractor);
 
         $response = $this->post(route('award-letter.store'), [
             'unit_price' => $unit_price,
@@ -83,7 +112,7 @@ class AwardLetterControllerTest extends TestCase
             ->where('unit_price', $unit_price)
             ->where('no_units', $no_units)
             ->where('no_rooms', $no_rooms)
-            ->where('date_awarded', $date_awarded)
+            ->where('date_awarded', Carbon::parse($date_awarded))
             ->where('reference_no', $reference_no)
             ->where('award_no', $award_no)
             ->where('volume_no', $volume_no)

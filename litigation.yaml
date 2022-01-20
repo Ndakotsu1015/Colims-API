@@ -1,0 +1,61 @@
+models:
+  CourtCase: 
+    title: string
+    case_no: string unique
+    status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
+    handler_id: id foreign:user.id  
+    posted_by: id foreign:user.id
+    softDeletes
+    relationships:
+      hasMany: SuitParty, LegalDocument, CaseActivity
+
+  SuitParty:  
+    fullname: string
+    phone_no: string
+    residential_address: text
+    court_case_id: id foreign
+    type: string # (Petitioner | Respondent)
+    softDeletes
+
+  LegalDocument: 
+    title: string
+    filename: string    
+    user_id: id foreign
+    court_case_id: id foreign
+    softDeletes
+
+  CaseActivity:
+    description: text
+    court_case_id: id foreign
+    user_id: id foreign    
+    status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
+    location: string
+    softDeletes
+    relationships:
+      hasMany: SuitParty
+
+  CalendarEvent:
+    description: text
+    location: string
+    start_time: datetime
+    end_time: datetime 
+    posted_by: id foreign:user.id
+    court_case_id: id foreign
+    softDeletes
+
+controllers:
+  CourtCase:
+    resource: api
+  SuitParty:
+    resource: api
+  LegalDocument:
+    resource: api
+  CaseActivity:
+    resource: api
+  CalendarEvent:
+    resource: api    
+
+seeders: CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent
+
+
+    

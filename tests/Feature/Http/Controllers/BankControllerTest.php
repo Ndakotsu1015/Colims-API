@@ -3,9 +3,11 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /**
@@ -14,6 +16,30 @@ use Tests\TestCase;
 class BankControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
+
+    /**
+     * @var \Illuminate\Foundation\Auth\User
+     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // $this->seed();
+        $this->withHeader('X-Requested-With', 'XMLHttpRequest');
+        $this->withHeader('Accept', 'application/json');
+
+        
+        User::withoutEvents(function () {
+            $this->user = User::factory()->create([
+                'name' => 'abdul',
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => bcrypt("123456"),
+            ]);
+        });
+
+        Sanctum::actingAs($this->user);
+    }
 
     /**
      * @test
@@ -46,22 +72,16 @@ class BankControllerTest extends TestCase
      */
     public function store_saves()
     {
-        $name = $this->faker->name;
-        $created_by = $this->faker->randomNumber();
-        $modified_by = $this->faker->randomNumber();
+        $name = $this->faker->name;       
         $bank_code = $this->faker->word;
 
         $response = $this->post(route('bank.store'), [
-            'name' => $name,
-            'created_by' => $created_by,
-            'modified_by' => $modified_by,
+            'name' => $name,            
             'bank_code' => $bank_code,
         ]);
 
         $banks = Bank::query()
-            ->where('name', $name)
-            ->where('created_by', $created_by)
-            ->where('modified_by', $modified_by)
+            ->where('name', $name)            
             ->where('bank_code', $bank_code)
             ->get();
         $this->assertCount(1, $banks);
@@ -104,15 +124,11 @@ class BankControllerTest extends TestCase
     public function update_behaves_as_expected()
     {
         $bank = Bank::factory()->create();
-        $name = $this->faker->name;
-        $created_by = $this->faker->randomNumber();
-        $modified_by = $this->faker->randomNumber();
+        $name = $this->faker->name;        
         $bank_code = $this->faker->word;
 
         $response = $this->put(route('bank.update', $bank), [
-            'name' => $name,
-            'created_by' => $created_by,
-            'modified_by' => $modified_by,
+            'name' => $name,            
             'bank_code' => $bank_code,
         ]);
 
@@ -121,9 +137,7 @@ class BankControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonStructure([]);
 
-        $this->assertEquals($name, $bank->name);
-        $this->assertEquals($created_by, $bank->created_by);
-        $this->assertEquals($modified_by, $bank->modified_by);
+        $this->assertEquals($name, $bank->name);       
         $this->assertEquals($bank_code, $bank->bank_code);
     }
 
