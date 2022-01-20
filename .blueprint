@@ -1,34 +1,54 @@
 created:
-    - app/Http/Controllers/PrivilegeController.php
-    - app/Http/Controllers/PrivilegeClassController.php
-    - app/Http/Controllers/PrivilegeDetailController.php
-    - app/Http/Controllers/MenuController.php
-    - app/Http/Controllers/MenuAuthorizationController.php
-    - tests/Feature/Http/Controllers/PrivilegeControllerTest.php
-    - tests/Feature/Http/Controllers/PrivilegeClassControllerTest.php
-    - tests/Feature/Http/Controllers/PrivilegeDetailControllerTest.php
-    - tests/Feature/Http/Controllers/MenuControllerTest.php
-    - tests/Feature/Http/Controllers/MenuAuthorizationControllerTest.php
-    - app/Http/Requests/PrivilegeStoreRequest.php
-    - app/Http/Requests/PrivilegeUpdateRequest.php
-    - app/Http/Requests/PrivilegeClassStoreRequest.php
-    - app/Http/Requests/PrivilegeClassUpdateRequest.php
-    - app/Http/Requests/PrivilegeDetailStoreRequest.php
-    - app/Http/Requests/PrivilegeDetailUpdateRequest.php
-    - app/Http/Requests/MenuStoreRequest.php
-    - app/Http/Requests/MenuUpdateRequest.php
-    - app/Http/Requests/MenuAuthorizationStoreRequest.php
-    - app/Http/Requests/MenuAuthorizationUpdateRequest.php
-    - app/Http/Resources/PrivilegeCollection.php
-    - app/Http/Resources/PrivilegeResource.php
-    - app/Http/Resources/PrivilegeClassCollection.php
-    - app/Http/Resources/PrivilegeClassResource.php
-    - app/Http/Resources/PrivilegeDetailCollection.php
-    - app/Http/Resources/PrivilegeDetailResource.php
-    - app/Http/Resources/MenuCollection.php
-    - app/Http/Resources/MenuResource.php
-    - app/Http/Resources/MenuAuthorizationCollection.php
-    - app/Http/Resources/MenuAuthorizationResource.php
+    - app/Http/Controllers/CourtCaseController.php
+    - app/Http/Controllers/SuitPartyController.php
+    - app/Http/Controllers/LegalDocumentController.php
+    - app/Http/Controllers/CaseActivityController.php
+    - app/Http/Controllers/CalendarEventController.php
+    - database/factories/CourtCaseFactory.php
+    - database/factories/SuitPartyFactory.php
+    - database/factories/LegalDocumentFactory.php
+    - database/factories/CaseActivityFactory.php
+    - database/factories/CalendarEventFactory.php
+    - database/migrations/2022_01_20_105518_create_court_cases_table.php
+    - database/migrations/2022_01_20_105519_create_suit_parties_table.php
+    - database/migrations/2022_01_20_105520_create_legal_documents_table.php
+    - database/migrations/2022_01_20_105521_create_case_activities_table.php
+    - database/migrations/2022_01_20_105522_create_calendar_events_table.php
+    - app/Models/CourtCase.php
+    - app/Models/SuitParty.php
+    - app/Models/LegalDocument.php
+    - app/Models/CaseActivity.php
+    - app/Models/CalendarEvent.php
+    - database/seeders/CourtCaseSeeder.php
+    - database/seeders/SuitPartySeeder.php
+    - database/seeders/LegalDocumentSeeder.php
+    - database/seeders/CaseActivitySeeder.php
+    - database/seeders/CalendarEventSeeder.php
+    - tests/Feature/Http/Controllers/CourtCaseControllerTest.php
+    - tests/Feature/Http/Controllers/SuitPartyControllerTest.php
+    - tests/Feature/Http/Controllers/LegalDocumentControllerTest.php
+    - tests/Feature/Http/Controllers/CaseActivityControllerTest.php
+    - tests/Feature/Http/Controllers/CalendarEventControllerTest.php
+    - app/Http/Requests/CourtCaseStoreRequest.php
+    - app/Http/Requests/CourtCaseUpdateRequest.php
+    - app/Http/Requests/SuitPartyStoreRequest.php
+    - app/Http/Requests/SuitPartyUpdateRequest.php
+    - app/Http/Requests/LegalDocumentStoreRequest.php
+    - app/Http/Requests/LegalDocumentUpdateRequest.php
+    - app/Http/Requests/CaseActivityStoreRequest.php
+    - app/Http/Requests/CaseActivityUpdateRequest.php
+    - app/Http/Requests/CalendarEventStoreRequest.php
+    - app/Http/Requests/CalendarEventUpdateRequest.php
+    - app/Http/Resources/CourtCaseCollection.php
+    - app/Http/Resources/CourtCaseResource.php
+    - app/Http/Resources/SuitPartyCollection.php
+    - app/Http/Resources/SuitPartyResource.php
+    - app/Http/Resources/LegalDocumentCollection.php
+    - app/Http/Resources/LegalDocumentResource.php
+    - app/Http/Resources/CaseActivityCollection.php
+    - app/Http/Resources/CaseActivityResource.php
+    - app/Http/Resources/CalendarEventCollection.php
+    - app/Http/Resources/CalendarEventResource.php
 updated:
     - routes/api.php
 models:
@@ -52,3 +72,8 @@ models:
     PrivilegeDetail: { privilege_class_id: 'id foreign', user_id: 'id foreign', privilege_id: 'id foreign', softdeletes: softDeletes }
     Menu: { title: 'string nullable', link: string, order: 'string nullable', is_active: 'boolean default:false', icon: 'string nullable', parent_id: 'id foreign:menu.id', module_id: 'id foreign', softdeletes: softDeletes }
     MenuAuthorization: { menu_id: 'id foreign', privilege_id: 'id foreign', softdeletes: softDeletes }
+    CourtCase: { title: string, case_no: 'string unique', status: string, handler_id: 'id foreign:user.id', posted_by: 'id foreign:user.id', softdeletes: softDeletes, relationships: { hasMany: 'SuitParty, LegalDocument, CaseActivity' } }
+    SuitParty: { fullname: string, phone_no: string, residential_address: text, court_case_id: 'id foreign', type: string, softdeletes: softDeletes }
+    LegalDocument: { title: string, filename: string, user_id: 'id foreign', court_case_id: 'id foreign', softdeletes: softDeletes }
+    CaseActivity: { description: text, court_case_id: 'id foreign', user_id: 'id foreign', status: string, location: string, softdeletes: softDeletes, relationships: { hasMany: SuitParty } }
+    CalendarEvent: { description: text, location: string, start_time: datetime, end_time: datetime, posted_by: 'id foreign:user.id', court_case_id: 'id foreign', softdeletes: softDeletes }

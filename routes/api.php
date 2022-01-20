@@ -86,3 +86,14 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
 });
+
+
+Route::apiResource('court-case', App\Http\Controllers\CourtCaseController::class);
+
+Route::apiResource('suit-party', App\Http\Controllers\SuitPartyController::class);
+
+Route::apiResource('legal-document', App\Http\Controllers\LegalDocumentController::class);
+
+Route::apiResource('case-activity', App\Http\Controllers\CaseActivityController::class);
+
+Route::apiResource('calendar-event', App\Http\Controllers\CalendarEventController::class);
