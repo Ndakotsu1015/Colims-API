@@ -39,3 +39,5 @@ controllers:
     resource: api
   MenuAuthorization:
     resource: api
+
+seeder:  Privilege, PrivilegeClass, PrivilegeDetail, Menu, MenuAuthorization

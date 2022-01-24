@@ -4,31 +4,26 @@ created:
     - app/Http/Controllers/PrivilegeDetailController.php
     - app/Http/Controllers/MenuController.php
     - app/Http/Controllers/MenuAuthorizationController.php
+    - database/factories/PrivilegeFactory.php
+    - database/factories/PrivilegeClassFactory.php
+    - database/factories/PrivilegeDetailFactory.php
+    - database/factories/MenuFactory.php
+    - database/factories/MenuAuthorizationFactory.php
+    - database/migrations/2022_01_24_130647_create_privileges_table.php
+    - database/migrations/2022_01_24_130648_create_privilege_classes_table.php
+    - database/migrations/2022_01_24_130649_create_privilege_details_table.php
+    - database/migrations/2022_01_24_130650_create_menus_table.php
+    - database/migrations/2022_01_24_130651_create_menu_authorizations_table.php
+    - app/Models/Privilege.php
+    - app/Models/PrivilegeClass.php
+    - app/Models/PrivilegeDetail.php
+    - app/Models/Menu.php
+    - app/Models/MenuAuthorization.php
     - tests/Feature/Http/Controllers/PrivilegeControllerTest.php
     - tests/Feature/Http/Controllers/PrivilegeClassControllerTest.php
     - tests/Feature/Http/Controllers/PrivilegeDetailControllerTest.php
     - tests/Feature/Http/Controllers/MenuControllerTest.php
     - tests/Feature/Http/Controllers/MenuAuthorizationControllerTest.php
-    - app/Http/Requests/PrivilegeStoreRequest.php
-    - app/Http/Requests/PrivilegeUpdateRequest.php
-    - app/Http/Requests/PrivilegeClassStoreRequest.php
-    - app/Http/Requests/PrivilegeClassUpdateRequest.php
-    - app/Http/Requests/PrivilegeDetailStoreRequest.php
-    - app/Http/Requests/PrivilegeDetailUpdateRequest.php
-    - app/Http/Requests/MenuStoreRequest.php
-    - app/Http/Requests/MenuUpdateRequest.php
-    - app/Http/Requests/MenuAuthorizationStoreRequest.php
-    - app/Http/Requests/MenuAuthorizationUpdateRequest.php
-    - app/Http/Resources/PrivilegeCollection.php
-    - app/Http/Resources/PrivilegeResource.php
-    - app/Http/Resources/PrivilegeClassCollection.php
-    - app/Http/Resources/PrivilegeClassResource.php
-    - app/Http/Resources/PrivilegeDetailCollection.php
-    - app/Http/Resources/PrivilegeDetailResource.php
-    - app/Http/Resources/MenuCollection.php
-    - app/Http/Resources/MenuResource.php
-    - app/Http/Resources/MenuAuthorizationCollection.php
-    - app/Http/Resources/MenuAuthorizationResource.php
 updated:
     - routes/api.php
 models:
@@ -52,3 +47,12 @@ models:
     PrivilegeDetail: { privilege_class_id: 'id foreign', user_id: 'id foreign', privilege_id: 'id foreign', softdeletes: softDeletes }
     Menu: { title: 'string nullable', link: string, order: 'string nullable', is_active: 'boolean default:false', icon: 'string nullable', parent_id: 'id foreign:menu.id', module_id: 'id foreign', softdeletes: softDeletes }
     MenuAuthorization: { menu_id: 'id foreign', privilege_id: 'id foreign', softdeletes: softDeletes }
+    CourtCase: { title: string, case_no: 'string unique', status: string, handler_id: 'id foreign:user.id', posted_by: 'id foreign:user.id', softdeletes: softDeletes, relationships: { hasMany: 'SuitParty, LegalDocument, CaseActivity' } }
+    SuitParty: { fullname: string, phone_no: string, residential_address: text, court_case_id: 'id foreign', type: string, softdeletes: softDeletes }
+    LegalDocument: { title: string, filename: string, user_id: 'id foreign', court_case_id: 'id foreign', softdeletes: softDeletes }
+    CaseActivity: { description: text, court_case_id: 'id foreign', user_id: 'id foreign', status: string, location: string, softdeletes: softDeletes, relationships: { hasMany: SuitParty } }
+    CalendarEvent: { description: text, location: string, start_time: datetime, end_time: datetime, posted_by: 'id foreign:user.id', court_case_id: 'id foreign', softdeletes: softDeletes }
+    ContractCategory: { name: string }
+    ContractType: { name: string }
+    Duration: { name: string, number_of_days: unsignInteger }
+    Employee: { full_name: string, title: string, designation: string, signature_file: string }

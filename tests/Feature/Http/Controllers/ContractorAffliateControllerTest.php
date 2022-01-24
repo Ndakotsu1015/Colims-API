@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\Contractor;
 use App\Models\ContractorAffliate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -80,6 +81,7 @@ class ContractorAffliateControllerTest extends TestCase
         $bank_address = $this->faker->word;
         $sort_code = $this->faker->word;
         $bank = Bank::factory()->create();
+        $contractor = Contractor::factory()->create();
 
         $response = $this->post(route('contractor-affliate.store'), [
             'name' => $name,
@@ -89,6 +91,7 @@ class ContractorAffliateControllerTest extends TestCase
             'bank_address' => $bank_address,
             'sort_code' => $sort_code,
             'bank_id' => $bank->id,
+            'contractor_id' => $contractor->id,
         ]);
 
         $contractorAffliates = ContractorAffliate::query()
@@ -99,6 +102,7 @@ class ContractorAffliateControllerTest extends TestCase
             ->where('bank_address', $bank_address)
             ->where('sort_code', $sort_code)
             ->where('bank_id', $bank->id)
+            ->where('contractor_id', $contractor->id)
             ->get();
         $this->assertCount(1, $contractorAffliates);
         $contractorAffliate = $contractorAffliates->first();
@@ -147,6 +151,7 @@ class ContractorAffliateControllerTest extends TestCase
         $bank_address = $this->faker->word;
         $sort_code = $this->faker->word;
         $bank = Bank::factory()->create();
+        $contractor = Contractor::factory()->create();
 
         $response = $this->put(route('contractor-affliate.update', $contractorAffliate), [
             'name' => $name,
@@ -156,6 +161,7 @@ class ContractorAffliateControllerTest extends TestCase
             'bank_address' => $bank_address,
             'sort_code' => $sort_code,
             'bank_id' => $bank->id,
+            'contractor_id' => $contractor->id,
         ]);
 
         $contractorAffliate->refresh();
@@ -170,6 +176,7 @@ class ContractorAffliateControllerTest extends TestCase
         $this->assertEquals($bank_address, $contractorAffliate->bank_address);
         $this->assertEquals($sort_code, $contractorAffliate->sort_code);
         $this->assertEquals($bank->id, $contractorAffliate->bank_id);
+        $this->assertEquals($contractor->id, $contractorAffliate->contractor_id);
     }
 
 

@@ -90,64 +90,12 @@ Route::apiResource('state', App\Http\Controllers\StateController::class);
 
 Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
 
+Route::apiResource('calendar-event', App\Http\Controllers\CalendarEventController::class);
 
-Route::apiResource('award-letter', App\Http\Controllers\AwardLetterController::class);
+Route::apiResource('contract-category', App\Http\Controllers\ContractCategoryController::class);
 
-Route::apiResource('bank', App\Http\Controllers\BankController::class);
+Route::apiResource('contract-type', App\Http\Controllers\ContractTypeController::class);
 
-Route::apiResource('bank-reference', App\Http\Controllers\BankReferenceController::class);
+Route::apiResource('duration', App\Http\Controllers\DurationController::class);
 
-Route::apiResource('chart', App\Http\Controllers\ChartController::class);
-
-Route::apiResource('chart-category', App\Http\Controllers\ChartCategoryController::class);
-
-Route::apiResource('chart-provider', App\Http\Controllers\ChartProviderController::class);
-
-Route::apiResource('chart-type', App\Http\Controllers\ChartTypeController::class);
-
-Route::apiResource('contractor', App\Http\Controllers\ContractorController::class);
-
-Route::apiResource('contractor-affliate', App\Http\Controllers\ContractorAffliateController::class);
-
-Route::apiResource('dashboard-setting', App\Http\Controllers\DashboardSettingController::class);
-
-Route::apiResource('module', App\Http\Controllers\ModuleController::class);
-
-Route::apiResource('project', App\Http\Controllers\ProjectController::class);
-
-Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
-
-Route::apiResource('state', App\Http\Controllers\StateController::class);
-
-Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
-
-
-Route::apiResource('award-letter', App\Http\Controllers\AwardLetterController::class);
-
-Route::apiResource('bank', App\Http\Controllers\BankController::class);
-
-Route::apiResource('bank-reference', App\Http\Controllers\BankReferenceController::class);
-
-Route::apiResource('chart', App\Http\Controllers\ChartController::class);
-
-Route::apiResource('chart-category', App\Http\Controllers\ChartCategoryController::class);
-
-Route::apiResource('chart-provider', App\Http\Controllers\ChartProviderController::class);
-
-Route::apiResource('chart-type', App\Http\Controllers\ChartTypeController::class);
-
-Route::apiResource('contractor', App\Http\Controllers\ContractorController::class);
-
-Route::apiResource('contractor-affliate', App\Http\Controllers\ContractorAffliateController::class);
-
-Route::apiResource('dashboard-setting', App\Http\Controllers\DashboardSettingController::class);
-
-Route::apiResource('module', App\Http\Controllers\ModuleController::class);
-
-Route::apiResource('project', App\Http\Controllers\ProjectController::class);
-
-Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
-
-Route::apiResource('state', App\Http\Controllers\StateController::class);
-
-Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
+Route::apiResource('employee', App\Http\Controllers\EmployeeController::class);
