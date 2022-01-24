@@ -3,9 +3,11 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\AwardLetter;
+use App\Models\ContractCategory;
 use App\Models\Contractor;
+use App\Models\ContractType;
+use App\Models\Duration;
 use App\Models\Project;
-use App\Models\PropertyType;
 use App\Models\State;
 use App\Models\User;
 use Carbon\Carbon;
@@ -85,13 +87,15 @@ class AwardLetterControllerTest extends TestCase
         $reference_no = $this->faker->word;
         $award_no = $this->faker->randomNumber();
         $volume_no = $this->faker->randomDigit()+1;
+        $contract_title = $this->faker->word;
+        $contract_detail = $this->faker->word;
+        $duration = Duration::factory()->create();
+        $contract_category = ContractType::factory()->create();
         $contractor = Contractor::factory()->create();
-        $property_type = PropertyType::factory()->create();
+        $contract_type = ContractType::factory()->create();
         $state = State::factory()->create();
         $project = Project::factory()->create();
-        $posted_by = $this->faker->randomNumber();
-
-        Log::debug($contractor);
+        $posted_by = $this->faker->randomNumber();        
 
         $response = $this->post(route('award-letter.store'), [
             'unit_price' => $unit_price,
@@ -102,7 +106,11 @@ class AwardLetterControllerTest extends TestCase
             'award_no' => $award_no,
             'volume_no' => $volume_no,
             'contractor_id' => $contractor->id,
-            'property_type_id' => $property_type->id,
+            'contract_type_id' => $contract_type->id,
+            'contract_category_id' => $contract_category->id,
+            'contract_title' => $contract_title,
+            'contract_detail' => $contract_detail,
+            'duration_id' => $duration->id,
             'state_id' => $state->id,
             'project_id' => $project->id,
             'posted_by' => $posted_by,
@@ -117,7 +125,11 @@ class AwardLetterControllerTest extends TestCase
             ->where('award_no', $award_no)
             ->where('volume_no', $volume_no)
             ->where('contractor_id', $contractor->id)
-            ->where('property_type_id', $property_type->id)
+            ->where('contract_type_id', $contract_type->id)
+            ->where('contract_category_id', $contract_category->id)
+            ->where('contract_title', $contract_title)
+            ->where('contract_detail', $contract_detail)
+            ->where('duration_id', $duration->id)            
             ->where('state_id', $state->id)
             ->where('project_id', $project->id)
             ->where('posted_by', $posted_by)
@@ -170,7 +182,11 @@ class AwardLetterControllerTest extends TestCase
         $award_no = $this->faker->randomNumber();
         $volume_no = $this->faker->randomNumber();
         $contractor = Contractor::factory()->create();
-        $property_type = PropertyType::factory()->create();
+        $contract_type = ContractType::factory()->create();
+        $contract_category = ContractCategory::factory()->create();
+        $contract_title = $this->faker->word;
+        $contract_detail = $this->faker->word;
+        $duration = Duration::factory()->create();        
         $state = State::factory()->create();
         $project = Project::factory()->create();
         $posted_by = $this->faker->randomNumber();
@@ -184,7 +200,11 @@ class AwardLetterControllerTest extends TestCase
             'award_no' => $award_no,
             'volume_no' => $volume_no,
             'contractor_id' => $contractor->id,
-            'property_type_id' => $property_type->id,
+            'contract_type' => $contract_type->id,
+            'contract_category' => $contract_category->id,
+            'contract_title' => $contract_title,
+            'contract_detail' => $contract_detail,
+            'duration' => $duration->id,
             'state_id' => $state->id,
             'project_id' => $project->id,
             'posted_by' => $posted_by,
@@ -203,7 +223,11 @@ class AwardLetterControllerTest extends TestCase
         $this->assertEquals($award_no, $awardLetter->award_no);
         $this->assertEquals($volume_no, $awardLetter->volume_no);
         $this->assertEquals($contractor->id, $awardLetter->contractor_id);
-        $this->assertEquals($property_type->id, $awardLetter->property_type_id);
+        $this->assertEquals($contract_type->id, $awardLetter->contract_type_id);
+        $this->assertEquals($contract_category->id, $awardLetter->contract_category_id);
+        $this->assertEquals($contract_title, $awardLetter->contract_title);
+        $this->assertEquals($contract_detail, $awardLetter->contract_detail);
+        $this->assertEquals($duration->id, $awardLetter->duration_id);        
         $this->assertEquals($state->id, $awardLetter->state_id);
         $this->assertEquals($project->id, $awardLetter->project_id);
         $this->assertEquals($posted_by, $awardLetter->posted_by);

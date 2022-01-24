@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\AwardLetter;
 use App\Models\Contractor;
+use App\Models\ContractType;
+use App\Models\Duration;
 use App\Models\Project;
-use App\Models\PropertyType;
 use App\Models\State;
 
 class AwardLetterFactory extends Factory
@@ -34,8 +35,12 @@ class AwardLetterFactory extends Factory
             'reference_no' => $this->faker->word,
             'award_no' => $this->faker->randomNumber(),
             'volume_no' => $this->faker->randomNumber(),
+            'contract_title' => $this->faker->word(),
+            'contract_detail' => $this->faker->word(),            
+            'contract_type_id' => ContractType::factory(),            
+            'duration_id' => Duration::factory(),
+            'contract_category_id' => ContractType::factory(),
             'contractor_id' => Contractor::factory(),
-            'property_type_id' => PropertyType::factory(),
             'state_id' => State::factory(),
             'project_id' => Project::factory(),
             'posted_by' => $this->faker->randomNumber(),
