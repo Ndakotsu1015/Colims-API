@@ -29,7 +29,7 @@ class MenuFactory extends Factory
             'order' => $this->faker->word,
             'is_active' => $this->faker->boolean,
             'icon' => $this->faker->word,
-            'parent_id' => Menu::factory(),
+            'parent_id' => Menu::inRandomOrder()->first(),
             'module_id' => Module::factory(),
         ];
     }

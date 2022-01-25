@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,9 +87,17 @@ Route::apiResource('project', App\Http\Controllers\ProjectController::class);
 
 Route::apiResource('property-type', App\Http\Controllers\PropertyTypeController::class);
 
-Route::apiResource('state', App\Http\Controllers\StateController::class);
+Route::apiResource('states', App\Http\Controllers\StateController::class);
 
 Route::apiResource('submodule', App\Http\Controllers\SubmoduleController::class);
+
+Route::apiResource('court-case', App\Http\Controllers\CourtCaseController::class);
+
+Route::apiResource('suit-party', App\Http\Controllers\SuitPartyController::class);
+
+Route::apiResource('legal-document', App\Http\Controllers\LegalDocumentController::class);
+
+Route::apiResource('case-activity', App\Http\Controllers\CaseActivityController::class);
 
 Route::apiResource('calendar-event', App\Http\Controllers\CalendarEventController::class);
 
@@ -99,3 +108,7 @@ Route::apiResource('contract-type', App\Http\Controllers\ContractTypeController:
 Route::apiResource('duration', App\Http\Controllers\DurationController::class);
 
 Route::apiResource('employee', App\Http\Controllers\EmployeeController::class);
+
+Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
+
+Route::get('/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');

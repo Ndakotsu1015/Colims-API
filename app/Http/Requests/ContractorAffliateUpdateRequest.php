@@ -30,7 +30,8 @@ class ContractorAffliateUpdateRequest extends FormRequest
             'account_officer_email' => ['required', 'string'],
             'bank_address' => ['required', 'string'],
             'sort_code' => ['required', 'string'],
-            'bank_id' => ['required', 'integer', 'exists:banks,id'],
+            'bank_id' => ['required', 'integer', 'exists:banks,id'],   
+            'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
         ];
     }
 }

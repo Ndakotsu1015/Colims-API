@@ -27,8 +27,8 @@ class CreateAwardLettersTable extends Migration
             $table->foreignId('contractor_id')->constrained();
             $table->foreignId('property_type_id')->constrained();
             $table->foreignId('state_id')->constrained();
-            $table->foreignId('project_id')->constrained();
-            $table->unsignedInteger('posted_by');
+            $table->foreignId('project_id')->constrained();            
+            $table->foreignId('approved_by')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

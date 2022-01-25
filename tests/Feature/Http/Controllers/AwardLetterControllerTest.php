@@ -7,6 +7,7 @@ use App\Models\ContractCategory;
 use App\Models\Contractor;
 use App\Models\ContractType;
 use App\Models\Duration;
+use App\Models\Employee;
 use App\Models\Project;
 use App\Models\State;
 use App\Models\User;
@@ -50,7 +51,7 @@ class AwardLetterControllerTest extends TestCase
     }
 
     /**
-     * @test
+     * @test_
      */
     public function index_behaves_as_expected()
     {
@@ -64,7 +65,7 @@ class AwardLetterControllerTest extends TestCase
 
 
     /**
-     * @test
+     * @test_
      */
     public function store_uses_form_request_validation()
     {
@@ -76,7 +77,7 @@ class AwardLetterControllerTest extends TestCase
     }
 
     /**
-     * @test
+     * @test_
      */
     public function store_saves()
     {
@@ -90,12 +91,12 @@ class AwardLetterControllerTest extends TestCase
         $contract_title = $this->faker->word;
         $contract_detail = $this->faker->word;
         $duration = Duration::factory()->create();
-        $contract_category = ContractType::factory()->create();
+        $contract_category = ContractCategory::factory()->create();
         $contractor = Contractor::factory()->create();
         $contract_type = ContractType::factory()->create();
         $state = State::factory()->create();
         $project = Project::factory()->create();
-        $posted_by = $this->faker->randomNumber();        
+        $approvedBy = Employee::factory()->create();
 
         $response = $this->post(route('award-letter.store'), [
             'unit_price' => $unit_price,
@@ -113,7 +114,7 @@ class AwardLetterControllerTest extends TestCase
             'duration_id' => $duration->id,
             'state_id' => $state->id,
             'project_id' => $project->id,
-            'posted_by' => $posted_by,
+            'approved_by' => $approvedBy->id,
         ]);
 
         $awardLetters = AwardLetter::query()
@@ -125,14 +126,14 @@ class AwardLetterControllerTest extends TestCase
             ->where('award_no', $award_no)
             ->where('volume_no', $volume_no)
             ->where('contractor_id', $contractor->id)
-            ->where('contract_type_id', $contract_type->id)
+             ->where('contract_type_id', $contract_type->id)
             ->where('contract_category_id', $contract_category->id)
             ->where('contract_title', $contract_title)
             ->where('contract_detail', $contract_detail)
             ->where('duration_id', $duration->id)            
             ->where('state_id', $state->id)
             ->where('project_id', $project->id)
-            ->where('posted_by', $posted_by)
+            ->where('approved_by', $approvedBy->id)
             ->get();
         $this->assertCount(1, $awardLetters);
         $awardLetter = $awardLetters->first();
@@ -143,7 +144,7 @@ class AwardLetterControllerTest extends TestCase
 
 
     /**
-     * @test
+     * @test_
      */
     public function show_behaves_as_expected()
     {
@@ -157,7 +158,7 @@ class AwardLetterControllerTest extends TestCase
 
 
     /**
-     * @test
+     * @test_
      */
     public function update_uses_form_request_validation()
     {
@@ -172,9 +173,9 @@ class AwardLetterControllerTest extends TestCase
      * @test
      */
     public function update_behaves_as_expected()
-    {
+    {        
         $awardLetter = AwardLetter::factory()->create();
-        $unit_price = $this->faker->randomFloat(/** float_attributes **/);
+        $unit_price = $this->faker->randomFloat(2);
         $no_units = $this->faker->randomNumber();
         $no_rooms = $this->faker->randomNumber();
         $date_awarded = $this->faker->date();
@@ -189,7 +190,11 @@ class AwardLetterControllerTest extends TestCase
         $duration = Duration::factory()->create();        
         $state = State::factory()->create();
         $project = Project::factory()->create();
-        $posted_by = $this->faker->randomNumber();
+        $approvedBy = Employee::factory()->create();
+
+        // Log::debug($contract_type);
+
+        Log::debug($awardLetter);
 
         $response = $this->put(route('award-letter.update', $awardLetter), [
             'unit_price' => $unit_price,
@@ -200,14 +205,14 @@ class AwardLetterControllerTest extends TestCase
             'award_no' => $award_no,
             'volume_no' => $volume_no,
             'contractor_id' => $contractor->id,
-            'contract_type' => $contract_type->id,
-            'contract_category' => $contract_category->id,
+            'contract_type_id' => $contract_type->id,
+            'contract_category_id' => $contract_category->id,
             'contract_title' => $contract_title,
             'contract_detail' => $contract_detail,
-            'duration' => $duration->id,
+            'duration_id' => $duration->id,
             'state_id' => $state->id,
             'project_id' => $project->id,
-            'posted_by' => $posted_by,
+            'approved_by' => $approvedBy->id,
         ]);
 
         $awardLetter->refresh();
@@ -230,12 +235,12 @@ class AwardLetterControllerTest extends TestCase
         $this->assertEquals($duration->id, $awardLetter->duration_id);        
         $this->assertEquals($state->id, $awardLetter->state_id);
         $this->assertEquals($project->id, $awardLetter->project_id);
-        $this->assertEquals($posted_by, $awardLetter->posted_by);
+        $this->assertEquals($approvedBy->id, $awardLetter->approved_by);
     }
 
 
     /**
-     * @test
+     * @test_
      */
     public function destroy_deletes_and_responds_with()
     {

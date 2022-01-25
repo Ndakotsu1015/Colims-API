@@ -27,7 +27,7 @@ class AwardLetter extends Model
         'contract_type_id',
         'state_id',
         'project_id',
-        'posted_by',
+        'approved_by',
         'contract_title',
         'contract_detail',
         'duration_id',
@@ -51,7 +51,7 @@ class AwardLetter extends Model
         'contract_type_id' => 'integer',
         'state_id' => 'integer',
         'project_id' => 'integer',
-        'posted_by' => 'integer',
+        'approved_by' => 'integer',
         'duration_id' => 'integer',
         'contract_category_id' => 'integer',
     ];
@@ -89,5 +89,10 @@ class AwardLetter extends Model
     public function contractCategory()
     {
         return $this->belongsTo(ContractCategory::class);
+    }
+
+    public function approvedBy()
+    {
+        return $this->belongsTo(Employee::class, 'approved_by');
     }
 }

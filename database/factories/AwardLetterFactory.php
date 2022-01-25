@@ -5,9 +5,11 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\AwardLetter;
+use App\Models\ContractCategory;
 use App\Models\Contractor;
 use App\Models\ContractType;
 use App\Models\Duration;
+use App\Models\Employee;
 use App\Models\Project;
 use App\Models\State;
 
@@ -28,7 +30,7 @@ class AwardLetterFactory extends Factory
     public function definition()
     {
         return [
-            'unit_price' => $this->faker->randomFloat(0, 0, 9999999999.),
+            'unit_price' => $this->faker->randomFloat(2),
             'no_units' => $this->faker->randomNumber(),
             'no_rooms' => $this->faker->randomNumber(),
             'date_awarded' => $this->faker->date(),
@@ -39,11 +41,11 @@ class AwardLetterFactory extends Factory
             'contract_detail' => $this->faker->word(),            
             'contract_type_id' => ContractType::factory(),            
             'duration_id' => Duration::factory(),
-            'contract_category_id' => ContractType::factory(),
+            'contract_category_id' => ContractCategory::factory(),
             'contractor_id' => Contractor::factory(),
             'state_id' => State::factory(),
             'project_id' => Project::factory(),
-            'posted_by' => $this->faker->randomNumber(),
+            'approved_by' => Employee::factory(),
         ];
     }
 }
