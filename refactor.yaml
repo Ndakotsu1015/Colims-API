@@ -1,0 +1,29 @@
+models:
+  ContractCategory:
+    name: string
+
+  ContractType:
+    name: string    
+
+  Duration: 
+    name: string
+    number_of_days: unsignInteger            
+
+  Employee:
+    full_name: string
+    title: string
+    designation: string
+    signature_file: string
+
+controllers:
+  ContractCategory: 
+    resource: api
+  ContractType: 
+    resource: api
+  Duration: 
+    resource: api
+  Employee:
+    resource: api
+
+seeders: ContractCategory, ContractType, Duration, Employee
+

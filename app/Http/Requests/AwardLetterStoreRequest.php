@@ -32,10 +32,14 @@ class AwardLetterStoreRequest extends FormRequest
             'award_no' => ['required', 'integer', 'gt:0'],
             'volume_no' => ['required', 'integer', 'gt:0'],
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
-            'property_type_id' => ['required', 'integer', 'exists:property_types,id'],
+            'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],
             'state_id' => ['required', 'integer', 'exists:states,id'],
             'project_id' => ['required', 'integer', 'exists:projects,id'],
-            'posted_by' => ['required', 'integer', 'gt:0'],
+            'approved_by' => ['nullable'],
+            'contract_title' => ['required', 'string'],
+            'contract_detail' => ['required', 'string'],
+            'duration_id' => ['required', 'integer', 'exists:durations,id'],
+            'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],            
         ];
     }
 }

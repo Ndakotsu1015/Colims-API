@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Bank;
+use App\Models\Contractor;
 use App\Models\ContractorAffliate;
 
 class ContractorAffliateFactory extends Factory
@@ -31,6 +32,7 @@ class ContractorAffliateFactory extends Factory
             'bank_address' => $this->faker->word,
             'sort_code' => $this->faker->word,
             'bank_id' => Bank::factory(),
+            'contractor_id' => Contractor::factory(),
         ];
     }
 }

@@ -23,6 +23,7 @@ class ContractorAffliate extends Model
         'bank_address',
         'sort_code',
         'bank_id',
+        'contractor_id',
     ];
 
     /**
@@ -33,10 +34,16 @@ class ContractorAffliate extends Model
     protected $casts = [
         'id' => 'integer',
         'bank_id' => 'integer',
+        'contractor_id' => 'integer',
     ];
 
     public function bank()
     {
         return $this->belongsTo(Bank::class);
+    }
+
+    public function contractor()
+    {
+        return $this->belongsTo(Contractor::class);
     }
 }

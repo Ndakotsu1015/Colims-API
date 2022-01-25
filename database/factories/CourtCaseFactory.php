@@ -25,7 +25,7 @@ class CourtCaseFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(4),
-            'case_no' => $this->faker->word,
+            'case_no' => $this->faker->randomNumber(),
             'status' => $this->faker->word,
             'handler_id' => User::factory(),
             'posted_by' => User::factory(),

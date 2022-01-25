@@ -24,10 +24,14 @@ class AwardLetter extends Model
         'award_no',
         'volume_no',
         'contractor_id',
-        'property_type_id',
+        'contract_type_id',
         'state_id',
         'project_id',
-        'posted_by',
+        'approved_by',
+        'contract_title',
+        'contract_detail',
+        'duration_id',
+        'contract_category_id',
     ];
 
     /**
@@ -44,10 +48,12 @@ class AwardLetter extends Model
         'award_no' => 'integer',
         'volume_no' => 'integer',
         'contractor_id' => 'integer',
-        'property_type_id' => 'integer',
+        'contract_type_id' => 'integer',
         'state_id' => 'integer',
         'project_id' => 'integer',
-        'posted_by' => 'integer',
+        'approved_by' => 'integer',
+        'duration_id' => 'integer',
+        'contract_category_id' => 'integer',
     ];
 
     public function bankReferences()
@@ -60,9 +66,9 @@ class AwardLetter extends Model
         return $this->belongsTo(Contractor::class);
     }
 
-    public function propertyType()
+    public function contractType()
     {
-        return $this->belongsTo(PropertyType::class);
+        return $this->belongsTo(contractType::class);
     }
 
     public function state()
@@ -73,5 +79,20 @@ class AwardLetter extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function duration()
+    {
+        return $this->belongsTo(Duration::class);
+    }
+
+    public function contractCategory()
+    {
+        return $this->belongsTo(ContractCategory::class);
+    }
+
+    public function approvedBy()
+    {
+        return $this->belongsTo(Employee::class, 'approved_by');
     }
 }
