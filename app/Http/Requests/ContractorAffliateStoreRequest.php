@@ -31,6 +31,7 @@ class ContractorAffliateStoreRequest extends FormRequest
             'bank_address' => ['required', 'string'],
             'sort_code' => ['required', 'string'],
             'bank_id' => ['required', 'integer', 'exists:banks,id'],
+            'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
         ];
     }
 }

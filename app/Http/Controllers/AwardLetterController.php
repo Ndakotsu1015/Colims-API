@@ -8,6 +8,7 @@ use App\Http\Resources\AwardLetterCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AwardLetterController extends Controller
 {
@@ -28,6 +29,7 @@ class AwardLetterController extends Controller
      */
     public function store(AwardLetterStoreRequest $request)
     {
+        // Log::debug($request->validated());
         $awardLetter = AwardLetter::create($request->validated());
 
         return new AwardLetterResource($awardLetter);
@@ -50,7 +52,8 @@ class AwardLetterController extends Controller
      */
     public function update(AwardLetterUpdateRequest $request, AwardLetter $awardLetter)
     {
-        $awardLetter->update($request->validated());
+        // Log::debug($request->validated());
+        $awardLetter->update($request->validated());        
 
         return new AwardLetterResource($awardLetter);
     }

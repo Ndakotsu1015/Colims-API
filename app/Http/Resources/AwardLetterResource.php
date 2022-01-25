@@ -31,7 +31,7 @@ class AwardLetterResource extends JsonResource
             'contractType' => new ContractTypeResource($this->whenLoaded('contractType')),
             'state' => new StateResource($this->whenLoaded('state')),
             'project' => new ProjectResource($this->whenLoaded('project')),
-            'posted_by' => new UserResource($this->whenLoaded('posted_by')),
+            'approved_by' => new UserResource($this->whenLoaded('approved_by')),
             'bankReferences' => BankReferenceCollection::make($this->whenLoaded('bankReferences')),
         ];
     }

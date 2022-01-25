@@ -8,6 +8,7 @@ use App\Models\ContractorAffliate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -83,6 +84,8 @@ class ContractorAffliateControllerTest extends TestCase
         $bank = Bank::factory()->create();
         $contractor = Contractor::factory()->create();
 
+        Log::debug($contractor);
+
         $response = $this->post(route('contractor-affliate.store'), [
             'name' => $name,
             'account_no' => $account_no,
@@ -106,6 +109,7 @@ class ContractorAffliateControllerTest extends TestCase
             ->get();
         $this->assertCount(1, $contractorAffliates);
         $contractorAffliate = $contractorAffliates->first();
+        Log::debug($contractorAffliate);
 
         $response->assertCreated();
         $response->assertJsonStructure([]);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ContractorAffiliateContractorId extends Migration
+class RenameColumnPostedBy extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class ContractorAffiliateContractorId extends Migration
      */
     public function up()
     {
-        Schema::table('contractor_affliates', function (Blueprint $table) {
-            $table->unsignedBigInteger('contractor_id')->nullable()->index();
-            $table->foreign('contractor_id')->references('id')->on('contractors')->onDelete('cascade');
-          });
+        Schema::table('award_letters', function (Blueprint $table) {
+            // $table->renameColumn('posted_by', 'approved_by');
+        });
     }
 
     /**
@@ -26,6 +25,8 @@ class ContractorAffiliateContractorId extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('award_letters', function (Blueprint $table) {
+            //
+        });
     }
 }
