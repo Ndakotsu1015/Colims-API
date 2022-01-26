@@ -1,19 +1,23 @@
 models:
   ContractCategory:
     name: string
+    softDeletes
 
   ContractType:
-    name: string    
+    name: string   
+    softDeletes 
 
   Duration: 
     name: string
-    number_of_days: unsignInteger            
+    number_of_days: unsignInteger  
+    softDeletes          
 
   Employee:
     full_name: string
     title: string
     designation: string
     signature_file: string
+    softDeletes
 
 controllers:
   ContractCategory: 

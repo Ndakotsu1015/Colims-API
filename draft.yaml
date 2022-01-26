@@ -1,4 +1,28 @@
 models:
+  Privilege:
+    name: string
+    softDeletes
+  PrivilegeClass:
+    name: string
+    softDeletes  
+  PrivilegeDetail:
+    privilege_class_id: id foreign
+    user_id: id foreign
+    privilege_id: id foreign
+    softDeletes
+  Menu:    
+    title: string nullable
+    link: string
+    order: string nullable
+    is_active: boolean default:false  
+    icon: string nullable
+    parent_id: id foreign:menu.id
+    module_id: id foreign
+    softDeletes
+  MenuAuthorization:
+    menu_id: id foreign
+    privilege_id: id foreign
+    softDeletes
   Project:
     name: string
     project_code: string
@@ -7,7 +31,23 @@ models:
     name: string
     module_id: unsignedInteger
     is_active: boolean default:true
+    softDeletes  
+  Employee:
+    full_name: string
+    title: string
+    designation: string
+    signature_file: string
     softDeletes
+  ContractCategory:
+    name: string
+    softDeletes
+  ContractType:
+    name: string   
+    softDeletes 
+  Duration: 
+    name: string
+    number_of_days: unsignInteger  
+    softDeletes 
   ChartProvider:
     chart_provider: string
     softDeletes
@@ -44,15 +84,19 @@ models:
     unit_price: float
     no_units: unsignedInteger
     no_rooms: unsignedInteger
+    contract_title: string
+    contract_detail: text
     date_awarded: date
     reference_no: string
     award_no: unsignedInteger
     volume_no: unsignedInteger
     contractor_id: id foreign
-    property_type_id: id foreign
+    contract_type_id: id foreign
     state_id: id foreign
     project_id: id foreign
-    posted_by: unsignedInteger
+    duration_id: id foreign
+    contract_category_id: id foreign
+    approved_by: id foreign:user.id
     softDeletes
     relationships:
       hasMany: BankReference
@@ -104,6 +148,7 @@ models:
     bank_address: string
     sort_code: string
     bank_id: id foreign
+    contractor_id: id foreign
     softDeletes
   DashboardSetting:
     chart_title: string
@@ -126,6 +171,45 @@ models:
     softDeletes
     relationships:
       hasMany: DashboardSetting
+  CourtCase: 
+    title: string
+    case_no: string unique
+    status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
+    handler_id: id foreign:user.id  
+    posted_by: id foreign:user.id
+    softDeletes
+    relationships:
+      hasMany: SuitParty, LegalDocument, CaseActivity
+  SuitParty:  
+    fullname: string
+    phone_no: string
+    residential_address: text
+    court_case_id: id foreign
+    type: string # (Petitioner | Respondent)
+    softDeletes
+  LegalDocument: 
+    title: string
+    filename: string    
+    user_id: id foreign
+    court_case_id: id foreign
+    softDeletes
+  CaseActivity:
+    description: text
+    court_case_id: id foreign
+    user_id: id foreign    
+    status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
+    location: string
+    softDeletes
+    relationships:
+      hasMany: SuitParty
+  CalendarEvent:
+    description: text
+    location: string
+    start_time: datetime
+    end_time: datetime 
+    posted_by: id foreign:user.id
+    court_case_id: id foreign
+    softDeletes
 controllers:
   AwardLetter:
     resource: api
@@ -157,4 +241,33 @@ controllers:
     resource: api
   Submodule:
     resource: api
-seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule
+  ContractCategory: 
+    resource: api
+  ContractType: 
+    resource: api
+  Duration: 
+    resource: api
+  Employee:
+    resource: api
+  Privilege:
+    resource: api
+  PrivilegeClass:
+    resource: api
+  PrivilegeDetail:
+    resource: api
+  Menu:
+    resource: api
+  MenuAuthorization:
+    resource: api    
+  CourtCase:
+    resource: api
+  SuitParty:
+    resource: api
+  LegalDocument:
+    resource: api
+  CaseActivity:
+    resource: api
+  CalendarEvent:
+    resource: api    
+
+seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent
