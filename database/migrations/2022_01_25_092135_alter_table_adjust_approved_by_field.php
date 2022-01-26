@@ -14,8 +14,8 @@ class AlterTableAdjustApprovedByField extends Migration
     public function up()
     {
         Schema::table('award_letters', function (Blueprint $table) {
-            $table->unsignedBigInteger('approved_by')->index()->change();
-            $table->foreign('approved_by')->references('id')->on('employees')->onDelete('cascade');
+            // $table->unsignedBigInteger('approved_by')->index()->change();
+            // $table->foreign('approved_by')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

@@ -8,6 +8,7 @@ use App\Http\Resources\ContractorCollection;
 use App\Http\Resources\ContractorResource;
 use App\Models\Contractor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ContractorController extends Controller
 {
@@ -27,7 +28,10 @@ class ContractorController extends Controller
      * @return \App\Http\Resources\ContractorResource
      */
     public function store(ContractorStoreRequest $request)
+    // public function store(Request $request)
     {
+
+        Log::debug($request->all());
         $contractor = Contractor::create($request->validated());
 
         return new ContractorResource($contractor);

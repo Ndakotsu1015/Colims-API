@@ -14,7 +14,8 @@ class RenameColumnPostedBy extends Migration
     public function up()
     {
         Schema::table('award_letters', function (Blueprint $table) {
-            // $table->renameColumn('posted_by', 'approved_by');
+            // $table->dropColumn('posted_by');
+            // $table->foreignId('approved_by')->constrained("employees")->nullable();
         });
     }
 

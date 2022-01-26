@@ -1,0 +1,18 @@
+POST http://localhost:8000/api/award-letter HTTP/1.1
+# Content-Type: application/json
+
+{
+    "unit_price": 3456765,
+    "no_units": 456564,
+    "date_awarded": "2022-12-12",
+    "reference_no": "KS/2BRB/VOL506/21",
+    "award_no": "07019099988",
+    "volume_no": "343567586",
+    "contractor_id": 1,
+    "project_id": 1,
+    "posted_by": 1,
+    "contract_title": "CONSTRUCTION OF 2 HOUSING UNITS IN KEBBI STATE",
+    "contract_detail": "award of contract for the construction of 2 units of 2 Bedroom Bungalow Houses in Kebbi State, Nigeria to your company under the following upward reviewed terms done on November 3rd, 2020",
+    "duration_id": 1,
+    "contract_category_id": 1,
+}

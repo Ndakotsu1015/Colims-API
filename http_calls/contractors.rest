@@ -1,0 +1,13 @@
+POST http://localhost:8000/api/contractor HTTP/1.1
+Content-Type: application/json
+
+{
+    "contractor_name": "Idris",
+    "address": "No. 5D Kanta Road",
+    "location": "Kaduna",
+    "email": "idreesbalaumar@gmail.com",
+    "phone_no": "07019099988",
+    "contact_name": "Idris",
+    "contact_email": "idreesbalaumar@gmail.com",
+    "contact_phone": "07019099988",
+}

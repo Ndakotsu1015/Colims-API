@@ -14,8 +14,9 @@ class RenameAwardletterFields extends Migration
     public function up()
     {
         Schema::table('award_letters', function (Blueprint $table) {
-            $table->renameColumn('property_type_id', 'contract_type_id');
-            $table->foreign('contract_type_id')->references('id')->on('contract_types')->onDelete('cascade');                        
+            $table->dropForeign('award_letters_property_type_id_foreign');
+            $table->dropColumn('property_type_id');
+            $table->foreignId('contract_type_id')->constrained();                        
         });
     }
 

@@ -17,7 +17,7 @@ class CreateAwardLettersTable extends Migration
 
         Schema::create('award_letters', function (Blueprint $table) {
             $table->id();
-            $table->float('unit_price');
+            $table->decimal('unit_price',9,2);
             $table->unsignedInteger('no_units');
             $table->unsignedInteger('no_rooms');
             $table->date('date_awarded');
@@ -28,7 +28,7 @@ class CreateAwardLettersTable extends Migration
             $table->foreignId('property_type_id')->constrained();
             $table->foreignId('state_id')->constrained();
             $table->foreignId('project_id')->constrained();            
-            $table->foreignId('approved_by')->constrained();
+            $table->foreignId('approved_by')->constrained('employees');
             $table->softDeletes();
             $table->timestamps();
         });
