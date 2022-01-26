@@ -22,7 +22,7 @@ class CreateMenusTable extends Migration
             $table->string('order')->nullable();
             $table->boolean('is_active')->default(false);
             $table->string('icon')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('menu');
+            $table->unsignedInteger('parent_id')->nullable();
             $table->foreignId('module_id')->constrained()->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -30,7 +30,7 @@ class AwardLetterFactory extends Factory
     public function definition()
     {
         return [
-            'unit_price' => $this->faker->randomFloat(2,0,999999999),
+            'unit_price' => $this->faker->numberBetween(0,9999999999),
             'no_units' => $this->faker->randomNumber(),
             'no_rooms' => $this->faker->randomNumber(),
             'date_awarded' => $this->faker->date(),
