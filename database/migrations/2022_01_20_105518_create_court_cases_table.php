@@ -18,7 +18,7 @@ class CreateCourtCasesTable extends Migration
         Schema::create('court_cases', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('case_no')->unique();
+            $table->string('case_no');
             $table->string('status');
             $table->foreignId('handler_id')->constrained('users');
             $table->foreignId('posted_by')->constrained('users');
