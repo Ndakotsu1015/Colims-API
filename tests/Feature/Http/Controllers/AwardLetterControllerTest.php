@@ -82,6 +82,7 @@ class AwardLetterControllerTest extends TestCase
     public function store_saves()
     {
         $unit_price = $this->faker->randomFloat(/** float_attributes **/);
+        $contract_sum = $this->faker->randomFloat(/** float_attributes **/);
         $no_units = $this->faker->randomNumber();
         $no_rooms = $this->faker->randomNumber();
         $date_awarded = $this->faker->date();
@@ -100,6 +101,7 @@ class AwardLetterControllerTest extends TestCase
 
         $response = $this->post(route('award-letter.store'), [
             'unit_price' => $unit_price,
+            'contract_sum' => $contract_sum,
             'no_units' => $no_units,
             'no_rooms' => $no_rooms,
             'date_awarded' => $date_awarded,
@@ -119,6 +121,7 @@ class AwardLetterControllerTest extends TestCase
 
         $awardLetters = AwardLetter::query()
             ->where('unit_price', $unit_price)
+            ->where('contract_sum', $contract_sum)
             ->where('no_units', $no_units)
             ->where('no_rooms', $no_rooms)
             ->where('date_awarded', Carbon::parse($date_awarded))
@@ -176,6 +179,7 @@ class AwardLetterControllerTest extends TestCase
     {        
         $awardLetter = AwardLetter::factory()->create();
         $unit_price = $this->faker->randomFloat(2);
+        $contract_sum = $this->faker->randomFloat(2);
         $no_units = $this->faker->randomNumber();
         $no_rooms = $this->faker->randomNumber();
         $date_awarded = $this->faker->date();
@@ -198,6 +202,7 @@ class AwardLetterControllerTest extends TestCase
 
         $response = $this->put(route('award-letter.update', $awardLetter), [
             'unit_price' => $unit_price,
+            'contract_sum' => $contract_sum,
             'no_units' => $no_units,
             'no_rooms' => $no_rooms,
             'date_awarded' => $date_awarded,
@@ -221,6 +226,7 @@ class AwardLetterControllerTest extends TestCase
         $response->assertJsonStructure([]);
 
         $this->assertEquals($unit_price, $awardLetter->unit_price);
+        $this->assertEquals($contract_sum, $awardLetter->contract_sum);
         $this->assertEquals($no_units, $awardLetter->no_units);
         $this->assertEquals($no_rooms, $awardLetter->no_rooms);
         $this->assertEquals(Carbon::parse($date_awarded), $awardLetter->date_awarded);

@@ -17,6 +17,7 @@ class AwardLetter extends Model
      */
     protected $fillable = [
         'unit_price',
+        'contract_sum',
         'no_units',
         'no_rooms',
         'date_awarded',
@@ -42,6 +43,7 @@ class AwardLetter extends Model
     protected $casts = [
         'id' => 'integer',
         'unit_price' => 'float',
+        'contract_sum' => 'float',
         'no_units' => 'integer',
         'no_rooms' => 'integer',
         'date_awarded' => 'date',
