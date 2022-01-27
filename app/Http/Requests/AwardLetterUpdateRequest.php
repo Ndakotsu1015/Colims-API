@@ -25,6 +25,7 @@ class AwardLetterUpdateRequest extends FormRequest
     {
         return [
             'unit_price' => ['required', 'numeric'],
+            'contract_sum' => ['required', 'numeric'],
             'no_units' => ['required', 'integer', 'gt:0'],
             'no_rooms' => ['required', 'integer', 'gt:0'],
             'date_awarded' => ['required', 'date'],

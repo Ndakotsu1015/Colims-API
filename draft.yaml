@@ -82,6 +82,7 @@ models:
       hasMany: AwardLetter
   AwardLetter:
     unit_price: float
+    contract_sum: float
     no_units: unsignedInteger
     no_rooms: unsignedInteger
     contract_title: string

@@ -17,6 +17,7 @@ class AwardLetterResource extends JsonResource
         return [
             'id' => $this->id,
             'unit_price' => $this->unit_price,
+            'contract_sum' => $this->contract_sum,
             'no_units' => $this->no_units,
             'no_rooms' => $this->no_rooms,
             'date_awarded' => $this->date_awarded,
