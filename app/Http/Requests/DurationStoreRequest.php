@@ -25,7 +25,7 @@ class DurationStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'number_of_days' => ['required', 'string'],
+            'number_of_days' => ['required', 'integer', 'gt:0'],
         ];
     }
 }

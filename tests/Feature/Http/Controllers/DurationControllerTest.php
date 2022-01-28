@@ -73,7 +73,7 @@ class DurationControllerTest extends TestCase
     public function store_saves()
     {
         $name = $this->faker->name;
-        $number_of_days = $this->faker->word;
+        $number_of_days = $this->faker->randomNumber();
 
         $response = $this->post(route('duration.store'), [
             'name' => $name,
@@ -125,7 +125,7 @@ class DurationControllerTest extends TestCase
     {
         $duration = Duration::factory()->create();
         $name = $this->faker->name;
-        $number_of_days = $this->faker->word;
+        $number_of_days = $this->faker->randomNumber();
 
         $response = $this->put(route('duration.update', $duration), [
             'name' => $name,

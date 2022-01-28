@@ -17,6 +17,7 @@ class AwardLetterResource extends JsonResource
         return [
             'id' => $this->id,
             'unit_price' => $this->unit_price,
+            'contract_sum' => $this->contract_sum,
             'no_units' => $this->no_units,
             'no_rooms' => $this->no_rooms,
             'date_awarded' => $this->date_awarded,
@@ -31,7 +32,7 @@ class AwardLetterResource extends JsonResource
             'contractType' => new ContractTypeResource($this->whenLoaded('contractType')),
             'state' => new StateResource($this->whenLoaded('state')),
             'project' => new ProjectResource($this->whenLoaded('project')),
-            'approved_by' => new UserResource($this->whenLoaded('approved_by')),
+            'approvedBy' => new EmployeeResource($this->whenLoaded('approvedBy')),
             'bankReferences' => BankReferenceCollection::make($this->whenLoaded('bankReferences')),
         ];
     }

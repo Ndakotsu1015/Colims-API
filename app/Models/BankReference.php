@@ -36,12 +36,17 @@ class BankReference extends Model
         'volume_no' => 'integer',
         'reference_no' => 'integer',
         'created_by' => 'integer',
-        'affliate_id' => 'integer',
+        'affiliate_id' => 'integer',
         'award_letter_id' => 'integer',
     ];
 
     public function awardLetter()
     {
         return $this->belongsTo(AwardLetter::class);
+    }
+
+    public function affiliate()
+    {
+        return $this->belongsTo(ContractorAffliate::class, 'affiliate_id');
     }
 }
