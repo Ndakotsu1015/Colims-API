@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\AwardLetter;
+use App\Models\ContractorAffliate;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BankReferenceResource extends JsonResource
@@ -20,9 +21,9 @@ class BankReferenceResource extends JsonResource
             'reference_date' => $this->reference_date,
             'volume_no' => $this->volume_no,
             'reference_no' => $this->reference_no,            
-            'in_name_of' => $this->in_name_of,
-            'affliate_id' => $this->affliate_id,
-            'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),
+            'in_name_of' => $this->in_name_of,        
+            'affiliate' => new ContractorAffliateResource($this->whenLoaded('affiliate')),                
+            'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),            
         ];
     }
 }

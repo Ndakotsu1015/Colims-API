@@ -115,7 +115,7 @@ models:
     reference_no: unsignedInteger
     created_by: unsignedInteger
     in_name_of: string
-    affliate_id: unsignedInteger nullable
+    affiliate_id: id foreign:ContractorAffliate.id nullable
     award_letter_id: id foreign
     softDeletes
   ChartCategory:

@@ -29,7 +29,7 @@ class BankReferenceStoreRequest extends FormRequest
             'reference_no' => ['required', 'integer', 'gt:0'],
             'created_by' => ['required', 'integer', 'gt:0'],
             'in_name_of' => ['required', 'string'],
-            'affliate_id' => ['integer', 'gt:0'],
+            'affiliate_id' => ['required', 'integer', 'exists:contractor_affliates,id'],
             'award_letter_id' => ['required', 'integer', 'exists:award_letters,id'],
         ];
     }

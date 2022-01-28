@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\AwardLetter;
 use App\Models\BankReference;
+use App\Models\ContractorAffliate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -79,6 +80,7 @@ class BankReferenceControllerTest extends TestCase
         $created_by = $this->faker->randomNumber();
         $in_name_of = $this->faker->word;
         $award_letter = AwardLetter::factory()->create();
+        $affiliate = ContractorAffliate::factory()->create();
 
         $response = $this->post(route('bank-reference.store'), [
             'reference_date' => $reference_date,
@@ -87,6 +89,7 @@ class BankReferenceControllerTest extends TestCase
             'created_by' => $created_by,
             'in_name_of' => $in_name_of,
             'award_letter_id' => $award_letter->id,
+            'affiliate_id' => $affiliate->id,
         ]);
 
         $bankReferences = BankReference::query()
@@ -96,6 +99,7 @@ class BankReferenceControllerTest extends TestCase
             ->where('created_by', $created_by)
             ->where('in_name_of', $in_name_of)
             ->where('award_letter_id', $award_letter->id)
+            ->where('affiliate_id', $affiliate->id)
             ->get();
         $this->assertCount(1, $bankReferences);
         $bankReference = $bankReferences->first();
@@ -143,6 +147,7 @@ class BankReferenceControllerTest extends TestCase
         $created_by = $this->faker->randomNumber();
         $in_name_of = $this->faker->word;
         $award_letter = AwardLetter::factory()->create();
+        $affiliate = ContractorAffliate::factory()->create();
 
         $response = $this->put(route('bank-reference.update', $bankReference), [
             'reference_date' => $reference_date,
@@ -151,6 +156,7 @@ class BankReferenceControllerTest extends TestCase
             'created_by' => $created_by,
             'in_name_of' => $in_name_of,
             'award_letter_id' => $award_letter->id,
+            'affiliate_id' => $affiliate->id,
         ]);
 
         $bankReference->refresh();
@@ -164,6 +170,7 @@ class BankReferenceControllerTest extends TestCase
         $this->assertEquals($created_by, $bankReference->created_by);
         $this->assertEquals($in_name_of, $bankReference->in_name_of);
         $this->assertEquals($award_letter->id, $bankReference->award_letter_id);
+        $this->assertEquals($affiliate->id, $bankReference->affiliate_id);
     }
 
 

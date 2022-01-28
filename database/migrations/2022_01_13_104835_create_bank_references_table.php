@@ -21,8 +21,8 @@ class CreateBankReferencesTable extends Migration
             $table->unsignedInteger('volume_no');
             $table->unsignedInteger('reference_no');
             $table->unsignedInteger('created_by');
-            $table->string('in_name_of');
-            $table->unsignedInteger('affliate_id')->nullable();
+            $table->string('in_name_of');            
+            $table->foreignId('affiliate_id')->constrained("contractor_affliates");
             $table->foreignId('award_letter_id')->constrained();
             $table->softDeletes();
             $table->timestamps();

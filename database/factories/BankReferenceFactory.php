@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\AwardLetter;
 use App\Models\BankReference;
+use App\Models\ContractorAffliate;
 
 class BankReferenceFactory extends Factory
 {
@@ -29,7 +30,7 @@ class BankReferenceFactory extends Factory
             'reference_no' => $this->faker->randomNumber(),
             'created_by' => $this->faker->randomNumber(),
             'in_name_of' => $this->faker->word,
-            'affliate_id' => $this->faker->randomNumber(),
+            'affiliate_id' => ContractorAffliate::factory(),
             'award_letter_id' => AwardLetter::factory(),
         ];
     }
