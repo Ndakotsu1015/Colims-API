@@ -24,7 +24,7 @@ class DurationFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'number_of_days' => $this->faker->word,
+            'number_of_days' => $this->faker->randomNumber(),
         ];
     }
 }

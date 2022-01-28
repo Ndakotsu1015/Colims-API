@@ -16,7 +16,7 @@ class CreateDurationsTable extends Migration
         Schema::create('durations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('number_of_days');
+            $table->unsignedInteger('number_of_days');
             $table->timestamps();
         });
     }
