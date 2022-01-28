@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\AwardLetterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +107,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('durations', App\Http\Controllers\DurationController::class);
 
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
+
+    Route::get('/pending-award-letter', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');

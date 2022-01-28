@@ -18,7 +18,7 @@ class AwardLetterController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetters = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
+        $awardLetters = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'bankReferences', 'approvedBy')->get();
 
         return new AwardLetterCollection($awardLetters);
     }
@@ -68,5 +68,13 @@ class AwardLetterController extends Controller
         $awardLetter->delete();
 
         return response()->noContent();
+    }
+
+    public function pending(Request $request)
+    {
+        // $awardLetters = AwardLetter::with('bankReferences')->get();
+        // $pendingAwardLetters = AwardLetter::where($awardLetters->bankReferences, null)->get();
+
+        // return new AwardLetterCollection($pendingAwardLetters);
     }
 }
