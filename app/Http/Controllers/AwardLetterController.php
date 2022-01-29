@@ -71,10 +71,9 @@ class AwardLetterController extends Controller
     }
 
     public function pending(Request $request)
-    {
-        // $awardLetters = AwardLetter::with('bankReferences')->get();
-        // $pendingAwardLetters = AwardLetter::where($awardLetters->bankReferences, null)->get();
+    {        
+        $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
 
-        // return new AwardLetterCollection($pendingAwardLetters);
+        return new AwardLetterCollection($pendingAwardLetters);
     }
 }
