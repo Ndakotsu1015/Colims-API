@@ -109,6 +109,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
 
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
+
+    Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
