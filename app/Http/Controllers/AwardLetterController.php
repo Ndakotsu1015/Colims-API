@@ -75,5 +75,12 @@ class AwardLetterController extends Controller
         $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
 
         return new AwardLetterCollection($pendingAwardLetters);
+    }    
+
+    public function awardLetterWithBankGuarantee(Request $request)
+    {        
+        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')->has('bankReferences')->get();        
+
+        return new AwardLetterCollection($awardLetterWithBankGaurantee);
     }
 }
