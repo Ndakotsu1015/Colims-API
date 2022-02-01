@@ -70,7 +70,7 @@ class AwardLetter extends Model
 
     public function contractType()
     {
-        return $this->belongsTo(contractType::class);
+        return $this->belongsTo(ContractType::class);
     }
 
     public function state()
