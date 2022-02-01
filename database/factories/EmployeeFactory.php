@@ -26,7 +26,14 @@ class EmployeeFactory extends Factory
             'full_name' => $this->faker->word,
             'title' => $this->faker->sentence(4),
             'designation' => $this->faker->word,
-            'signature_file' => $this->faker->word,
+            'signature_file' => $this->getRandomImageName(),
         ];
+    }
+
+    private function getRandomImageName(): string
+    {
+        $number = random_int(1, 5);
+
+        return "image$number.jpg";
     }
 }

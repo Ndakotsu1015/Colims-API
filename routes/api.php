@@ -25,7 +25,7 @@ Route::group([
     'prefix' => 'auth'
 ], function () {
     // Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.admin-login');
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');    
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
@@ -48,16 +48,16 @@ Route::group([
     });
 });
 
-Route::group(['middleware' => 'auth:sanctum',], function () {   
+Route::group(['middleware' => 'auth:sanctum',], function () {
     // previleges
     Route::apiResource('privileges', App\Http\Controllers\PrivilegeController::class);
-    
+
     Route::apiResource('privilege-classes', App\Http\Controllers\PrivilegeClassController::class);
-    
+
     Route::apiResource('privilege-details', App\Http\Controllers\PrivilegeDetailController::class);
-    
+
     Route::apiResource('menus', App\Http\Controllers\MenuController::class);
-    
+
     Route::apiResource('menu-authorizations', App\Http\Controllers\MenuAuthorizationController::class);
 
     Route::apiResource('award-letters', App\Http\Controllers\AwardLetterController::class);
@@ -115,4 +115,4 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
-Route::get('/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
+Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
