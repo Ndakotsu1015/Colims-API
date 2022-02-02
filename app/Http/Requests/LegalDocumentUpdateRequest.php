@@ -28,6 +28,7 @@ class LegalDocumentUpdateRequest extends FormRequest
             'filename' => ['required', 'string'],
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
+            'document_type_id' => ['required', 'integer', 'exists:document_types,id'],
         ];
     }
 }

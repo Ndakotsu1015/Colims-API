@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             SubmoduleSeeder::class,
             SuitPartySeeder::class,
+            CaseStatusSeeder::class,
+            CaseOutcomeSeeder::class,
+            LegalDocumentTypeSeeder::class,
         ]);
     }
 }

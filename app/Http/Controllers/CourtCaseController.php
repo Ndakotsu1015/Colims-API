@@ -17,7 +17,7 @@ class CourtCaseController extends Controller
      */
     public function index(Request $request)
     {
-        $courtCases = CourtCase::with('handler', 'postedBy')->get();
+        $courtCases = CourtCase::with('handler', 'postedBy', 'caseStatus', 'caseOutcome')->get();
 
         return new CourtCaseCollection($courtCases);
     }
