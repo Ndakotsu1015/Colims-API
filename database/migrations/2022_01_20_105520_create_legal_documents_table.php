@@ -20,7 +20,8 @@ class CreateLegalDocumentsTable extends Migration
             $table->string('title');
             $table->string('filename');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('court_case_id')->constrained();
+            $table->foreignId('court_case_id')->constrained();            
+            $table->foreignId('document_type_id')->constrained('legal_document_types');
             $table->softDeletes();
             $table->timestamps();
         });
