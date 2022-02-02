@@ -83,8 +83,7 @@ class AwardLetterControllerTest extends TestCase
     {
         $unit_price = $this->faker->randomFloat(/** float_attributes **/);
         $contract_sum = $this->faker->randomFloat(/** float_attributes **/);
-        $no_units = $this->faker->randomNumber();
-        $no_rooms = $this->faker->randomNumber();
+        $no_units = $this->faker->randomNumber();        
         $date_awarded = $this->faker->date();
         $reference_no = $this->faker->word;
         $award_no = $this->faker->randomNumber();
@@ -102,8 +101,7 @@ class AwardLetterControllerTest extends TestCase
         $response = $this->post(route('award-letter.store'), [
             'unit_price' => $unit_price,
             'contract_sum' => $contract_sum,
-            'no_units' => $no_units,
-            'no_rooms' => $no_rooms,
+            'no_units' => $no_units,           
             'date_awarded' => $date_awarded,
             'reference_no' => $reference_no,
             'award_no' => $award_no,
@@ -122,8 +120,7 @@ class AwardLetterControllerTest extends TestCase
         $awardLetters = AwardLetter::query()
             ->where('unit_price', $unit_price)
             ->where('contract_sum', $contract_sum)
-            ->where('no_units', $no_units)
-            ->where('no_rooms', $no_rooms)
+            ->where('no_units', $no_units)            
             ->where('date_awarded', Carbon::parse($date_awarded))
             ->where('reference_no', $reference_no)
             ->where('award_no', $award_no)
@@ -180,8 +177,7 @@ class AwardLetterControllerTest extends TestCase
         $awardLetter = AwardLetter::factory()->create();
         $unit_price = $this->faker->randomFloat(2);
         $contract_sum = $this->faker->randomFloat(2);
-        $no_units = $this->faker->randomNumber();
-        $no_rooms = $this->faker->randomNumber();
+        $no_units = $this->faker->randomNumber();        
         $date_awarded = $this->faker->date();
         $reference_no = $this->faker->word;
         $award_no = $this->faker->randomNumber();
@@ -203,8 +199,7 @@ class AwardLetterControllerTest extends TestCase
         $response = $this->put(route('award-letter.update', $awardLetter), [
             'unit_price' => $unit_price,
             'contract_sum' => $contract_sum,
-            'no_units' => $no_units,
-            'no_rooms' => $no_rooms,
+            'no_units' => $no_units,            
             'date_awarded' => $date_awarded,
             'reference_no' => $reference_no,
             'award_no' => $award_no,
@@ -227,8 +222,7 @@ class AwardLetterControllerTest extends TestCase
 
         $this->assertEquals($unit_price, $awardLetter->unit_price);
         $this->assertEquals($contract_sum, $awardLetter->contract_sum);
-        $this->assertEquals($no_units, $awardLetter->no_units);
-        $this->assertEquals($no_rooms, $awardLetter->no_rooms);
+        $this->assertEquals($no_units, $awardLetter->no_units);        
         $this->assertEquals(Carbon::parse($date_awarded), $awardLetter->date_awarded);
         $this->assertEquals($reference_no, $awardLetter->reference_no);
         $this->assertEquals($award_no, $awardLetter->award_no);

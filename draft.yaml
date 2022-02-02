@@ -83,8 +83,7 @@ models:
   AwardLetter:
     unit_price: float
     contract_sum: float
-    no_units: unsignedInteger
-    no_rooms: unsignedInteger
+    no_units: unsignedInteger    
     contract_title: string
     contract_detail: text
     date_awarded: date

@@ -18,10 +18,9 @@ class CreateAwardLettersTable extends Migration
         Schema::create('award_letters', function (Blueprint $table) {
             $table->id();
             $table->float('unit_price',10,0);
-            $table->unsignedInteger('no_units');
-            $table->unsignedInteger('no_rooms');
+            $table->unsignedInteger('no_units');            
             $table->date('date_awarded');
-            $table->string('reference_no');
+            $table->string('reference_no')->unique();
             $table->unsignedInteger('award_no');
             $table->unsignedInteger('volume_no');
             $table->foreignId('contractor_id')->constrained();

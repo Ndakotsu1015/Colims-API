@@ -111,15 +111,14 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
+    
+    Route::apiResource('case-status', App\Http\Controllers\CaseStatusController::class);
+
+    Route::apiResource('case-outcome', App\Http\Controllers\CaseOutcomeController::class);
+
+    Route::apiResource('legal-document-type', App\Http\Controllers\LegalDocumentTypeController::class);
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
 Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
-
-
-Route::apiResource('case-status', App\Http\Controllers\CaseStatusController::class);
-
-Route::apiResource('case-outcome', App\Http\Controllers\CaseOutcomeController::class);
-
-Route::apiResource('legal-document-type', App\Http\Controllers\LegalDocumentTypeController::class);
