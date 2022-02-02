@@ -21,7 +21,7 @@ class BankReference extends Model
         'reference_no',
         'created_by',
         'in_name_of',
-        'affliate_id',
+        'affiliate_id',
         'award_letter_id',
     ];
 

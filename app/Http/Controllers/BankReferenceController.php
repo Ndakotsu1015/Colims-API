@@ -28,7 +28,9 @@ class BankReferenceController extends Controller
      */
     public function store(BankReferenceStoreRequest $request)
     {
-        $bankReference = BankReference::create($request->validated());
+    	$data = $request->validated();
+    	$data['created_by'] = auth()->user()->id;
+        $bankReference = BankReference::create($data);
 
         return new BankReferenceResource($bankReference);
     }
