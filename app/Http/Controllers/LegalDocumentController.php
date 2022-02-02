@@ -17,7 +17,7 @@ class LegalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $legalDocuments = LegalDocument::with('courtCase', 'user')->get();
+        $legalDocuments = LegalDocument::with('courtCase', 'user', 'documentType')->get();
 
         return new LegalDocumentCollection($legalDocuments);
     }

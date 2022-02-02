@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\CaseOutcome;
+use App\Models\CaseStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\CourtCase;
@@ -29,6 +31,8 @@ class CourtCaseFactory extends Factory
             'status' => $this->faker->word,
             'handler_id' => User::factory(),
             'posted_by' => User::factory(),
+            'case_status_id' => CaseStatus::factory(),
+            'case_outcome_id' => CaseOutcome::factory(),
         ];
     }
 }

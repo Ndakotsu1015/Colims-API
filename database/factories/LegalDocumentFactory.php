@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\CourtCase;
 use App\Models\LegalDocument;
+use App\Models\LegalDocumentType;
 use App\Models\User;
 
 class LegalDocumentFactory extends Factory
@@ -29,6 +30,7 @@ class LegalDocumentFactory extends Factory
             'filename' => $this->faker->word,
             'user_id' => User::factory(),
             'court_case_id' => CourtCase::factory(),
+            'document_type_id' => LegalDocumentType::factory(),
         ];
     }
 }
