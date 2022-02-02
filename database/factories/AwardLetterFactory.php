@@ -32,8 +32,7 @@ class AwardLetterFactory extends Factory
         return [
             'unit_price' => $this->faker->numberBetween(0,9999999999),
             'contract_sum' => $this->faker->numberBetween(0,9999999999),
-            'no_units' => $this->faker->randomNumber(),
-            'no_rooms' => $this->faker->randomNumber(),
+            'no_units' => $this->faker->randomNumber(),            
             'date_awarded' => $this->faker->date(),
             'reference_no' => $this->faker->word,
             'award_no' => $this->faker->randomNumber(),
