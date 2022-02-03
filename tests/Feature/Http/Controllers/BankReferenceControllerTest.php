@@ -74,8 +74,7 @@ class BankReferenceControllerTest extends TestCase
      */
     public function store_saves()
     {
-        $reference_date = $this->faker->dateTime();
-        $volume_no = $this->faker->randomNumber();
+        $reference_date = $this->faker->dateTime();        
         $reference_no = $this->faker->randomNumber();
         $created_by = $this->faker->randomNumber();
         $in_name_of = $this->faker->word;
@@ -83,8 +82,7 @@ class BankReferenceControllerTest extends TestCase
         $affiliate = ContractorAffliate::factory()->create();
 
         $response = $this->post(route('bank-reference.store'), [
-            'reference_date' => $reference_date,
-            'volume_no' => $volume_no,
+            'reference_date' => $reference_date,            
             'reference_no' => $reference_no,
             'created_by' => $created_by,
             'in_name_of' => $in_name_of,
@@ -93,8 +91,7 @@ class BankReferenceControllerTest extends TestCase
         ]);
 
         $bankReferences = BankReference::query()
-            ->where('reference_date', $reference_date)
-            ->where('volume_no', $volume_no)
+            ->where('reference_date', $reference_date)            
             ->where('reference_no', $reference_no)
             ->where('created_by', $created_by)
             ->where('in_name_of', $in_name_of)
@@ -141,8 +138,7 @@ class BankReferenceControllerTest extends TestCase
     public function update_behaves_as_expected()
     {
         $bankReference = BankReference::factory()->create();
-        $reference_date = $this->faker->dateTime();
-        $volume_no = $this->faker->randomNumber();
+        $reference_date = $this->faker->dateTime();        
         $reference_no = $this->faker->randomNumber();
         $created_by = $this->faker->randomNumber();
         $in_name_of = $this->faker->word;
@@ -150,8 +146,7 @@ class BankReferenceControllerTest extends TestCase
         $affiliate = ContractorAffliate::factory()->create();
 
         $response = $this->put(route('bank-reference.update', $bankReference), [
-            'reference_date' => $reference_date,
-            'volume_no' => $volume_no,
+            'reference_date' => $reference_date,            
             'reference_no' => $reference_no,
             'created_by' => $created_by,
             'in_name_of' => $in_name_of,
@@ -164,8 +159,7 @@ class BankReferenceControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonStructure([]);
 
-        $this->assertEquals($reference_date, $bankReference->reference_date);
-        $this->assertEquals($volume_no, $bankReference->volume_no);
+        $this->assertEquals($reference_date, $bankReference->reference_date);        
         $this->assertEquals($reference_no, $bankReference->reference_no);
         $this->assertEquals($created_by, $bankReference->created_by);
         $this->assertEquals($in_name_of, $bankReference->in_name_of);

@@ -16,8 +16,7 @@ class BankReference extends Model
      * @var array
      */
     protected $fillable = [
-        'reference_date',
-        'volume_no',
+        'reference_date',    
         'reference_no',
         'created_by',
         'in_name_of',
@@ -32,8 +31,7 @@ class BankReference extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'reference_date' => 'datetime',
-        'volume_no' => 'integer',
+        'reference_date' => 'datetime',        
         'reference_no' => 'integer',
         'created_by' => 'integer',
         'affiliate_id' => 'integer',

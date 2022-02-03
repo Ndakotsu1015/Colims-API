@@ -20,9 +20,7 @@ class CreateAwardLettersTable extends Migration
             $table->float('unit_price',10,0);
             $table->unsignedInteger('no_units');            
             $table->date('date_awarded');
-            $table->string('reference_no')->unique();
-            $table->unsignedInteger('award_no');
-            $table->unsignedInteger('volume_no');
+            $table->string('reference_no')->unique();            
             $table->foreignId('contractor_id')->constrained();
             $table->foreignId('property_type_id')->constrained();
             $table->foreignId('state_id')->constrained();

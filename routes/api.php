@@ -111,6 +111,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
+
+    Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
     
     Route::apiResource('case-status', App\Http\Controllers\CaseStatusController::class);
 

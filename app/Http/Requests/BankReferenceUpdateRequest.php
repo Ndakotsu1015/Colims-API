@@ -24,8 +24,7 @@ class BankReferenceUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'reference_date' => ['required'],
-            'volume_no' => ['required', 'integer', 'gt:0'],
+            'reference_date' => ['required'],            
             'reference_no' => ['required', 'integer', 'gt:0'],
             'created_by' => ['required', 'integer', 'gt:0'],
             'in_name_of' => ['required', 'string'],
