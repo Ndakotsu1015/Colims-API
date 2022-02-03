@@ -43,7 +43,7 @@ class AwardLetterController extends Controller
      */
     public function show(Request $request, AwardLetter $awardLetter)
     {
-        return new AwardLetterResource($awardLetter);
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
     }
 
     /**
@@ -54,7 +54,7 @@ class AwardLetterController extends Controller
     public function update(AwardLetterUpdateRequest $request, AwardLetter $awardLetter)
     {
         // Log::debug($request->validated());
-        $awardLetter->update($request->validated());        
+        $awardLetter->update($request->validated());
 
         return new AwardLetterResource($awardLetter);
     }
@@ -72,26 +72,26 @@ class AwardLetterController extends Controller
     }
 
     public function pending(Request $request)
-    {        
+    {
         $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
 
         return new AwardLetterCollection($pendingAwardLetters);
-    }    
+    }
 
     public function awardLetterWithBankGuarantee(Request $request)
-    {        
+    {
         $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')
-        ->has('bankReferences')->get();        
+            ->has('bankReferences')->get();
 
         return new AwardLetterCollection($awardLetterWithBankGaurantee);
     }
-    
+
     public function awardLetterRenewals(Request $request)
-    {               
-         $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function($query) {
+    {
+        $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
             $query->take(1)->orderBy('id', 'desc')->where('reference_date', '<', now());
-        })->get();                   
-      
+        })->get();
+
 
         return new AwardLetterCollection($data);
     }

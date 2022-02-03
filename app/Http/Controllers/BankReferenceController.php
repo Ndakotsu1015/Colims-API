@@ -28,8 +28,8 @@ class BankReferenceController extends Controller
      */
     public function store(BankReferenceStoreRequest $request)
     {
-    	$data = $request->validated();
-    	$data['created_by'] = auth()->user()->id;
+        $data = $request->validated();
+        $data['created_by'] = auth()->user()->id;
         $bankReference = BankReference::create($data);
 
         return new BankReferenceResource($bankReference);
@@ -42,7 +42,7 @@ class BankReferenceController extends Controller
      */
     public function show(Request $request, BankReference $bankReference)
     {
-        return new BankReferenceResource($bankReference);
+        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter'));
     }
 
     /**
