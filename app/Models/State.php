@@ -16,23 +16,14 @@ class State extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'state_code',
-        'region_id',
-        'state_code2',
-        'is_active',
+        'name',        
     ];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'region_id' => 'integer',
-        'is_active' => 'boolean',
-    ];
+     */    
 
     public function awardLetters()
     {

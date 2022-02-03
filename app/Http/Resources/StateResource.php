@@ -16,11 +16,7 @@ class StateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'state_code' => $this->state_code,
-            'region_id' => $this->region_id,
-            'state_code2' => $this->state_code2,
-            'is_active' => $this->is_active,
+            'name' => $this->name,            
             'awardLetters' => AwardLetterCollection::make($this->whenLoaded('awardLetters')),
         ];
     }

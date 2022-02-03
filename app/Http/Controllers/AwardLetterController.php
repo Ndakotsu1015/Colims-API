@@ -7,6 +7,7 @@ use App\Http\Requests\AwardLetterUpdateRequest;
 use App\Http\Resources\AwardLetterCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
+use App\Models\BankReference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -79,8 +80,19 @@ class AwardLetterController extends Controller
 
     public function awardLetterWithBankGuarantee(Request $request)
     {        
-        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')->has('bankReferences')->get();        
+        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')
+        ->has('bankReferences')->get();        
 
         return new AwardLetterCollection($awardLetterWithBankGaurantee);
+    }
+    
+    public function awardLetterRenewals(Request $request)
+    {               
+         $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function($query) {
+            $query->take(1)->orderBy('id', 'desc')->where('reference_date', '<', now());
+        })->get();                   
+      
+
+        return new AwardLetterCollection($data);
     }
 }

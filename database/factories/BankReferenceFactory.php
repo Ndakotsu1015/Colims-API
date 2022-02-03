@@ -25,8 +25,7 @@ class BankReferenceFactory extends Factory
     public function definition()
     {
         return [
-            'reference_date' => $this->faker->dateTime(),
-            'volume_no' => $this->faker->randomNumber(),
+            'reference_date' => $this->faker->dateTime(),            
             'reference_no' => $this->faker->randomNumber(),
             'created_by' => $this->faker->randomNumber(),
             'in_name_of' => $this->faker->word,
