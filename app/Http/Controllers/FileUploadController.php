@@ -22,10 +22,9 @@ class FileUploadController extends Controller
         ]);
 
 
-        $file = $request->file('file');
-        $extension = $request->file->extension();
+        $file = $request->file('file');        
         $visibility = $validated['visibility'];
-        $path = $visibility == 'private' ? 'files' : 'public/files'.".".$extension;
+        $path = $visibility == 'private' ? 'files' : 'public/files';
         Log::debug($path);
         $file->store($path);
 
