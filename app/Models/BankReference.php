@@ -10,6 +10,7 @@ class BankReference extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['awardLetter', 'affiliate','awardLetter.contractor', 'awardLetter.state'];
     /**
      * The attributes that are mass assignable.
      *
