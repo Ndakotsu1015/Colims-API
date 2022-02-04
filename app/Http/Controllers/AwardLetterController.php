@@ -89,10 +89,17 @@ class AwardLetterController extends Controller
     public function awardLetterRenewals(Request $request)
     {
         $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
-            $query->take(1)->orderBy('id', 'desc')->where('reference_date', '<', now());
+            $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
         })->get();
 
+        Log::debug("Reference Date:");
+        foreach ($data as $datum) {
+            // Log::debug("Date: {$datum->reference_date}");
+            Log::debug($datum);
+            Log::debug(now());
+        }
 
-        return new AwardLetterCollection($data);
+
+        return new AwardLetterCollection($data->load('contractor'));
     }
 }
