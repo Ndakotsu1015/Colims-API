@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('contractor-affliates', App\Http\Controllers\ContractorAffliateController::class);
 
-    Route::apiResource('dashboard-settings', App\Http\Controllers\DashboardSettingController::class);
+    // Route::apiResource('dashboard-settings', App\Http\Controllers\DashboardSettingController::class);
 
     Route::apiResource('modules', App\Http\Controllers\ModuleController::class);
 
@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
 
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
+    Route::get('/dashboard-settings/contract', [App\Http\Controllers\DashboardSettingController::class, 'contract'])->name('contracts');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
     Route::get('/award-letters-check-ref-no/{ref_no}', [AwardLetterController::class, 'checkRefNo'])->name('check-ref-no');
