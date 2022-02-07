@@ -34,6 +34,7 @@ class AwardLetterFactory extends Factory
             'contract_sum' => $this->faker->numberBetween(0,9999999999),
             'no_units' => $this->faker->randomNumber(),            
             'date_awarded' => $this->faker->date(),
+            'last_bank_ref_date' => $this->faker->date(),
             'reference_no' => $this->faker->word,            
             'contract_title' => $this->faker->word(),
             'contract_detail' => $this->faker->word(),            

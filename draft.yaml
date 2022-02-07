@@ -87,6 +87,7 @@ models:
     contract_title: string
     contract_detail: text
     date_awarded: date
+    last_bank_ref_date: date nullable
     reference_no: string    
     contractor_id: id foreign
     contract_type_id: id foreign
