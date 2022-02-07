@@ -102,4 +102,12 @@ class AwardLetterController extends Controller
 
         return new AwardLetterCollection($data->load('contractor'));
     }
+    
+    public function checkRefNo(Request $request, string $refNo)
+    {
+        // $refNo = $request->get('refNo');
+        $exists = AwardLetter::where('reference_no', $refNo)->exists();
+
+        return $this->success($exists);
+    }
 }

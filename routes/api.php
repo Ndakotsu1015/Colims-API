@@ -111,6 +111,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
+    Route::get('/award-letters-check-ref-no/{ref_no}', [AwardLetterController::class, 'checkRefNo'])->name('check-ref-no');
+    
 
     Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
     
@@ -120,6 +122,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('legal-document-type', App\Http\Controllers\LegalDocumentTypeController::class);
 });
+
+
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
