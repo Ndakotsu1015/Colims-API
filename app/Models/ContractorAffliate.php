@@ -47,5 +47,5 @@ class ContractorAffliate extends Model
     public function contractor()
     {
         return $this->belongsTo(Contractor::class);
-    }
+    }    
 }

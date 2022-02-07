@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Chart extends Model
 {
     use HasFactory, SoftDeletes;
+    
+    protected $with = ['dashboardSettings', 'module', 'chartType', 'chartCategory'];
 
     /**
      * The attributes that are mass assignable.
@@ -57,4 +59,5 @@ class Chart extends Model
     {
         return $this->belongsTo(ChartCategory::class);
     }
+
 }

@@ -10,6 +10,8 @@ class Bank extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['acontractorAffliates'];
+
     /**
      * The attributes that are mass assignable.
      *

@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\State;
 
+
 class StateFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var  string
      */
     protected $model = State::class;
 
@@ -128,7 +129,6 @@ class StateFactory extends Factory
             'state_name' => 'Zamfara'
         ],
     ];
-    
 
     /**
      * Define the model's default state.
@@ -142,5 +142,5 @@ class StateFactory extends Factory
             'name' => $this->faker->name,            
         ];
     }
-    
 }
+

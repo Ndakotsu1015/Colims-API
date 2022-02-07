@@ -10,6 +10,8 @@ class Module extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['dashboardSettings'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,5 +44,5 @@ class Module extends Model
     public function dashboardSettings()
     {
         return $this->hasMany(DashboardSetting::class);
-    }
+    }    
 }

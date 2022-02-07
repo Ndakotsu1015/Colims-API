@@ -10,6 +10,8 @@ class CourtCase extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['suitParties', 'legalDocuments', 'caseActivities', 'handler', 'postedBy', 'caseStatus', 'caseOutcome'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -71,5 +73,5 @@ class CourtCase extends Model
     public function caseOutcome()
     {
         return $this->belongsTo(CaseOutcome::class, 'case_outcome_id');
-    }
+    }    
 }

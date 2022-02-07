@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MenuAuthorization extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $with = ['menu', 'privilege'];
 
     /**
      * The attributes that are mass assignable.
@@ -39,5 +40,5 @@ class MenuAuthorization extends Model
     public function privilege()
     {
         return $this->belongsTo(Privilege::class);
-    }
+    }    
 }

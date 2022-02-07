@@ -10,6 +10,8 @@ class Menu extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['parentMenu', 'module'];
+
     // protected $with = ['parent', 'module'];
 
     /**
@@ -47,5 +49,5 @@ class Menu extends Model
     public function module()
     {
         return $this->belongsTo(Module::class);
-    }
+    }    
 }
