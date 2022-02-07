@@ -28,6 +28,7 @@ class AwardLetterUpdateRequest extends FormRequest
             'contract_sum' => ['required', 'numeric'],
             'no_units' => ['required', 'integer', 'gt:0'],            
             'date_awarded' => ['required', 'date'],
+            'last_bank_ref_date' => ['nullable', 'date'],
             'reference_no' => ['required', 'string'],            
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
             'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],

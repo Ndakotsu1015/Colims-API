@@ -20,6 +20,7 @@ class AwardLetterResource extends JsonResource
             'contract_sum' => $this->contract_sum,
             'no_units' => $this->no_units,            
             'date_awarded' => $this->date_awarded,
+            'last_bank_ref_date' => $this->last_bank_ref_date,
             'reference_no' => $this->reference_no,            
             'contract_title' => $this->contract_title,
             'contract_detail' => $this->contract_detail,

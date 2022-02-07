@@ -89,25 +89,18 @@ class AwardLetterController extends Controller
 
     public function awardLetterRenewals(Request $request)
     {
-        $query = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
-            $query->take(1)->orderBy('id', 'desc')->whereDate('reference_date', '<', now());
-        })->getQuery();
-        Log::debug($query->toSql());
-        $data = $query->get();
+        // $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
+        //     $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
+        // })->get();
 
-        // $data = AwardLetter::with('bankReferences')
-        //     ->when($awardLetter, function ($query) use ($awardLetter) {
-        //         $query->whereHas('bankReferences', function($query) use ($awardLetter) {
-        //             $query->where('reference_date', '<', now())->orderBy('id', 'desc')->take(1);
-        //         });
-        //     })->get();
+        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->get();
 
-        // Log::debug("Reference Date:");
-        // foreach ($data as $datum) {
-        //     // Log::debug("Date: {$datum->reference_date}");
-        //     Log::debug($datum);
-        //     Log::debug(now());
-        // }
+        Log::debug("Reference Date:");
+        foreach ($data as $datum) {
+            // Log::debug("Date: {$datum->reference_date}");
+            Log::debug($datum);
+            Log::debug(now());
+        }
 
 
         return new AwardLetterCollection($data->load('contractor'));
