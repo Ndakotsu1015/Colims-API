@@ -8,6 +8,7 @@ use App\Http\Resources\AwardLetterCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
 use App\Models\BankReference;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -88,16 +89,25 @@ class AwardLetterController extends Controller
 
     public function awardLetterRenewals(Request $request)
     {
-        $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
-            $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
-        })->get();
+        $query = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
+            $query->take(1)->orderBy('id', 'desc')->whereDate('reference_date', '<', now());
+        })->getQuery();
+        Log::debug($query->toSql());
+        $data = $query->get();
 
-        Log::debug("Reference Date:");
-        foreach ($data as $datum) {
-            // Log::debug("Date: {$datum->reference_date}");
-            Log::debug($datum);
-            Log::debug(now());
-        }
+        // $data = AwardLetter::with('bankReferences')
+        //     ->when($awardLetter, function ($query) use ($awardLetter) {
+        //         $query->whereHas('bankReferences', function($query) use ($awardLetter) {
+        //             $query->where('reference_date', '<', now())->orderBy('id', 'desc')->take(1);
+        //         });
+        //     })->get();
+
+        // Log::debug("Reference Date:");
+        // foreach ($data as $datum) {
+        //     // Log::debug("Date: {$datum->reference_date}");
+        //     Log::debug($datum);
+        //     Log::debug(now());
+        // }
 
 
         return new AwardLetterCollection($data->load('contractor'));
