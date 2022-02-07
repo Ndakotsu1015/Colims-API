@@ -68,4 +68,11 @@ class BankReferenceController extends Controller
 
         return response()->noContent();
     }
+
+    public function checkRefNo(Request $request, string $refNo)
+    {        
+        $exists = BankReference::where('reference_no', $refNo)->exists();
+
+        return $this->success($exists);
+    }
 }
