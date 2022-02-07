@@ -7,7 +7,7 @@ Authorization: Bearer 3|LGOrqeve3cIpyoOFcph6TayVzZcSF3ahtPyRVTL1
 Content-Type: application/json
 
 {
-    "name": "Meow Enterprises 4",
+    "name": "Meow Enterprises 6",
     "account_no": "0110357208",
     "account_officer": "Andromadus",
     "account_officer_email": "meow@meow.com",
@@ -23,7 +23,7 @@ Authorization: Bearer 3|LGOrqeve3cIpyoOFcph6TayVzZcSF3ahtPyRVTL1
 Content-Type: application/json
 
 {
-    "name": "Meow Enterprising",
+    "name": "Meow Enterprising 4",
     "account_no": "0110357208",
     "account_officer": "Andromadus",
     "account_officer_email": "meow@meow.com",

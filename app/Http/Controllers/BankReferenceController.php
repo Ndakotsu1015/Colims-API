@@ -42,7 +42,7 @@ class BankReferenceController extends Controller
      */
     public function show(Request $request, BankReference $bankReference)
     {
-        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter'));
+        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy'));
     }
 
     /**
