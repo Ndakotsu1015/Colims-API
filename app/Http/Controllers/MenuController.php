@@ -30,7 +30,7 @@ class MenuController extends Controller
     {
         $menu = Menu::create($request->validated());
 
-        return new MenuResource($menu);
+        return new MenuResource($menu->load('parentMenu', 'module'));
     }
 
     /**
@@ -40,7 +40,7 @@ class MenuController extends Controller
      */
     public function show(Request $request, Menu $menu)
     {
-        return new MenuResource($menu);
+        return new MenuResource($menu->load('parentMenu', 'module'));
     }
 
     /**
@@ -52,7 +52,7 @@ class MenuController extends Controller
     {
         $menu->update($request->validated());
 
-        return new MenuResource($menu);
+        return new MenuResource($menu->load('parentMenu', 'module'));
     }
 
     /**

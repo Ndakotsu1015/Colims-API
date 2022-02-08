@@ -25,7 +25,7 @@ class BankReferenceStoreRequest extends FormRequest
     {
         return [
             'reference_date' => ['required'],            
-            'reference_no' => ['required', 'integer', 'gt:0'],
+            'reference_no' => ['required', 'string'],            
             // 'created_by' => ['required', 'integer', 'exists:users,id'],
             'in_name_of' => ['required', 'string'],
             'affiliate_id' => ['required', 'integer', 'exists:contractor_affliates,id'],

@@ -34,7 +34,7 @@ class AwardLetterController extends Controller
         // Log::debug($request->validated());
         $awardLetter = AwardLetter::create($request->validated());
 
-        return new AwardLetterResource($awardLetter);
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
     }
 
     /**
@@ -57,7 +57,7 @@ class AwardLetterController extends Controller
         // Log::debug($request->validated());
         $awardLetter->update($request->validated());
 
-        return new AwardLetterResource($awardLetter);
+        return new AwardLetterResource($awardLetter->loard('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
     }
 
     /**

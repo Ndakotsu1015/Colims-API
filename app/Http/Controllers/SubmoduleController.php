@@ -30,7 +30,7 @@ class SubmoduleController extends Controller
     {
         $submodule = Submodule::create($request->validated());
 
-        return new SubmoduleResource($submodule);
+        return new SubmoduleResource($submodule->load('module'));
     }
 
     /**
@@ -40,7 +40,7 @@ class SubmoduleController extends Controller
      */
     public function show(Request $request, Submodule $submodule)
     {
-        return new SubmoduleResource($submodule);
+        return new SubmoduleResource($submodule->load('module'));
     }
 
     /**
@@ -52,7 +52,7 @@ class SubmoduleController extends Controller
     {
         $submodule->update($request->validated());
 
-        return new SubmoduleResource($submodule);
+        return new SubmoduleResource($submodule->load('module'));
     }
 
     /**
