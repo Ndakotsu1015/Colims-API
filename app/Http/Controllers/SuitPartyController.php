@@ -30,7 +30,7 @@ class SuitPartyController extends Controller
     {
         $suitParty = SuitParty::create($request->validated());
 
-        return new SuitPartyResource($suitParty);
+        return new SuitPartyResource($suitParty->load('courtCase'));
     }
 
     /**
@@ -52,7 +52,7 @@ class SuitPartyController extends Controller
     {
         $suitParty->update($request->validated());
 
-        return new SuitPartyResource($suitParty);
+        return new SuitPartyResource($suitParty->load('courtCase'));
     }
 
     /**

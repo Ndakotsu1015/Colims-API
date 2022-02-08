@@ -32,8 +32,7 @@ class BankReference extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'reference_date' => 'datetime',
-        'reference_no' => 'integer',
+        'reference_date' => 'datetime',        
         'created_by' => 'integer',
         'affiliate_id' => 'integer',
         'award_letter_id' => 'integer',

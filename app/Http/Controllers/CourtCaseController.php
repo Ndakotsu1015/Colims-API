@@ -30,7 +30,7 @@ class CourtCaseController extends Controller
     {
         $courtCase = CourtCase::create($request->validated());
 
-        return new CourtCaseResource($courtCase);
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'caseOutcome'));
     }
 
     /**
@@ -52,7 +52,7 @@ class CourtCaseController extends Controller
     {
         $courtCase->update($request->validated());
 
-        return new CourtCaseResource($courtCase);
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'caseOutcome'));
     }
 
     /**

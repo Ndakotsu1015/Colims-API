@@ -30,7 +30,7 @@ class LegalDocumentController extends Controller
     {
         $legalDocument = LegalDocument::create($request->validated());
 
-        return new LegalDocumentResource($legalDocument);
+        return new LegalDocumentResource($legalDocument->load('courtCase', 'user', 'documentType'));
     }
 
     /**
@@ -52,7 +52,7 @@ class LegalDocumentController extends Controller
     {
         $legalDocument->update($request->validated());
 
-        return new LegalDocumentResource($legalDocument);
+        return new LegalDocumentResource($legalDocument->load('courtCase', 'user', 'documentType'));
     }
 
     /**

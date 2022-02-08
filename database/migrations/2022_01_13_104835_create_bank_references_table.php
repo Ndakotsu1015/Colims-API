@@ -18,7 +18,7 @@ class CreateBankReferencesTable extends Migration
         Schema::create('bank_references', function (Blueprint $table) {
             $table->id();
             $table->dateTime('reference_date');            
-            $table->unsignedInteger('reference_no');
+            $table->string('reference_no');
             $table->unsignedInteger('created_by');
             $table->string('in_name_of');            
             $table->foreignId('affiliate_id')->constrained("contractor_affliates");

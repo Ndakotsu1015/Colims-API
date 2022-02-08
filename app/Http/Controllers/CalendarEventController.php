@@ -30,7 +30,7 @@ class CalendarEventController extends Controller
     {
         $calendarEvent = CalendarEvent::create($request->validated());
 
-        return new CalendarEventResource($calendarEvent);
+        return new CalendarEventResource($calendarEvent->load('postedBy', 'courtCase'));
     }
 
     /**
@@ -52,7 +52,7 @@ class CalendarEventController extends Controller
     {
         $calendarEvent->update($request->validated());
 
-        return new CalendarEventResource($calendarEvent);
+        return new CalendarEventResource($calendarEvent->load('postedBy', 'courtCase'));
     }
 
     /**
