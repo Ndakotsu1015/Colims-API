@@ -35,7 +35,7 @@ class DashboardSettingController extends Controller
         // $dashboardSettings = DashboardSetting::all();
         $dashboardSettings = DashboardSetting::where(['sub_module_id'=> 1,'is_active'=>true])->orderBy('orderby','asc')->get();
         $contracts = AwardLetter::all();
-        return new JsonResource(array( 'data'=>  DashboardSettingResource::collection($dashboardSettings), 'awardLetter' =>  AwardLetterResource::collection($contracts->load('project'))));
+        return new JsonResource(array( 'data'=>  DashboardSettingResource::collection($dashboardSettings), 'awardLetter' =>  AwardLetterResource::collection($contracts->load(['project','contractCategory','contractType']))));
 
     }
 
