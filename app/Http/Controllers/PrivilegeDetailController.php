@@ -40,7 +40,7 @@ class PrivilegeDetailController extends Controller
      */
     public function show(Request $request, PrivilegeDetail $privilegeDetail)
     {
-        return new PrivilegeDetailResource($privilegeDetail);
+        return new PrivilegeDetailResource($privilegeDetail->load('privilegeClass', 'user', 'privilege'));
     }
 
     /**

@@ -40,7 +40,7 @@ class MenuController extends Controller
      */
     public function show(Request $request, Menu $menu)
     {
-        return new MenuResource($menu);
+        return new MenuResource($menu->load('parentMenu', 'module'));
     }
 
     /**

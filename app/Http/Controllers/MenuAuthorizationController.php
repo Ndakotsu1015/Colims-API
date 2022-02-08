@@ -40,7 +40,7 @@ class MenuAuthorizationController extends Controller
      */
     public function show(Request $request, MenuAuthorization $menuAuthorization)
     {
-        return new MenuAuthorizationResource($menuAuthorization);
+        return new MenuAuthorizationResource($menuAuthorization->load('privilege', 'menu'));
     }
 
     /**

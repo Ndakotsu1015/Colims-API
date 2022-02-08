@@ -17,7 +17,7 @@ class ContractorAffliateController extends Controller
      */
     public function index(Request $request)
     {
-        $contractorAffliates = ContractorAffliate::all();
+        $contractorAffliates = ContractorAffliate::with('bank', 'contractor')->get();
 
         return new ContractorAffliateCollection($contractorAffliates);
     }
@@ -40,7 +40,7 @@ class ContractorAffliateController extends Controller
      */
     public function show(Request $request, ContractorAffliate $contractorAffliate)
     {
-        return new ContractorAffliateResource($contractorAffliate->all());
+        return new ContractorAffliateResource($contractorAffliate->load('bank', 'contractor'));
     }
 
     /**
