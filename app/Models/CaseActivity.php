@@ -10,7 +10,7 @@ class CaseActivity extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $with = ['case', 'suitParties', 'courtCase', 'user', 'caseOutcome'];
+    // protected $with = ['case', 'suitParties', 'courtCase', 'user', 'caseOutcome'];
 
     /**
      * The attributes that are mass assignable.

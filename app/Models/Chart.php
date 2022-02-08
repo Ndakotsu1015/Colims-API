@@ -10,7 +10,7 @@ class Chart extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $with = ['dashboardSettings', 'module', 'chartType', 'chartCategory'];
+    // protected $with = ['dashboardSettings', 'module', 'chartType', 'chartCategory'];
 
     /**
      * The attributes that are mass assignable.

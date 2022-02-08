@@ -10,7 +10,7 @@ class Menu extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $with = ['parentMenu', 'module'];
+    // protected $with = ['parentMenu', 'module'];
 
     // protected $with = ['parent', 'module'];
 

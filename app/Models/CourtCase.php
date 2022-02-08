@@ -10,7 +10,7 @@ class CourtCase extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $with = ['suitParties', 'legalDocuments', 'caseActivities', 'handler', 'postedBy', 'caseStatus', 'caseOutcome'];
+    // protected $with = ['suitParties', 'legalDocuments', 'caseActivities', 'handler', 'postedBy', 'caseStatus', 'caseOutcome'];
 
     /**
      * The attributes that are mass assignable.
