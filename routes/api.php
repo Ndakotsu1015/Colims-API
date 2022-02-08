@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\AwardLetterController;
+use App\Http\Controllers\BankReferenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +79,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('contractor-affliates', App\Http\Controllers\ContractorAffliateController::class);
 
-    // Route::apiResource('dashboard-settings', App\Http\Controllers\DashboardSettingController::class);
+    Route::apiResource('dashboard-settings', App\Http\Controllers\DashboardSettingController::class);
 
     Route::apiResource('modules', App\Http\Controllers\ModuleController::class);
 
@@ -109,10 +110,12 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
 
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
-    Route::get('/dashboard-settings/contract', [App\Http\Controllers\DashboardSettingController::class, 'contract'])->name('contracts');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
+
     Route::get('/award-letters-check-ref-no/{ref_no}', [AwardLetterController::class, 'checkRefNo'])->name('check-ref-no');
+
+    Route::get('/bank-reference-check-ref-no/{ref_no}', [BankReferenceController::class, 'checkRefNo'])->name('check-ref-no');
     
 
     Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
