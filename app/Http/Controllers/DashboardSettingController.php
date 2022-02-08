@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DashboardSettingStoreRequest;
 use App\Http\Requests\DashboardSettingUpdateRequest;
+use App\Http\Resources\AwardLetterCollection;
+use App\Http\Resources\AwardLetterResource;
 use App\Http\Resources\DashboardSettingCollection;
 use App\Http\Resources\DashboardSettingResource;
+use App\Models\AwardLetter;
 use App\Models\DashboardSetting;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class DashboardSettingController extends Controller
 {
@@ -30,8 +34,9 @@ class DashboardSettingController extends Controller
     {
         // $dashboardSettings = DashboardSetting::all();
         $dashboardSettings = DashboardSetting::where(['sub_module_id'=> 1,'is_active'=>true])->orderBy('orderby','asc')->get();
+        $contracts = AwardLetter::all();
+        return new JsonResource(array( 'data'=>  DashboardSettingResource::collection($dashboardSettings), 'awardLetter' =>  AwardLetterResource::collection($contracts->load('project'))));
 
-        return new DashboardSettingCollection($dashboardSettings);
     }
 
     /**
