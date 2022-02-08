@@ -40,7 +40,7 @@ class CourtCaseController extends Controller
      */
     public function show(Request $request, CourtCase $courtCase)
     {
-        return new CourtCaseResource($courtCase);
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'caseOutcome'));
     }
 
     /**

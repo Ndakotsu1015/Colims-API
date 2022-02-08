@@ -40,7 +40,7 @@ class LegalDocumentController extends Controller
      */
     public function show(Request $request, LegalDocument $legalDocument)
     {
-        return new LegalDocumentResource($legalDocument);
+        return new LegalDocumentResource($legalDocument->load('courtCase', 'user', 'documentType'));
     }
 
     /**

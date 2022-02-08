@@ -40,7 +40,7 @@ class CalendarEventController extends Controller
      */
     public function show(Request $request, CalendarEvent $calendarEvent)
     {
-        return new CalendarEventResource($calendarEvent);
+        return new CalendarEventResource($calendarEvent->load('postedBy', 'courtCase'));
     }
 
     /**

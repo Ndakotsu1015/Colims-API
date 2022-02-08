@@ -40,7 +40,7 @@ class SuitPartyController extends Controller
      */
     public function show(Request $request, SuitParty $suitParty)
     {
-        return new SuitPartyResource($suitParty);
+        return new SuitPartyResource($suitParty->load('courtCase'));
     }
 
     /**

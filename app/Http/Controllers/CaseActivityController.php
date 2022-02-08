@@ -40,7 +40,7 @@ class CaseActivityController extends Controller
      */
     public function show(Request $request, CaseActivity $caseActivity)
     {
-        return new CaseActivityResource($caseActivity);
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome'));
     }
 
     /**

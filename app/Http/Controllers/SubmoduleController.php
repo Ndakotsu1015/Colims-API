@@ -40,7 +40,7 @@ class SubmoduleController extends Controller
      */
     public function show(Request $request, Submodule $submodule)
     {
-        return new SubmoduleResource($submodule);
+        return new SubmoduleResource($submodule->load('module'));
     }
 
     /**

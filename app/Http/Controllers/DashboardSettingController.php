@@ -52,7 +52,7 @@ class DashboardSettingController extends Controller
      */
     public function show(Request $request, DashboardSetting $dashboardSetting)
     {
-        return new DashboardSettingResource($dashboardSetting);
+        return new DashboardSettingResource($dashboardSetting->load('chart', 'module', 'chartType', 'chartCategory'));
     }
 
     /**

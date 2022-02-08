@@ -40,7 +40,7 @@ class ChartController extends Controller
      */
     public function show(Request $request, Chart $chart)
     {
-        return new ChartResource($chart);
+        return new ChartResource($chart->load('module', 'chartType', 'chartCategory'));
     }
 
     /**
