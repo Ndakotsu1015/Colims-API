@@ -6,6 +6,7 @@ use App\Http\Requests\BankReferenceStoreRequest;
 use App\Http\Requests\BankReferenceUpdateRequest;
 use App\Http\Resources\BankReferenceCollection;
 use App\Http\Resources\BankReferenceResource;
+use App\Models\AwardLetter;
 use App\Models\BankReference;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,11 @@ class BankReferenceController extends Controller
         $data = $request->validated();
         $data['created_by'] = auth()->user()->id;
         $bankReference = BankReference::create($data);
+        
+        $awardLetter = AwardLetter::find($request->award_letter_id);
+        $awardLetter->last_bank_reference_date = $bankReference->reference_date;
+        $awardLetter->save();
+        
 
         return new BankReferenceResource($bankReference);
     }
