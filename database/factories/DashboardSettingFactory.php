@@ -34,8 +34,8 @@ class DashboardSettingFactory extends Factory
             'sub_module_id' => $this->faker->randomNumber(),
             'chart_id' => Chart::factory(),
             'module_id' => Module::factory(),
-            'chart_type_id' => ChartType::factory(),
-            'chart_category_id' => ChartCategory::factory(),
+            'chart_type_id' => ChartType::inRandomOrder()->first(),
+            'chart_category_id' => ChartCategory::inRandomOrder()->first(),
         ];
     }
 }

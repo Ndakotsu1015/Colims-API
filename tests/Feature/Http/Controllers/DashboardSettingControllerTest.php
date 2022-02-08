@@ -83,8 +83,8 @@ class DashboardSettingControllerTest extends TestCase
         $sub_module_id = 12;
         $chart = Chart::factory()->create();
         $module = Module::factory()->create();
-        $chart_type = ChartType::factory()->create();
-        $chart_category = ChartCategory::factory()->create();
+        $chart_type = ChartType::inRandomOrder()->first();
+        $chart_category = ChartCategory::inRandomOrder()->first();
 
         $response = $this->post(route('dashboard-setting.store'), [
             'chart_title' => $chart_title,
@@ -156,8 +156,8 @@ class DashboardSettingControllerTest extends TestCase
         $sub_module_id = $this->faker->randomNumber();
         $chart = Chart::factory()->create();
         $module = Module::factory()->create();
-        $chart_type = ChartType::factory()->create();
-        $chart_category = ChartCategory::factory()->create();
+        $chart_type = ChartType::inRandomOrder()->first();
+        $chart_category = ChartCategory::inRandomOrder()->first();
 
         $response = $this->put(route('dashboard-setting.update', $dashboardSetting), [
             'chart_title' => $chart_title,

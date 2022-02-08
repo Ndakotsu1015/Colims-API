@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
+            StateSeeder::class,
             AwardLetterSeeder::class,
             BankReferenceSeeder::class,
             BankSeeder::class,
@@ -40,8 +41,7 @@ class DatabaseSeeder extends Seeder
             PrivilegeDetailSeeder::class,
             PrivilegeSeeder::class,
             ProjectSeeder::class,
-            PropertyTypeSeeder::class,
-            StateSeeder::class,
+            PropertyTypeSeeder::class,            
             SubmoduleSeeder::class,
             SuitPartySeeder::class,
             CaseStatusSeeder::class,

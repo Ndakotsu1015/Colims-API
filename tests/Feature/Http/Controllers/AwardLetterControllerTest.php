@@ -93,7 +93,7 @@ class AwardLetterControllerTest extends TestCase
         $contract_category = ContractCategory::factory()->create();
         $contractor = Contractor::factory()->create();
         $contract_type = ContractType::factory()->create();
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
         $project = Project::factory()->create();
         $approvedBy = Employee::factory()->create();
 
@@ -184,7 +184,7 @@ class AwardLetterControllerTest extends TestCase
         $contract_title = $this->faker->word;
         $contract_detail = $this->faker->word;
         $duration = Duration::factory()->create();        
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
         $project = Project::factory()->create();
         $approvedBy = Employee::factory()->create();
 

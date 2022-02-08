@@ -48,7 +48,7 @@ class ChartCategoryControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $chartCategories = ChartCategory::factory()->count(3)->create();
+        $chartCategories = ChartCategory::inRandomOrder()->take(3)->get();
 
         $response = $this->get(route('chart-category.index'));
 
@@ -75,7 +75,7 @@ class ChartCategoryControllerTest extends TestCase
     public function store_saves()
     {
         $chart_category = $this->faker->word;
-        $chart_provider = ChartProvider::factory()->create();
+        $chart_provider = ChartProvider::inRandomOrder()->first();
 
         $response = $this->post(route('chart-category.store'), [
             'chart_category' => $chart_category,
@@ -99,7 +99,7 @@ class ChartCategoryControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $chartCategory = ChartCategory::factory()->create();
+        $chartCategory = ChartCategory::inRandomOrder()->first();
 
         $response = $this->get(route('chart-category.show', $chartCategory));
 
@@ -125,7 +125,7 @@ class ChartCategoryControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $chartCategory = ChartCategory::factory()->create();
+        $chartCategory = ChartCategory::inRandomOrder()->first();
         $chart_category = $this->faker->word;
         $chart_provider = ChartProvider::factory()->create();
 
@@ -149,7 +149,7 @@ class ChartCategoryControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $chartCategory = ChartCategory::factory()->create();
+        $chartCategory = ChartCategory::inRandomOrder()->first();
 
         $response = $this->delete(route('chart-category.destroy', $chartCategory));
 
