@@ -10,7 +10,7 @@ class LegalDocument extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $with = ['user', 'courtCase', 'documentType'];
+    // protected $with = ['user', 'courtCase', 'documentType'];
 
     /**
      * The attributes that are mass assignable.

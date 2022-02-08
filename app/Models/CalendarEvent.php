@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CalendarEvent extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $with = ['postedBy', 'courtCase'];
+    // protected $with = ['postedBy', 'courtCase'];
 
     /**
      * The attributes that are mass assignable.

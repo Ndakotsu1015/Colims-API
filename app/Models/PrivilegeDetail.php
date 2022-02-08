@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PrivilegeDetail extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $with = ['privilegeClass', 'user', 'privilege'];
+    // protected $with = ['privilegeClass', 'user', 'privilege'];
 
     /**
      * The attributes that are mass assignable.

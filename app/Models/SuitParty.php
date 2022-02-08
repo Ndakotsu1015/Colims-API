@@ -10,7 +10,7 @@ class SuitParty extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $with = ['courtCase'];
+    // protected $with = ['courtCase'];
 
     /**
      * The attributes that are mass assignable.

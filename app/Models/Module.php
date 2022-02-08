@@ -10,7 +10,7 @@ class Module extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $with = ['dashboardSettings'];
+    // protected $with = ['dashboardSettings'];
 
     /**
      * The attributes that are mass assignable.
