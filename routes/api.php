@@ -81,6 +81,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('dashboard-settings', App\Http\Controllers\DashboardSettingController::class);
 
+    Route::get('/dashboard-settings/contract', [App\Http\Controllers\DashboardSettingController::class, 'contract'])->name('contracts');
+
     Route::apiResource('modules', App\Http\Controllers\ModuleController::class);
 
     Route::apiResource('projects', App\Http\Controllers\ProjectController::class);
