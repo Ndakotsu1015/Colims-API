@@ -57,7 +57,7 @@ class AwardLetterController extends Controller
         // Log::debug($request->validated());
         $awardLetter->update($request->validated());
 
-        return new AwardLetterResource($awardLetter->loard('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
     }
 
     /**
@@ -76,7 +76,7 @@ class AwardLetterController extends Controller
     {
         $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
 
-        return new AwardLetterCollection($pendingAwardLetters);
+        return new AwardLetterCollection($pendingAwardLetters->load('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
 
     public function awardLetterWithBankGuarantee(Request $request)
@@ -88,22 +88,10 @@ class AwardLetterController extends Controller
     }
 
     public function awardLetterRenewals(Request $request)
-    {
-        // $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
-        //     $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
-        // })->get();
-
+    {     
         $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->get();
-
-        Log::debug("Reference Date:");
-        foreach ($data as $datum) {
-            // Log::debug("Date: {$datum->reference_date}");
-            Log::debug($datum);
-            Log::debug(now());
-        }
-
-
-        return new AwardLetterCollection($data->load('contractor'));
+    
+        return new AwardLetterCollection($data->load('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
     
     public function checkRefNo(Request $request, string $refNo)
