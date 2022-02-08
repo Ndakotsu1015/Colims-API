@@ -17,7 +17,7 @@ class MenuAuthorizationController extends Controller
      */
     public function index(Request $request)
     {
-        $menuAuthorizations = MenuAuthorization::all();
+        $menuAuthorizations = MenuAuthorization::with('privilege', 'menu');
 
         return new MenuAuthorizationCollection($menuAuthorizations);
     }
@@ -30,7 +30,7 @@ class MenuAuthorizationController extends Controller
     {
         $menuAuthorization = MenuAuthorization::create($request->validated());
 
-        return new MenuAuthorizationResource($menuAuthorization);
+        return new MenuAuthorizationResource($menuAuthorization->load('privilege', 'menu'));
     }
 
     /**
@@ -52,7 +52,7 @@ class MenuAuthorizationController extends Controller
     {
         $menuAuthorization->update($request->validated());
 
-        return new MenuAuthorizationResource($menuAuthorization);
+        return new MenuAuthorizationResource($menuAuthorization->load('privilege', 'menu'));
     }
 
     /**

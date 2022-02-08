@@ -17,7 +17,7 @@ class PrivilegeDetailController extends Controller
      */
     public function index(Request $request)
     {
-        $privilegeDetails = PrivilegeDetail::all();
+        $privilegeDetails = PrivilegeDetail::with('privilegeClass', 'user', 'privilege');
 
         return new PrivilegeDetailCollection($privilegeDetails);
     }
@@ -30,7 +30,7 @@ class PrivilegeDetailController extends Controller
     {
         $privilegeDetail = PrivilegeDetail::create($request->validated());
 
-        return new PrivilegeDetailResource($privilegeDetail);
+        return new PrivilegeDetailResource($privilegeDetail->load('privilegeClass', 'user', 'privilege'));
     }
 
     /**
@@ -52,7 +52,7 @@ class PrivilegeDetailController extends Controller
     {
         $privilegeDetail->update($request->validated());
 
-        return new PrivilegeDetailResource($privilegeDetail);
+        return new PrivilegeDetailResource($privilegeDetail->load('privilegeClass', 'user', 'privilege'));
     }
 
     /**

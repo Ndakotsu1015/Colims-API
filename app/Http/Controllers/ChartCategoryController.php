@@ -30,7 +30,7 @@ class ChartCategoryController extends Controller
     {
         $chartCategory = ChartCategory::create($request->validated());
 
-        return new ChartCategoryResource($chartCategory);
+        return new ChartCategoryResource($chartCategory->load('chartProvider'));
     }
 
     /**
@@ -52,7 +52,7 @@ class ChartCategoryController extends Controller
     {
         $chartCategory->update($request->validated());
 
-        return new ChartCategoryResource($chartCategory);
+        return new ChartCategoryResource($chartCategory->load('chartProvider'));
     }
 
     /**

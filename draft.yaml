@@ -109,7 +109,7 @@ models:
       hasMany: ContractorAffliate
   BankReference:
     reference_date: datetime    
-    reference_no: unsignedInteger
+    reference_no: string
     created_by: unsignedInteger
     in_name_of: string
     affiliate_id: id foreign:ContractorAffliate.id nullable

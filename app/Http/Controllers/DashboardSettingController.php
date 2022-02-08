@@ -17,7 +17,7 @@ class DashboardSettingController extends Controller
      */
     public function index(Request $request)
     {
-        $dashboardSettings = DashboardSetting::all();
+        $dashboardSettings = DashboardSetting::with('chart', 'module', 'chartType', 'chartCategory');
 
         return new DashboardSettingCollection($dashboardSettings);
     }
@@ -42,7 +42,7 @@ class DashboardSettingController extends Controller
     {
         $dashboardSetting = DashboardSetting::create($request->validated());
 
-        return new DashboardSettingResource($dashboardSetting);
+        return new DashboardSettingResource($dashboardSetting->load('chart', 'module', 'chartType', 'chartCategory'));
     }
 
     /**
@@ -64,7 +64,7 @@ class DashboardSettingController extends Controller
     {
         $dashboardSetting->update($request->validated());
 
-        return new DashboardSettingResource($dashboardSetting);
+        return new DashboardSettingResource($dashboardSetting->load('chart', 'module', 'chartType', 'chartCategory'));
     }
 
     /**
