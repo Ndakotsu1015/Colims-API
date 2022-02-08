@@ -20,6 +20,7 @@ class CreateCaseActivitiesTable extends Migration
             $table->text('description');
             $table->foreignId('court_case_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('case_outcome_id')->constrained();
             $table->string('status');
             $table->string('location');
             $table->softDeletes();

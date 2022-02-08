@@ -29,6 +29,8 @@ class CourtCaseStoreRequest extends FormRequest
             'status' => ['required', 'string'],
             'handler_id' => ['required', 'integer', 'exists:users,id'],
             'posted_by' => ['required'],
+            'case_outcome_id' => ['required', 'integer', 'exists:case_outcomes,id'],
+            'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
         ];
     }
 }

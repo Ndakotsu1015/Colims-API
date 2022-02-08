@@ -1,0 +1,22 @@
+models:
+  CaseStatus:
+    name: string
+    softDeletes
+  CaseOutcome:
+    name: string
+    softDeletes
+  LegalDocumentType:
+    name: string
+    softDeletes
+
+controllers:
+  CaseStatus:
+    resource: api
+  CaseOutcome:
+    resource: api
+  LegalDocumentType:
+    resource: api
+
+seeders: CaseStatus, CaseOutcome, LegalDocumentType    
+  
+      

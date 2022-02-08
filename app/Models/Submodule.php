@@ -10,6 +10,8 @@ class Submodule extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['module'];
+
     /**
      * The attributes that are mass assignable.
      *

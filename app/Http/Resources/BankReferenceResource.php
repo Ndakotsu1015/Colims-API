@@ -19,11 +19,10 @@ class BankReferenceResource extends JsonResource
         return [
             'id' => $this->id,
             'reference_date' => $this->reference_date,
-            'volume_no' => $this->volume_no,
-            'reference_no' => $this->reference_no,            
-            'in_name_of' => $this->in_name_of,        
-            'affiliate' => new ContractorAffliateResource($this->whenLoaded('affiliate')),                
-            'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),            
+            'reference_no' => $this->reference_no,
+            'in_name_of' => $this->in_name_of,
+            'affiliate' => new ContractorAffliateResource($this->whenLoaded('affiliate')),
+            'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),
         ];
     }
 }

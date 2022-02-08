@@ -3,9 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class ChartResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *

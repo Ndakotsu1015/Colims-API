@@ -10,6 +10,8 @@ class DashboardSetting extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['chart', 'module', 'chartType', 'chartCategory'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -62,5 +64,5 @@ class DashboardSetting extends Model
     public function chartCategory()
     {
         return $this->belongsTo(ChartCategory::class);
-    }
+    }    
 }

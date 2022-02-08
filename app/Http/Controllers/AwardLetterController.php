@@ -7,6 +7,8 @@ use App\Http\Requests\AwardLetterUpdateRequest;
 use App\Http\Resources\AwardLetterCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
+use App\Models\BankReference;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -42,7 +44,7 @@ class AwardLetterController extends Controller
      */
     public function show(Request $request, AwardLetter $awardLetter)
     {
-        return new AwardLetterResource($awardLetter);
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
     }
 
     /**
@@ -53,7 +55,7 @@ class AwardLetterController extends Controller
     public function update(AwardLetterUpdateRequest $request, AwardLetter $awardLetter)
     {
         // Log::debug($request->validated());
-        $awardLetter->update($request->validated());        
+        $awardLetter->update($request->validated());
 
         return new AwardLetterResource($awardLetter);
     }
@@ -71,16 +73,44 @@ class AwardLetterController extends Controller
     }
 
     public function pending(Request $request)
-    {        
+    {
         $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
 
         return new AwardLetterCollection($pendingAwardLetters);
-    }    
+    }
 
     public function awardLetterWithBankGuarantee(Request $request)
-    {        
-        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')->has('bankReferences')->get();        
+    {
+        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')
+            ->has('bankReferences')->get();
 
         return new AwardLetterCollection($awardLetterWithBankGaurantee);
+    }
+
+    public function awardLetterRenewals(Request $request)
+    {
+        // $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
+        //     $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
+        // })->get();
+
+        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->get();
+
+        Log::debug("Reference Date:");
+        foreach ($data as $datum) {
+            // Log::debug("Date: {$datum->reference_date}");
+            Log::debug($datum);
+            Log::debug(now());
+        }
+
+
+        return new AwardLetterCollection($data->load('contractor'));
+    }
+    
+    public function checkRefNo(Request $request, string $refNo)
+    {
+        // $refNo = $request->get('refNo');
+        $exists = AwardLetter::where('reference_no', $refNo)->exists();
+
+        return $this->success($exists);
     }
 }

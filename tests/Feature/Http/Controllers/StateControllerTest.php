@@ -74,19 +74,13 @@ class StateControllerTest extends TestCase
     public function store_saves()
     {
         $name = $this->faker->name;
-        $state_code = $this->faker->word;
-        $is_active = $this->faker->boolean;
 
         $response = $this->post(route('state.store'), [
-            'name' => $name,
-            'state_code' => $state_code,
-            'is_active' => $is_active,
+            'name' => $name,            
         ]);
 
         $states = State::query()
-            ->where('name', $name)
-            ->where('state_code', $state_code)
-            ->where('is_active', $is_active)
+            ->where('name', $name)           
             ->get();
         $this->assertCount(1, $states);
         $state = $states->first();
@@ -128,14 +122,10 @@ class StateControllerTest extends TestCase
     public function update_behaves_as_expected()
     {
         $state = State::factory()->create();
-        $name = $this->faker->name;
-        $state_code = $this->faker->word;
-        $is_active = $this->faker->boolean;
+        $name = $this->faker->name;        
 
         $response = $this->put(route('state.update', $state), [
-            'name' => $name,
-            'state_code' => $state_code,
-            'is_active' => $is_active,
+            'name' => $name,           
         ]);
 
         $state->refresh();
@@ -143,9 +133,7 @@ class StateControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonStructure([]);
 
-        $this->assertEquals($name, $state->name);
-        $this->assertEquals($state_code, $state->state_code);
-        $this->assertEquals($is_active, $state->is_active);
+        $this->assertEquals($name, $state->name);        
     }
 
 

@@ -10,6 +10,7 @@ class BankReference extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['awardLetter', 'affiliate', 'awardLetter.contractor', 'awardLetter.state'];
     /**
      * The attributes that are mass assignable.
      *
@@ -17,11 +18,10 @@ class BankReference extends Model
      */
     protected $fillable = [
         'reference_date',
-        'volume_no',
         'reference_no',
         'created_by',
         'in_name_of',
-        'affliate_id',
+        'affiliate_id',
         'award_letter_id',
     ];
 
@@ -33,7 +33,6 @@ class BankReference extends Model
     protected $casts = [
         'id' => 'integer',
         'reference_date' => 'datetime',
-        'volume_no' => 'integer',
         'reference_no' => 'integer',
         'created_by' => 'integer',
         'affiliate_id' => 'integer',

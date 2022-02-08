@@ -10,6 +10,8 @@ class Contractor extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['awardLetters'];
+
     /**
      * The attributes that are mass assignable.
      *

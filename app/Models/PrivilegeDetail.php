@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PrivilegeDetail extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $with = ['privilegeClass', 'user', 'privilege'];
 
     /**
      * The attributes that are mass assignable.
@@ -46,5 +47,5 @@ class PrivilegeDetail extends Model
     public function privilege()
     {
         return $this->belongsTo(Privilege::class);
-    }
+    }    
 }

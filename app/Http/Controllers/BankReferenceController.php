@@ -18,7 +18,7 @@ class BankReferenceController extends Controller
      */
     public function index(Request $request)
     {
-        $bankReferences = BankReference::with('awardLetter', 'affiliate')->get();
+        $bankReferences = BankReference::all();
 
         return new BankReferenceCollection($bankReferences);
     }
@@ -29,11 +29,14 @@ class BankReferenceController extends Controller
      */
     public function store(BankReferenceStoreRequest $request)
     {
-        $bankReference = BankReference::create($request->validated());
+        $data = $request->validated();
+        $data['created_by'] = auth()->user()->id;
+        $bankReference = BankReference::create($data);
         
         $awardLetter = AwardLetter::find($request->award_letter_id);
         $awardLetter->last_bank_reference_date = $bankReference->reference_date;
         $awardLetter->save();
+        
 
         return new BankReferenceResource($bankReference);
     }
@@ -45,7 +48,7 @@ class BankReferenceController extends Controller
      */
     public function show(Request $request, BankReference $bankReference)
     {
-        return new BankReferenceResource($bankReference);
+        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy'));
     }
 
     /**
@@ -70,5 +73,12 @@ class BankReferenceController extends Controller
         $bankReference->delete();
 
         return response()->noContent();
+    }
+
+    public function checkRefNo(Request $request, string $refNo)
+    {        
+        $exists = BankReference::where('reference_no', $refNo)->exists();
+
+        return $this->success($exists);
     }
 }

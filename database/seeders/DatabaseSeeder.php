@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
             BankSeeder::class,
             CalendarEventSeeder::class,
             CaseActivitySeeder::class,
-            ChartCategorySeeder::class,
             ChartProviderSeeder::class,
-            ChartSeeder::class,
-            ChartTypeSeeder::class,
+            ChartCategorySeeder::class,  
+            ChartTypeSeeder::class,          
+            ChartSeeder::class,            
             ContractCategorySeeder::class,
             ContractorAffliateSeeder::class,
             ContractorSeeder::class,
@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             SubmoduleSeeder::class,
             SuitPartySeeder::class,
+            CaseStatusSeeder::class,
+            CaseOutcomeSeeder::class,
+            LegalDocumentTypeSeeder::class,
         ]);
     }
 }

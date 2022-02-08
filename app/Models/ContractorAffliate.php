@@ -10,6 +10,8 @@ class ContractorAffliate extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['bank', 'contractor'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -45,5 +47,5 @@ class ContractorAffliate extends Model
     public function contractor()
     {
         return $this->belongsTo(Contractor::class);
-    }
+    }    
 }

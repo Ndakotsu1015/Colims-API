@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\CourtCase;
 use App\Models\LegalDocument;
+use App\Models\LegalDocumentType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -78,12 +79,14 @@ class LegalDocumentControllerTest extends TestCase
         $filename = $this->faker->word;
         $user = User::factory()->create();
         $court_case = CourtCase::factory()->create();
+        $document_type = LegalDocumentType::factory()->create();
 
         $response = $this->post(route('legal-document.store'), [
             'title' => $title,
             'filename' => $filename,
             'user_id' => $user->id,
             'court_case_id' => $court_case->id,
+            'document_type_id' => $document_type->id,
         ]);
 
         $legalDocuments = LegalDocument::query()
@@ -91,6 +94,7 @@ class LegalDocumentControllerTest extends TestCase
             ->where('filename', $filename)
             ->where('user_id', $user->id)
             ->where('court_case_id', $court_case->id)
+            ->where('document_type_id', $document_type->id)
             ->get();
         $this->assertCount(1, $legalDocuments);
         $legalDocument = $legalDocuments->first();
@@ -136,12 +140,14 @@ class LegalDocumentControllerTest extends TestCase
         $filename = $this->faker->word;
         $user = User::factory()->create();
         $court_case = CourtCase::factory()->create();
+        $document_type = LegalDocumentType::factory()->create();
 
         $response = $this->put(route('legal-document.update', $legalDocument), [
             'title' => $title,
             'filename' => $filename,
             'user_id' => $user->id,
             'court_case_id' => $court_case->id,
+            'document_type_id' => $document_type->id,
         ]);
 
         $legalDocument->refresh();
@@ -153,6 +159,7 @@ class LegalDocumentControllerTest extends TestCase
         $this->assertEquals($filename, $legalDocument->filename);
         $this->assertEquals($user->id, $legalDocument->user_id);
         $this->assertEquals($court_case->id, $legalDocument->court_case_id);
+        $this->assertEquals($document_type->id, $legalDocument->document_type_id);
     }
 
 

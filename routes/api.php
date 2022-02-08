@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\AwardLetterController;
+use App\Http\Controllers\BankReferenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::group([
     'prefix' => 'auth'
 ], function () {
     // Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.admin-login');
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');    
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
@@ -48,16 +49,16 @@ Route::group([
     });
 });
 
-Route::group(['middleware' => 'auth:sanctum',], function () {   
+Route::group(['middleware' => 'auth:sanctum',], function () {
     // previleges
     Route::apiResource('privileges', App\Http\Controllers\PrivilegeController::class);
-    
+
     Route::apiResource('privilege-classes', App\Http\Controllers\PrivilegeClassController::class);
-    
+
     Route::apiResource('privilege-details', App\Http\Controllers\PrivilegeDetailController::class);
-    
+
     Route::apiResource('menus', App\Http\Controllers\MenuController::class);
-    
+
     Route::apiResource('menu-authorizations', App\Http\Controllers\MenuAuthorizationController::class);
 
     Route::apiResource('award-letters', App\Http\Controllers\AwardLetterController::class);
@@ -111,8 +112,23 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
+
+    Route::get('/award-letters-check-ref-no/{ref_no}', [AwardLetterController::class, 'checkRefNo'])->name('check-ref-no');
+
+    Route::get('/bank-reference-check-ref-no/{ref_no}', [BankReferenceController::class, 'checkRefNo'])->name('check-ref-no');
+    
+
+    Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
+    
+    Route::apiResource('case-status', App\Http\Controllers\CaseStatusController::class);
+
+    Route::apiResource('case-outcome', App\Http\Controllers\CaseOutcomeController::class);
+
+    Route::apiResource('legal-document-type', App\Http\Controllers\LegalDocumentTypeController::class);
 });
+
+
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
-Route::get('/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
+Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');

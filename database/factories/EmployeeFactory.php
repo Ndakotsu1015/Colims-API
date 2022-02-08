@@ -26,7 +26,14 @@ class EmployeeFactory extends Factory
             'full_name' => $this->faker->word,
             'title' => $this->faker->sentence(4),
             'designation' => $this->faker->word,
-            'signature_file' => $this->faker->word,
+            'signature_file' => 'https://picsum.photos/seed/signature/200/200',
         ];
+    }
+
+    private function getRandomImageName(): string
+    {
+        $number = random_int(1, 5);
+
+        return "image$number.jpg";
     }
 }

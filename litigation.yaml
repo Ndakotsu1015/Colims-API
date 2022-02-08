@@ -2,12 +2,19 @@ models:
   CourtCase: 
     title: string
     case_no: string unique
-    status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
+    case_status_id: id foreign # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed) old
+    case_outcome_id: id foreign # adjourned | case-closed | missed-trial |  old
     handler_id: id foreign:user.id  
     posted_by: id foreign:user.id
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
+
+	CaseStatus:
+		name: string
+		
+	CaseOutcome:
+		name: string
 
   SuitParty:  
     fullname: string
@@ -19,16 +26,17 @@ models:
 
   LegalDocument: 
     title: string
+    document_type_id: id foreign # old
     filename: string    
     user_id: id foreign
     court_case_id: id foreign
-    softDeletes
+    softDeletes      
 
   CaseActivity:
     description: text
     court_case_id: id foreign
     user_id: id foreign    
-    status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
+    case_outcome_id: id foreign # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed | settled-out-of-court) old
     location: string
     softDeletes
     relationships:

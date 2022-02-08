@@ -23,6 +23,18 @@ class DashboardSettingController extends Controller
     }
 
     /**
+     * @param \Illuminate\Http\Request $request
+     * @return \App\Http\Resources\DashboardSettingCollection
+     */
+    public function contract(Request $request)
+    {
+        // $dashboardSettings = DashboardSetting::all();
+        $dashboardSettings = DashboardSetting::where(['sub_module_id'=> 1,'is_active'=>true])->orderBy('orderby','asc')->get();
+
+        return new DashboardSettingCollection($dashboardSettings);
+    }
+
+    /**
      * @param \App\Http\Requests\DashboardSettingStoreRequest $request
      * @return \App\Http\Resources\DashboardSettingResource
      */

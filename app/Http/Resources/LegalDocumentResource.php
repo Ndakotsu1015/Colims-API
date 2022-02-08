@@ -20,6 +20,7 @@ class LegalDocumentResource extends JsonResource
             'filename' => $this->filename,
             'user_id' => $this->user_id,
             'courtCase' => new CourtCaseResource($this->whenLoaded('courtCase')),
+            'documentType' => new LegalDocumentTypeResource($this->whenLoaded('documentType')),
         ];
     }
 }

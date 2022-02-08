@@ -83,14 +83,12 @@ models:
   AwardLetter:
     unit_price: float
     contract_sum: float
-    no_units: unsignedInteger
-    no_rooms: unsignedInteger
+    no_units: unsignedInteger    
     contract_title: string
     contract_detail: text
     date_awarded: date
-    reference_no: string
-    award_no: unsignedInteger
-    volume_no: unsignedInteger
+    last_bank_ref_date: date nullable
+    reference_no: string    
     contractor_id: id foreign
     contract_type_id: id foreign
     state_id: id foreign
@@ -110,8 +108,7 @@ models:
     relationships:
       hasMany: ContractorAffliate
   BankReference:
-    reference_date: datetime
-    volume_no: unsignedInteger
+    reference_date: datetime    
     reference_no: unsignedInteger
     created_by: unsignedInteger
     in_name_of: string

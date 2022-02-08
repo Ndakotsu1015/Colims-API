@@ -10,6 +10,8 @@ class LegalDocument extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['user', 'courtCase', 'documentType'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +22,7 @@ class LegalDocument extends Model
         'filename',
         'user_id',
         'court_case_id',
+        'document_type_id',
     ];
 
     /**
@@ -31,6 +34,7 @@ class LegalDocument extends Model
         'id' => 'integer',
         'user_id' => 'integer',
         'court_case_id' => 'integer',
+        'document_type_id' => 'integer',
     ];
 
     public function user()
@@ -42,4 +46,9 @@ class LegalDocument extends Model
     {
         return $this->belongsTo(CourtCase::class);
     }
+
+    public function documentType()
+    {
+        return $this->belongsTo(LegalDocumentType::class, 'document_type_id');
+    }    
 }

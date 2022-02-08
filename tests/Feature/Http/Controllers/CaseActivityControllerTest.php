@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\CaseActivity;
+use App\Models\CaseOutcome;
 use App\Models\CourtCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -76,9 +77,10 @@ class CaseActivityControllerTest extends TestCase
     {
         $description = $this->faker->text;
         $court_case = CourtCase::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create();        
         $status = $this->faker->word;
         $location = $this->faker->word;
+        $case_outcome = CaseOutcome::factory()->create();
 
         $response = $this->post(route('case-activity.store'), [
             'description' => $description,
@@ -86,6 +88,7 @@ class CaseActivityControllerTest extends TestCase
             'user_id' => $user->id,
             'status' => $status,
             'location' => $location,
+            'case_outcome_id' => $case_outcome->id,
         ]);
 
         $caseActivities = CaseActivity::query()
@@ -94,6 +97,7 @@ class CaseActivityControllerTest extends TestCase
             ->where('user_id', $user->id)
             ->where('status', $status)
             ->where('location', $location)
+            ->where('case_outcome_id', $case_outcome->id)
             ->get();
         $this->assertCount(1, $caseActivities);
         $caseActivity = $caseActivities->first();
@@ -140,6 +144,7 @@ class CaseActivityControllerTest extends TestCase
         $user = User::factory()->create();
         $status = $this->faker->word;
         $location = $this->faker->word;
+        $case_outcome = CaseOutcome::factory()->create();
 
         $response = $this->put(route('case-activity.update', $caseActivity), [
             'description' => $description,
@@ -147,6 +152,7 @@ class CaseActivityControllerTest extends TestCase
             'user_id' => $user->id,
             'status' => $status,
             'location' => $location,
+            'case_outcome_id' => $case_outcome->id,
         ]);
 
         $caseActivity->refresh();
@@ -159,6 +165,7 @@ class CaseActivityControllerTest extends TestCase
         $this->assertEquals($user->id, $caseActivity->user_id);
         $this->assertEquals($status, $caseActivity->status);
         $this->assertEquals($location, $caseActivity->location);
+        $this->assertEquals($case_outcome->id, $caseActivity->case_outcome_id);
     }
 
 

@@ -1,0 +1,34 @@
+GET http://localhost:8000/api/contractor-affliates HTTP/1.1
+Authorization: Bearer 3|LGOrqeve3cIpyoOFcph6TayVzZcSF3ahtPyRVTL1
+
+###
+POST http://localhost:8000/api/contractor-affliates HTTP/1.1
+Authorization: Bearer 3|LGOrqeve3cIpyoOFcph6TayVzZcSF3ahtPyRVTL1
+Content-Type: application/json
+
+{
+    "name": "Meow Enterprises 6",
+    "account_no": "0110357208",
+    "account_officer": "Andromadus",
+    "account_officer_email": "meow@meow.com",
+    "bank_address": "No. 9 Ibrahim Road",
+    "sort_code": "010101",
+    "bank_id": 1,
+    "contractor_id": 1
+}
+
+###
+PUT http://localhost:8000/api/contractor-affliates/12 HTTP/1.1
+Authorization: Bearer 3|LGOrqeve3cIpyoOFcph6TayVzZcSF3ahtPyRVTL1
+Content-Type: application/json
+
+{
+    "name": "Meow Enterprising 4",
+    "account_no": "0110357208",
+    "account_officer": "Andromadus",
+    "account_officer_email": "meow@meow.com",
+    "bank_address": "No. 9 Ibrahim Road",
+    "sort_code": "010101",
+    "bank_id": 1,
+    "contractor_id": 1
+}

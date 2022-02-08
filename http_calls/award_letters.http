@@ -5,9 +5,8 @@ POST http://localhost:8000/api/award-letter HTTP/1.1
     "unit_price": 3456765,
     "no_units": 456564,
     "date_awarded": "2022-12-12",
-    "reference_no": "KS/2BRB/VOL506/21",
-    "award_no": "07019099988",
-    "volume_no": "343567586",
+    "last_bank_ref_date": '2022-12-12',
+    "reference_no": "KS/2BRB/VOL506/21",    
     "contractor_id": 1,
     "project_id": 1,
     "posted_by": 1,
@@ -16,3 +15,7 @@ POST http://localhost:8000/api/award-letter HTTP/1.1
     "duration_id": 1,
     "contract_category_id": 1,
 }
+
+###
+GET http://localhost:8000/api/check-ref-no/1 HTTP/1.1
+Authorization: Bearer 3|6IlbFvA7XjoVvbTBGRRnHOJQMZIE7pTBmzcMazju

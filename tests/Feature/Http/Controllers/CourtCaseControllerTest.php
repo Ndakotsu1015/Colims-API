@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\CaseOutcome;
+use App\Models\CaseStatus;
 use App\Models\CourtCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -78,6 +80,8 @@ class CourtCaseControllerTest extends TestCase
         $status = $this->faker->word;
         $handler = User::factory()->create();
         $posted_by = User::factory()->create();
+        $case_status = CaseStatus::factory()->create();
+        $case_outcome = CaseOutcome::factory()->create();        
 
         $response = $this->post(route('court-case.store'), [
             'title' => $title,
@@ -85,14 +89,18 @@ class CourtCaseControllerTest extends TestCase
             'status' => $status,
             'handler_id' => $handler->id,
             'posted_by' => $posted_by->id,
+            'case_status_id' => $case_status->id,
+            'case_outcome_id' => $case_outcome->id,
         ]);
 
         $courtCases = CourtCase::query()
-            // ->where('title', $title)
+            ->where('title', $title)
             ->where('case_no', $case_no)
-            // ->where('status', $status)
-            // ->where('handler_id', $handler->id)
-            // ->where('posted_by', $posted_by->id)
+            ->where('status', $status)
+            ->where('handler_id', $handler->id)
+            ->where('posted_by', $posted_by->id)
+            ->where('case_status_id', $case_status->id)
+            ->where('case_outcome_id', $case_outcome->id)
             ->get();
         $this->assertCount(1, $courtCases);
         $courtCase = $courtCases->first();
@@ -139,6 +147,8 @@ class CourtCaseControllerTest extends TestCase
         $status = $this->faker->word;
         $handler = User::factory()->create();
         $posted_by = User::factory()->create();
+        $case_status = CaseStatus::factory()->create();
+        $case_outcome = CaseOutcome::factory()->create();
 
         $response = $this->put(route('court-case.update', $courtCase), [
             'title' => $title,
@@ -146,6 +156,8 @@ class CourtCaseControllerTest extends TestCase
             'status' => $status,
             'handler_id' => $handler->id,
             'posted_by' => $posted_by->id,
+            'case_status_id' => $case_status->id,
+            'case_outcome_id' => $case_outcome->id,
         ]);
 
         $courtCase->refresh();
@@ -158,6 +170,8 @@ class CourtCaseControllerTest extends TestCase
         $this->assertEquals($status, $courtCase->status);
         $this->assertEquals($handler->id, $courtCase->handler_id);
         $this->assertEquals($posted_by->id, $courtCase->posted_by);
+        $this->assertEquals($case_status->id, $courtCase->case_status_id);
+        $this->assertEquals($case_outcome->id, $courtCase->case_outcome_id);
     }
 
 

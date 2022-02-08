@@ -29,6 +29,7 @@ class CaseActivityStoreRequest extends FormRequest
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'status' => ['required', 'string'],
             'location' => ['required', 'string'],
+            'case_outcome_id' => ['required', 'integer', 'exists:case_outcomes,id'],
         ];
     }
 }

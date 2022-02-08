@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ChartCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChartCategorySeeder extends Seeder
 {
@@ -13,7 +14,24 @@ class ChartCategorySeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        ChartCategory::factory()->count(5)->create();
+    {        
+        DB::table('chart_categories')->insert([
+            [
+                'chart_provider_id' => 1,
+                'chart_category' => 'Bar',
+            ], 
+            [
+                'chart_provider_id' => 1,
+                'chart_category' => 'Pie',
+            ],
+            [
+                'chart_provider_id' => 1,
+                'chart_category' => 'RangeBar',
+            ],
+            [
+                'chart_provider_id' => 1,
+                'chart_category' => 'Grid',
+            ]
+        ]);
     }
 }

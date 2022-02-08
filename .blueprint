@@ -1,29 +1,34 @@
 created:
-    - app/Http/Controllers/PrivilegeController.php
-    - app/Http/Controllers/PrivilegeClassController.php
-    - app/Http/Controllers/PrivilegeDetailController.php
-    - app/Http/Controllers/MenuController.php
-    - app/Http/Controllers/MenuAuthorizationController.php
-    - database/factories/PrivilegeFactory.php
-    - database/factories/PrivilegeClassFactory.php
-    - database/factories/PrivilegeDetailFactory.php
-    - database/factories/MenuFactory.php
-    - database/factories/MenuAuthorizationFactory.php
-    - database/migrations/2022_01_24_130647_create_privileges_table.php
-    - database/migrations/2022_01_24_130648_create_privilege_classes_table.php
-    - database/migrations/2022_01_24_130649_create_privilege_details_table.php
-    - database/migrations/2022_01_24_130650_create_menus_table.php
-    - database/migrations/2022_01_24_130651_create_menu_authorizations_table.php
-    - app/Models/Privilege.php
-    - app/Models/PrivilegeClass.php
-    - app/Models/PrivilegeDetail.php
-    - app/Models/Menu.php
-    - app/Models/MenuAuthorization.php
-    - tests/Feature/Http/Controllers/PrivilegeControllerTest.php
-    - tests/Feature/Http/Controllers/PrivilegeClassControllerTest.php
-    - tests/Feature/Http/Controllers/PrivilegeDetailControllerTest.php
-    - tests/Feature/Http/Controllers/MenuControllerTest.php
-    - tests/Feature/Http/Controllers/MenuAuthorizationControllerTest.php
+    - app/Http/Controllers/CaseStatusController.php
+    - app/Http/Controllers/CaseOutcomeController.php
+    - app/Http/Controllers/LegalDocumentTypeController.php
+    - database/factories/CaseStatusFactory.php
+    - database/factories/CaseOutcomeFactory.php
+    - database/factories/LegalDocumentTypeFactory.php
+    - database/migrations/2022_02_02_110255_create_case_statuses_table.php
+    - database/migrations/2022_02_02_110256_create_case_outcomes_table.php
+    - database/migrations/2022_02_02_110257_create_legal_document_types_table.php
+    - app/Models/CaseStatus.php
+    - app/Models/CaseOutcome.php
+    - app/Models/LegalDocumentType.php
+    - database/seeders/CaseStatusSeeder.php
+    - database/seeders/CaseOutcomeSeeder.php
+    - database/seeders/LegalDocumentTypeSeeder.php
+    - tests/Feature/Http/Controllers/CaseStatusControllerTest.php
+    - tests/Feature/Http/Controllers/CaseOutcomeControllerTest.php
+    - tests/Feature/Http/Controllers/LegalDocumentTypeControllerTest.php
+    - app/Http/Requests/CaseStatusStoreRequest.php
+    - app/Http/Requests/CaseStatusUpdateRequest.php
+    - app/Http/Requests/CaseOutcomeStoreRequest.php
+    - app/Http/Requests/CaseOutcomeUpdateRequest.php
+    - app/Http/Requests/LegalDocumentTypeStoreRequest.php
+    - app/Http/Requests/LegalDocumentTypeUpdateRequest.php
+    - app/Http/Resources/CaseStatusCollection.php
+    - app/Http/Resources/CaseStatusResource.php
+    - app/Http/Resources/CaseOutcomeCollection.php
+    - app/Http/Resources/CaseOutcomeResource.php
+    - app/Http/Resources/LegalDocumentTypeCollection.php
+    - app/Http/Resources/LegalDocumentTypeResource.php
 updated:
     - routes/api.php
 models:
@@ -33,9 +38,9 @@ models:
     Contractor: { contractor_name: string, address: string, location: string, email: string, phone_no: string, contact_name: string, contact_email: string, contact_phone: string, softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
     PropertyType: { name: string, property_code: string, softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
     State: { name: string, state_code: string, region_id: 'unsignedInteger nullable', state_code2: 'string nullable', is_active: 'boolean default:true', softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
-    AwardLetter: { unit_price: float, no_units: unsignedInteger, no_rooms: unsignedInteger, date_awarded: date, reference_no: string, award_no: unsignedInteger, volume_no: unsignedInteger, contractor_id: 'id foreign', property_type_id: 'id foreign', state_id: 'id foreign', project_id: 'id foreign', posted_by: unsignedInteger, softdeletes: softDeletes, relationships: { hasMany: BankReference } }
+    AwardLetter: { unit_price: float, no_units: unsignedInteger, date_awarded: date, last_bank_ref_date: date nullable, reference_no: string, contractor_id: 'id foreign', property_type_id: 'id foreign', state_id: 'id foreign', project_id: 'id foreign', posted_by: unsignedInteger, softdeletes: softDeletes, relationships: { hasMany: BankReference } }
     Bank: { name: string, created_by: unsignedInteger, modified_by: unsignedInteger, bank_code: string, softdeletes: softDeletes, relationships: { hasMany: ContractorAffliate } }
-    BankReference: { reference_date: datetime, volume_no: unsignedInteger, reference_no: unsignedInteger, created_by: unsignedInteger, in_name_of: string, affliate_id: 'unsignedInteger nullable', award_letter_id: 'id foreign', softdeletes: softDeletes }
+    BankReference: { reference_date: datetime, reference_no: unsignedInteger, created_by: unsignedInteger, in_name_of: string, affliate_id: 'unsignedInteger nullable', award_letter_id: 'id foreign', softdeletes: softDeletes }
     ChartCategory: { chart_category: string, chart_provider_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: 'ChartType,DashboardSetting' } }
     ChartType: { chart_type: string, chart_category_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
     Chart: { chart_title: string, sql_query: string, is_active: 'boolean default:true', module_id: 'id foreign', filter_column: string, chart_type_id: 'id foreign', chart_category_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
@@ -56,3 +61,6 @@ models:
     ContractType: { name: string }
     Duration: { name: string, number_of_days: unsignInteger }
     Employee: { full_name: string, title: string, designation: string, signature_file: string }
+    CaseStatus: { name: string, softdeletes: softDeletes }
+    CaseOutcome: { name: string, softdeletes: softDeletes }
+    LegalDocumentType: { name: string, softdeletes: softDeletes }

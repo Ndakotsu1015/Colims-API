@@ -18,12 +18,10 @@ class AwardLetter extends Model
     protected $fillable = [
         'unit_price',
         'contract_sum',
-        'no_units',
-        'no_rooms',
+        'no_units',        
         'date_awarded',
-        'reference_no',
-        'award_no',
-        'volume_no',
+        'last_bank_ref_date',
+        'reference_no',        
         'contractor_id',
         'contract_type_id',
         'state_id',
@@ -44,11 +42,9 @@ class AwardLetter extends Model
         'id' => 'integer',
         'unit_price' => 'float',
         'contract_sum' => 'float',
-        'no_units' => 'integer',
-        'no_rooms' => 'integer',
-        'date_awarded' => 'date',
-        'award_no' => 'integer',
-        'volume_no' => 'integer',
+        'no_units' => 'integer',        
+        'date_awarded' => 'date', 
+        'last_bank_ref_date' => 'date',        
         'contractor_id' => 'integer',
         'contract_type_id' => 'integer',
         'state_id' => 'integer',
@@ -70,7 +66,7 @@ class AwardLetter extends Model
 
     public function contractType()
     {
-        return $this->belongsTo(contractType::class);
+        return $this->belongsTo(ContractType::class);
     }
 
     public function state()

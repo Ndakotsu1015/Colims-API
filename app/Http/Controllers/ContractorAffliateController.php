@@ -17,7 +17,7 @@ class ContractorAffliateController extends Controller
      */
     public function index(Request $request)
     {
-        $contractorAffliates = ContractorAffliate::with('bank', 'contractor')->get();
+        $contractorAffliates = ContractorAffliate::all();
 
         return new ContractorAffliateCollection($contractorAffliates);
     }
@@ -30,7 +30,7 @@ class ContractorAffliateController extends Controller
     {
         $contractorAffliate = ContractorAffliate::create($request->validated());
 
-        return new ContractorAffliateResource($contractorAffliate);
+        return new ContractorAffliateResource($contractorAffliate->load('bank', 'contractor'));
     }
 
     /**
@@ -40,7 +40,7 @@ class ContractorAffliateController extends Controller
      */
     public function show(Request $request, ContractorAffliate $contractorAffliate)
     {
-        return new ContractorAffliateResource($contractorAffliate);
+        return new ContractorAffliateResource($contractorAffliate->all());
     }
 
     /**
@@ -52,7 +52,7 @@ class ContractorAffliateController extends Controller
     {
         $contractorAffliate->update($request->validated());
 
-        return new ContractorAffliateResource($contractorAffliate);
+        return new ContractorAffliateResource($contractorAffliate->load('bank', 'contractor'));
     }
 
     /**

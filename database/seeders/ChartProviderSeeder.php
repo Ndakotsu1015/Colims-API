@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ChartProvider;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChartProviderSeeder extends Seeder
 {
@@ -14,6 +15,11 @@ class ChartProviderSeeder extends Seeder
      */
     public function run()
     {
-        ChartProvider::factory()->count(5)->create();
+        // ChartProvider::factory()->count(5)->create();
+        DB::table('chart_providers')->insert([
+            [
+                'chart_provider' => 'Devextreme'
+            ], 
+        ]);
     }
 }
