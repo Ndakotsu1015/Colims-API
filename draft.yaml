@@ -175,6 +175,7 @@ models:
     status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
     handler_id: id foreign:user.id  
     posted_by: id foreign:user.id
+    solicitor_id: id foreign
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
@@ -208,6 +209,15 @@ models:
     posted_by: id foreign:user.id
     court_case_id: id foreign
     softDeletes
+  Solicitor:
+    name: string
+    office_address: string
+    contact_name: string
+    contact_phone: string
+    location: string
+    state_id: id foreign
+    softDeletes    
+
 controllers:
   AwardLetter:
     resource: api
@@ -266,6 +276,8 @@ controllers:
   CaseActivity:
     resource: api
   CalendarEvent:
-    resource: api    
+    resource: api   
+  Solicitor: 
+    resource: api 
 
-seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent
+seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor

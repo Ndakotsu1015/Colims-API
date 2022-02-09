@@ -21,9 +21,10 @@ class CourtCaseResource extends JsonResource
             'status' => $this->status,
             'caseOutcome' => new CaseOutcomeResource($this->whenLoaded('caseOutcome')),
             'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
-            // 'handler' => new UserResource($this->whenLoaded('handler')),
-            // 'postedBy' => new UserResource($this->whenLoaded('postedBy')),
-            // 'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),
+            'handler' => new UserResource($this->whenLoaded('handler')),
+            'solicitor' => new UserResource($this->whenLoaded('solicitor')),
+            'postedBy' => new UserResource($this->whenLoaded('postedBy')),
+            'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),
         ];
     }
 }
