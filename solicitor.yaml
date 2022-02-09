@@ -1,0 +1,15 @@
+models:
+  Solicitor:
+    name: string
+    office_address: string
+    contact_name: string
+    contact_phone: string
+    location: string
+    state_id: id foreign
+    softDeletes
+
+controllers:
+  Solicitor: 
+    resource: api 
+
+seeders: Solicitor

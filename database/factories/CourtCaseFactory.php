@@ -7,6 +7,7 @@ use App\Models\CaseStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\CourtCase;
+use App\Models\Solicitor;
 use App\Models\User;
 
 class CourtCaseFactory extends Factory
@@ -33,6 +34,7 @@ class CourtCaseFactory extends Factory
             'posted_by' => User::factory(),
             'case_status_id' => CaseStatus::factory(),
             'case_outcome_id' => CaseOutcome::factory(),
+            'solicitor_id' => Solicitor::factory(),
         ];
     }
 }
