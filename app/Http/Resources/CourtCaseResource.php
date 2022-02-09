@@ -22,7 +22,7 @@ class CourtCaseResource extends JsonResource
             'caseOutcome' => new CaseOutcomeResource($this->whenLoaded('caseOutcome')),
             'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
             'handler' => new UserResource($this->whenLoaded('handler')),
-            'solicitor' => new UserResource($this->whenLoaded('solicitor')),
+            'solicitor' => new SolicitorResource($this->whenLoaded('solicitor')),
             'postedBy' => new UserResource($this->whenLoaded('postedBy')),
             'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),
         ];
