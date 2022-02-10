@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CaseParticipant;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             PropertyTypeSeeder::class,            
             SubmoduleSeeder::class,
+            CaseParticipantSeeder::class,
             SuitPartySeeder::class,
             CaseStatusSeeder::class,
             CaseOutcomeSeeder::class,

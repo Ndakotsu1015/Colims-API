@@ -78,6 +78,7 @@ class SuitPartyControllerTest extends TestCase
         $phone_no = $this->faker->word;
         $residential_address = $this->faker->text;
         $court_case = CourtCase::factory()->create();
+        $case_participant = CourtCase::factory()->create();
         $type = $this->faker->word;
 
         $response = $this->post(route('suit-party.store'), [
@@ -85,6 +86,7 @@ class SuitPartyControllerTest extends TestCase
             'phone_no' => $phone_no,
             'residential_address' => $residential_address,
             'court_case_id' => $court_case->id,
+            'case_participant_id' => $case_participant->id,
             'type' => $type,
         ]);
 
@@ -93,6 +95,7 @@ class SuitPartyControllerTest extends TestCase
             ->where('phone_no', $phone_no)
             ->where('residential_address', $residential_address)
             ->where('court_case_id', $court_case->id)
+            ->where('case_participant_id', $case_participant->id)
             ->where('type', $type)
             ->get();
         $this->assertCount(1, $suitParties);
@@ -139,6 +142,7 @@ class SuitPartyControllerTest extends TestCase
         $phone_no = $this->faker->word;
         $residential_address = $this->faker->text;
         $court_case = CourtCase::factory()->create();
+        $case_participant = CourtCase::factory()->create();
         $type = $this->faker->word;
 
         $response = $this->put(route('suit-party.update', $suitParty), [
@@ -146,6 +150,7 @@ class SuitPartyControllerTest extends TestCase
             'phone_no' => $phone_no,
             'residential_address' => $residential_address,
             'court_case_id' => $court_case->id,
+            'case_participant_id' => $case_participant->id,
             'type' => $type,
         ]);
 

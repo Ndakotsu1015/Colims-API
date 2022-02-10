@@ -17,7 +17,7 @@ class SuitPartyController extends Controller
      */
     public function index(Request $request)
     {
-        $suitParties = SuitParty::with('courtCase')->get();
+        $suitParties = SuitParty::with('courtCase', 'caseParticipant')->get();
 
         return new SuitPartyCollection($suitParties);
     }
@@ -30,7 +30,7 @@ class SuitPartyController extends Controller
     {
         $suitParty = SuitParty::create($request->validated());
 
-        return new SuitPartyResource($suitParty->load('courtCase'));
+        return new SuitPartyResource($suitParty->load('courtCase', 'caseParticipant'));
     }
 
     /**
@@ -40,7 +40,7 @@ class SuitPartyController extends Controller
      */
     public function show(Request $request, SuitParty $suitParty)
     {
-        return new SuitPartyResource($suitParty->load('courtCase'));
+        return new SuitPartyResource($suitParty->load('courtCase', 'caseParticipant'));
     }
 
     /**
@@ -52,7 +52,7 @@ class SuitPartyController extends Controller
     {
         $suitParty->update($request->validated());
 
-        return new SuitPartyResource($suitParty->load('courtCase'));
+        return new SuitPartyResource($suitParty->load('courtCase', 'caseParticipant'));
     }
 
     /**

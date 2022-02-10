@@ -21,6 +21,7 @@ class CreateSuitPartiesTable extends Migration
             $table->string('phone_no');
             $table->text('residential_address');
             $table->foreignId('court_case_id')->constrained();
+            $table->foreignId('case_participant_id')->constrained();
             $table->string('type');
             $table->softDeletes();
             $table->timestamps();
