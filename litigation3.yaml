@@ -1,0 +1,11 @@
+models:
+  CaseParticipant:
+    name: string
+    phone_no: string
+    address: string
+    email: string
+    softDeletes
+controllers:
+  CaseParticipant:
+    resource: api
+seeders: CaseParticipant

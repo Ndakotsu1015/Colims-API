@@ -117,7 +117,6 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('/bank-reference-check-ref-no/{ref_no}', [BankReferenceController::class, 'checkRefNo'])->name('check-ref-no');
     
-
     Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
     
     Route::apiResource('case-status', App\Http\Controllers\CaseStatusController::class);
@@ -127,9 +126,9 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('legal-document-type', App\Http\Controllers\LegalDocumentTypeController::class);
 
     Route::apiResource('solicitors', App\Http\Controllers\SolicitorController::class);
+
+    Route::apiResource('case-participants', App\Http\Controllers\CaseParticipantController::class);
 });
-
-
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 

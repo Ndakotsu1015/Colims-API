@@ -1,14 +1,13 @@
 created:
-    - app/Http/Controllers/SolicitorController.php
-    - database/factories/SolicitorFactory.php
-    - database/migrations/2022_02_09_130925_create_solicitors_table.php
-    - app/Models/Solicitor.php
-    - database/seeders/SolicitorSeeder.php
-    - tests/Feature/Http/Controllers/SolicitorControllerTest.php
-    - app/Http/Requests/SolicitorStoreRequest.php
-    - app/Http/Requests/SolicitorUpdateRequest.php
-    - app/Http/Resources/SolicitorCollection.php
-    - app/Http/Resources/SolicitorResource.php
+    - app/Http/Controllers/CaseParticipantController.php
+    - database/factories/CaseParticipantFactory.php
+    - database/migrations/2022_02_10_123517_create_case_participants_table.php
+    - app/Models/CaseParticipant.php
+    - tests/Feature/Http/Controllers/CaseParticipantControllerTest.php
+    - app/Http/Requests/CaseParticipantStoreRequest.php
+    - app/Http/Requests/CaseParticipantUpdateRequest.php
+    - app/Http/Resources/CaseParticipantCollection.php
+    - app/Http/Resources/CaseParticipantResource.php
 updated:
     - routes/api.php
 models:
@@ -45,3 +44,4 @@ models:
     CaseOutcome: { name: string, softdeletes: softDeletes }
     LegalDocumentType: { name: string, softdeletes: softDeletes }
     Solicitor: { name: string, office_address: string, contact_name: string, contact_phone: string, location: string, state_id: 'id foreign', softdeletes: softDeletes }
+    CaseParticipant: { name: string, phone_no: string, address: string, email: string, softdeletes: softDeletes }

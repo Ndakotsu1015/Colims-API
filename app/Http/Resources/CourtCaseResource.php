@@ -24,7 +24,9 @@ class CourtCaseResource extends JsonResource
             'handler' => new UserResource($this->whenLoaded('handler')),
             'solicitor' => new SolicitorResource($this->whenLoaded('solicitor')),
             'postedBy' => new UserResource($this->whenLoaded('postedBy')),
-            'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),
+            'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),            
+            'suitParties' => SuitPartyCollection::make($this->whenLoaded('suitParties')),
+            'legalDocuments' => LegalDocumentCollection::make($this->whenLoaded('legalDocuments')),
         ];
     }
 }
