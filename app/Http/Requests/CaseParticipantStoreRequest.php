@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SuitPartyStoreRequest extends FormRequest
+class CaseParticipantStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,10 @@ class SuitPartyStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => ['required', 'string'],
+            'name' => ['required', 'string'],
             'phone_no' => ['required', 'string'],
-            'residential_address' => ['required', 'string'],
-            'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],            
-            'case_participant_id' => ['required', 'integer', 'exists:case_participants,id'],
-            'type' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'email' => ['required', 'email'],
         ];
     }
 }

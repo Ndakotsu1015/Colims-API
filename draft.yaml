@@ -179,12 +179,19 @@ models:
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
+  CaseParticipant:
+    name: string
+    phone_no: string
+    address: text
+    email: string nullable
+    softDeletes
   SuitParty:  
     fullname: string
     phone_no: string
     residential_address: text
-    court_case_id: id foreign
     type: string # (Petitioner | Respondent)
+    court_case_id: id foreign    
+    case_participant_id: id foreign
     softDeletes
   LegalDocument: 
     title: string
@@ -216,7 +223,7 @@ models:
     contact_phone: string
     location: string
     state_id: id foreign
-    softDeletes    
+    softDeletes        
 
 controllers:
   AwardLetter:
@@ -269,6 +276,8 @@ controllers:
     resource: api    
   CourtCase:
     resource: api
+  CaseParticipant:
+    resource: api
   SuitParty:
     resource: api
   LegalDocument:
@@ -280,4 +289,4 @@ controllers:
   Solicitor: 
     resource: api 
 
-seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor
+seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, CaseParticipant, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor

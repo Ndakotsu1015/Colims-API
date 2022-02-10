@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SuitParty extends Model
+class CaseParticipant extends Model
 {
     use HasFactory, SoftDeletes;
-
-    // protected $with = ['courtCase'];
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +16,10 @@ class SuitParty extends Model
      * @var array
      */
     protected $fillable = [
-        'fullname',
+        'name',
         'phone_no',
-        'residential_address',
-        'court_case_id',
-        'case_participant_id',
-        'type',
+        'address',
+        'email',
     ];
 
     /**
@@ -33,17 +29,5 @@ class SuitParty extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'court_case_id' => 'integer',
-        'case_participant_id' => 'integer',
     ];
-
-    public function courtCase()
-    {
-        return $this->belongsTo(CourtCase::class);
-    }
-
-    public function caseParticipant()
-    {
-        return $this->belongsTo(CaseParticipant::class);
-    }
 }
