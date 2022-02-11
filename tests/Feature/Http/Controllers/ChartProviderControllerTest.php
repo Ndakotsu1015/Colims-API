@@ -46,7 +46,7 @@ class ChartProviderControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $chartProviders = ChartProvider::factory()->count(3)->create();
+        $chartProviders = ChartProvider::inRandomOrder()->take(3)->get();
 
         $response = $this->get(route('chart-provider.index'));
 
@@ -94,7 +94,7 @@ class ChartProviderControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $chartProvider = ChartProvider::factory()->create();
+        $chartProvider = ChartProvider::inRandomOrder()->first();
 
         $response = $this->get(route('chart-provider.show', $chartProvider));
 
@@ -120,7 +120,7 @@ class ChartProviderControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $chartProvider = ChartProvider::factory()->create();
+        $chartProvider = ChartProvider::inRandomOrder()->first();
         $chart_provider = $this->faker->word;
 
         $response = $this->put(route('chart-provider.update', $chartProvider), [
@@ -141,7 +141,7 @@ class ChartProviderControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $chartProvider = ChartProvider::factory()->create();
+        $chartProvider = ChartProvider::inRandomOrder()->first();
 
         $response = $this->delete(route('chart-provider.destroy', $chartProvider));
 

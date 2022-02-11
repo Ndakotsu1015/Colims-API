@@ -47,7 +47,7 @@ class ChartTypeControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $chartTypes = ChartType::factory()->count(3)->create();
+        $chartTypes = ChartType::inRandomOrder()->limit(3)->get();
 
         $response = $this->get(route('chart-type.index'));
 
@@ -74,7 +74,7 @@ class ChartTypeControllerTest extends TestCase
     public function store_saves()
     {
         $chart_type = $this->faker->word;
-        $chart_category = ChartCategory::factory()->create();
+        $chart_category = ChartCategory::inRandomOrder()->first();
 
         $response = $this->post(route('chart-type.store'), [
             'chart_type' => $chart_type,
@@ -98,7 +98,7 @@ class ChartTypeControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $chartType = ChartType::factory()->create();
+        $chartType = ChartType::inRandomOrder()->first();
 
         $response = $this->get(route('chart-type.show', $chartType));
 
@@ -124,9 +124,9 @@ class ChartTypeControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $chartType = ChartType::factory()->create();
+        $chartType = ChartType::inRandomOrder()->first();
         $chart_type = $this->faker->word;
-        $chart_category = ChartCategory::factory()->create();
+        $chart_category = ChartCategory::inRandomOrder()->first();
 
         $response = $this->put(route('chart-type.update', $chartType), [
             'chart_type' => $chart_type,
@@ -148,7 +148,7 @@ class ChartTypeControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $chartType = ChartType::factory()->create();
+        $chartType = ChartType::inRandomOrder()->first();
 
         $response = $this->delete(route('chart-type.destroy', $chartType));
 

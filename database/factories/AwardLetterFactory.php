@@ -42,7 +42,7 @@ class AwardLetterFactory extends Factory
             'duration_id' => Duration::factory(),
             'contract_category_id' => ContractCategory::factory(),
             'contractor_id' => Contractor::factory(),
-            'state_id' => State::factory(),
+            'state_id' => State::inRandomOrder()->first(),
             'project_id' => Project::factory(),
             'approved_by' => Employee::factory(),
         ];

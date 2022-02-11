@@ -24,6 +24,7 @@ class DashboardSettingResource extends JsonResource
             'sub_module_id' => $this->sub_module_id,
             'chart_id' => $this->chart_id,
             'data' => DB::select($this->chart->sql_query),
+            'filterColumn' => $this->chart->filter_column,
             'module_id' => $this->module_id,
             'chart_type_id' => $this->chart_type_id,
             'chart_type' => $this->chartType->chart_type,

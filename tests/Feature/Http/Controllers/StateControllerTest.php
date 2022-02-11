@@ -47,7 +47,7 @@ class StateControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $states = State::factory()->count(3)->create();
+        $states = State::inRandomOrder()->take(10)->get();
 
         $response = $this->get(route('state.index'));
 
@@ -95,7 +95,7 @@ class StateControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
 
         $response = $this->get(route('state.show', $state));
 
@@ -121,7 +121,7 @@ class StateControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
         $name = $this->faker->name;        
 
         $response = $this->put(route('state.update', $state), [
@@ -142,7 +142,7 @@ class StateControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
 
         $response = $this->delete(route('state.destroy', $state));
 

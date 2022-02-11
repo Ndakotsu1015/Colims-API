@@ -25,7 +25,7 @@ class ChartTypeFactory extends Factory
     {
         return [
             'chart_type' => $this->faker->word,
-            'chart_category_id' => ChartCategory::factory(),
+            'chart_category_id' => ChartCategory::inRandomOrder()->first(),
         ];
     }
 }

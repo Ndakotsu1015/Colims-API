@@ -81,8 +81,8 @@ class ChartControllerTest extends TestCase
         $is_active = $this->faker->boolean;
         $module = Module::factory()->create();
         $filter_column = $this->faker->word;
-        $chart_type = ChartType::factory()->create();
-        $chart_category = ChartCategory::factory()->create();
+        $chart_type = ChartType::inRandomOrder()->first();
+        $chart_category = ChartCategory::inRandomOrder()->first();
 
         $response = $this->post(route('chart.store'), [
             'chart_title' => $chart_title,
@@ -148,8 +148,8 @@ class ChartControllerTest extends TestCase
         $is_active = $this->faker->boolean;
         $module = Module::factory()->create();
         $filter_column = $this->faker->word;
-        $chart_type = ChartType::factory()->create();
-        $chart_category = ChartCategory::factory()->create();
+        $chart_type = ChartType::inRandomOrder()->first();
+        $chart_category = ChartCategory::inRandomOrder()->first();
 
         $response = $this->put(route('chart.update', $chart), [
             'chart_title' => $chart_title,

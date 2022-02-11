@@ -31,8 +31,8 @@ class ChartFactory extends Factory
             'is_active' => $this->faker->boolean,
             'module_id' => Module::factory(),
             'filter_column' => $this->faker->word,
-            'chart_type_id' => ChartType::factory(),
-            'chart_category_id' => ChartCategory::factory(),
+            'chart_type_id' => ChartType::inRandomOrder()->first(),
+            'chart_category_id' => ChartCategory::inRandomOrder()->first(),
         ];
     }
 }

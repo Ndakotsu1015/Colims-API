@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        $this->call([            
+        // \App\Models\User::factory(10)->create();              
+        $this->call([
+            StateSeeder::class,
             AwardLetterSeeder::class,
             BankReferenceSeeder::class,
             BankSeeder::class,
@@ -44,8 +45,7 @@ class DatabaseSeeder extends Seeder
             CaseRequestMovementSeeder::class,
             CaseRequestSeeder::class,
             ProjectSeeder::class,
-            PropertyTypeSeeder::class,
-            StateSeeder::class,
+            PropertyTypeSeeder::class,            
             SubmoduleSeeder::class,
             CaseParticipantSeeder::class,
             SuitPartySeeder::class,
