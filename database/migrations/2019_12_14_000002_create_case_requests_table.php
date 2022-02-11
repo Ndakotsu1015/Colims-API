@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourtCasesTable extends Migration
+class CreateCaseRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,17 +15,14 @@ class CreateCourtCasesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('court_cases', function (Blueprint $table) {
+        Schema::create('case_requests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('case_no');
+            $table->text('content');
+            $table->string('request_origin');
+            $table->string('memo_file')->nullable();
+            $table->foreignId('initiator_id')->constrained('users');
             $table->string('status');
-            $table->foreignId('handler_id')->constrained('users');
-            $table->foreignId('posted_by')->constrained('users');
-            $table->foreignId('case_status_id')->constrained();  
-            $table->foreignId('case_outcome_id')->constrained(); 
-            $table->foreignId('solicitor_id')->constrained();   //solicitor                     
-            $table->foreignId('case_request_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -40,6 +37,6 @@ class CreateCourtCasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('court_cases');
+        Schema::dropIfExists('case_requests');
     }
 }

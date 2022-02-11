@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\CaseActivity;
 use App\Models\CaseOutcome;
 use App\Models\CourtCase;
+use App\Models\Solicitor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -81,6 +82,7 @@ class CaseActivityControllerTest extends TestCase
         $status = $this->faker->word;
         $location = $this->faker->word;
         $case_outcome = CaseOutcome::factory()->create();
+        $solicitor = Solicitor::factory()->create();
 
         $response = $this->post(route('case-activity.store'), [
             'description' => $description,
@@ -88,7 +90,8 @@ class CaseActivityControllerTest extends TestCase
             'user_id' => $user->id,
             'status' => $status,
             'location' => $location,
-            'case_outcome_id' => $case_outcome->id,
+            'case_outcome_id' => $case_outcome->id,   
+            'solicitor_id' => $solicitor->id,         
         ]);
 
         $caseActivities = CaseActivity::query()
@@ -98,6 +101,7 @@ class CaseActivityControllerTest extends TestCase
             ->where('status', $status)
             ->where('location', $location)
             ->where('case_outcome_id', $case_outcome->id)
+            ->where('solicitor_id', $solicitor->id)
             ->get();
         $this->assertCount(1, $caseActivities);
         $caseActivity = $caseActivities->first();
@@ -145,6 +149,7 @@ class CaseActivityControllerTest extends TestCase
         $status = $this->faker->word;
         $location = $this->faker->word;
         $case_outcome = CaseOutcome::factory()->create();
+        $solicitor = Solicitor::factory()->create();
 
         $response = $this->put(route('case-activity.update', $caseActivity), [
             'description' => $description,
@@ -153,6 +158,7 @@ class CaseActivityControllerTest extends TestCase
             'status' => $status,
             'location' => $location,
             'case_outcome_id' => $case_outcome->id,
+            'solicitor_id' => $solicitor->id,
         ]);
 
         $caseActivity->refresh();
@@ -166,6 +172,7 @@ class CaseActivityControllerTest extends TestCase
         $this->assertEquals($status, $caseActivity->status);
         $this->assertEquals($location, $caseActivity->location);
         $this->assertEquals($case_outcome->id, $caseActivity->case_outcome_id);
+        $this->assertEquals($solicitor->id, $caseActivity->solicitor_id);
     }
 
 

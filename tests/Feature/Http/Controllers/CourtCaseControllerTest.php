@@ -83,7 +83,8 @@ class CourtCaseControllerTest extends TestCase
         $posted_by = User::factory()->create();
         $case_status = CaseStatus::factory()->create();
         $case_outcome = CaseOutcome::factory()->create();    
-        $solicitor = Solicitor::factory()->create();    
+        $solicitor = Solicitor::factory()->create();  
+        $case_request = CaseRequest::factory()->create();;  
 
         $response = $this->post(route('court-case.store'), [
             'title' => $title,
@@ -94,6 +95,7 @@ class CourtCaseControllerTest extends TestCase
             'case_status_id' => $case_status->id,
             'case_outcome_id' => $case_outcome->id,
             'solicitor_id' => $solicitor->id,
+            'case_request_id' => $case_request->id,
         ]);
 
         $courtCases = CourtCase::query()
@@ -104,6 +106,7 @@ class CourtCaseControllerTest extends TestCase
             ->where('posted_by', $posted_by->id)
             ->where('case_status_id', $case_status->id)
             ->where('case_outcome_id', $case_outcome->id)
+            ->where('case_request_id', $case_request->id)
             ->where('solicitor_id', $solicitor->id)
             ->get();
         $this->assertCount(1, $courtCases);
@@ -154,6 +157,7 @@ class CourtCaseControllerTest extends TestCase
         $case_status = CaseStatus::factory()->create();
         $case_outcome = CaseOutcome::factory()->create();
         $solicitor = Solicitor::factory()->create();
+        $case_request = CaseRequest::foctory()->create();
 
         $response = $this->put(route('court-case.update', $courtCase), [
             'title' => $title,
@@ -164,6 +168,7 @@ class CourtCaseControllerTest extends TestCase
             'case_status_id' => $case_status->id,
             'case_outcome_id' => $case_outcome->id,
             'solicitor_id' => $solicitor->id,
+            'case_request_id' => $case_request->id,
         ]);
 
         $courtCase->refresh();
@@ -178,7 +183,8 @@ class CourtCaseControllerTest extends TestCase
         $this->assertEquals($posted_by->id, $courtCase->posted_by);
         $this->assertEquals($case_status->id, $courtCase->case_status_id);
         $this->assertEquals($case_outcome->id, $courtCase->case_outcome_id);  
-        $this->assertEquals($solicitor->id, $solicitor->solicitor_id);                
+        $this->assertEquals($solicitor->id, $solicitor->solicitor_id);     
+        $this->assertEquals($case_request->id, $courtCase->case_request_id);                  
     }
 
 

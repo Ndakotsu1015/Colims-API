@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\AwardLetterController;
 use App\Http\Controllers\BankReferenceController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
 
+    Route::apiResource('users', App\Http\Controllers\UserController::class);
+
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');
@@ -116,6 +119,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/award-letters-check-ref-no/{ref_no}', [AwardLetterController::class, 'checkRefNo'])->name('check-ref-no');
 
     Route::get('/bank-reference-check-ref-no/{ref_no}', [BankReferenceController::class, 'checkRefNo'])->name('check-ref-no');
+
+    Route::get('/email-check/{email}', [UserController::class, 'emailCheck'])->name('email-check');
     
     Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
     
@@ -128,6 +133,10 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('solicitors', App\Http\Controllers\SolicitorController::class);
 
     Route::apiResource('case-participants', App\Http\Controllers\CaseParticipantController::class);
+
+    Route::apiResource('case-requests', App\Http\Controllers\CaseRequestController::class);
+
+    Route::apiResource('case-request-movement', App\Http\Controllers\CaseRequestMovementController::class); 
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
