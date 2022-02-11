@@ -17,7 +17,7 @@ class CaseActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $caseActivities = CaseActivity::with('courtCase', 'user', 'caseOutcome')->get();
+        $caseActivities = CaseActivity::with('courtCase', 'user', 'caseOutcome', 'solicitor')->get();
 
         return new CaseActivityCollection($caseActivities);
     }
@@ -30,7 +30,7 @@ class CaseActivityController extends Controller
     {
         $caseActivity = CaseActivity::create($request->validated());
 
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome', 'solicitor'));
     }
 
     /**
@@ -40,7 +40,7 @@ class CaseActivityController extends Controller
      */
     public function show(Request $request, CaseActivity $caseActivity)
     {
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome', 'solicitor'));
     }
 
     /**
@@ -52,7 +52,7 @@ class CaseActivityController extends Controller
     {
         $caseActivity->update($request->validated());
 
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome', 'solicitor'));
     }
 
     /**

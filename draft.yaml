@@ -23,6 +23,20 @@ models:
     menu_id: id foreign
     privilege_id: id foreign
     softDeletes
+  CaseRequest:
+    title: string
+    content: text
+    request_origin: string
+    memo_file: string nullable
+    initiator_id: id foreign:user.id
+    status: string
+    softDeletes
+  CaseRequestMovement:
+    case_request_id: id foreign
+    user_id: id foreign
+    forward_to: id foreign:user.id
+    notes: text
+    softDeletes
   Project:
     name: string
     project_code: string
@@ -248,6 +262,10 @@ controllers:
     resource: api
   Module:
     resource: api
+  CaseRequest:
+    resource: api
+  CaseRequestMovement:
+    resource: api
   Project:
     resource: api
   PropertyType:
@@ -289,4 +307,4 @@ controllers:
   Solicitor: 
     resource: api 
 
-seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, CaseParticipant, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor
+seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, CaseRequest,CaseRequestMovement, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, CaseParticipant, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor
