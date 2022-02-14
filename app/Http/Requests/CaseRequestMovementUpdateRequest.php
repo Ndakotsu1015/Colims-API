@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CaseActivityUpdateRequest extends FormRequest
+class CaseRequestMovementUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,10 @@ class CaseActivityUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => ['required', 'string'],
-            'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
+            'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
             'user_id' => ['required', 'integer', 'exists:users,id'],
-            'status' => ['required', 'string'],
-            'location' => ['required', 'string'],
-            'case_outcome_id' => ['required', 'integer', 'exists:case_outcomes,id'],
-            'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
+            'forward_to' => ['required'],
+            'notes' => ['required', 'string'],
         ];
     }
 }

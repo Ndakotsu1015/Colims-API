@@ -1,13 +1,24 @@
 created:
-    - app/Http/Controllers/CaseParticipantController.php
-    - database/factories/CaseParticipantFactory.php
-    - database/migrations/2022_02_10_123517_create_case_participants_table.php
-    - app/Models/CaseParticipant.php
-    - tests/Feature/Http/Controllers/CaseParticipantControllerTest.php
-    - app/Http/Requests/CaseParticipantStoreRequest.php
-    - app/Http/Requests/CaseParticipantUpdateRequest.php
-    - app/Http/Resources/CaseParticipantCollection.php
-    - app/Http/Resources/CaseParticipantResource.php
+    - app/Http/Controllers/CaseRequestController.php
+    - app/Http/Controllers/CaseRequestMovementController.php
+    - database/factories/CaseRequestFactory.php
+    - database/factories/CaseRequestMovementFactory.php
+    - database/migrations/2022_02_11_121050_create_case_requests_table.php
+    - database/migrations/2022_02_11_121051_create_case_request_movements_table.php
+    - app/Models/CaseRequest.php
+    - app/Models/CaseRequestMovement.php
+    - database/seeders/CaseRequestSeeder.php
+    - database/seeders/CaseRequestMovementSeeder.php
+    - tests/Feature/Http/Controllers/CaseRequestControllerTest.php
+    - tests/Feature/Http/Controllers/CaseRequestMovementControllerTest.php
+    - app/Http/Requests/CaseRequestStoreRequest.php
+    - app/Http/Requests/CaseRequestUpdateRequest.php
+    - app/Http/Requests/CaseRequestMovementStoreRequest.php
+    - app/Http/Requests/CaseRequestMovementUpdateRequest.php
+    - app/Http/Resources/CaseRequestCollection.php
+    - app/Http/Resources/CaseRequestResource.php
+    - app/Http/Resources/CaseRequestMovementCollection.php
+    - app/Http/Resources/CaseRequestMovementResource.php
 updated:
     - routes/api.php
 models:
@@ -45,3 +56,5 @@ models:
     LegalDocumentType: { name: string, softdeletes: softDeletes }
     Solicitor: { name: string, office_address: string, contact_name: string, contact_phone: string, location: string, state_id: 'id foreign', softdeletes: softDeletes }
     CaseParticipant: { name: string, phone_no: string, address: string, email: string, softdeletes: softDeletes }
+    CaseRequest: { title: string, content: text, request_origin: string, memo_file: 'string nullable', initiator_id: 'id foreign:user.id', status: string, softdeletes: softDeletes }
+    CaseRequestMovement: { case_request_id: 'id foreign', user_id: 'id foreign', forward_to: 'id foreign:user.id', notes: text, softdeletes: softDeletes }

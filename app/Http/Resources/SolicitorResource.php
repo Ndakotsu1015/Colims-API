@@ -21,7 +21,7 @@ class SolicitorResource extends JsonResource
             'contact_name' => $this->contact_name,
             'contact_phone' => $this->contact_phone,
             'location' => $this->location,
-            'state_id' => $this->state_id,
+            'state' => new StateResource($this->whenLoaded('state')),
         ];
     }
 }

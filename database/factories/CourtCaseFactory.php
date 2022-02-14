@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CaseOutcome;
+use App\Models\CaseRequest;
 use App\Models\CaseStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -35,6 +36,7 @@ class CourtCaseFactory extends Factory
             'case_status_id' => CaseStatus::factory(),
             'case_outcome_id' => CaseOutcome::factory(),
             'solicitor_id' => Solicitor::factory(),
+            'case_request_id' => CaseRequest::factory(),         
         ];
     }
 }

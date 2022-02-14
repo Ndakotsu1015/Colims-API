@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCaseActivitiesTable extends Migration
+class CreateCaseRequestMovementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,15 +15,12 @@ class CreateCaseActivitiesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('case_activities', function (Blueprint $table) {
+        Schema::create('case_request_movements', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
-            $table->foreignId('court_case_id')->constrained();
+            $table->foreignId('case_request_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('case_outcome_id')->constrained();
-            $table->foreignId('solicitor_id')->constrained();
-            $table->string('status');
-            $table->string('location');
+            $table->foreignId('forward_to')->constrained('users');
+            $table->text('notes');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -38,6 +35,6 @@ class CreateCaseActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('case_activities');
+        Schema::dropIfExists('case_request_movements');
     }
 }
