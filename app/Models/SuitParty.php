@@ -22,6 +22,7 @@ class SuitParty extends Model
         'phone_no',
         'residential_address',
         'court_case_id',
+        'case_participant_id',
         'type',
     ];
 
@@ -33,10 +34,16 @@ class SuitParty extends Model
     protected $casts = [
         'id' => 'integer',
         'court_case_id' => 'integer',
+        'case_participant_id' => 'integer',
     ];
 
     public function courtCase()
     {
         return $this->belongsTo(CourtCase::class);
+    }
+
+    public function caseParticipant()
+    {
+        return $this->belongsTo(CaseParticipant::class);
     }
 }

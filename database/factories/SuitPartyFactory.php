@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\CaseParticipant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\CourtCase;
@@ -28,6 +29,7 @@ class SuitPartyFactory extends Factory
             'phone_no' => $this->faker->word,
             'residential_address' => $this->faker->text,
             'court_case_id' => CourtCase::factory(),
+            'case_participant_id' => CaseParticipant::factory(),
             'type' => $this->faker->word,
         ];
     }

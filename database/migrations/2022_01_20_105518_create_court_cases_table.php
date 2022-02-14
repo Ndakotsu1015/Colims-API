@@ -24,6 +24,8 @@ class CreateCourtCasesTable extends Migration
             $table->foreignId('posted_by')->constrained('users');
             $table->foreignId('case_status_id')->constrained();  
             $table->foreignId('case_outcome_id')->constrained(); 
+            $table->foreignId('solicitor_id')->constrained();   //solicitor                     
+            $table->foreignId('case_request_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

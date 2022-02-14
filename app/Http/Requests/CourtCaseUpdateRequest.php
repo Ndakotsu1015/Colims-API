@@ -30,6 +30,8 @@ class CourtCaseUpdateRequest extends FormRequest
             'handler_id' => ['required', 'integer', 'exists:users,id'],
             'posted_by' => ['required'],
             'case_outcome_id' => ['required', 'integer', 'exists:case_outcomes,id'],
+            'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
+            'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
             'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
         ];
     }

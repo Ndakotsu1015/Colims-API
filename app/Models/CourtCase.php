@@ -25,6 +25,8 @@ class CourtCase extends Model
         'posted_by',
         'case_status_id',
         'case_outcome_id',
+        'solicitor_id',
+        'case_request_id',
     ];
 
     /**
@@ -38,6 +40,8 @@ class CourtCase extends Model
         'posted_by' => 'integer',
         'case_status_id' => 'integer',
         'case_outcome_id' => 'integer',
+        'solicitor_id' => 'integer',
+        'case_request_id' => 'integer',
     ];
 
     public function suitParties()
@@ -73,5 +77,15 @@ class CourtCase extends Model
     public function caseOutcome()
     {
         return $this->belongsTo(CaseOutcome::class, 'case_outcome_id');
-    }    
+    } 
+    
+    public function solicitor()
+    {
+        return $this->belongsTo(Solicitor::class);
+    }
+
+    public function caseRequest()
+    {
+        return $this->belongsTo(CaseRequest::class);
+    }
 }

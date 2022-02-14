@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\CaseParticipant;
+use App\Models\CaseRequestMovement;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();              
         $this->call([
             StateSeeder::class,
             AwardLetterSeeder::class,
@@ -39,10 +41,13 @@ class DatabaseSeeder extends Seeder
             ModuleSeeder::class,
             PrivilegeClassSeeder::class,
             PrivilegeDetailSeeder::class,
-            PrivilegeSeeder::class,
+            PrivilegeSeeder::class,            
+            CaseRequestMovementSeeder::class,
+            CaseRequestSeeder::class,
             ProjectSeeder::class,
             PropertyTypeSeeder::class,            
             SubmoduleSeeder::class,
+            CaseParticipantSeeder::class,
             SuitPartySeeder::class,
             CaseStatusSeeder::class,
             CaseOutcomeSeeder::class,

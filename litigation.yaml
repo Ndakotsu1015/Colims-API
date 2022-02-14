@@ -1,4 +1,18 @@
 models:
+  CaseRequest:
+    title: string
+    content: text
+    request_origin: string
+    memo_file: string nullable
+    initiator_id: id foreign:user.id
+    status: string
+    softDeletes
+  CaseRequestMovement:
+    case_request_id: id foreign
+    user_id: id foreign
+    forward_to: id foreign:user.id
+    notes: text
+    softDeletes
   CourtCase: 
     title: string
     case_no: string unique
@@ -6,6 +20,7 @@ models:
     case_outcome_id: id foreign # adjourned | case-closed | missed-trial |  old
     handler_id: id foreign:user.id  
     posted_by: id foreign:user.id
+    case_request_id: id foreign
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
@@ -37,6 +52,7 @@ models:
     court_case_id: id foreign
     user_id: id foreign    
     case_outcome_id: id foreign # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed | settled-out-of-court) old
+    solicitor_id: id foreign
     location: string
     softDeletes
     relationships:
@@ -61,9 +77,13 @@ controllers:
   CaseActivity:
     resource: api
   CalendarEvent:
-    resource: api    
+    resource: api  
+  CaseRequest:
+    resource: api
+  CaseRequestMovement:
+    resource: api  
 
-seeders: CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent
+seeders: CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent, CaseRequest, CaseRequestMovement, CaseStatus, CaseOutcome
 
 
     

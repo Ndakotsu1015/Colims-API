@@ -23,6 +23,20 @@ models:
     menu_id: id foreign
     privilege_id: id foreign
     softDeletes
+  CaseRequest:
+    title: string
+    content: text
+    request_origin: string
+    memo_file: string nullable
+    initiator_id: id foreign:user.id
+    status: string
+    softDeletes
+  CaseRequestMovement:
+    case_request_id: id foreign
+    user_id: id foreign
+    forward_to: id foreign:user.id
+    notes: text
+    softDeletes
   Project:
     name: string
     project_code: string
@@ -175,15 +189,23 @@ models:
     status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
     handler_id: id foreign:user.id  
     posted_by: id foreign:user.id
+    solicitor_id: id foreign
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
+  CaseParticipant:
+    name: string
+    phone_no: string
+    address: text
+    email: string nullable
+    softDeletes
   SuitParty:  
     fullname: string
     phone_no: string
     residential_address: text
-    court_case_id: id foreign
     type: string # (Petitioner | Respondent)
+    court_case_id: id foreign    
+    case_participant_id: id foreign
     softDeletes
   LegalDocument: 
     title: string
@@ -208,6 +230,15 @@ models:
     posted_by: id foreign:user.id
     court_case_id: id foreign
     softDeletes
+  Solicitor:
+    name: string
+    office_address: string
+    contact_name: string
+    contact_phone: string
+    location: string
+    state_id: id foreign
+    softDeletes        
+
 controllers:
   AwardLetter:
     resource: api
@@ -230,6 +261,10 @@ controllers:
   DashboardSetting:
     resource: api
   Module:
+    resource: api
+  CaseRequest:
+    resource: api
+  CaseRequestMovement:
     resource: api
   Project:
     resource: api
@@ -259,6 +294,8 @@ controllers:
     resource: api    
   CourtCase:
     resource: api
+  CaseParticipant:
+    resource: api
   SuitParty:
     resource: api
   LegalDocument:
@@ -266,6 +303,8 @@ controllers:
   CaseActivity:
     resource: api
   CalendarEvent:
-    resource: api    
+    resource: api   
+  Solicitor: 
+    resource: api 
 
-seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent
+seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, CaseRequest,CaseRequestMovement, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, CaseParticipant, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor

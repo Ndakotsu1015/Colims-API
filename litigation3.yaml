@@ -1,0 +1,21 @@
+models:
+  CaseRequest:
+    title: string
+    content: text
+    request_origin: string
+    memo_file: string nullable
+    initiator_id: id foreign:user.id
+    status: string
+    softDeletes
+  CaseRequestMovement:
+    case_request_id: id foreign
+    user_id: id foreign
+    forward_to: id foreign:user.id
+    notes: text
+    softDeletes
+controllers:
+  CaseRequest:
+    resource: api
+  CaseRequestMovement:
+    resource: api
+seeders: CaseRequest,CaseRequestMovement

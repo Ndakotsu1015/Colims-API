@@ -28,6 +28,7 @@ class SuitPartyUpdateRequest extends FormRequest
             'phone_no' => ['required', 'string'],
             'residential_address' => ['required', 'string'],
             'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
+            'case_participant_id' => ['required', 'integer', 'exists:case_participants,id'],
             'type' => ['required', 'string'],
         ];
     }

@@ -19,7 +19,8 @@ class SuitPartyResource extends JsonResource
             'fullname' => $this->fullname,
             'phone_no' => $this->phone_no,
             'residential_address' => $this->residential_address,
-            'courtCourt' => new CourtCaseResource($this->whenLoaded('courtCourt')),
+            'courtCase' => new CourtCaseResource($this->whenLoaded('courtCase')),
+            'caseParticipant' => new CaseParticipantResource($this->whenLoaded('caseParticipant')),
             'type' => $this->type,
         ];
     }
