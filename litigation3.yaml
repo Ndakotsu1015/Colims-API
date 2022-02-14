@@ -4,7 +4,8 @@ models:
     content: text
     request_origin: string
     memo_file: string nullable
-    initiator_id: id foreign:user.id
+    initiator_id: id foreign:user.id 
+    case_reviewer_id: id foreign:user.id 
     status: string
     softDeletes
   CaseRequestMovement:

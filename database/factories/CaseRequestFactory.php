@@ -29,6 +29,7 @@ class CaseRequestFactory extends Factory
             'request_origin' => $this->faker->word,
             'memo_file' => $this->faker->word,
             'initiator_id' => User::factory(),
+            'case_reviewer_id' => User::factory(),
             'status' => $this->faker->word,
         ];
     }
