@@ -22,6 +22,7 @@ class CaseRequestResource extends JsonResource
             'memo_file' => $this->memo_file,
             'initiator' => new UserResource($this->whenLoaded('initiator')),
             'status' => $this->status,
+            'created_at' =>$this->created_at,
         ];
     }
 }
