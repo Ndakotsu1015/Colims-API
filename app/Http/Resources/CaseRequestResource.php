@@ -21,6 +21,7 @@ class CaseRequestResource extends JsonResource
             'request_origin' => $this->request_origin,
             'memo_file' => $this->memo_file,
             'initiator' => new UserResource($this->whenLoaded('initiator')),
+            'caseReviewer' => new UserResource($this->whenLoaded('caseReviewer')),
             'status' => $this->status,
             'created_at' =>$this->created_at,
         ];

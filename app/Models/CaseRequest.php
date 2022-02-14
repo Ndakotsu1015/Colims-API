@@ -21,6 +21,7 @@ class CaseRequest extends Model
         'request_origin',
         'memo_file',
         'initiator_id',
+        'case_reviewer_id',
         'status',
     ];
 
@@ -32,10 +33,16 @@ class CaseRequest extends Model
     protected $casts = [
         'id' => 'integer',
         'initiator_id' => 'integer',
+        'case_reviewer_id' => 'integer',
     ];
 
     public function initiator()
     {
         return $this->belongsTo(User::class, 'initiator_id');
+    }
+
+    public function caseReviewer()
+    {
+        return $this->belongsTo(User::class, 'case_reviewer_id');
     }
 }

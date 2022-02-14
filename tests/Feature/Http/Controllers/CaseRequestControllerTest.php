@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\CaseRequest;
 use App\Models\Initiator;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -50,7 +51,8 @@ class CaseRequestControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $content = $this->faker->paragraphs(3, true);
         $request_origin = $this->faker->word;
-        $initiator = Initiator::factory()->create();
+        $initiator = User::factory()->create();
+        $caseReviewer = User::factory()->create();
         $status = $this->faker->word;
 
         $response = $this->post(route('case-request.store'), [
@@ -58,6 +60,7 @@ class CaseRequestControllerTest extends TestCase
             'content' => $content,
             'request_origin' => $request_origin,
             'initiator_id' => $initiator->id,
+            'case_reviewer_id' => $caseReviewer->id,
             'status' => $status,
         ]);
 
@@ -66,6 +69,7 @@ class CaseRequestControllerTest extends TestCase
             ->where('content', $content)
             ->where('request_origin', $request_origin)
             ->where('initiator_id', $initiator->id)
+            ->where('case_reviewer_id', $caseReviewer->id)
             ->where('status', $status)
             ->get();
         $this->assertCount(1, $caseRequests);
@@ -111,7 +115,8 @@ class CaseRequestControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $content = $this->faker->paragraphs(3, true);
         $request_origin = $this->faker->word;
-        $initiator = Initiator::factory()->create();
+        $initiator = User::factory()->create();
+        $caseReviewer = User::factory()->create();
         $status = $this->faker->word;
 
         $response = $this->put(route('case-request.update', $caseRequest), [
@@ -119,6 +124,7 @@ class CaseRequestControllerTest extends TestCase
             'content' => $content,
             'request_origin' => $request_origin,
             'initiator_id' => $initiator->id,
+            'case_reviewer_id' => $caseReviewer->id,
             'status' => $status,
         ]);
 
@@ -131,6 +137,7 @@ class CaseRequestControllerTest extends TestCase
         $this->assertEquals($content, $caseRequest->content);
         $this->assertEquals($request_origin, $caseRequest->request_origin);
         $this->assertEquals($initiator->id, $caseRequest->initiator_id);
+        $this->assertEquals($caseReviewer->id, $caseRequest->case_reviewer_id);
         $this->assertEquals($status, $caseRequest->status);
     }
 
