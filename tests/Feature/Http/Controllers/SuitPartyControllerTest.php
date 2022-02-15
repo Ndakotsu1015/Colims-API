@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\CaseParticipant;
 use App\Models\CourtCase;
 use App\Models\SuitParty;
 use App\Models\User;
@@ -26,7 +27,7 @@ class SuitPartyControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -50,7 +51,7 @@ class SuitPartyControllerTest extends TestCase
     {
         $suitParties = SuitParty::factory()->count(3)->create();
 
-        $response = $this->get(route('suit-party.index'));
+        $response = $this->get(route('suit-parties.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -73,27 +74,18 @@ class SuitPartyControllerTest extends TestCase
      * @test
      */
     public function store_saves()
-    {
-        $fullname = $this->faker->word;
-        $phone_no = $this->faker->word;
-        $residential_address = $this->faker->text;
-        $court_case = CourtCase::factory()->create();
-        $case_participant = CourtCase::factory()->create();
+    {        
+        $court_case = CourtCase::inRandomOrder()->first();
+        $case_participant = CaseParticipant::inRandomOrder()->first();
         $type = $this->faker->word;
 
-        $response = $this->post(route('suit-party.store'), [
-            'fullname' => $fullname,
-            'phone_no' => $phone_no,
-            'residential_address' => $residential_address,
+        $response = $this->post(route('suit-parties.store'), [            
             'court_case_id' => $court_case->id,
             'case_participant_id' => $case_participant->id,
             'type' => $type,
         ]);
 
-        $suitParties = SuitParty::query()
-            ->where('fullname', $fullname)
-            ->where('phone_no', $phone_no)
-            ->where('residential_address', $residential_address)
+        $suitParties = SuitParty::query()           
             ->where('court_case_id', $court_case->id)
             ->where('case_participant_id', $case_participant->id)
             ->where('type', $type)
@@ -113,7 +105,7 @@ class SuitPartyControllerTest extends TestCase
     {
         $suitParty = SuitParty::factory()->create();
 
-        $response = $this->get(route('suit-party.show', $suitParty));
+        $response = $this->get(route('suit-parties.show', $suitParty));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -137,18 +129,13 @@ class SuitPartyControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $suitParty = SuitParty::factory()->create();
-        $fullname = $this->faker->word;
-        $phone_no = $this->faker->word;
-        $residential_address = $this->faker->text;
-        $court_case = CourtCase::factory()->create();
-        $case_participant = CourtCase::factory()->create();
+        $suitParty = SuitParty::inRandomOrder()->first();
+        
+        $court_case = CourtCase::inRandomOrder()->first();
+        $case_participant = CaseParticipant::inRandomOrder()->first();
         $type = $this->faker->word;
 
-        $response = $this->put(route('suit-party.update', $suitParty), [
-            'fullname' => $fullname,
-            'phone_no' => $phone_no,
-            'residential_address' => $residential_address,
+        $response = $this->put(route('suit-parties.update', $suitParty), [            
             'court_case_id' => $court_case->id,
             'case_participant_id' => $case_participant->id,
             'type' => $type,
@@ -158,12 +145,10 @@ class SuitPartyControllerTest extends TestCase
 
         $response->assertOk();
         $response->assertJsonStructure([]);
-
-        $this->assertEquals($fullname, $suitParty->fullname);
-        $this->assertEquals($phone_no, $suitParty->phone_no);
-        $this->assertEquals($residential_address, $suitParty->residential_address);
+       
         $this->assertEquals($court_case->id, $suitParty->court_case_id);
         $this->assertEquals($type, $suitParty->type);
+        $this->assertEquals($case_participant->id, $suitParty->case_participant_id);
     }
 
 
@@ -174,7 +159,7 @@ class SuitPartyControllerTest extends TestCase
     {
         $suitParty = SuitParty::factory()->create();
 
-        $response = $this->delete(route('suit-party.destroy', $suitParty));
+        $response = $this->delete(route('suit-parties.destroy', $suitParty));
 
         $response->assertNoContent();
 

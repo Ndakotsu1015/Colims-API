@@ -17,5 +17,5 @@ POST http://localhost:8000/api/award-letter HTTP/1.1
 }
 
 ###
-GET http://localhost:8000/api/check-ref-no/1 HTTP/1.1
-Authorization: Bearer 3|6IlbFvA7XjoVvbTBGRRnHOJQMZIE7pTBmzcMazju
+GET http://localhost:8000/api/case-requests HTTP/1.1
+Authorization: Bearer 2|CtAVtOUpH4S2m06knpGJ57pmtCD6MSwBgJOeo6yh

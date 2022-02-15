@@ -17,10 +17,7 @@ class SuitParty extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'fullname',
-        'phone_no',
-        'residential_address',
+    protected $fillable = [        
         'court_case_id',
         'case_participant_id',
         'type',

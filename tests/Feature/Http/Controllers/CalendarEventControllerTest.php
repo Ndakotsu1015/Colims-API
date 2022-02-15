@@ -27,7 +27,7 @@ class CalendarEventControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -51,7 +51,7 @@ class CalendarEventControllerTest extends TestCase
     {
         $calendarEvents = CalendarEvent::factory()->count(3)->create();
 
-        $response = $this->get(route('calendar-event.index'));
+        $response = $this->get(route('calendar-events.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -79,10 +79,10 @@ class CalendarEventControllerTest extends TestCase
         $location = $this->faker->word;
         $start_time = $this->faker->dateTime();
         $end_time = $this->faker->dateTime();
-        $posted_by = User::factory()->create();
-        $court_case = CourtCase::factory()->create();
+        $posted_by = User::inRandomOrder()->first();
+        $court_case = CourtCase::inRandomOrder()->first();
 
-        $response = $this->post(route('calendar-event.store'), [
+        $response = $this->post(route('calendar-events.store'), [
             'description' => $description,
             'location' => $location,
             'start_time' => $start_time,
@@ -114,7 +114,7 @@ class CalendarEventControllerTest extends TestCase
     {
         $calendarEvent = CalendarEvent::factory()->create();
 
-        $response = $this->get(route('calendar-event.show', $calendarEvent));
+        $response = $this->get(route('calendar-events.show', $calendarEvent));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -138,15 +138,15 @@ class CalendarEventControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $calendarEvent = CalendarEvent::factory()->create();
+        $calendarEvent = CalendarEvent::inRandomOrder()->first();
         $description = $this->faker->text;
         $location = $this->faker->word;
         $start_time = $this->faker->dateTime();
         $end_time = $this->faker->dateTime();
-        $posted_by = User::factory()->create();
-        $court_case = CourtCase::factory()->create();
+        $posted_by = User::inRandomOrder()->first();
+        $court_case = CourtCase::inRandomOrder()->first();
 
-        $response = $this->put(route('calendar-event.update', $calendarEvent), [
+        $response = $this->put(route('calendar-events.update', $calendarEvent), [
             'description' => $description,
             'location' => $location,
             'start_time' => $start_time,
@@ -176,7 +176,7 @@ class CalendarEventControllerTest extends TestCase
     {
         $calendarEvent = CalendarEvent::factory()->create();
 
-        $response = $this->delete(route('calendar-event.destroy', $calendarEvent));
+        $response = $this->delete(route('calendar-events.destroy', $calendarEvent));
 
         $response->assertNoContent();
 

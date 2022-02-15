@@ -28,7 +28,7 @@ class CaseActivityControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -52,7 +52,7 @@ class CaseActivityControllerTest extends TestCase
     {
         $caseActivities = CaseActivity::factory()->count(3)->create();
 
-        $response = $this->get(route('case-activity.index'));
+        $response = $this->get(route('case-activities.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -77,14 +77,14 @@ class CaseActivityControllerTest extends TestCase
     public function store_saves()
     {
         $description = $this->faker->text;
-        $court_case = CourtCase::factory()->create();
-        $user = User::factory()->create();        
+        $court_case = CourtCase::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();     
         $status = $this->faker->word;
         $location = $this->faker->word;
-        $case_outcome = CaseOutcome::factory()->create();
-        $solicitor = Solicitor::factory()->create();
+        $case_outcome = CaseOutcome::inRandomOrder()->first();
+        $solicitor = Solicitor::inRandomOrder()->first();
 
-        $response = $this->post(route('case-activity.store'), [
+        $response = $this->post(route('case-activities.store'), [
             'description' => $description,
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
@@ -118,7 +118,7 @@ class CaseActivityControllerTest extends TestCase
     {
         $caseActivity = CaseActivity::factory()->create();
 
-        $response = $this->get(route('case-activity.show', $caseActivity));
+        $response = $this->get(route('case-activities.show', $caseActivity));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -142,16 +142,16 @@ class CaseActivityControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $caseActivity = CaseActivity::factory()->create();
+        $caseActivity = CaseActivity::inRandomOrder()->first();
         $description = $this->faker->text;
-        $court_case = CourtCase::factory()->create();
-        $user = User::factory()->create();
+        $court_case = CourtCase::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
         $status = $this->faker->word;
         $location = $this->faker->word;
-        $case_outcome = CaseOutcome::factory()->create();
-        $solicitor = Solicitor::factory()->create();
+        $case_outcome = CaseOutcome::inRandomOrder()->first();
+        $solicitor = Solicitor::inRandomOrder()->first();
 
-        $response = $this->put(route('case-activity.update', $caseActivity), [
+        $response = $this->put(route('case-activities.update', $caseActivity), [
             'description' => $description,
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
@@ -183,7 +183,7 @@ class CaseActivityControllerTest extends TestCase
     {
         $caseActivity = CaseActivity::factory()->create();
 
-        $response = $this->delete(route('case-activity.destroy', $caseActivity));
+        $response = $this->delete(route('case-activities.destroy', $caseActivity));
 
         $response->assertNoContent();
 

@@ -24,7 +24,7 @@ class CaseRequestControllerTest extends TestCase
     {
         $caseRequests = CaseRequest::factory()->count(3)->create();
 
-        $response = $this->get(route('case-request.index'));
+        $response = $this->get(route('case-requests.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -51,11 +51,11 @@ class CaseRequestControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $content = $this->faker->paragraphs(3, true);
         $request_origin = $this->faker->word;
-        $initiator = User::factory()->create();
-        $caseReviewer = User::factory()->create();
+        $initiator = User::inRandomOrder()->first();
+        $caseReviewer = User::inRandomOrder()->first();
         $status = $this->faker->word;
 
-        $response = $this->post(route('case-request.store'), [
+        $response = $this->post(route('case-requests.store'), [
             'title' => $title,
             'content' => $content,
             'request_origin' => $request_origin,
@@ -87,7 +87,7 @@ class CaseRequestControllerTest extends TestCase
     {
         $caseRequest = CaseRequest::factory()->create();
 
-        $response = $this->get(route('case-request.show', $caseRequest));
+        $response = $this->get(route('case-requests.show', $caseRequest));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -111,15 +111,15 @@ class CaseRequestControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $caseRequest = CaseRequest::factory()->create();
+        $caseRequest = CaseRequest::inRandomOrder()->first();
         $title = $this->faker->sentence(4);
         $content = $this->faker->paragraphs(3, true);
         $request_origin = $this->faker->word;
-        $initiator = User::factory()->create();
-        $caseReviewer = User::factory()->create();
+        $initiator = User::inRandomOrder()->first();
+        $caseReviewer = User::inRandomOrder()->first();
         $status = $this->faker->word;
 
-        $response = $this->put(route('case-request.update', $caseRequest), [
+        $response = $this->put(route('case-requests.update', $caseRequest), [
             'title' => $title,
             'content' => $content,
             'request_origin' => $request_origin,
@@ -149,7 +149,7 @@ class CaseRequestControllerTest extends TestCase
     {
         $caseRequest = CaseRequest::factory()->create();
 
-        $response = $this->delete(route('case-request.destroy', $caseRequest));
+        $response = $this->delete(route('case-requests.destroy', $caseRequest));
 
         $response->assertNoContent();
 

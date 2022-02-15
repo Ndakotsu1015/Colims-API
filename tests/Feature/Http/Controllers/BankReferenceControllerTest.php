@@ -27,7 +27,7 @@ class BankReferenceControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -50,7 +50,7 @@ class BankReferenceControllerTest extends TestCase
     {
         $bankReferences = BankReference::factory()->count(3)->create();
 
-        $response = $this->get(route('bank-reference.index'));
+        $response = $this->get(route('bank-references.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -75,13 +75,13 @@ class BankReferenceControllerTest extends TestCase
     public function store_saves()
     {
         $reference_date = $this->faker->dateTime();        
-        $reference_no = $this->faker->randomNumber();
+        $reference_no = $this->faker->unique()->asciify("ref****");
         $created_by = $this->faker->randomNumber();
         $in_name_of = $this->faker->word;
-        $award_letter = AwardLetter::factory()->create();
-        $affiliate = ContractorAffliate::factory()->create();
+        $award_letter = AwardLetter::inRandomOrder()->first();
+        $affiliate = ContractorAffliate::inRandomOrder()->first();
 
-        $response = $this->post(route('bank-reference.store'), [
+        $response = $this->post(route('bank-references.store'), [
             'reference_date' => $reference_date,            
             'reference_no' => $reference_no,
             'created_by' => $created_by,
@@ -113,7 +113,7 @@ class BankReferenceControllerTest extends TestCase
     {
         $bankReference = BankReference::factory()->create();
 
-        $response = $this->get(route('bank-reference.show', $bankReference));
+        $response = $this->get(route('bank-references.show', $bankReference));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -137,15 +137,15 @@ class BankReferenceControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $bankReference = BankReference::factory()->create();
+        $bankReference = BankReference::inRandomOrder()->first();
         $reference_date = $this->faker->dateTime();        
         $reference_no = $this->faker->randomNumber();
         $created_by = $this->faker->randomNumber();
         $in_name_of = $this->faker->word;
-        $award_letter = AwardLetter::factory()->create();
-        $affiliate = ContractorAffliate::factory()->create();
+        $award_letter = AwardLetter::inRandomOrder()->first();
+        $affiliate = ContractorAffliate::inRandomOrder()->first();
 
-        $response = $this->put(route('bank-reference.update', $bankReference), [
+        $response = $this->put(route('bank-references.update', $bankReference), [
             'reference_date' => $reference_date,            
             'reference_no' => $reference_no,
             'created_by' => $created_by,
@@ -175,7 +175,7 @@ class BankReferenceControllerTest extends TestCase
     {
         $bankReference = BankReference::factory()->create();
 
-        $response = $this->delete(route('bank-reference.destroy', $bankReference));
+        $response = $this->delete(route('bank-references.destroy', $bankReference));
 
         $response->assertNoContent();
 

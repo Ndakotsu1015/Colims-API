@@ -51,7 +51,7 @@ class ContractorAffliateControllerTest extends TestCase
     {
         $contractorAffliates = ContractorAffliate::factory()->count(3)->create();
 
-        $response = $this->get(route('contractor-affliate.index'));
+        $response = $this->get(route('contractor-affliates.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -86,7 +86,7 @@ class ContractorAffliateControllerTest extends TestCase
 
         Log::debug($contractor);
 
-        $response = $this->post(route('contractor-affliate.store'), [
+        $response = $this->post(route('contractor-affliates.store'), [
             'name' => $name,
             'account_no' => $account_no,
             'account_officer' => $account_officer,
@@ -123,7 +123,7 @@ class ContractorAffliateControllerTest extends TestCase
     {
         $contractorAffliate = ContractorAffliate::factory()->create();
 
-        $response = $this->get(route('contractor-affliate.show', $contractorAffliate));
+        $response = $this->get(route('contractor-affliates.show', $contractorAffliate));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -157,7 +157,7 @@ class ContractorAffliateControllerTest extends TestCase
         $bank = Bank::factory()->create();
         $contractor = Contractor::factory()->create();
 
-        $response = $this->put(route('contractor-affliate.update', $contractorAffliate), [
+        $response = $this->put(route('contractor-affliates.update', $contractorAffliate), [
             'name' => $name,
             'account_no' => $account_no,
             'account_officer' => $account_officer,
@@ -191,7 +191,7 @@ class ContractorAffliateControllerTest extends TestCase
     {
         $contractorAffliate = ContractorAffliate::factory()->create();
 
-        $response = $this->delete(route('contractor-affliate.destroy', $contractorAffliate));
+        $response = $this->delete(route('contractor-affliates.destroy', $contractorAffliate));
 
         $response->assertNoContent();
 

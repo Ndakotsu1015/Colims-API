@@ -52,7 +52,7 @@ class ChartControllerTest extends TestCase
     {
         $charts = Chart::factory()->count(3)->create();
 
-        $response = $this->get(route('chart.index'));
+        $response = $this->get(route('charts.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -84,7 +84,7 @@ class ChartControllerTest extends TestCase
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->post(route('chart.store'), [
+        $response = $this->post(route('charts.store'), [
             'chart_title' => $chart_title,
             'sql_query' => $sql_query,
             'is_active' => $is_active,
@@ -118,7 +118,7 @@ class ChartControllerTest extends TestCase
     {
         $chart = Chart::factory()->create();
 
-        $response = $this->get(route('chart.show', $chart));
+        $response = $this->get(route('charts.show', $chart));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -151,7 +151,7 @@ class ChartControllerTest extends TestCase
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->put(route('chart.update', $chart), [
+        $response = $this->put(route('charts.update', $chart), [
             'chart_title' => $chart_title,
             'sql_query' => $sql_query,
             'is_active' => $is_active,
@@ -183,7 +183,7 @@ class ChartControllerTest extends TestCase
     {
         $chart = Chart::factory()->create();
 
-        $response = $this->delete(route('chart.destroy', $chart));
+        $response = $this->delete(route('charts.destroy', $chart));
 
         $response->assertNoContent();
 

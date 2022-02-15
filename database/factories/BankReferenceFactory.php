@@ -26,7 +26,7 @@ class BankReferenceFactory extends Factory
     {
         return [
             'reference_date' => $this->faker->dateTime(),            
-            'reference_no' => $this->faker->randomNumber(),
+            'reference_no' => $this->faker->unique()->asciify("ref****"),
             'created_by' => $this->faker->randomNumber(),
             'in_name_of' => $this->faker->word,
             'affiliate_id' => ContractorAffliate::factory(),

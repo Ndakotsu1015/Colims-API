@@ -130,7 +130,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('case-outcome', App\Http\Controllers\CaseOutcomeController::class);
 
-    Route::apiResource('legal-document-type', App\Http\Controllers\LegalDocumentTypeController::class);
+    Route::apiResource('legal-document-types', App\Http\Controllers\LegalDocumentTypeController::class);
 
     Route::apiResource('solicitors', App\Http\Controllers\SolicitorController::class);
 
@@ -138,7 +138,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('case-requests', App\Http\Controllers\CaseRequestController::class);
 
-    Route::apiResource('case-request-movement', App\Http\Controllers\CaseRequestMovementController::class); 
+    Route::apiResource('case-request-movements', App\Http\Controllers\CaseRequestMovementController::class); 
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');

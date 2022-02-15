@@ -24,10 +24,7 @@ class SuitPartyFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'fullname' => $this->faker->word,
-            'phone_no' => $this->faker->word,
-            'residential_address' => $this->faker->text,
+        return [           
             'court_case_id' => CourtCase::factory(),
             'case_participant_id' => CaseParticipant::factory(),
             'type' => $this->faker->word,

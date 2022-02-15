@@ -48,7 +48,7 @@ class EmployeeControllerTest extends TestCase
     {
         $employees = Employee::factory()->count(3)->create();
 
-        $response = $this->get(route('employee.index'));
+        $response = $this->get(route('employees.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -77,7 +77,7 @@ class EmployeeControllerTest extends TestCase
         $designation = $this->faker->word;
         $signature_file = $this->faker->word;
 
-        $response = $this->post(route('employee.store'), [
+        $response = $this->post(route('employees.store'), [
             'full_name' => $full_name,
             'title' => $title,
             'designation' => $designation,
@@ -105,7 +105,7 @@ class EmployeeControllerTest extends TestCase
     {
         $employee = Employee::factory()->create();
 
-        $response = $this->get(route('employee.show', $employee));
+        $response = $this->get(route('employees.show', $employee));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -135,7 +135,7 @@ class EmployeeControllerTest extends TestCase
         $designation = $this->faker->word;
         $signature_file = $this->faker->word;
 
-        $response = $this->put(route('employee.update', $employee), [
+        $response = $this->put(route('employees.update', $employee), [
             'full_name' => $full_name,
             'title' => $title,
             'designation' => $designation,
@@ -161,7 +161,7 @@ class EmployeeControllerTest extends TestCase
     {
         $employee = Employee::factory()->create();
 
-        $response = $this->delete(route('employee.destroy', $employee));
+        $response = $this->delete(route('employees.destroy', $employee));
 
         $response->assertNoContent();
 

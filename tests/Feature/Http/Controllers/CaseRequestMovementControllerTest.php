@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /**
@@ -19,13 +20,37 @@ class CaseRequestMovementControllerTest extends TestCase
     use AdditionalAssertions, RefreshDatabase, WithFaker;
 
     /**
+     * @var \Illuminate\Foundation\Auth\User
+     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+        $this->withHeader('X-Requested-With', 'XMLHttpRequest');
+        $this->withHeader('Accept', 'application/json');
+
+        
+        User::withoutEvents(function () {
+            $this->user = User::factory()->create([
+                'name' => 'abdul',
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => bcrypt("123456"),
+            ]);
+        });
+
+        Sanctum::actingAs($this->user);
+    }
+
+    /**
      * @test
      */
     public function index_behaves_as_expected()
     {
         $caseRequestMovements = CaseRequestMovement::factory()->count(3)->create();
 
-        $response = $this->get(route('case-request-movement.index'));
+        $response = $this->get(route('case-request-movements.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -49,12 +74,12 @@ class CaseRequestMovementControllerTest extends TestCase
      */
     public function store_saves()
     {
-        $case_request = CaseRequest::factory()->create();
-        $user = User::factory()->create();
-        $forward_to = ForwardTo::factory()->create();
+        $case_request = CaseRequest::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
+        $forward_to = User::inRandomOrder()->first();
         $notes = $this->faker->text;
 
-        $response = $this->post(route('case-request-movement.store'), [
+        $response = $this->post(route('case-request-movements.store'), [
             'case_request_id' => $case_request->id,
             'user_id' => $user->id,
             'forward_to' => $forward_to->id,
@@ -82,7 +107,7 @@ class CaseRequestMovementControllerTest extends TestCase
     {
         $caseRequestMovement = CaseRequestMovement::factory()->create();
 
-        $response = $this->get(route('case-request-movement.show', $caseRequestMovement));
+        $response = $this->get(route('case-request-movements.show', $caseRequestMovement));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -106,13 +131,13 @@ class CaseRequestMovementControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $caseRequestMovement = CaseRequestMovement::factory()->create();
-        $case_request = CaseRequest::factory()->create();
-        $user = User::factory()->create();
-        $forward_to = ForwardTo::factory()->create();
+        $caseRequestMovement = CaseRequestMovement::inRandomOrder()->first();
+        $case_request = CaseRequest::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
+        $forward_to = User::inRandomOrder()->first();
         $notes = $this->faker->text;
 
-        $response = $this->put(route('case-request-movement.update', $caseRequestMovement), [
+        $response = $this->put(route('case-request-movements.update', $caseRequestMovement), [
             'case_request_id' => $case_request->id,
             'user_id' => $user->id,
             'forward_to' => $forward_to->id,
@@ -138,7 +163,7 @@ class CaseRequestMovementControllerTest extends TestCase
     {
         $caseRequestMovement = CaseRequestMovement::factory()->create();
 
-        $response = $this->delete(route('case-request-movement.destroy', $caseRequestMovement));
+        $response = $this->delete(route('case-request-movements.destroy', $caseRequestMovement));
 
         $response->assertNoContent();
 
