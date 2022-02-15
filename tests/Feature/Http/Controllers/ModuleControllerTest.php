@@ -48,7 +48,7 @@ class ModuleControllerTest extends TestCase
     {
         $modules = Module::factory()->count(3)->create();
 
-        $response = $this->get(route('module.index'));
+        $response = $this->get(route('modules.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -81,7 +81,7 @@ class ModuleControllerTest extends TestCase
         $icon = $this->faker->word;
         $bg_class = $this->faker->word;
 
-        $response = $this->post(route('module.store'), [
+        $response = $this->post(route('modules.store'), [
             'name' => $name,
             'order_by' => $order_by,
             'active_id' => $active_id,
@@ -117,7 +117,7 @@ class ModuleControllerTest extends TestCase
     {
         $module = Module::factory()->create();
 
-        $response = $this->get(route('module.show', $module));
+        $response = $this->get(route('modules.show', $module));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -151,7 +151,7 @@ class ModuleControllerTest extends TestCase
         $icon = $this->faker->word;
         $bg_class = $this->faker->word;
 
-        $response = $this->put(route('module.update', $module), [
+        $response = $this->put(route('modules.update', $module), [
             'name' => $name,
             'order_by' => $order_by,
             'active_id' => $active_id,
@@ -185,7 +185,7 @@ class ModuleControllerTest extends TestCase
     {
         $module = Module::factory()->create();
 
-        $response = $this->delete(route('module.destroy', $module));
+        $response = $this->delete(route('modules.destroy', $module));
 
         $response->assertNoContent();
 

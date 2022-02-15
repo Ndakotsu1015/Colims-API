@@ -22,6 +22,7 @@ class CreateCaseRequestsTable extends Migration
             $table->string('request_origin');
             $table->string('memo_file')->nullable();
             $table->foreignId('initiator_id')->constrained('users');
+            $table->foreignId('case_reviewer_id')->constrained('users')->nullable();
             $table->string('status');
             $table->softDeletes();
             $table->timestamps();

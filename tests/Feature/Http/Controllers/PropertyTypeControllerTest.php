@@ -49,7 +49,7 @@ class PropertyTypeControllerTest extends TestCase
     {
         $propertyTypes = PropertyType::factory()->count(3)->create();
 
-        $response = $this->get(route('property-type.index'));
+        $response = $this->get(route('property-types.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -76,7 +76,7 @@ class PropertyTypeControllerTest extends TestCase
         $name = $this->faker->name;
         $property_code = $this->faker->word;
 
-        $response = $this->post(route('property-type.store'), [
+        $response = $this->post(route('property-types.store'), [
             'name' => $name,
             'property_code' => $property_code,
         ]);
@@ -100,7 +100,7 @@ class PropertyTypeControllerTest extends TestCase
     {
         $propertyType = PropertyType::factory()->create();
 
-        $response = $this->get(route('property-type.show', $propertyType));
+        $response = $this->get(route('property-types.show', $propertyType));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -128,7 +128,7 @@ class PropertyTypeControllerTest extends TestCase
         $name = $this->faker->name;
         $property_code = $this->faker->word;
 
-        $response = $this->put(route('property-type.update', $propertyType), [
+        $response = $this->put(route('property-types.update', $propertyType), [
             'name' => $name,
             'property_code' => $property_code,
         ]);
@@ -150,7 +150,7 @@ class PropertyTypeControllerTest extends TestCase
     {
         $propertyType = PropertyType::factory()->create();
 
-        $response = $this->delete(route('property-type.destroy', $propertyType));
+        $response = $this->delete(route('property-types.destroy', $propertyType));
 
         $response->assertNoContent();
 

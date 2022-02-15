@@ -48,7 +48,7 @@ class ContractorControllerTest extends TestCase
     {
         $contractors = Contractor::factory()->count(3)->create();
 
-        $response = $this->get(route('contractor.index'));
+        $response = $this->get(route('contractors.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -81,7 +81,7 @@ class ContractorControllerTest extends TestCase
         $contact_email = $this->faker->word;
         $contact_phone = $this->faker->word;
 
-        $response = $this->post(route('contractor.store'), [
+        $response = $this->post(route('contractors.store'), [
             'contractor_name' => $contractor_name,
             'address' => $address,
             'location' => $location,
@@ -117,7 +117,7 @@ class ContractorControllerTest extends TestCase
     {
         $contractor = Contractor::factory()->create();
 
-        $response = $this->get(route('contractor.show', $contractor));
+        $response = $this->get(route('contractors.show', $contractor));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -151,7 +151,7 @@ class ContractorControllerTest extends TestCase
         $contact_email = $this->faker->word;
         $contact_phone = $this->faker->word;
 
-        $response = $this->put(route('contractor.update', $contractor), [
+        $response = $this->put(route('contractors.update', $contractor), [
             'contractor_name' => $contractor_name,
             'address' => $address,
             'location' => $location,
@@ -185,7 +185,7 @@ class ContractorControllerTest extends TestCase
     {
         $contractor = Contractor::factory()->create();
 
-        $response = $this->delete(route('contractor.destroy', $contractor));
+        $response = $this->delete(route('contractors.destroy', $contractor));
 
         $response->assertNoContent();
 

@@ -49,7 +49,7 @@ class ProjectControllerTest extends TestCase
     {
         $projects = Project::factory()->count(3)->create();
 
-        $response = $this->get(route('project.index'));
+        $response = $this->get(route('projects.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -76,7 +76,7 @@ class ProjectControllerTest extends TestCase
         $name = $this->faker->name;
         $project_code = $this->faker->word;
 
-        $response = $this->post(route('project.store'), [
+        $response = $this->post(route('projects.store'), [
             'name' => $name,
             'project_code' => $project_code,
         ]);
@@ -100,7 +100,7 @@ class ProjectControllerTest extends TestCase
     {
         $project = Project::factory()->create();
 
-        $response = $this->get(route('project.show', $project));
+        $response = $this->get(route('projects.show', $project));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -128,7 +128,7 @@ class ProjectControllerTest extends TestCase
         $name = $this->faker->name;
         $project_code = $this->faker->word;
 
-        $response = $this->put(route('project.update', $project), [
+        $response = $this->put(route('projects.update', $project), [
             'name' => $name,
             'project_code' => $project_code,
         ]);
@@ -150,7 +150,7 @@ class ProjectControllerTest extends TestCase
     {
         $project = Project::factory()->create();
 
-        $response = $this->delete(route('project.destroy', $project));
+        $response = $this->delete(route('projects.destroy', $project));
 
         $response->assertNoContent();
 

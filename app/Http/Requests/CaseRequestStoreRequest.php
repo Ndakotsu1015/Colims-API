@@ -28,7 +28,8 @@ class CaseRequestStoreRequest extends FormRequest
             'content' => ['required', 'string'],
             'request_origin' => ['required', 'string'],
             'memo_file' => ['string'],
-            'initiator_id' => ['required', 'integer', 'exists:initiators,id'],
+            'initiator_id' => ['required', 'integer', 'exists:users,id'],
+            'case_reviewer_id' => ['nullable', 'integer', 'exists:users,id'], 
             'status' => ['required', 'string'],
         ];
     }

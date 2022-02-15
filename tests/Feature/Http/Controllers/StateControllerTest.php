@@ -49,7 +49,7 @@ class StateControllerTest extends TestCase
     {
         $states = State::inRandomOrder()->take(10)->get();
 
-        $response = $this->get(route('state.index'));
+        $response = $this->get(route('states.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -75,7 +75,7 @@ class StateControllerTest extends TestCase
     {
         $name = $this->faker->name;
 
-        $response = $this->post(route('state.store'), [
+        $response = $this->post(route('states.store'), [
             'name' => $name,            
         ]);
 
@@ -97,7 +97,7 @@ class StateControllerTest extends TestCase
     {
         $state = State::inRandomOrder()->first();
 
-        $response = $this->get(route('state.show', $state));
+        $response = $this->get(route('states.show', $state));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -124,7 +124,7 @@ class StateControllerTest extends TestCase
         $state = State::inRandomOrder()->first();
         $name = $this->faker->name;        
 
-        $response = $this->put(route('state.update', $state), [
+        $response = $this->put(route('states.update', $state), [
             'name' => $name,           
         ]);
 
@@ -144,7 +144,7 @@ class StateControllerTest extends TestCase
     {
         $state = State::inRandomOrder()->first();
 
-        $response = $this->delete(route('state.destroy', $state));
+        $response = $this->delete(route('states.destroy', $state));
 
         $response->assertNoContent();
 

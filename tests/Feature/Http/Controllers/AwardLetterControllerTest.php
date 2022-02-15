@@ -34,7 +34,7 @@ class AwardLetterControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -57,7 +57,7 @@ class AwardLetterControllerTest extends TestCase
     {
         $awardLetters = AwardLetter::factory()->count(3)->create();
 
-        $response = $this->get(route('award-letter.index'));
+        $response = $this->get(route('award-letters.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -89,15 +89,15 @@ class AwardLetterControllerTest extends TestCase
         $reference_no = $this->faker->word;        
         $contract_title = $this->faker->word;
         $contract_detail = $this->faker->word;
-        $duration = Duration::factory()->create();
-        $contract_category = ContractCategory::factory()->create();
-        $contractor = Contractor::factory()->create();
-        $contract_type = ContractType::factory()->create();
+        $duration = Duration::inRandomOrder()->first();
+        $contract_category = ContractCategory::inRandomOrder()->first();
+        $contractor = Contractor::inRandomOrder()->first();
+        $contract_type = ContractType::inRandomOrder()->first();
         $state = State::inRandomOrder()->first();
-        $project = Project::factory()->create();
-        $approvedBy = Employee::factory()->create();
+        $project = Project::inRandomOrder()->first();
+        $approvedBy = Employee::inRandomOrder()->first();
 
-        $response = $this->post(route('award-letter.store'), [
+        $response = $this->post(route('award-letters.store'), [
             'unit_price' => $unit_price,
             'contract_sum' => $contract_sum,
             'no_units' => $no_units,           
@@ -147,7 +147,7 @@ class AwardLetterControllerTest extends TestCase
     {
         $awardLetter = AwardLetter::factory()->create();
 
-        $response = $this->get(route('award-letter.show', $awardLetter));
+        $response = $this->get(route('award-letters.show', $awardLetter));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -171,28 +171,28 @@ class AwardLetterControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {        
-        $awardLetter = AwardLetter::factory()->create();
+        $awardLetter = AwardLetter::inRandomOrder()->first();
         $unit_price = $this->faker->randomFloat(2);
         $contract_sum = $this->faker->randomFloat(2);
-        $no_units = $this->faker->randomNumber();        
+        $no_units = $this->faker->randomNumber();         
         $date_awarded = $this->faker->date();
         $last_bank_ref_date = $this->faker->date();
         $reference_no = $this->faker->word;        
-        $contractor = Contractor::factory()->create();
-        $contract_type = ContractType::factory()->create();
-        $contract_category = ContractCategory::factory()->create();
+        $contractor = Contractor::inRandomOrder()->first();
+        $contract_type = ContractType::inRandomOrder()->first();
+        $contract_category = ContractCategory::inRandomOrder()->first();
         $contract_title = $this->faker->word;
         $contract_detail = $this->faker->word;
-        $duration = Duration::factory()->create();        
+        $duration = Duration::inRandomOrder()->first();        
         $state = State::inRandomOrder()->first();
-        $project = Project::factory()->create();
-        $approvedBy = Employee::factory()->create();
+        $project = Project::inRandomOrder()->first();
+        $approvedBy = Employee::inRandomOrder()->first();
 
         // Log::debug($contract_type);
 
         Log::debug($awardLetter);
 
-        $response = $this->put(route('award-letter.update', $awardLetter), [
+        $response = $this->put(route('award-letters.update', $awardLetter), [
             'unit_price' => $unit_price,
             'contract_sum' => $contract_sum,
             'no_units' => $no_units,            
@@ -240,7 +240,7 @@ class AwardLetterControllerTest extends TestCase
     {
         $awardLetter = AwardLetter::factory()->create();
 
-        $response = $this->delete(route('award-letter.destroy', $awardLetter));
+        $response = $this->delete(route('award-letters.destroy', $awardLetter));
 
         $response->assertNoContent();
 

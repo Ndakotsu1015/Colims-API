@@ -25,7 +25,7 @@ class CaseOutcomeControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -94,7 +94,7 @@ class CaseOutcomeControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $caseOutcome = CaseOutcome::factory()->create();
+        $caseOutcome = CaseOutcome::inRandomOrder()->first();
 
         $response = $this->get(route('case-outcome.show', $caseOutcome));
 
@@ -120,7 +120,7 @@ class CaseOutcomeControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $caseOutcome = CaseOutcome::factory()->create();
+        $caseOutcome = CaseOutcome::inRandomOrder()->first();
         $name = $this->faker->name;
 
         $response = $this->put(route('case-outcome.update', $caseOutcome), [

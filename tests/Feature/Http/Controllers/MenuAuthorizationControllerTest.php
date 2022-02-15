@@ -50,7 +50,7 @@ class MenuAuthorizationControllerTest extends TestCase
     {
         $menuAuthorizations = MenuAuthorization::factory()->count(3)->create();
 
-        $response = $this->get(route('menu-authorization.index'));
+        $response = $this->get(route('menu-authorizations.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -77,7 +77,7 @@ class MenuAuthorizationControllerTest extends TestCase
         $menu = Menu::factory()->create();
         $privilege = Privilege::factory()->create();
 
-        $response = $this->post(route('menu-authorization.store'), [
+        $response = $this->post(route('menu-authorizations.store'), [
             'menu_id' => $menu->id,
             'privilege_id' => $privilege->id,
         ]);
@@ -101,7 +101,7 @@ class MenuAuthorizationControllerTest extends TestCase
     {
         $menuAuthorization = MenuAuthorization::factory()->create();
 
-        $response = $this->get(route('menu-authorization.show', $menuAuthorization));
+        $response = $this->get(route('menu-authorizations.show', $menuAuthorization));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -129,7 +129,7 @@ class MenuAuthorizationControllerTest extends TestCase
         $menu = Menu::factory()->create();
         $privilege = Privilege::factory()->create();
 
-        $response = $this->put(route('menu-authorization.update', $menuAuthorization), [
+        $response = $this->put(route('menu-authorizations.update', $menuAuthorization), [
             'menu_id' => $menu->id,
             'privilege_id' => $privilege->id,
         ]);
@@ -151,7 +151,7 @@ class MenuAuthorizationControllerTest extends TestCase
     {
         $menuAuthorization = MenuAuthorization::factory()->create();
 
-        $response = $this->delete(route('menu-authorization.destroy', $menuAuthorization));
+        $response = $this->delete(route('menu-authorizations.destroy', $menuAuthorization));
 
         $response->assertNoContent();
 

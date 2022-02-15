@@ -29,6 +29,7 @@ models:
     request_origin: string
     memo_file: string nullable
     initiator_id: id foreign:user.id
+    case_reviewer_id: id foreign:user.id
     status: string
     softDeletes
   CaseRequestMovement:
@@ -199,10 +200,7 @@ models:
     address: text
     email: string nullable
     softDeletes
-  SuitParty:  
-    fullname: string
-    phone_no: string
-    residential_address: text
+  SuitParty:      
     type: string # (Petitioner | Respondent)
     court_case_id: id foreign    
     case_participant_id: id foreign

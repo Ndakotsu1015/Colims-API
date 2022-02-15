@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\CaseOutcome;
+use App\Models\CaseRequest;
 use App\Models\CaseStatus;
 use App\Models\CourtCase;
 use App\Models\Solicitor;
@@ -52,7 +53,7 @@ class CourtCaseControllerTest extends TestCase
     {
         $courtCases = CourtCase::factory()->count(3)->create();
 
-        $response = $this->get(route('court-case.index'));
+        $response = $this->get(route('court-cases.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -86,7 +87,7 @@ class CourtCaseControllerTest extends TestCase
         $solicitor = Solicitor::factory()->create();  
         $case_request = CaseRequest::factory()->create();;  
 
-        $response = $this->post(route('court-case.store'), [
+        $response = $this->post(route('court-cases.store'), [
             'title' => $title,
             'case_no' => $case_no,
             'status' => $status,
@@ -124,7 +125,7 @@ class CourtCaseControllerTest extends TestCase
     {
         $courtCase = CourtCase::factory()->create();
 
-        $response = $this->get(route('court-case.show', $courtCase));
+        $response = $this->get(route('court-cases.show', $courtCase));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -159,7 +160,7 @@ class CourtCaseControllerTest extends TestCase
         $solicitor = Solicitor::factory()->create();
         $case_request = CaseRequest::foctory()->create();
 
-        $response = $this->put(route('court-case.update', $courtCase), [
+        $response = $this->put(route('court-cases.update', $courtCase), [
             'title' => $title,
             'case_no' => $case_no,
             'status' => $status,
@@ -195,7 +196,7 @@ class CourtCaseControllerTest extends TestCase
     {
         $courtCase = CourtCase::factory()->create();
 
-        $response = $this->delete(route('court-case.destroy', $courtCase));
+        $response = $this->delete(route('court-cases.destroy', $courtCase));
 
         $response->assertNoContent();
 

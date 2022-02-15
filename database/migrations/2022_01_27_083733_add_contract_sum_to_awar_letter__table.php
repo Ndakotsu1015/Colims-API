@@ -14,7 +14,7 @@ class AddContractSumToAwarLetterTable extends Migration
     public function up()
     {
         Schema::table('award_letters', function (Blueprint $table) {
-            $table->float('contract_sum',10,0);
+            $table->float('contract_sum',10,0)->default(0);
         });
     }
 

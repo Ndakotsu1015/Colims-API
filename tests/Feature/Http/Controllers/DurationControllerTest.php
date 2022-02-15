@@ -48,7 +48,7 @@ class DurationControllerTest extends TestCase
     {
         $durations = Duration::factory()->count(3)->create();
 
-        $response = $this->get(route('duration.index'));
+        $response = $this->get(route('durations.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -75,7 +75,7 @@ class DurationControllerTest extends TestCase
         $name = $this->faker->name;
         $number_of_days = $this->faker->randomNumber();
 
-        $response = $this->post(route('duration.store'), [
+        $response = $this->post(route('durations.store'), [
             'name' => $name,
             'number_of_days' => $number_of_days,
         ]);
@@ -99,7 +99,7 @@ class DurationControllerTest extends TestCase
     {
         $duration = Duration::factory()->create();
 
-        $response = $this->get(route('duration.show', $duration));
+        $response = $this->get(route('durations.show', $duration));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -127,7 +127,7 @@ class DurationControllerTest extends TestCase
         $name = $this->faker->name;
         $number_of_days = $this->faker->randomNumber();
 
-        $response = $this->put(route('duration.update', $duration), [
+        $response = $this->put(route('durations.update', $duration), [
             'name' => $name,
             'number_of_days' => $number_of_days,
         ]);
@@ -149,7 +149,7 @@ class DurationControllerTest extends TestCase
     {
         $duration = Duration::factory()->create();
 
-        $response = $this->delete(route('duration.destroy', $duration));
+        $response = $this->delete(route('durations.destroy', $duration));
 
         $response->assertNoContent();
 

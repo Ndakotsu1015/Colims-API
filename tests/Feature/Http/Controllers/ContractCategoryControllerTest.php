@@ -49,7 +49,7 @@ class ContractCategoryControllerTest extends TestCase
     {
         $contractCategories = ContractCategory::factory()->count(3)->create();
 
-        $response = $this->get(route('contract-category.index'));
+        $response = $this->get(route('contract-categories.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -75,7 +75,7 @@ class ContractCategoryControllerTest extends TestCase
     {
         $name = $this->faker->name;
 
-        $response = $this->post(route('contract-category.store'), [
+        $response = $this->post(route('contract-categories.store'), [
             'name' => $name,
         ]);
 
@@ -97,7 +97,7 @@ class ContractCategoryControllerTest extends TestCase
     {
         $contractCategory = ContractCategory::factory()->create();
 
-        $response = $this->get(route('contract-category.show', $contractCategory));
+        $response = $this->get(route('contract-categories.show', $contractCategory));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -124,7 +124,7 @@ class ContractCategoryControllerTest extends TestCase
         $contractCategory = ContractCategory::factory()->create();
         $name = $this->faker->name;
 
-        $response = $this->put(route('contract-category.update', $contractCategory), [
+        $response = $this->put(route('contract-categories.update', $contractCategory), [
             'name' => $name,
         ]);
 
@@ -144,7 +144,7 @@ class ContractCategoryControllerTest extends TestCase
     {
         $contractCategory = ContractCategory::factory()->create();
 
-        $response = $this->delete(route('contract-category.destroy', $contractCategory));
+        $response = $this->delete(route('contract-categories.destroy', $contractCategory));
 
         $response->assertNoContent();
 
