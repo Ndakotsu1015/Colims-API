@@ -22,7 +22,7 @@ class CaseParticipantControllerTest extends TestCase
     {
         $caseParticipants = CaseParticipant::factory()->count(3)->create();
 
-        $response = $this->get(route('case-participant.index'));
+        $response = $this->get(route('case-participants.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -51,7 +51,7 @@ class CaseParticipantControllerTest extends TestCase
         $address = $this->faker->word;
         $email = $this->faker->safeEmail;
 
-        $response = $this->post(route('case-participant.store'), [
+        $response = $this->post(route('case-participants.store'), [
             'name' => $name,
             'phone_no' => $phone_no,
             'address' => $address,
@@ -79,7 +79,7 @@ class CaseParticipantControllerTest extends TestCase
     {
         $caseParticipant = CaseParticipant::factory()->create();
 
-        $response = $this->get(route('case-participant.show', $caseParticipant));
+        $response = $this->get(route('case-participants.show', $caseParticipant));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -103,13 +103,13 @@ class CaseParticipantControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $caseParticipant = CaseParticipant::factory()->create();
+        $caseParticipant = CaseParticipant::inRandomOrder()->first();
         $name = $this->faker->name;
         $phone_no = $this->faker->word;
         $address = $this->faker->word;
         $email = $this->faker->safeEmail;
 
-        $response = $this->put(route('case-participant.update', $caseParticipant), [
+        $response = $this->put(route('case-participants.update', $caseParticipant), [
             'name' => $name,
             'phone_no' => $phone_no,
             'address' => $address,
@@ -135,7 +135,7 @@ class CaseParticipantControllerTest extends TestCase
     {
         $caseParticipant = CaseParticipant::factory()->create();
 
-        $response = $this->delete(route('case-participant.destroy', $caseParticipant));
+        $response = $this->delete(route('case-participants.destroy', $caseParticipant));
 
         $response->assertNoContent();
 

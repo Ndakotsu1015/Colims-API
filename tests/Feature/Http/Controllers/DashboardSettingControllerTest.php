@@ -52,7 +52,7 @@ class DashboardSettingControllerTest extends TestCase
     {
         $dashboardSettings = DashboardSetting::factory()->count(3)->create();
 
-        $response = $this->get(route('dashboard-setting.index'));
+        $response = $this->get(route('dashboard-settings.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -86,7 +86,7 @@ class DashboardSettingControllerTest extends TestCase
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->post(route('dashboard-setting.store'), [
+        $response = $this->post(route('dashboard-settings.store'), [
             'chart_title' => $chart_title,
             'is_active' => $is_active,
             'orderby' => $orderby,
@@ -124,7 +124,7 @@ class DashboardSettingControllerTest extends TestCase
     {
         $dashboardSetting = DashboardSetting::factory()->create();
 
-        $response = $this->get(route('dashboard-setting.show', $dashboardSetting));
+        $response = $this->get(route('dashboard-settings.show', $dashboardSetting));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -159,7 +159,7 @@ class DashboardSettingControllerTest extends TestCase
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->put(route('dashboard-setting.update', $dashboardSetting), [
+        $response = $this->put(route('dashboard-settings.update', $dashboardSetting), [
             'chart_title' => $chart_title,
             'is_active' => $is_active,
             'orderby' => $orderby,
@@ -195,7 +195,7 @@ class DashboardSettingControllerTest extends TestCase
     {
         $dashboardSetting = DashboardSetting::factory()->create();
 
-        $response = $this->delete(route('dashboard-setting.destroy', $dashboardSetting));
+        $response = $this->delete(route('dashboard-settings.destroy', $dashboardSetting));
 
         $response->assertNoContent();
 

@@ -17,7 +17,7 @@ class CaseRequestController extends Controller
      */
     public function index(Request $request)
     {
-        $caseRequests = CaseRequest::with('initiator')->get();
+        $caseRequests = CaseRequest::with('initiator', 'caseReviewer')->get();
 
         return new CaseRequestCollection($caseRequests);
     }
@@ -30,7 +30,7 @@ class CaseRequestController extends Controller
     {
         $caseRequest = CaseRequest::create($request->validated());
 
-        return new CaseRequestResource($caseRequest->load('initiator'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
 
     /**
@@ -40,7 +40,7 @@ class CaseRequestController extends Controller
      */
     public function show(Request $request, CaseRequest $caseRequest)
     {
-        return new CaseRequestResource($caseRequest->load('initiator'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
 
     /**
@@ -52,7 +52,7 @@ class CaseRequestController extends Controller
     {
         $caseRequest->update($request->validated());
 
-        return new CaseRequestResource($caseRequest->load('initiator'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
 
     /**

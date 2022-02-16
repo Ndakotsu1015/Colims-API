@@ -49,7 +49,7 @@ class ChartTypeControllerTest extends TestCase
     {
         $chartTypes = ChartType::inRandomOrder()->limit(3)->get();
 
-        $response = $this->get(route('chart-type.index'));
+        $response = $this->get(route('chart-types.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -76,7 +76,7 @@ class ChartTypeControllerTest extends TestCase
         $chart_type = $this->faker->word;
         $chart_category = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->post(route('chart-type.store'), [
+        $response = $this->post(route('chart-types.store'), [
             'chart_type' => $chart_type,
             'chart_category_id' => $chart_category->id,
         ]);
@@ -100,7 +100,7 @@ class ChartTypeControllerTest extends TestCase
     {
         $chartType = ChartType::inRandomOrder()->first();
 
-        $response = $this->get(route('chart-type.show', $chartType));
+        $response = $this->get(route('chart-types.show', $chartType));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -128,7 +128,7 @@ class ChartTypeControllerTest extends TestCase
         $chart_type = $this->faker->word;
         $chart_category = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->put(route('chart-type.update', $chartType), [
+        $response = $this->put(route('chart-types.update', $chartType), [
             'chart_type' => $chart_type,
             'chart_category_id' => $chart_category->id,
         ]);
@@ -150,7 +150,7 @@ class ChartTypeControllerTest extends TestCase
     {
         $chartType = ChartType::inRandomOrder()->first();
 
-        $response = $this->delete(route('chart-type.destroy', $chartType));
+        $response = $this->delete(route('chart-types.destroy', $chartType));
 
         $response->assertNoContent();
 

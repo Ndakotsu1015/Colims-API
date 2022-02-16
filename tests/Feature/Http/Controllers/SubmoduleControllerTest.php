@@ -49,7 +49,7 @@ class SubmoduleControllerTest extends TestCase
     {
         $submodules = Submodule::factory()->count(3)->create();
 
-        $response = $this->get(route('submodule.index'));
+        $response = $this->get(route('submodules.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -77,7 +77,7 @@ class SubmoduleControllerTest extends TestCase
         $module_id = $this->faker->randomNumber();
         $is_active = $this->faker->boolean;
 
-        $response = $this->post(route('submodule.store'), [
+        $response = $this->post(route('submodules.store'), [
             'name' => $name,
             'module_id' => $module_id,
             'is_active' => $is_active,
@@ -103,7 +103,7 @@ class SubmoduleControllerTest extends TestCase
     {
         $submodule = Submodule::factory()->create();
 
-        $response = $this->get(route('submodule.show', $submodule));
+        $response = $this->get(route('submodules.show', $submodule));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -132,7 +132,7 @@ class SubmoduleControllerTest extends TestCase
         $module_id = $this->faker->randomNumber();
         $is_active = $this->faker->boolean;
 
-        $response = $this->put(route('submodule.update', $submodule), [
+        $response = $this->put(route('submodules.update', $submodule), [
             'name' => $name,
             'module_id' => $module_id,
             'is_active' => $is_active,
@@ -156,7 +156,7 @@ class SubmoduleControllerTest extends TestCase
     {
         $submodule = Submodule::factory()->create();
 
-        $response = $this->delete(route('submodule.destroy', $submodule));
+        $response = $this->delete(route('submodules.destroy', $submodule));
 
         $response->assertNoContent();
 

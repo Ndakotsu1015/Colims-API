@@ -48,7 +48,7 @@ class ChartProviderControllerTest extends TestCase
     {
         $chartProviders = ChartProvider::inRandomOrder()->take(3)->get();
 
-        $response = $this->get(route('chart-provider.index'));
+        $response = $this->get(route('chart-providers.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -74,7 +74,7 @@ class ChartProviderControllerTest extends TestCase
     {
         $chart_provider = $this->faker->word;
 
-        $response = $this->post(route('chart-provider.store'), [
+        $response = $this->post(route('chart-providers.store'), [
             'chart_provider' => $chart_provider,
         ]);
 
@@ -96,7 +96,7 @@ class ChartProviderControllerTest extends TestCase
     {
         $chartProvider = ChartProvider::inRandomOrder()->first();
 
-        $response = $this->get(route('chart-provider.show', $chartProvider));
+        $response = $this->get(route('chart-providers.show', $chartProvider));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -123,7 +123,7 @@ class ChartProviderControllerTest extends TestCase
         $chartProvider = ChartProvider::inRandomOrder()->first();
         $chart_provider = $this->faker->word;
 
-        $response = $this->put(route('chart-provider.update', $chartProvider), [
+        $response = $this->put(route('chart-providers.update', $chartProvider), [
             'chart_provider' => $chart_provider,
         ]);
 
@@ -143,7 +143,7 @@ class ChartProviderControllerTest extends TestCase
     {
         $chartProvider = ChartProvider::inRandomOrder()->first();
 
-        $response = $this->delete(route('chart-provider.destroy', $chartProvider));
+        $response = $this->delete(route('chart-providers.destroy', $chartProvider));
 
         $response->assertNoContent();
 

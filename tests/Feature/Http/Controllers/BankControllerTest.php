@@ -48,7 +48,7 @@ class BankControllerTest extends TestCase
     {
         $banks = Bank::factory()->count(3)->create();
 
-        $response = $this->get(route('bank.index'));
+        $response = $this->get(route('banks.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -75,7 +75,7 @@ class BankControllerTest extends TestCase
         $name = $this->faker->name;       
         $bank_code = $this->faker->word;
 
-        $response = $this->post(route('bank.store'), [
+        $response = $this->post(route('banks.store'), [
             'name' => $name,            
             'bank_code' => $bank_code,
         ]);
@@ -99,7 +99,7 @@ class BankControllerTest extends TestCase
     {
         $bank = Bank::factory()->create();
 
-        $response = $this->get(route('bank.show', $bank));
+        $response = $this->get(route('banks.show', $bank));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -127,7 +127,7 @@ class BankControllerTest extends TestCase
         $name = $this->faker->name;        
         $bank_code = $this->faker->word;
 
-        $response = $this->put(route('bank.update', $bank), [
+        $response = $this->put(route('banks.update', $bank), [
             'name' => $name,            
             'bank_code' => $bank_code,
         ]);
@@ -149,7 +149,7 @@ class BankControllerTest extends TestCase
     {
         $bank = Bank::factory()->create();
 
-        $response = $this->delete(route('bank.destroy', $bank));
+        $response = $this->delete(route('banks.destroy', $bank));
 
         $response->assertNoContent();
 

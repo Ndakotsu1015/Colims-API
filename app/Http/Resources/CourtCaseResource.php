@@ -19,6 +19,8 @@ class CourtCaseResource extends JsonResource
             'title' => $this->title,
             'case_no' => $this->case_no,
             'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'caseOutcome' => new CaseOutcomeResource($this->whenLoaded('caseOutcome')),
             'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
             'handler' => new UserResource($this->whenLoaded('handler')),

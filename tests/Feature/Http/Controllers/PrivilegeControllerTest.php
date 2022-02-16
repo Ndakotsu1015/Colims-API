@@ -48,7 +48,7 @@ class PrivilegeControllerTest extends TestCase
     {
         $privileges = Privilege::factory()->count(3)->create();
 
-        $response = $this->get(route('privilege.index'));
+        $response = $this->get(route('privileges.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -74,7 +74,7 @@ class PrivilegeControllerTest extends TestCase
     {
         $name = $this->faker->name;
 
-        $response = $this->post(route('privilege.store'), [
+        $response = $this->post(route('privileges.store'), [
             'name' => $name,
         ]);
 
@@ -96,7 +96,7 @@ class PrivilegeControllerTest extends TestCase
     {
         $privilege = Privilege::factory()->create();
 
-        $response = $this->get(route('privilege.show', $privilege));
+        $response = $this->get(route('privileges.show', $privilege));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -123,7 +123,7 @@ class PrivilegeControllerTest extends TestCase
         $privilege = Privilege::factory()->create();
         $name = $this->faker->name;
 
-        $response = $this->put(route('privilege.update', $privilege), [
+        $response = $this->put(route('privileges.update', $privilege), [
             'name' => $name,
         ]);
 
@@ -143,7 +143,7 @@ class PrivilegeControllerTest extends TestCase
     {
         $privilege = Privilege::factory()->create();
 
-        $response = $this->delete(route('privilege.destroy', $privilege));
+        $response = $this->delete(route('privileges.destroy', $privilege));
 
         $response->assertNoContent();
 

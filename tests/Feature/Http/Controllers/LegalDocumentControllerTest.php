@@ -51,7 +51,7 @@ class LegalDocumentControllerTest extends TestCase
     {
         $legalDocuments = LegalDocument::factory()->count(3)->create();
 
-        $response = $this->get(route('legal-document.index'));
+        $response = $this->get(route('legal-documents.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -81,7 +81,7 @@ class LegalDocumentControllerTest extends TestCase
         $court_case = CourtCase::factory()->create();
         $document_type = LegalDocumentType::factory()->create();
 
-        $response = $this->post(route('legal-document.store'), [
+        $response = $this->post(route('legal-documents.store'), [
             'title' => $title,
             'filename' => $filename,
             'user_id' => $user->id,
@@ -111,7 +111,7 @@ class LegalDocumentControllerTest extends TestCase
     {
         $legalDocument = LegalDocument::factory()->create();
 
-        $response = $this->get(route('legal-document.show', $legalDocument));
+        $response = $this->get(route('legal-documents.show', $legalDocument));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -142,7 +142,7 @@ class LegalDocumentControllerTest extends TestCase
         $court_case = CourtCase::factory()->create();
         $document_type = LegalDocumentType::factory()->create();
 
-        $response = $this->put(route('legal-document.update', $legalDocument), [
+        $response = $this->put(route('legal-documents.update', $legalDocument), [
             'title' => $title,
             'filename' => $filename,
             'user_id' => $user->id,
@@ -170,7 +170,7 @@ class LegalDocumentControllerTest extends TestCase
     {
         $legalDocument = LegalDocument::factory()->create();
 
-        $response = $this->delete(route('legal-document.destroy', $legalDocument));
+        $response = $this->delete(route('legal-documents.destroy', $legalDocument));
 
         $response->assertNoContent();
 

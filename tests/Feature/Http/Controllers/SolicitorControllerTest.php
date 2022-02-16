@@ -23,7 +23,7 @@ class SolicitorControllerTest extends TestCase
     {
         $solicitors = Solicitor::factory()->count(3)->create();
 
-        $response = $this->get(route('solicitor.index'));
+        $response = $this->get(route('solicitors.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -54,7 +54,7 @@ class SolicitorControllerTest extends TestCase
         $location = $this->faker->word;
         $state = State::factory()->create();
 
-        $response = $this->post(route('solicitor.store'), [
+        $response = $this->post(route('solicitors.store'), [
             'name' => $name,
             'office_address' => $office_address,
             'contact_name' => $contact_name,
@@ -86,7 +86,7 @@ class SolicitorControllerTest extends TestCase
     {
         $solicitor = Solicitor::factory()->create();
 
-        $response = $this->get(route('solicitor.show', $solicitor));
+        $response = $this->get(route('solicitors.show', $solicitor));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -118,7 +118,7 @@ class SolicitorControllerTest extends TestCase
         $location = $this->faker->word;
         $state = State::factory()->create();
 
-        $response = $this->put(route('solicitor.update', $solicitor), [
+        $response = $this->put(route('solicitors.update', $solicitor), [
             'name' => $name,
             'office_address' => $office_address,
             'contact_name' => $contact_name,
@@ -148,7 +148,7 @@ class SolicitorControllerTest extends TestCase
     {
         $solicitor = Solicitor::factory()->create();
 
-        $response = $this->delete(route('solicitor.destroy', $solicitor));
+        $response = $this->delete(route('solicitors.destroy', $solicitor));
 
         $response->assertNoContent();
 

@@ -51,7 +51,7 @@ class PrivilegeDetailControllerTest extends TestCase
     {
         $privilegeDetails = PrivilegeDetail::factory()->count(3)->create();
 
-        $response = $this->get(route('privilege-detail.index'));
+        $response = $this->get(route('privilege-details.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -79,7 +79,7 @@ class PrivilegeDetailControllerTest extends TestCase
         $user = User::factory()->create();
         $privilege = Privilege::factory()->create();
 
-        $response = $this->post(route('privilege-detail.store'), [
+        $response = $this->post(route('privilege-details.store'), [
             'privilege_class_id' => $privilege_class->id,
             'user_id' => $user->id,
             'privilege_id' => $privilege->id,
@@ -105,7 +105,7 @@ class PrivilegeDetailControllerTest extends TestCase
     {
         $privilegeDetail = PrivilegeDetail::factory()->create();
 
-        $response = $this->get(route('privilege-detail.show', $privilegeDetail));
+        $response = $this->get(route('privilege-details.show', $privilegeDetail));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -134,7 +134,7 @@ class PrivilegeDetailControllerTest extends TestCase
         $user = User::factory()->create();
         $privilege = Privilege::factory()->create();
 
-        $response = $this->put(route('privilege-detail.update', $privilegeDetail), [
+        $response = $this->put(route('privilege-details.update', $privilegeDetail), [
             'privilege_class_id' => $privilege_class->id,
             'user_id' => $user->id,
             'privilege_id' => $privilege->id,
@@ -158,7 +158,7 @@ class PrivilegeDetailControllerTest extends TestCase
     {
         $privilegeDetail = PrivilegeDetail::factory()->create();
 
-        $response = $this->delete(route('privilege-detail.destroy', $privilegeDetail));
+        $response = $this->delete(route('privilege-details.destroy', $privilegeDetail));
 
         $response->assertNoContent();
 

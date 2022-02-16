@@ -35,7 +35,7 @@ class AwardLetterFactory extends Factory
             'no_units' => $this->faker->randomNumber(),            
             'date_awarded' => $this->faker->date(),
             'last_bank_ref_date' => $this->faker->date(),
-            'reference_no' => $this->faker->word,            
+            'reference_no' => $this->faker->unique()->asciify("ref****"),            
             'contract_title' => $this->faker->word(),
             'contract_detail' => $this->faker->word(),            
             'contract_type_id' => ContractType::factory(),            

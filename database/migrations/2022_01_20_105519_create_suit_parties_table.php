@@ -16,10 +16,7 @@ class CreateSuitPartiesTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('suit_parties', function (Blueprint $table) {
-            $table->id();
-            $table->string('fullname');
-            $table->string('phone_no');
-            $table->text('residential_address');
+            $table->id();            
             $table->foreignId('court_case_id')->constrained();
             $table->foreignId('case_participant_id')->constrained();
             $table->string('type');

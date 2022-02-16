@@ -49,7 +49,7 @@ class MenuControllerTest extends TestCase
     {
         $menus = Menu::factory()->count(3)->create();
 
-        $response = $this->get(route('menu.index'));
+        $response = $this->get(route('menus.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -78,7 +78,7 @@ class MenuControllerTest extends TestCase
         $parent = Menu::factory()->create();
         $module = Module::factory()->create();
 
-        $response = $this->post(route('menu.store'), [
+        $response = $this->post(route('menus.store'), [
             'link' => $link,
             'is_active' => $is_active,
             'parent_id' => $parent->id,
@@ -106,7 +106,7 @@ class MenuControllerTest extends TestCase
     {
         $menu = Menu::factory()->create();
 
-        $response = $this->get(route('menu.show', $menu));
+        $response = $this->get(route('menus.show', $menu));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -136,7 +136,7 @@ class MenuControllerTest extends TestCase
         $parent = Menu::factory()->create();
         $module = Module::factory()->create();
 
-        $response = $this->put(route('menu.update', $menu), [
+        $response = $this->put(route('menus.update', $menu), [
             'link' => $link,
             'is_active' => $is_active,
             'parent_id' => $parent->id,
@@ -162,7 +162,7 @@ class MenuControllerTest extends TestCase
     {
         $menu = Menu::factory()->create();
 
-        $response = $this->delete(route('menu.destroy', $menu));
+        $response = $this->delete(route('menus.destroy', $menu));
 
         $response->assertNoContent();
 

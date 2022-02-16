@@ -27,7 +27,7 @@ class ChartCategoryControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -50,7 +50,7 @@ class ChartCategoryControllerTest extends TestCase
     {
         $chartCategories = ChartCategory::inRandomOrder()->take(3)->get();
 
-        $response = $this->get(route('chart-category.index'));
+        $response = $this->get(route('chart-categories.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -77,7 +77,7 @@ class ChartCategoryControllerTest extends TestCase
         $chart_category = $this->faker->word;
         $chart_provider = ChartProvider::inRandomOrder()->first();
 
-        $response = $this->post(route('chart-category.store'), [
+        $response = $this->post(route('chart-categories.store'), [
             'chart_category' => $chart_category,
             'chart_provider_id' => $chart_provider->id,
         ]);
@@ -101,7 +101,7 @@ class ChartCategoryControllerTest extends TestCase
     {
         $chartCategory = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->get(route('chart-category.show', $chartCategory));
+        $response = $this->get(route('chart-categories.show', $chartCategory));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -127,9 +127,9 @@ class ChartCategoryControllerTest extends TestCase
     {
         $chartCategory = ChartCategory::inRandomOrder()->first();
         $chart_category = $this->faker->word;
-        $chart_provider = ChartProvider::factory()->create();
+        $chart_provider = ChartProvider::inRandomOrder()->first();
 
-        $response = $this->put(route('chart-category.update', $chartCategory), [
+        $response = $this->put(route('chart-categories.update', $chartCategory), [
             'chart_category' => $chart_category,
             'chart_provider_id' => $chart_provider->id,
         ]);
@@ -151,7 +151,7 @@ class ChartCategoryControllerTest extends TestCase
     {
         $chartCategory = ChartCategory::inRandomOrder()->first();
 
-        $response = $this->delete(route('chart-category.destroy', $chartCategory));
+        $response = $this->delete(route('chart-categories.destroy', $chartCategory));
 
         $response->assertNoContent();
 
