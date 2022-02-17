@@ -21,7 +21,7 @@ class DashboardSettingController extends Controller
      */
     public function index(Request $request)
     {
-        $dashboardSettings = DashboardSetting::with('chart', 'module', 'chartType', 'chartCategory');
+        $dashboardSettings = DashboardSetting::with('chart', 'module', 'chartType', 'chartCategory')->get();
 
         return new DashboardSettingCollection($dashboardSettings);
     }

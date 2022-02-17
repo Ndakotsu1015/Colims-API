@@ -27,7 +27,7 @@ class LegalDocumentControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -77,9 +77,9 @@ class LegalDocumentControllerTest extends TestCase
     {
         $title = $this->faker->sentence(4);
         $filename = $this->faker->word;
-        $user = User::factory()->create();
-        $court_case = CourtCase::factory()->create();
-        $document_type = LegalDocumentType::factory()->create();
+        $user = User::inRandomOrder()->first();
+        $court_case = CourtCase::inRandomOrder()->first();
+        $document_type = LegalDocumentType::inRandomOrder()->first();
 
         $response = $this->post(route('legal-documents.store'), [
             'title' => $title,
@@ -135,12 +135,12 @@ class LegalDocumentControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $legalDocument = LegalDocument::factory()->create();
+        $legalDocument = LegalDocument::inRandomOrder()->first();
         $title = $this->faker->sentence(4);
         $filename = $this->faker->word;
-        $user = User::factory()->create();
-        $court_case = CourtCase::factory()->create();
-        $document_type = LegalDocumentType::factory()->create();
+        $user = User::inRandomOrder()->first();
+        $court_case = CourtCase::inRandomOrder()->first();
+        $document_type = LegalDocumentType::inRandomOrder()->first();
 
         $response = $this->put(route('legal-documents.update', $legalDocument), [
             'title' => $title,

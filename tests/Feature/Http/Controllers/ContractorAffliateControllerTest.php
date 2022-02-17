@@ -28,7 +28,7 @@ class ContractorAffliateControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -81,8 +81,8 @@ class ContractorAffliateControllerTest extends TestCase
         $account_officer_email = $this->faker->word;
         $bank_address = $this->faker->word;
         $sort_code = $this->faker->word;
-        $bank = Bank::factory()->create();
-        $contractor = Contractor::factory()->create();
+        $bank = Bank::inRandomOrder()->first();
+        $contractor = Contractor::inRandomOrder()->first();
 
         Log::debug($contractor);
 
@@ -147,15 +147,15 @@ class ContractorAffliateControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $contractorAffliate = ContractorAffliate::factory()->create();
+        $contractorAffliate = ContractorAffliate::inRandomOrder()->first();
         $name = $this->faker->name;
         $account_no = $this->faker->word;
         $account_officer = $this->faker->word;
         $account_officer_email = $this->faker->word;
         $bank_address = $this->faker->word;
         $sort_code = $this->faker->word;
-        $bank = Bank::factory()->create();
-        $contractor = Contractor::factory()->create();
+        $bank = Bank::inRandomOrder()->first();
+        $contractor = Contractor::inRandomOrder()->first();
 
         $response = $this->put(route('contractor-affliates.update', $contractorAffliate), [
             'name' => $name,

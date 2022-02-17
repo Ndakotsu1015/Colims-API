@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Duration;
 use App\Models\User;
+use Database\Seeders\DurationSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -25,7 +26,7 @@ class DurationControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed([DurationSeeder::class]);
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -147,7 +148,7 @@ class DurationControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $duration = Duration::factory()->create();
+        $duration = Duration::inRandomOrder()->first();
 
         $response = $this->delete(route('durations.destroy', $duration));
 

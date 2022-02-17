@@ -76,7 +76,7 @@ class BankReferenceControllerTest extends TestCase
     {
         $reference_date = $this->faker->dateTime();        
         $reference_no = $this->faker->unique()->asciify("ref****");
-        $created_by = $this->faker->randomNumber();
+        $created_by = $this->user->id;
         $in_name_of = $this->faker->word;
         $award_letter = AwardLetter::inRandomOrder()->first();
         $affiliate = ContractorAffliate::inRandomOrder()->first();
@@ -139,8 +139,8 @@ class BankReferenceControllerTest extends TestCase
     {
         $bankReference = BankReference::inRandomOrder()->first();
         $reference_date = $this->faker->dateTime();        
-        $reference_no = $this->faker->randomNumber();
-        $created_by = $this->faker->randomNumber();
+        $reference_no = $this->faker->word;
+        $created_by = $this->user->id;
         $in_name_of = $this->faker->word;
         $award_letter = AwardLetter::inRandomOrder()->first();
         $affiliate = ContractorAffliate::inRandomOrder()->first();

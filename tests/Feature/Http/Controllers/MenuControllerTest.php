@@ -26,7 +26,7 @@ class MenuControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -75,8 +75,8 @@ class MenuControllerTest extends TestCase
     {
         $link = $this->faker->word;
         $is_active = $this->faker->boolean;
-        $parent = Menu::factory()->create();
-        $module = Module::factory()->create();
+        $parent = Menu::inRandomOrder()->first();
+        $module = Module::inRandomOrder()->first();
 
         $response = $this->post(route('menus.store'), [
             'link' => $link,
@@ -130,11 +130,11 @@ class MenuControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $menu = Menu::factory()->create();
+        $menu = Menu::inRandomOrder()->first();
         $link = $this->faker->word;
         $is_active = $this->faker->boolean;
-        $parent = Menu::factory()->create();
-        $module = Module::factory()->create();
+        $parent = Menu::inRandomOrder()->first();
+        $module = Module::inRandomOrder()->first();
 
         $response = $this->put(route('menus.update', $menu), [
             'link' => $link,

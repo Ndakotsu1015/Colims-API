@@ -34,7 +34,7 @@ class BankReferenceController extends Controller
         $bankReference = BankReference::create($data);
         
         $awardLetter = AwardLetter::find($request->award_letter_id);
-        $awardLetter->last_bank_reference_date = $bankReference->reference_date;
+        $awardLetter->last_bank_ref_date = $bankReference->reference_date;
         $awardLetter->save();
         
 
