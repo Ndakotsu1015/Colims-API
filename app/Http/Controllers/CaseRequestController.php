@@ -8,6 +8,7 @@ use App\Http\Resources\CaseRequestCollection;
 use App\Http\Resources\CaseRequestResource;
 use App\Models\CaseRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CaseRequestController extends Controller
 {
@@ -53,7 +54,10 @@ class CaseRequestController extends Controller
      */
     public function update(CaseRequestUpdateRequest $request, CaseRequest $caseRequest)
     {
-        $caseRequest->update($request->validated());
+        $data = $request->validated();
+        Log::debug($data);
+        $caseRequest->update($data);
+        Log::debug($caseRequest);
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
