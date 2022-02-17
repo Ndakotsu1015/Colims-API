@@ -26,11 +26,13 @@ class CaseRequestStoreRequest extends FormRequest
         return [
             'title' => ['required', 'string'],
             'content' => ['required', 'string'],
-            'request_origin' => ['required', 'string'],
-            'memo_file' => ['string'],
-            'initiator_id' => ['required', 'integer', 'exists:users,id'],
-            'case_reviewer_id' => ['nullable', 'integer', 'exists:users,id'], 
-            'status' => ['required', 'string'],
+            // 'request_origin' => ['required', 'string'],
+            'memo_file' => ['nullable', 'string'],
+            // 'initiator_id' => ['required', 'integer', 'exists:users,id'],
+            // 'case_reviewer_id' => ['nullable', 'integer', 'exists:users,id'], 
+            // 'status' => ['required', 'string'],
+            // 'initiator_id' => ['required', 'integer', 'exists:initiators,id'],
+            // 'status' => ['required', 'string'],
         ];
     }
 }

@@ -28,7 +28,10 @@ class CaseRequestController extends Controller
      */
     public function store(CaseRequestStoreRequest $request)
     {
-        $caseRequest = CaseRequest::create($request->validated());
+        $data = $request->validated();
+        $data["initiator_id"] = auth()->user()->id;
+        $data["status"] = "Pending";
+        $caseRequest = CaseRequest::create($data);
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
