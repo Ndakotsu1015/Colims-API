@@ -29,7 +29,7 @@ class CaseRequestFactory extends Factory
             'memo_file' => 'https://picsum.photos/seed/signature/200/200',
             'initiator_id' => User::factory(),
             'case_reviewer_id' => User::factory(),
-            'status' => $this->faker->word,
+            'status' => 'pending',
             'recomendation_note' => $this->faker->paragraphs(3, true),
             'should_go_to_trial' => $this->faker->boolean,
             'is_case_closed' => $this->faker->boolean,

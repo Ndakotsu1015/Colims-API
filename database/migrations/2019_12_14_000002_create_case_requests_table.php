@@ -21,7 +21,7 @@ class CreateCaseRequestsTable extends Migration
             $table->text('content');            
             $table->string('memo_file')->nullable();
             $table->foreignId('initiator_id')->constrained('users');
-            $table->foreignId('case_reviewer_id')->constrained('users')->nullable();
+            $table->foreignId('case_reviewer_id')->nullable()->constrained('users');
             $table->string('status')->default('pending');
             $table->text('recomendation_note')->nullable();
             $table->boolean('should_go_to_trial')->nullable();
