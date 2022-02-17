@@ -18,7 +18,7 @@ class CaseRequestResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,                        
-            'memo_file' => filter_var($this->signature_file, FILTER_VALIDATE_URL) ? $this->signature_file : (is_null($this->signature_file) ? null : config('app.url').'/file/get/' .$this->signature_file),
+            'memo_file' => filter_var($this->memo_file, FILTER_VALIDATE_URL) ? $this->memo_file : (is_null($this->memo_file) ? null : config('app.url').'/file/get/' .$this->memo_file),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'initiator' => new UserResource($this->whenLoaded('initiator')),
