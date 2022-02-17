@@ -4,9 +4,11 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Solicitor;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /**
@@ -15,6 +17,30 @@ use Tests\TestCase;
 class SolicitorControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
+
+    /**
+     * @var \Illuminate\Foundation\Auth\User
+     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+        $this->withHeader('X-Requested-With', 'XMLHttpRequest');
+        $this->withHeader('Accept', 'application/json');
+
+        
+        User::withoutEvents(function () {
+            $this->user = User::factory()->create([
+                'name' => 'abdul',
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => bcrypt("123456"),
+            ]);
+        });
+
+        Sanctum::actingAs($this->user);
+    }
 
     /**
      * @test
@@ -52,7 +78,7 @@ class SolicitorControllerTest extends TestCase
         $contact_name = $this->faker->word;
         $contact_phone = $this->faker->word;
         $location = $this->faker->word;
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
 
         $response = $this->post(route('solicitors.store'), [
             'name' => $name,
@@ -110,13 +136,13 @@ class SolicitorControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $solicitor = Solicitor::factory()->create();
+        $solicitor = Solicitor::inRandomOrder()->first();
         $name = $this->faker->name;
         $office_address = $this->faker->word;
         $contact_name = $this->faker->word;
         $contact_phone = $this->faker->word;
         $location = $this->faker->word;
-        $state = State::factory()->create();
+        $state = State::inRandomOrder()->first();
 
         $response = $this->put(route('solicitors.update', $solicitor), [
             'name' => $name,

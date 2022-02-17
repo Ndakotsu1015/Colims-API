@@ -69,4 +69,44 @@ class CaseRequestController extends Controller
 
         return response()->noContent();
     }
+
+    public function awaitingReviewerAssignment(Request $request)
+    {
+        $awaitingReviewerAssignment = CaseRequest::where('status', 'pending')
+            ->with('initiator', 'caseReviewer')->get();
+
+        return new CaseRequestCollection($awaitingReviewerAssignment);
+    }
+
+    public function awaitingRecommendation(Request $request)
+    {
+        $awaitingRecommendation = CaseRequest::where('status', 'awaiting_recommendation')
+            ->with('initiator', 'caseReviewer')->get();
+
+        return $awaitingRecommendation;
+    }
+
+    public function awaitingApproval(Request $request)
+    {
+        $awaitingApproval = CaseRequest::where('status', 'awaiting_approval')
+            ->with('initiator', 'caseReviewer')->get();
+
+        return $awaitingApproval;
+    }
+
+    public function activeCaseRequests(Request $request)
+    {
+        $activeCaseRequests = CaseRequest::where('is_case_closed', false)
+            ->with('initiator', 'caseReviewer')->get();
+
+        return $activeCaseRequests;
+    }
+
+    public function closedCaseRequests(Request $request)
+    {
+        $closedCaseRequests = CaseRequest::where('is_case_closed', true)
+            ->with('initiator', 'caseReviewer')->get();
+
+        return $closedCaseRequests;
+    }
 }

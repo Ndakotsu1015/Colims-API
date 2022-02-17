@@ -43,7 +43,7 @@ class Menu extends Model
 
     public function parentMenu()
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(Menu::class, 'parent_id');
     }
 
     public function module()
