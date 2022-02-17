@@ -56,5 +56,5 @@ models:
     LegalDocumentType: { name: string, softdeletes: softDeletes }
     Solicitor: { name: string, office_address: string, contact_name: string, contact_phone: string, location: string, state_id: 'id foreign', softdeletes: softDeletes }
     CaseParticipant: { name: string, phone_no: string, address: string, email: string, softdeletes: softDeletes }
-    CaseRequest: { title: string, content: text, request_origin: string, memo_file: 'string nullable', initiator_id: 'id foreign:user.id',, case_reviewer_id: 'id foreign:user.id' status: string, softdeletes: softDeletes }
+    CaseRequest: { title: string, content: text, memo_file: 'string nullable', initiator_id: 'id foreign:user.id',, case_reviewer_id: 'id foreign:user.id' status: string, softdeletes: softDeletes }
     CaseRequestMovement: { case_request_id: 'id foreign', user_id: 'id foreign', forward_to: 'id foreign:user.id', notes: text, softdeletes: softDeletes }

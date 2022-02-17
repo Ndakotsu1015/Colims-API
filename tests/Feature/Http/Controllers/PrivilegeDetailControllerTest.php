@@ -28,7 +28,7 @@ class PrivilegeDetailControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -75,9 +75,9 @@ class PrivilegeDetailControllerTest extends TestCase
      */
     public function store_saves()
     {
-        $privilege_class = PrivilegeClass::factory()->create();
-        $user = User::factory()->create();
-        $privilege = Privilege::factory()->create();
+        $privilege_class = PrivilegeClass::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
+        $privilege = Privilege::inRandomOrder()->first();
 
         $response = $this->post(route('privilege-details.store'), [
             'privilege_class_id' => $privilege_class->id,
@@ -129,10 +129,10 @@ class PrivilegeDetailControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $privilegeDetail = PrivilegeDetail::factory()->create();
-        $privilege_class = PrivilegeClass::factory()->create();
-        $user = User::factory()->create();
-        $privilege = Privilege::factory()->create();
+        $privilegeDetail = PrivilegeDetail::inRandomOrder()->first();
+        $privilege_class = PrivilegeClass::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
+        $privilege = Privilege::inRandomOrder()->first();
 
         $response = $this->put(route('privilege-details.update', $privilegeDetail), [
             'privilege_class_id' => $privilege_class->id,

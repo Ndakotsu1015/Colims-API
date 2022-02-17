@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\AwardLetter;
 use App\Models\BankReference;
 use App\Models\ContractorAffliate;
+use App\Models\User;
 
 class BankReferenceFactory extends Factory
 {
@@ -27,7 +28,7 @@ class BankReferenceFactory extends Factory
         return [
             'reference_date' => $this->faker->dateTime(),            
             'reference_no' => $this->faker->unique()->asciify("ref****"),
-            'created_by' => $this->faker->randomNumber(),
+            'created_by' => User::factory(),
             'in_name_of' => $this->faker->word,
             'affiliate_id' => ContractorAffliate::factory(),
             'award_letter_id' => AwardLetter::factory(),

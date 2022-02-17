@@ -27,7 +27,7 @@ class MenuAuthorizationControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -74,8 +74,8 @@ class MenuAuthorizationControllerTest extends TestCase
      */
     public function store_saves()
     {
-        $menu = Menu::factory()->create();
-        $privilege = Privilege::factory()->create();
+        $menu = Menu::inRandomOrder()->first();
+        $privilege = Privilege::inRandomOrder()->first();
 
         $response = $this->post(route('menu-authorizations.store'), [
             'menu_id' => $menu->id,
@@ -125,9 +125,9 @@ class MenuAuthorizationControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $menuAuthorization = MenuAuthorization::factory()->create();
-        $menu = Menu::factory()->create();
-        $privilege = Privilege::factory()->create();
+        $menuAuthorization = MenuAuthorization::inRandomOrder()->first();
+        $menu = Menu::inRandomOrder()->first();
+        $privilege = Privilege::inRandomOrder()->first();
 
         $response = $this->put(route('menu-authorizations.update', $menuAuthorization), [
             'menu_id' => $menu->id,

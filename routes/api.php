@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\AwardLetterController;
 use App\Http\Controllers\BankReferenceController;
+use App\Http\Controllers\CaseRequestController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -36,17 +37,6 @@ Route::group([
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::post('/profile', [AuthController::class, 'profile'])->name('profile');
         Route::post('/refresh', [AuthController::class, 'refresh'])->name('token.refresh');
-
-        // previleges
-        // Route::apiResource('privilege', App\Http\Controllers\PrivilegeController::class);
-
-        // Route::apiResource('privilege-class', App\Http\Controllers\PrivilegeClassController::class);
-
-        // Route::apiResource('privilege-detail', App\Http\Controllers\PrivilegeDetailController::class);
-
-        // Route::apiResource('menu', App\Http\Controllers\MenuController::class);
-
-        // Route::apiResource('menu-authorization', App\Http\Controllers\MenuAuthorizationController::class);
     });
 });
 
@@ -137,6 +127,16 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::apiResource('case-participants', App\Http\Controllers\CaseParticipantController::class);
 
     Route::apiResource('case-requests', App\Http\Controllers\CaseRequestController::class);
+
+    Route::get('/case-request-awaiting-reviewer-assignment', [CaseRequestController::class, 'awaitingReviewerAssignment'])->name('case-request-awaiting-reviewer-assignment');
+
+    Route::get('/case-request-awaiting-recommendation', [CaseRequestController::class, 'awaitingRecommendation'])->name('case-request-awaiting-recommendation');    
+
+    Route::get('/case-request-awaiting-approval', [CaseRequestController::class, 'awaitingApproval'])->name('case-request-awaiting-approval');    
+
+    Route::get('/active-case-request', [CaseRequestController::class, 'activeCaseRequests'])->name('active-case-request');    
+
+    Route::get('/inactive-case-request', [CaseRequestController::class, 'inactiveCaseRequests'])->name('inactive-case-request');    
 
     Route::apiResource('case-request-movements', App\Http\Controllers\CaseRequestMovementController::class); 
 });

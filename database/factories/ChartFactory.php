@@ -27,7 +27,7 @@ class ChartFactory extends Factory
     {
         return [
             'chart_title' => $this->faker->word,
-            'sql_query' => $this->faker->word,
+            'sql_query' => "select * from employees",
             'is_active' => $this->faker->boolean,
             'module_id' => Module::factory(),
             'filter_column' => $this->faker->word,

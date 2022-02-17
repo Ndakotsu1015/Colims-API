@@ -17,12 +17,14 @@ class CaseRequest extends Model
      */
     protected $fillable = [
         'title',
-        'content',
-        'request_origin',
+        'content',        
         'memo_file',
         'initiator_id',
         'case_reviewer_id',
         'status',
+        'recommendation',
+        'should_go_to_trial',
+        'is_case_closed',
     ];
 
     /**
@@ -34,6 +36,8 @@ class CaseRequest extends Model
         'id' => 'integer',
         'initiator_id' => 'integer',
         'case_reviewer_id' => 'integer',
+        'should_go_to_trial' => 'boolean',
+        'is_case_closed' => 'boolean',
     ];
 
     public function initiator()

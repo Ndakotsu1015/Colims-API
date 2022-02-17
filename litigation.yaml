@@ -1,8 +1,7 @@
 models:
   CaseRequest:
     title: string
-    content: text
-    request_origin: string
+    content: text    
     memo_file: string nullable
     initiator_id: id foreign:user.id 
     case_reviewer_id: id foreign:user.id

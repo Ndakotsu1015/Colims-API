@@ -29,7 +29,7 @@ class ChartControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -79,7 +79,7 @@ class ChartControllerTest extends TestCase
         $chart_title = $this->faker->word;
         $sql_query = $this->faker->word;
         $is_active = $this->faker->boolean;
-        $module = Module::factory()->create();
+        $module = Module::inRandomOrder()->first();
         $filter_column = $this->faker->word;
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
@@ -142,11 +142,11 @@ class ChartControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $chart = Chart::factory()->create();
+        $chart = Chart::inRandomOrder()->first();
         $chart_title = $this->faker->word;
         $sql_query = $this->faker->word;
         $is_active = $this->faker->boolean;
-        $module = Module::factory()->create();
+        $module = Module::inRandomOrder()->first();
         $filter_column = $this->faker->word;
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
