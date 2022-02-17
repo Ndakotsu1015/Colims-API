@@ -29,7 +29,7 @@ class DashboardSettingControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -81,8 +81,8 @@ class DashboardSettingControllerTest extends TestCase
         $orderby = $this->faker->randomNumber();
         $is_group = $this->faker->boolean;
         $sub_module_id = 12;
-        $chart = Chart::factory()->create();
-        $module = Module::factory()->create();
+        $chart = Chart::inRandomOrder()->first();
+        $module = Module::inRandomOrder()->first();
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
 
@@ -148,14 +148,14 @@ class DashboardSettingControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $dashboardSetting = DashboardSetting::factory()->create();
+        $dashboardSetting = DashboardSetting::inRandomOrder()->first();
         $chart_title = $this->faker->word;
         $is_active = $this->faker->boolean;
         $orderby = $this->faker->randomNumber();
         $is_group = $this->faker->boolean;
         $sub_module_id = $this->faker->randomNumber();
-        $chart = Chart::factory()->create();
-        $module = Module::factory()->create();
+        $chart = Chart::inRandomOrder()->first();
+        $module = Module::inRandomOrder()->first();
         $chart_type = ChartType::inRandomOrder()->first();
         $chart_category = ChartCategory::inRandomOrder()->first();
 

@@ -25,12 +25,14 @@ class CaseRequestUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'content' => ['required', 'string'],
-            'request_origin' => ['required', 'string'],
+            'content' => ['required', 'string'],            
             'memo_file' => ['string'],
             'initiator_id' => ['required', 'integer', 'exists:users,id'],
             'case_reviewer_id' => ['nullable', 'integer', 'exists:users,id'],
             'status' => ['required', 'string'],
+            'recomendation_note' => ['nullable', 'string'],
+            'should_go_to_trial' => ['nullable', 'boolean'],
+            'is_case_closed' => ['nullable', 'boolean'],
         ];
     }
 }

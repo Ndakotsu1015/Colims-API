@@ -47,4 +47,8 @@ class BankReference extends Model
     {
         return $this->belongsTo(ContractorAffliate::class, 'affiliate_id');
     }
+
+    public function createdBy(){
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

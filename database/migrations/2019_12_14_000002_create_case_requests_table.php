@@ -18,12 +18,14 @@ class CreateCaseRequestsTable extends Migration
         Schema::create('case_requests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content');
-            $table->string('request_origin');
+            $table->text('content');            
             $table->string('memo_file')->nullable();
             $table->foreignId('initiator_id')->constrained('users');
             $table->foreignId('case_reviewer_id')->constrained('users')->nullable();
-            $table->string('status');
+            $table->string('status')->default('pending');
+            $table->text('recomendation_note')->nullable();
+            $table->boolean('should_go_to_trial')->nullable();
+            $table->boolean('is_case_closed')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

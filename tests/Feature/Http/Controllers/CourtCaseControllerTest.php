@@ -10,6 +10,7 @@ use App\Models\Solicitor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -29,7 +30,7 @@ class CourtCaseControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
@@ -80,12 +81,12 @@ class CourtCaseControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $case_no = $this->faker->word;
         $status = $this->faker->word;
-        $handler = User::factory()->create();
-        $posted_by = User::factory()->create();
-        $case_status = CaseStatus::factory()->create();
-        $case_outcome = CaseOutcome::factory()->create();    
-        $solicitor = Solicitor::factory()->create();  
-        $case_request = CaseRequest::factory()->create();;  
+        $handler = User::inRandomOrder()->first();
+        $posted_by = User::inRandomOrder()->first();
+        $case_status = CaseStatus::inRandomOrder()->first();
+        $case_outcome = CaseOutcome::inRandomOrder()->first();    
+        $solicitor = Solicitor::inRandomOrder()->first();  
+        $case_request = CaseRequest::inRandomOrder()->first();;  
 
         $response = $this->post(route('court-cases.store'), [
             'title' => $title,
@@ -149,16 +150,16 @@ class CourtCaseControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $courtCase = CourtCase::factory()->create();
+        $courtCase = CourtCase::inRandomOrder()->first();
         $title = $this->faker->sentence(4);
         $case_no = $this->faker->word;
         $status = $this->faker->word;
-        $handler = User::factory()->create();
-        $posted_by = User::factory()->create();
-        $case_status = CaseStatus::factory()->create();
-        $case_outcome = CaseOutcome::factory()->create();
-        $solicitor = Solicitor::factory()->create();
-        $case_request = CaseRequest::foctory()->create();
+        $handler = User::inRandomOrder()->first();
+        $posted_by = User::inRandomOrder()->first();
+        $case_status = CaseStatus::inRandomOrder()->first();
+        $case_outcome = CaseOutcome::inRandomOrder()->first();
+        $solicitor = Solicitor::inRandomOrder()->first();
+        $case_request = CaseRequest::inRandomOrder()->first();
 
         $response = $this->put(route('court-cases.update', $courtCase), [
             'title' => $title,
@@ -171,6 +172,8 @@ class CourtCaseControllerTest extends TestCase
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
         ]);
+
+        Log::debug($response->getContent());
 
         $courtCase->refresh();
 
