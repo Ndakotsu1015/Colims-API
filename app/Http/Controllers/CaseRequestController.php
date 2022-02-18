@@ -87,7 +87,7 @@ class CaseRequestController extends Controller
         $awaitingRecommendation = CaseRequest::where('status', 'awaiting_recommendation')
             ->with('initiator', 'caseReviewer')->get();
 
-        return $awaitingRecommendation;
+        return new CaseRequestCollection($awaitingRecommendation);
     }
 
     public function awaitingApproval(Request $request)
@@ -95,7 +95,7 @@ class CaseRequestController extends Controller
         $awaitingApproval = CaseRequest::where('status', 'awaiting_approval')
             ->with('initiator', 'caseReviewer')->get();
 
-        return $awaitingApproval;
+        return new CaseRequestCollection($awaitingApproval);
     }
 
     public function activeCaseRequests(Request $request)
@@ -103,7 +103,7 @@ class CaseRequestController extends Controller
         $activeCaseRequests = CaseRequest::where('is_case_closed', false)
             ->with('initiator', 'caseReviewer')->get();
 
-        return $activeCaseRequests;
+        return new CaseRequestCollection($activeCaseRequests);
     }
 
     public function closedCaseRequests(Request $request)
@@ -111,6 +111,6 @@ class CaseRequestController extends Controller
         $closedCaseRequests = CaseRequest::where('is_case_closed', true)
             ->with('initiator', 'caseReviewer')->get();
 
-        return $closedCaseRequests;
+        return new CaseRequestCollection($closedCaseRequests);
     }
 }
