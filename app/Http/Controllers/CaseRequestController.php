@@ -18,7 +18,8 @@ class CaseRequestController extends Controller
      */
     public function index(Request $request)
     {
-        $caseRequests = CaseRequest::with('initiator', 'caseReviewer')->get();
+        $caseRequests = CaseRequest::with('initiator', 'caseReviewer')
+            ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($caseRequests);
     }
@@ -77,7 +78,8 @@ class CaseRequestController extends Controller
     public function awaitingReviewerAssignment(Request $request)
     {
         $awaitingReviewerAssignment = CaseRequest::where('status', 'pending')
-            ->with('initiator', 'caseReviewer')->get();
+            ->with('initiator', 'caseReviewer')
+                ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($awaitingReviewerAssignment);
     }
@@ -85,7 +87,8 @@ class CaseRequestController extends Controller
     public function awaitingRecommendation(Request $request)
     {
         $awaitingRecommendation = CaseRequest::where('status', 'awaiting_recommendation')
-            ->with('initiator', 'caseReviewer')->get();
+            ->with('initiator', 'caseReviewer')
+                ->orderBy('updated_at', 'desc')->latest()->get();
 
         return $awaitingRecommendation;
     }
@@ -93,7 +96,8 @@ class CaseRequestController extends Controller
     public function awaitingApproval(Request $request)
     {
         $awaitingApproval = CaseRequest::where('status', 'awaiting_approval')
-            ->with('initiator', 'caseReviewer')->get();
+            ->with('initiator', 'caseReviewer')
+                ->orderBy('updated_at', 'desc')->latest()->get();
 
         return $awaitingApproval;
     }
@@ -101,7 +105,8 @@ class CaseRequestController extends Controller
     public function activeCaseRequests(Request $request)
     {
         $activeCaseRequests = CaseRequest::where('is_case_closed', false)
-            ->with('initiator', 'caseReviewer')->get();
+            ->with('initiator', 'caseReviewer')
+                ->orderBy('updated_at', 'desc')->latest()->get();
 
         return $activeCaseRequests;
     }
@@ -109,8 +114,55 @@ class CaseRequestController extends Controller
     public function closedCaseRequests(Request $request)
     {
         $closedCaseRequests = CaseRequest::where('is_case_closed', true)
-            ->with('initiator', 'caseReviewer')->get();
+            ->with('initiator', 'caseReviewer')
+                ->orderBy('updated_at', 'desc')->latest()->get();
 
         return $closedCaseRequests;
     }
+
+    public function assignCaseReviewer(Request $request)
+    {
+        $data = $request->validate([
+            'case_request_id' => 'required|integer',
+            'case_reviewer_id' => 'required|integer',
+        ]);
+
+        $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
+        $caseRequest->case_reviewer_id = $data['case_reviewer_id'];
+        $caseRequest->status = 'awaiting_recommendation';
+        $caseRequest->save();
+
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+    }
+
+    public function caseReviewerRecommendation(Request $request)
+    {
+        $data = $request->validate([
+            'case_request_id' => 'required|integer',
+            'recommendation' => 'required|string',     
+            'should_go_to_trial' => 'required|boolean',       
+        ]);
+
+        $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
+        $caseRequest->recommendation = $data['recommendation'];
+        $caseRequest->should_go_to_trial = $data['should_go_to_trial'];
+        $caseRequest->status = 'awaiting_approval';
+        $caseRequest->save();
+
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+    }    
+
+    public function caseRquestDiscarded(Request $request)
+    {
+        $data = $request->validate([
+            'case_request_id' => 'required|integer',
+        ]);
+
+        $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
+        $caseRequest->status = 'discarded';
+        $caseRequest->is_case_closed = true;                
+        $caseRequest->save();
+
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+    }    
 }
