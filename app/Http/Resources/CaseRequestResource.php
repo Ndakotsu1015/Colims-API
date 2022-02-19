@@ -24,7 +24,7 @@ class CaseRequestResource extends JsonResource
             'initiator' => new UserResource($this->whenLoaded('initiator')),
             'caseReviewer' => new UserResource($this->whenLoaded('caseReviewer')),
             'status' => $this->status,        
-            'recomendation_note' => $this->recomendation_note, 
+            'recommendation_note' => $this->recommendation_note, 
             'should_go_to_trial' => $this->should_go_to_trial,
             'is_case_closed' => $this->is_case_closed,    
         ];

@@ -79,7 +79,7 @@ class CaseRequestController extends Controller
     {
         $awaitingReviewerAssignment = CaseRequest::where('status', 'pending')
             ->with('initiator', 'caseReviewer')
-                ->orderBy('updated_at', 'desc')->latest()->get();
+            ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($awaitingReviewerAssignment);
     }
@@ -88,7 +88,7 @@ class CaseRequestController extends Controller
     {
         $awaitingRecommendation = CaseRequest::where('status', 'awaiting_recommendation')
             ->with('initiator', 'caseReviewer')
-                ->orderBy('updated_at', 'desc')->latest()->get();
+            ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($awaitingRecommendation);
     }
@@ -97,7 +97,7 @@ class CaseRequestController extends Controller
     {
         $awaitingApproval = CaseRequest::where('status', 'awaiting_approval')
             ->with('initiator', 'caseReviewer')
-                ->orderBy('updated_at', 'desc')->latest()->get();
+            ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($awaitingApproval);
     }
@@ -106,7 +106,7 @@ class CaseRequestController extends Controller
     {
         $activeCaseRequests = CaseRequest::where('is_case_closed', false)
             ->with('initiator', 'caseReviewer')
-                ->orderBy('updated_at', 'desc')->latest()->get();
+            ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($activeCaseRequests);
     }
@@ -115,7 +115,7 @@ class CaseRequestController extends Controller
     {
         $closedCaseRequests = CaseRequest::where('is_case_closed', true)
             ->with('initiator', 'caseReviewer')
-                ->orderBy('updated_at', 'desc')->latest()->get();
+            ->orderBy('updated_at', 'desc')->latest()->get();
 
         return new CaseRequestCollection($closedCaseRequests);
     }
@@ -139,18 +139,18 @@ class CaseRequestController extends Controller
     {
         $data = $request->validate([
             'case_request_id' => 'required|integer',
-            'recommendation' => 'required|string',     
-            'should_go_to_trial' => 'required|boolean',       
+            'recommendation_note' => 'required|string',
+            'should_go_to_trial' => 'required|boolean',
         ]);
 
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
-        $caseRequest->recommendation = $data['recommendation'];
+        $caseRequest->recommendation_note = $data['recommendation_note'];
         $caseRequest->should_go_to_trial = $data['should_go_to_trial'];
         $caseRequest->status = 'awaiting_approval';
         $caseRequest->save();
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
-    }    
+    }
 
     public function caseRquestDiscarded(Request $request)
     {
@@ -160,9 +160,9 @@ class CaseRequestController extends Controller
 
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
         $caseRequest->status = 'discarded';
-        $caseRequest->is_case_closed = true;                
+        $caseRequest->is_case_closed = true;
         $caseRequest->save();
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
-    }    
+    }
 }

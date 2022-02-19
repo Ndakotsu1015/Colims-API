@@ -23,7 +23,7 @@ class CreateCaseRequestsTable extends Migration
             $table->foreignId('initiator_id')->constrained('users');
             $table->foreignId('case_reviewer_id')->nullable()->constrained('users');
             $table->string('status')->default('pending');
-            $table->text('recomendation_note')->nullable();
+            $table->text('recommendation_note')->nullable();
             $table->boolean('should_go_to_trial')->nullable();
             $table->boolean('is_case_closed')->nullable();
             $table->softDeletes();

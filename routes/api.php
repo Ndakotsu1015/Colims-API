@@ -138,11 +138,11 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('/inactive-case-request', [CaseRequestController::class, 'inactiveCaseRequests'])->name('inactive-case-request');    
 
-    Route::post('/assign-case-reviewer', [CasereviewerController::class, 'assignCaseReviewer'])->name('assign-case-reviewer');    
+    Route::post('/assign-case-reviewer', [CaseRequestController::class, 'assignCaseReviewer'])->name('assign-case-reviewer');    
 
-    Route::post('/case-reviewer-recommendation', [CasereviewerController::class, 'caseReviewerRecommendation'])->name('case-reviewer-recommendation');
+    Route::post('/case-reviewer-recommendation/{id}', [CaseRequestController::class, 'caseReviewerRecommendation'])->name('case-reviewer-recommendation');
 
-    Route::post('/case-request-discarded', [CasereviewerController::class, 'caseRquestDiscarded'])->name('case-request-discarded');
+    Route::post('/case-request-discarded', [CaseRequestController::class, 'caseRquestDiscarded'])->name('case-request-discarded');
 
     Route::apiResource('case-request-movements', App\Http\Controllers\CaseRequestMovementController::class); 
 });

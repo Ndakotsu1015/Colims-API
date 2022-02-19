@@ -22,7 +22,7 @@ class CaseRequest extends Model
         'initiator_id',
         'case_reviewer_id',
         'status',
-        'recommendation',
+        'recommendation_note',
         'should_go_to_trial',
         'is_case_closed',
     ];

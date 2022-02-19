@@ -30,8 +30,8 @@ class CaseRequestFactory extends Factory
             'initiator_id' => User::factory(),
             // 'case_reviewer_id' => User::factory(),
             'status' => 'pending',
-            'recomendation_note' => $this->faker->paragraphs(3, true),
-            'should_go_to_trial' => $this->faker->boolean,
+            //'recomendation_note' => $this->faker->paragraphs(3, true),
+            //'should_go_to_trial' => $this->faker->boolean,
             'is_case_closed' => $this->faker->boolean,
         ];
     }
