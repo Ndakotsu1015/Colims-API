@@ -152,7 +152,7 @@ class CaseRequestController extends Controller
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
 
-    public function caseRquestDiscarded(Request $request)
+    public function caseRequestDiscarded(Request $request)
     {
         $data = $request->validate([
             'case_request_id' => 'required|integer',
