@@ -17,9 +17,12 @@ class CreateSuitPartiesTable extends Migration
 
         Schema::create('suit_parties', function (Blueprint $table) {
             $table->id();            
-            $table->foreignId('court_case_id')->constrained();
-            $table->foreignId('case_participant_id')->constrained();
+            $table->string('name');
+            $table->string('phone_no');
+            $table->string('address');
+            $table->string('email');
             $table->string('type');
+            $table->foreignId('court_case_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

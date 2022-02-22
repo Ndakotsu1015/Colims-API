@@ -9,6 +9,8 @@ use App\Http\Resources\CaseRequestResource;
 use App\Http\Resources\CourtCaseResource;
 use App\Models\CaseRequest;
 use App\Models\CourtCase;
+use App\Models\CaseOutcome;
+use App\Models\CaseStatus;
 use App\Models\SuitParty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -132,7 +134,7 @@ class CaseRequestController extends Controller
 
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
         $caseRequest->case_reviewer_id = $data['case_reviewer_id'];
-        $caseRequest->status = 'awaiting_recommendation';
+        $caseRequest->status = 'case_created';
         $caseRequest->save();
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
@@ -160,16 +162,25 @@ class CaseRequestController extends Controller
         $data = $request->validate([
             'case_request_id' => 'required|integer',
             'solicitor_id' => 'required|integer|exists:solicitors,id',
-            'case_handler_id' => 'required|integer|exists:users,id'
+            'handler_id' => 'required|integer|exists:users,id',
+            'case_no' => 'required|string',
+            'suitParties' => ''
         ]);
+        
+        Log::debug($data);
 
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
         $data['posted_by'] = auth()->user()->id;
+        $data['title'] = $caseRequest->title;
+        $data['status'] = 'pending';
+        $data['case_outcome_id'] = CaseOutcome::first()->id;
+        $data['case_status_id'] = CaseStatus::first()->id;
 
         /** @var CourtCase $courtCase */
         $courtCase = CourtCase::create($data);
 
         $suitParties = $data['suitParties'];
+        Log::debug($suitParties);
         if(is_array($suitParties)) {
             foreach ($suitParties as $suitParty) {
                 $suitParty['court_case_id'] = $courtCase->id;
@@ -177,7 +188,7 @@ class CaseRequestController extends Controller
             }
         }
 
-        $caseRequest->status = 'awaiting_approval';
+        $caseRequest->status = 'created';
         $caseRequest->is_case_closed = true;
         $caseRequest->save();
 
