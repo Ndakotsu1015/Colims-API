@@ -6,7 +6,10 @@ use App\Http\Requests\CaseRequestStoreRequest;
 use App\Http\Requests\CaseRequestUpdateRequest;
 use App\Http\Resources\CaseRequestCollection;
 use App\Http\Resources\CaseRequestResource;
+use App\Http\Resources\CourtCaseResource;
 use App\Models\CaseRequest;
+use App\Models\CourtCase;
+use App\Models\SuitParty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -150,6 +153,35 @@ class CaseRequestController extends Controller
         $caseRequest->save();
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+    }
+
+    public function caseRequestApproval(Request $request)
+    {
+        $data = $request->validate([
+            'case_request_id' => 'required|integer',
+            'solicitor_id' => 'required|integer|exists:solicitors,id',
+            'case_handler_id' => 'required|integer|exists:users,id'
+        ]);
+
+        $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
+        $data['posted_by'] = auth()->user()->id;
+
+        /** @var CourtCase $courtCase */
+        $courtCase = CourtCase::create($data);
+
+        $suitParties = $data['suitParties'];
+        if(is_array($suitParties)) {
+            foreach ($suitParties as $suitParty) {
+                $suitParty['court_case_id'] = $courtCase->id;
+                SuitParty::create($suitParty);
+            }
+        }
+
+        $caseRequest->status = 'awaiting_approval';
+        $caseRequest->is_case_closed = true;
+        $caseRequest->save();
+
+        return new CourtCaseResource($courtCase->load('postedBy', 'handler', 'solicitor', 'suitParties'));
     }
 
     public function caseRequestDiscarded(Request $request)
