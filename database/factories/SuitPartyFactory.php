@@ -24,10 +24,13 @@ class SuitPartyFactory extends Factory
      */
     public function definition()
     {
-        return [           
-            'court_case_id' => CourtCase::factory(),
-            'case_participant_id' => CaseParticipant::factory(),
+        return [
+        	'name' => $this->faker->name,
+            'phone_no' => $this->faker->word,
+            'address' => $this->faker->word,
+            'email' => $this->faker->safeEmail,
             'type' => $this->faker->word,
+            'court_case_id' => CourtCase::factory(),
         ];
     }
 }
