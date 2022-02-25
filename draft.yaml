@@ -194,6 +194,7 @@ models:
     posted_by: id foreign:user.id
     solicitor_id: id foreign
     is_case_closed: boolean default:false
+    court_pronouncement: string nullable    
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity

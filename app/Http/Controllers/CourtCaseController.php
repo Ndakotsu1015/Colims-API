@@ -23,7 +23,7 @@ class CourtCaseController extends Controller
      */
     public function index(Request $request)
     {
-        $courtCases = CourtCase::with('handler', 'postedBy', 'caseStatus', 'caseOutcome', 'solicitor', 'caseRequest', 'suitParties')->get();
+        $courtCases = CourtCase::with('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties')->get();
 
         return new CourtCaseCollection($courtCases);
     }
@@ -36,7 +36,7 @@ class CourtCaseController extends Controller
     {
         $courtCase = CourtCase::create($request->validated());
 
-        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'caseOutcome', 'solicitor', 'caseRequest', 'suitParties'));
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
 
     /**
@@ -46,7 +46,7 @@ class CourtCaseController extends Controller
      */
     public function show(Request $request, CourtCase $courtCase)
     {
-        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'caseOutcome', 'solicitor', 'caseRequest', 'suitParties'));
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
 
     /**
@@ -58,7 +58,7 @@ class CourtCaseController extends Controller
     {
         $courtCase->update($request->validated());
 
-        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'caseOutcome', 'solicitor', 'caseRequest', 'suitParties'));
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
 
     /**
