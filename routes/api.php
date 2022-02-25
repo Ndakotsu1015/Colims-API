@@ -7,6 +7,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\AwardLetterController;
 use App\Http\Controllers\BankReferenceController;
 use App\Http\Controllers\CaseRequestController;
+use App\Http\Controllers\CourtCaseController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -147,6 +148,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::post('/case-request-discarded', [CaseRequestController::class, 'caseRequestDiscarded'])->name('case-request-discarded');
 
     Route::apiResource('case-request-movements', App\Http\Controllers\CaseRequestMovementController::class); 
+
+    // Route::get('/case-suit-parties', [CourtCaseController::class, 'caseSuitParties'])->name('case-suit-parties');    
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');

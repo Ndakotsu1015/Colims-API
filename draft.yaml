@@ -193,6 +193,7 @@ models:
     handler_id: id foreign:user.id  
     posted_by: id foreign:user.id
     solicitor_id: id foreign
+    is_case_closed: boolean default:false
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
