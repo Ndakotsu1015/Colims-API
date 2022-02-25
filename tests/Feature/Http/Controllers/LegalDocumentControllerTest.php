@@ -87,7 +87,7 @@ class LegalDocumentControllerTest extends TestCase
             'user_id' => $user->id,
             'court_case_id' => $court_case->id,
             'document_type_id' => $document_type->id,
-        ]);
+        ]);       
 
         $legalDocuments = LegalDocument::query()
             ->where('title', $title)

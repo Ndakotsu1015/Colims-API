@@ -19,14 +19,14 @@ class CourtCase extends Model
      */
     protected $fillable = [
         'title',
-        'case_no',
-        'status',
+        'case_no',        
         'handler_id',
         'posted_by',
-        'case_status_id',
-        'case_outcome_id',
+        'case_status_id',        
         'solicitor_id',
         'case_request_id',
+        'is_case_closed',
+        'court_pronouncement',
     ];
 
     /**
@@ -38,10 +38,10 @@ class CourtCase extends Model
         'id' => 'integer',
         'handler_id' => 'integer',
         'posted_by' => 'integer',
-        'case_status_id' => 'integer',
-        'case_outcome_id' => 'integer',
+        'case_status_id' => 'integer',        
         'solicitor_id' => 'integer',
         'case_request_id' => 'integer',
+        'is_case_closed' => 'boolean',        
     ];
 
     public function suitParties()
@@ -73,11 +73,6 @@ class CourtCase extends Model
     {
         return $this->belongsTo(CaseStatus::class, 'case_status_id');
     }
-
-    public function caseOutcome()
-    {
-        return $this->belongsTo(CaseOutcome::class, 'case_outcome_id');
-    } 
     
     public function solicitor()
     {

@@ -7,6 +7,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\AwardLetterController;
 use App\Http\Controllers\BankReferenceController;
 use App\Http\Controllers\CaseRequestController;
+use App\Http\Controllers\CourtCaseController;
 use App\Http\Controllers\UserController;
 
 /*
