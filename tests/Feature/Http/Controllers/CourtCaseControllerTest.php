@@ -81,33 +81,34 @@ class CourtCaseControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $case_no = $this->faker->word;
         $status = $this->faker->word;
+        $is_case_closed = $this->faker->boolean;
+        $court_pronouncement = $this->faker->word;
         $handler = User::inRandomOrder()->first();
         $posted_by = User::inRandomOrder()->first();
-        $case_status = CaseStatus::inRandomOrder()->first();
-        $case_outcome = CaseOutcome::inRandomOrder()->first();    
+        $case_status = CaseStatus::inRandomOrder()->first();        
         $solicitor = Solicitor::inRandomOrder()->first();  
         $case_request = CaseRequest::inRandomOrder()->first();;  
 
         $response = $this->post(route('court-cases.store'), [
             'title' => $title,
-            'case_no' => $case_no,
-            'status' => $status,
+            'case_no' => $case_no,            
+            'is_case_closed' => $is_case_closed,
+            'court_pronouncement' => $court_pronouncement,
             'handler_id' => $handler->id,
             'posted_by' => $posted_by->id,
-            'case_status_id' => $case_status->id,
-            'case_outcome_id' => $case_outcome->id,
+            'case_status_id' => $case_status->id,            
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
         ]);
 
         $courtCases = CourtCase::query()
             ->where('title', $title)
-            ->where('case_no', $case_no)
-            ->where('status', $status)
+            ->where('case_no', $case_no)            
+            ->where('is_case_closed', $is_case_closed)
+            ->where('court_pronouncement', $court_pronouncement)
             ->where('handler_id', $handler->id)
             ->where('posted_by', $posted_by->id)
-            ->where('case_status_id', $case_status->id)
-            ->where('case_outcome_id', $case_outcome->id)
+            ->where('case_status_id', $case_status->id)            
             ->where('case_request_id', $case_request->id)
             ->where('solicitor_id', $solicitor->id)
             ->get();
@@ -154,21 +155,22 @@ class CourtCaseControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $case_no = $this->faker->word;
         $status = $this->faker->word;
+        $is_case_closed = $this->faker->boolean;
+        $court_pronouncement = $this->faker->word;
         $handler = User::inRandomOrder()->first();
         $posted_by = User::inRandomOrder()->first();
-        $case_status = CaseStatus::inRandomOrder()->first();
-        $case_outcome = CaseOutcome::inRandomOrder()->first();
+        $case_status = CaseStatus::inRandomOrder()->first();        
         $solicitor = Solicitor::inRandomOrder()->first();
         $case_request = CaseRequest::inRandomOrder()->first();
 
         $response = $this->put(route('court-cases.update', $courtCase), [
             'title' => $title,
-            'case_no' => $case_no,
-            'status' => $status,
+            'case_no' => $case_no,        
+            'is_case_closed' => $is_case_closed,
+            'court_pronouncement' => $court_pronouncement,
             'handler_id' => $handler->id,
             'posted_by' => $posted_by->id,
-            'case_status_id' => $case_status->id,
-            'case_outcome_id' => $case_outcome->id,
+            'case_status_id' => $case_status->id,            
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
         ]);
@@ -181,12 +183,12 @@ class CourtCaseControllerTest extends TestCase
         $response->assertJsonStructure([]);
 
         $this->assertEquals($title, $courtCase->title);
-        $this->assertEquals($case_no, $courtCase->case_no);
-        $this->assertEquals($status, $courtCase->status);
+        $this->assertEquals($case_no, $courtCase->case_no);        
+        $this->assertEquals($is_case_closed, $courtCase->is_case_closed);
+        $this->assertEquals($court_pronouncement, $courtCase->court_pronouncement);
         $this->assertEquals($handler->id, $courtCase->handler_id);
         $this->assertEquals($posted_by->id, $courtCase->posted_by);
-        $this->assertEquals($case_status->id, $courtCase->case_status_id);
-        $this->assertEquals($case_outcome->id, $courtCase->case_outcome_id);  
+        $this->assertEquals($case_status->id, $courtCase->case_status_id);        
         $this->assertEquals($solicitor->id, $solicitor->solicitor_id);     
         $this->assertEquals($case_request->id, $courtCase->case_request_id);                  
     }

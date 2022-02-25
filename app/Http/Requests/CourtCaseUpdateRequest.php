@@ -25,14 +25,14 @@ class CourtCaseUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'case_no' => ['required', 'string', 'unique:court_cases,case_no'],
-            'status' => ['required', 'string'],
+            'case_no' => ['required', 'string', 'unique:court_cases,case_no'],            
             'handler_id' => ['required', 'integer', 'exists:users,id'],
-            'posted_by' => ['required'],
-            'case_outcome_id' => ['required', 'integer', 'exists:case_outcomes,id'],
+            'posted_by' => ['required'],            
             'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
             'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
             'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
+            'is_case_closed' => ['nullable', 'boolean'],
+            'court_pronouncement' => ['nullable', 'string'],
         ];
     }
 }
