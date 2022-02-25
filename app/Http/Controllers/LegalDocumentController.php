@@ -8,6 +8,7 @@ use App\Http\Resources\LegalDocumentCollection;
 use App\Http\Resources\LegalDocumentResource;
 use App\Models\LegalDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LegalDocumentController extends Controller
 {
@@ -65,5 +66,15 @@ class LegalDocumentController extends Controller
         $legalDocument->delete();
 
         return response()->noContent();
+    }
+    
+    public function getCourtCase($id)
+    {
+    	Log::debug("Legal Document");
+    	Log::debug($id);
+    	
+    	CourtCase::
+    	
+    	return response()->json([ "id" => $id ]);
     }
 }
