@@ -166,7 +166,7 @@ class CaseRequestController extends Controller
             'case_no' => 'required|string',
             'suitParties' => ''
         ]);
-        
+
         Log::debug($data);
 
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
@@ -181,7 +181,7 @@ class CaseRequestController extends Controller
 
         $suitParties = $data['suitParties'];
         Log::debug($suitParties);
-        if(is_array($suitParties)) {
+        if (is_array($suitParties)) {
             foreach ($suitParties as $suitParty) {
                 $suitParty['court_case_id'] = $courtCase->id;
                 SuitParty::create($suitParty);
@@ -207,5 +207,12 @@ class CaseRequestController extends Controller
         $caseRequest->save();
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+    }
+
+    public function isCaseCreated($id)
+    {
+        $exists = CourtCase::where('case_request_id', $id)->exists();
+
+        return $this->success($exists);
     }
 }

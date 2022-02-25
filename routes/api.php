@@ -128,6 +128,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('case-requests', App\Http\Controllers\CaseRequestController::class);
 
+    Route::get('case-requests/{id}/is-case-created', [App\Http\Controllers\CaseRequestController::class, 'isCaseCreated']);
+
     Route::get('/case-request-awaiting-reviewer-assignment', [CaseRequestController::class, 'awaitingReviewerAssignment'])->name('case-request-awaiting-reviewer-assignment');
 
     Route::get('/case-request-awaiting-recommendation', [CaseRequestController::class, 'awaitingRecommendation'])->name('case-request-awaiting-recommendation');
