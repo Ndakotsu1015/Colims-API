@@ -113,9 +113,9 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/bank-reference-check-ref-no/{ref_no}', [BankReferenceController::class, 'checkRefNo'])->name('check-ref-no');
 
     Route::get('/email-check/{email}', [UserController::class, 'emailCheck'])->name('email-check');
-    
+
     Route::get('/award-letter-renewals', [AwardLetterController::class, 'awardLetterRenewals'])->name('award-letter-renewals');
-    
+
     Route::apiResource('case-status', App\Http\Controllers\CaseStatusController::class);
 
     Route::apiResource('case-outcome', App\Http\Controllers\CaseOutcomeController::class);
@@ -130,15 +130,15 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('/case-request-awaiting-reviewer-assignment', [CaseRequestController::class, 'awaitingReviewerAssignment'])->name('case-request-awaiting-reviewer-assignment');
 
-    Route::get('/case-request-awaiting-recommendation', [CaseRequestController::class, 'awaitingRecommendation'])->name('case-request-awaiting-recommendation');    
+    Route::get('/case-request-awaiting-recommendation', [CaseRequestController::class, 'awaitingRecommendation'])->name('case-request-awaiting-recommendation');
 
-    Route::get('/case-request-awaiting-approval', [CaseRequestController::class, 'awaitingApproval'])->name('case-request-awaiting-approval');    
+    Route::get('/case-request-awaiting-approval', [CaseRequestController::class, 'awaitingApproval'])->name('case-request-awaiting-approval');
 
-    Route::get('/active-case-request', [CaseRequestController::class, 'activeCaseRequests'])->name('active-case-request');    
+    Route::get('/active-case-request', [CaseRequestController::class, 'activeCaseRequests'])->name('active-case-request');
 
-    Route::get('/inactive-case-request', [CaseRequestController::class, 'inactiveCaseRequests'])->name('inactive-case-request');    
+    Route::get('/inactive-case-request', [CaseRequestController::class, 'inactiveCaseRequests'])->name('inactive-case-request');
 
-    Route::post('/assign-case-reviewer', [CaseRequestController::class, 'assignCaseReviewer'])->name('assign-case-reviewer');    
+    Route::post('/assign-case-reviewer', [CaseRequestController::class, 'assignCaseReviewer'])->name('assign-case-reviewer');
 
     Route::post('/case-reviewer-recommendation/{id}', [CaseRequestController::class, 'caseReviewerRecommendation'])->name('case-reviewer-recommendation');
 
@@ -146,9 +146,17 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::post('/case-request-discarded', [CaseRequestController::class, 'caseRequestDiscarded'])->name('case-request-discarded');
 
-    Route::apiResource('case-request-movements', App\Http\Controllers\CaseRequestMovementController::class); 
+    Route::apiResource('case-request-movements', App\Http\Controllers\CaseRequestMovementController::class);
+
+    Route::get('court-cases/{id}/calendar-events', [App\Http\Controllers\CourtCaseController::class, 'getCalendarEvents']);
+
+    Route::get('court-cases/{id}/case-activities', [App\Http\Controllers\CourtCaseController::class, 'getCaseActivities']);
+
+    Route::get('court-cases/{id}/suit-parties', [App\Http\Controllers\CourtCaseController::class, 'getSuitParties']);
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
 Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
+
+Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumentController::class, 'getCourtCase']);

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CourtCaseStoreRequest;
 use App\Http\Requests\CourtCaseUpdateRequest;
+use App\Http\Resources\CalendarEventCollection;
+use App\Http\Resources\CaseActivityCollection;
 use App\Http\Resources\CourtCaseCollection;
 use App\Http\Resources\CourtCaseResource;
+use App\Http\Resources\SuitPartyCollection;
+use App\Models\CalendarEvent;
+use App\Models\CaseActivity;
 use App\Models\CourtCase;
+use App\Models\SuitParty;
 use Illuminate\Http\Request;
 
 class CourtCaseController extends Controller
@@ -65,5 +71,26 @@ class CourtCaseController extends Controller
         $courtCase->delete();
 
         return response()->noContent();
+    }
+
+    public function getCalendarEvents($id)
+    {
+        $calendarEvents = CalendarEvent::where('court_case_id', $id)->get();
+
+        return new CalendarEventCollection($calendarEvents);
+    }
+
+    public function getCaseActivities($id)
+    {
+        $caseActivities = CaseActivity::where('court_case_id', $id)->get();
+
+        return new CaseActivityCollection($caseActivities);
+    }
+
+    public function getSuitParties($id)
+    {
+        $suitParties = SuitParty::where('court_case_id', $id)->get();
+
+        return new SuitPartyCollection($suitParties);
     }
 }
