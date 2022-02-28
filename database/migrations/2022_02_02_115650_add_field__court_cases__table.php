@@ -14,8 +14,7 @@ class AddFieldCourtCasesTable extends Migration
     public function up()
     {
         Schema::table('court_cases', function (Blueprint $table) {
-            // $table->foreignId('case_status_id')->constrained();  
-            // $table->foreignId('case_outcome_id')->constrained();  
+            // $table->foreignId('case_status_id')->constrained();              
         });
     }
 

@@ -83,7 +83,7 @@ controllers:
   CaseRequestMovement:
     resource: api  
 
-seeders: CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent, CaseRequest, CaseRequestMovement, CaseStatus, CaseOutcome
+seeders: CourtCase, SuitParty, LegalDocument, CaseActivity, CalendarEvent, CaseRequest, CaseRequestMovement, CaseStatus
 
 
     

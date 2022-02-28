@@ -1,60 +1,15 @@
 created:
-    - app/Http/Controllers/CaseRequestController.php
-    - app/Http/Controllers/CaseRequestMovementController.php
-    - database/factories/CaseRequestFactory.php
-    - database/factories/CaseRequestMovementFactory.php
-    - database/migrations/2022_02_11_121050_create_case_requests_table.php
-    - database/migrations/2022_02_11_121051_create_case_request_movements_table.php
-    - app/Models/CaseRequest.php
-    - app/Models/CaseRequestMovement.php
-    - database/seeders/CaseRequestSeeder.php
-    - database/seeders/CaseRequestMovementSeeder.php
-    - tests/Feature/Http/Controllers/CaseRequestControllerTest.php
-    - tests/Feature/Http/Controllers/CaseRequestMovementControllerTest.php
-    - app/Http/Requests/CaseRequestStoreRequest.php
-    - app/Http/Requests/CaseRequestUpdateRequest.php
-    - app/Http/Requests/CaseRequestMovementStoreRequest.php
-    - app/Http/Requests/CaseRequestMovementUpdateRequest.php
-    - app/Http/Resources/CaseRequestCollection.php
-    - app/Http/Resources/CaseRequestResource.php
-    - app/Http/Resources/CaseRequestMovementCollection.php
-    - app/Http/Resources/CaseRequestMovementResource.php
+    - app/Http/Controllers/CaseActivitySuitPartyController.php
+    - database/factories/CaseActivitySuitPartyFactory.php
+    - database/migrations/2022_02_28_133021_create_case_activity_suit_parties_table.php
+    - app/Models/CaseActivitySuitParty.php
+    - database/seeders/CaseActivitySuitPartySeeder.php
+    - tests/Feature/Http/Controllers/CaseActivitySuitPartyControllerTest.php
+    - app/Http/Requests/CaseActivitySuitPartyStoreRequest.php
+    - app/Http/Requests/CaseActivitySuitPartyUpdateRequest.php
+    - app/Http/Resources/CaseActivitySuitPartyCollection.php
+    - app/Http/Resources/CaseActivitySuitPartyResource.php
 updated:
     - routes/api.php
 models:
-    Project: { name: string, project_code: string, softdeletes: softDeletes }
-    Submodule: { name: string, module_id: unsignedInteger, is_active: 'boolean default:true', softdeletes: softDeletes }
-    ChartProvider: { chart_provider: string, softdeletes: softDeletes, relationships: { hasMany: ChartCategory } }
-    Contractor: { contractor_name: string, address: string, location: string, email: string, phone_no: string, contact_name: string, contact_email: string, contact_phone: string, softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
-    PropertyType: { name: string, property_code: string, softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
-    State: { name: string, state_code: string, region_id: 'unsignedInteger nullable', state_code2: 'string nullable', is_active: 'boolean default:true', softdeletes: softDeletes, relationships: { hasMany: AwardLetter } }
-    AwardLetter: { unit_price: float, no_units: unsignedInteger, date_awarded: date, last_bank_ref_date: date nullable, reference_no: string, contractor_id: 'id foreign', property_type_id: 'id foreign', state_id: 'id foreign', project_id: 'id foreign', posted_by: unsignedInteger, softdeletes: softDeletes, relationships: { hasMany: BankReference } }
-    Bank: { name: string, created_by: unsignedInteger, modified_by: unsignedInteger, bank_code: string, softdeletes: softDeletes, relationships: { hasMany: ContractorAffliate } }
-    BankReference: { reference_date: datetime, reference_no: string, created_by: unsignedInteger, in_name_of: string, affliate_id: 'unsignedInteger nullable', award_letter_id: 'id foreign', softdeletes: softDeletes }
-    ChartCategory: { chart_category: string, chart_provider_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: 'ChartType,DashboardSetting' } }
-    ChartType: { chart_type: string, chart_category_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
-    Chart: { chart_title: string, sql_query: string, is_active: 'boolean default:true', module_id: 'id foreign', filter_column: string, chart_type_id: 'id foreign', chart_category_id: 'id foreign', softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
-    ContractorAffliate: { name: string, account_no: string, account_officer: string, account_officer_email: string, bank_address: string, sort_code: string, bank_id: 'id foreign', softdeletes: softDeletes }
-    DashboardSetting: { chart_title: string, is_active: 'boolean default:true', orderby: unsignedInteger, is_group: 'boolean default:true', sub_module_id: unsignedInteger, chart_id: 'id foreign', module_id: 'id foreign', chart_type_id: 'id foreign', chart_category_id: 'id foreign', softdeletes: softDeletes }
-    Module: { name: string, order_by: unsignedInteger, active_id: unsignedInteger, url: string, created_by: unsignedInteger, modified_by: unsignedInteger, icon: string, bg_class: string, softdeletes: softDeletes, relationships: { hasMany: DashboardSetting } }
-    Privilege: { name: string, softdeletes: softDeletes }
-    PrivilegeClass: { name: string, softdeletes: softDeletes }
-    PrivilegeDetail: { privilege_class_id: 'id foreign', user_id: 'id foreign', privilege_id: 'id foreign', softdeletes: softDeletes }
-    Menu: { title: 'string nullable', link: string, order: 'string nullable', is_active: 'boolean default:false', icon: 'string nullable', parent_id: 'id foreign:menu.id', module_id: 'id foreign', softdeletes: softDeletes }
-    MenuAuthorization: { menu_id: 'id foreign', privilege_id: 'id foreign', softdeletes: softDeletes }
-    CourtCase: { title: string, case_no: 'string unique', status: string, handler_id: 'id foreign:user.id', posted_by: 'id foreign:user.id', softdeletes: softDeletes, relationships: { hasMany: 'SuitParty, LegalDocument, CaseActivity' } }
-    SuitParty: { fullname: string, phone_no: string, residential_address: text, court_case_id: 'id foreign', type: string, softdeletes: softDeletes }
-    LegalDocument: { title: string, filename: string, user_id: 'id foreign', court_case_id: 'id foreign', softdeletes: softDeletes }
-    CaseActivity: { description: text, court_case_id: 'id foreign', user_id: 'id foreign', status: string, location: string, softdeletes: softDeletes, relationships: { hasMany: SuitParty } }
-    CalendarEvent: { description: text, location: string, start_time: datetime, end_time: datetime, posted_by: 'id foreign:user.id', court_case_id: 'id foreign', softdeletes: softDeletes }
-    ContractCategory: { name: string }
-    ContractType: { name: string }
-    Duration: { name: string, number_of_days: unsignInteger }
-    Employee: { full_name: string, title: string, designation: string, signature_file: string }
-    CaseStatus: { name: string, softdeletes: softDeletes }
-    CaseOutcome: { name: string, softdeletes: softDeletes }
-    LegalDocumentType: { name: string, softdeletes: softDeletes }
-    Solicitor: { name: string, office_address: string, contact_name: string, contact_phone: string, location: string, state_id: 'id foreign', softdeletes: softDeletes }
-    CaseParticipant: { name: string, phone_no: string, address: string, email: string, softdeletes: softDeletes }
-    CaseRequest: { title: string, content: text, memo_file: 'string nullable', initiator_id: 'id foreign:user.id',, case_reviewer_id: 'id foreign:user.id' status: string, softdeletes: softDeletes }
-    CaseRequestMovement: { case_request_id: 'id foreign', user_id: 'id foreign', forward_to: 'id foreign:user.id', notes: text, softdeletes: softDeletes }
+    CaseActivitySuitParty: { case_activity_id: 'id foreign', suit_party_id: 'id foreign', softdeletes: softDeletes }

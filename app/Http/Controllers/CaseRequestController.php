@@ -9,7 +9,6 @@ use App\Http\Resources\CaseRequestResource;
 use App\Http\Resources\CourtCaseResource;
 use App\Models\CaseRequest;
 use App\Models\CourtCase;
-use App\Models\CaseOutcome;
 use App\Models\CaseStatus;
 use App\Models\SuitParty;
 use Illuminate\Http\Request;
@@ -172,8 +171,7 @@ class CaseRequestController extends Controller
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
         $data['posted_by'] = auth()->user()->id;
         $data['title'] = $caseRequest->title;
-        $data['status'] = 'pending';
-        $data['case_outcome_id'] = CaseOutcome::first()->id;
+        $data['status'] = 'pending';        
         $data['case_status_id'] = CaseStatus::first()->id;
 
         /** @var CourtCase $courtCase */

@@ -1,0 +1,10 @@
+models:
+  CaseActivitySuitParty:
+    case_activity_id: id foreign
+    suit_party_id: id foreign
+    softDeletes
+
+controllers:
+  CaseActivitySuitParty:
+    resource: api
+seeders: CaseActivitySuitParty

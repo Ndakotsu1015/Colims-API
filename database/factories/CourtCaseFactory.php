@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\CaseOutcome;
 use App\Models\CaseRequest;
 use App\Models\CaseStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
