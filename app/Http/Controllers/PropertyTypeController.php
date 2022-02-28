@@ -17,7 +17,7 @@ class PropertyTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $propertyTypes = PropertyType::all();
+        $propertyTypes = PropertyType::latest()->get();
 
         return new PropertyTypeCollection($propertyTypes);
     }

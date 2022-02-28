@@ -17,7 +17,7 @@ class PrivilegeDetailController extends Controller
      */
     public function index(Request $request)
     {
-        $privilegeDetails = PrivilegeDetail::with('privilegeClass', 'user', 'privilege')->get();
+        $privilegeDetails = PrivilegeDetail::with('privilegeClass', 'user', 'privilege')->latest()->get();
 
         return new PrivilegeDetailCollection($privilegeDetails);
     }

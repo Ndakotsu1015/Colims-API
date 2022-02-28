@@ -23,7 +23,7 @@ class CourtCaseController extends Controller
      */
     public function index(Request $request)
     {
-        $courtCases = CourtCase::with('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties')->get();
+        $courtCases = CourtCase::with('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties')->latest()->get();
 
         return new CourtCaseCollection($courtCases);
     }
@@ -75,21 +75,21 @@ class CourtCaseController extends Controller
 
     public function getCalendarEvents($id)
     {
-        $calendarEvents = CalendarEvent::where('court_case_id', $id)->get();
+        $calendarEvents = CalendarEvent::where('court_case_id', $id)->latest()->get();
 
         return new CalendarEventCollection($calendarEvents);
     }
 
     public function getCaseActivities($id)
     {
-        $caseActivities = CaseActivity::where('court_case_id', $id)->get();
+        $caseActivities = CaseActivity::where('court_case_id', $id)->latest()->get();
 
         return new CaseActivityCollection($caseActivities);
     }
 
     public function getSuitParties($id)
     {
-        $suitParties = SuitParty::where('court_case_id', $id)->get();
+        $suitParties = SuitParty::where('court_case_id', $id)->latest()->get();
 
         return new SuitPartyCollection($suitParties);
     }

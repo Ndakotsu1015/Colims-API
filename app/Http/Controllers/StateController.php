@@ -17,7 +17,7 @@ class StateController extends Controller
      */
     public function index(Request $request)
     {
-        $states = State::all();
+        $states = State::latest()->get();
 
         return new StateCollection($states);
     }

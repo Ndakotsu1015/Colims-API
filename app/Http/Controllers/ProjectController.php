@@ -17,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $projects = Project::all();
+        $projects = Project::latest()->get();
 
         return new ProjectCollection($projects);
     }

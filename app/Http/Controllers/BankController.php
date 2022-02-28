@@ -17,7 +17,7 @@ class BankController extends Controller
      */
     public function index(Request $request)
     {
-        $banks = Bank::all();
+        $banks = Bank::latest()->get();
 
         return new BankCollection($banks);
     }

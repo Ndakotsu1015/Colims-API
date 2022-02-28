@@ -17,7 +17,7 @@ class LegalDocumentTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $legalDocumentTypes = LegalDocumentType::all();
+        $legalDocumentTypes = LegalDocumentType::latest()->get();
 
         return new LegalDocumentTypeCollection($legalDocumentTypes);
     }

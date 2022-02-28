@@ -17,7 +17,7 @@ class PrivilegeController extends Controller
      */
     public function index(Request $request)
     {
-        $privileges = Privilege::all();
+        $privileges = Privilege::latest()->get();
 
         return new PrivilegeCollection($privileges);
     }

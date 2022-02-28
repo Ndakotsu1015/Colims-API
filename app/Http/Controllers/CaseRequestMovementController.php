@@ -17,7 +17,7 @@ class CaseRequestMovementController extends Controller
      */
     public function index(Request $request)
     {
-        $caseRequestMovements = CaseRequestMovement::with('caseRequest', 'forwardTo', 'user')->get();
+        $caseRequestMovements = CaseRequestMovement::with('caseRequest', 'forwardTo', 'user')->latest()->get();
 
         return new CaseRequestMovementCollection($caseRequestMovements);
     }

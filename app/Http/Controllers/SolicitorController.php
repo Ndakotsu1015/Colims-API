@@ -17,7 +17,7 @@ class SolicitorController extends Controller
      */
     public function index(Request $request)
     {
-        $solicitors = Solicitor::with('state')->get();
+        $solicitors = Solicitor::with('state')->latest()->get();
 
         return new SolicitorCollection($solicitors);
     }

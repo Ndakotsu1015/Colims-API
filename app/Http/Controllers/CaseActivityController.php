@@ -17,7 +17,7 @@ class CaseActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $caseActivities = CaseActivity::with('courtCase', 'user', 'caseOutcome', 'solicitor')->get();
+        $caseActivities = CaseActivity::with('courtCase', 'user', 'caseOutcome', 'solicitor')->latest()->get();
 
         return new CaseActivityCollection($caseActivities);
     }

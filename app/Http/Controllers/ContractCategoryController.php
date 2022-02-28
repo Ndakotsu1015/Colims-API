@@ -17,7 +17,7 @@ class ContractCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $contractCategories = ContractCategory::all();
+        $contractCategories = ContractCategory::latest()->get();
 
         return new ContractCategoryCollection($contractCategories);
     }

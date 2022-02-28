@@ -17,7 +17,7 @@ class CaseParticipantController extends Controller
      */
     public function index(Request $request)
     {
-        $caseParticipants = CaseParticipant::all();
+        $caseParticipants = CaseParticipant::latest()->get();
 
         return new CaseParticipantCollection($caseParticipants);
     }

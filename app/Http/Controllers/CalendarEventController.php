@@ -17,7 +17,7 @@ class CalendarEventController extends Controller
      */
     public function index(Request $request)
     {
-        $calendarEvents = CalendarEvent::with('postedBy', 'courtCase')->get();
+        $calendarEvents = CalendarEvent::with('postedBy', 'courtCase')->latest()->get();
 
         return new CalendarEventCollection($calendarEvents);
     }
