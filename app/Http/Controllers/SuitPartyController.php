@@ -17,7 +17,7 @@ class SuitPartyController extends Controller
      */
     public function index(Request $request)
     {
-        $suitParties = SuitParty::with('courtCase', 'caseParticipant')->get();
+        $suitParties = SuitParty::with('courtCase', 'caseParticipant')->latest()->get();
 
         return new SuitPartyCollection($suitParties);
     }

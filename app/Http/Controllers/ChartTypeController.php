@@ -17,7 +17,7 @@ class ChartTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $chartTypes = ChartType::with('chartCategory')->get();
+        $chartTypes = ChartType::with('chartCategory')->latest()->get();
 
         return new ChartTypeCollection($chartTypes);
     }

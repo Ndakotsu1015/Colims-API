@@ -17,7 +17,7 @@ class ContractTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $contractTypes = ContractType::all();
+        $contractTypes = ContractType::latest()->get();
 
         return new ContractTypeCollection($contractTypes);
     }

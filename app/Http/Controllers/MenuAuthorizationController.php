@@ -17,7 +17,7 @@ class MenuAuthorizationController extends Controller
      */
     public function index(Request $request)
     {
-        $menuAuthorizations = MenuAuthorization::with('privilege', 'menu')->get();
+        $menuAuthorizations = MenuAuthorization::with('privilege', 'menu')->latest()->get();
 
         return new MenuAuthorizationCollection($menuAuthorizations);
     }

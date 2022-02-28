@@ -17,7 +17,7 @@ class ChartProviderController extends Controller
      */
     public function index(Request $request)
     {
-        $chartProviders = ChartProvider::all();
+        $chartProviders = ChartProvider::latest()->get();
 
         return new ChartProviderCollection($chartProviders);
     }

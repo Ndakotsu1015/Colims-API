@@ -17,7 +17,7 @@ class DurationController extends Controller
      */
     public function index(Request $request)
     {
-        $durations = Duration::all();
+        $durations = Duration::latest()->get();
 
         return new DurationCollection($durations);
     }

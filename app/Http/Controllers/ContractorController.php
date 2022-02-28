@@ -18,7 +18,7 @@ class ContractorController extends Controller
      */
     public function index(Request $request)
     {
-        $contractors = Contractor::all();
+        $contractors = Contractor::latest()->get();
 
         return new ContractorCollection($contractors);
     }

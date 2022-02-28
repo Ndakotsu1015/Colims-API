@@ -17,7 +17,7 @@ class ModuleController extends Controller
      */
     public function index(Request $request)
     {
-        $modules = Module::all();
+        $modules = Module::latest()->get();
 
         return new ModuleCollection($modules);
     }

@@ -17,7 +17,7 @@ class SubmoduleController extends Controller
      */
     public function index(Request $request)
     {
-        $submodules = Submodule::with('module')->get();
+        $submodules = Submodule::with('module')->latest()->get();
 
         return new SubmoduleCollection($submodules);
     }

@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::latest()->get();
 
         return new UserCollection($users);
     }

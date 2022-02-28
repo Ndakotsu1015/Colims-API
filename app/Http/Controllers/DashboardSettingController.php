@@ -21,7 +21,7 @@ class DashboardSettingController extends Controller
      */
     public function index(Request $request)
     {
-        $dashboardSettings = DashboardSetting::with('chart', 'module', 'chartType', 'chartCategory')->get();
+        $dashboardSettings = DashboardSetting::with('chart', 'module', 'chartType', 'chartCategory')->latest()->get();
 
         return new DashboardSettingCollection($dashboardSettings);
     }
@@ -33,7 +33,7 @@ class DashboardSettingController extends Controller
     public function contract(Request $request)
     {
         // $dashboardSettings = DashboardSetting::all();
-        $dashboardSettings = DashboardSetting::where(['sub_module_id'=> 1,'is_active'=>true])->orderBy('orderby','asc')->get();
+        $dashboardSettings = DashboardSetting::where(['sub_module_id'=> 1,'is_active'=>true])->orderBy('orderby','asc')->latest()->get();
         $contracts = AwardLetter::all();
         return new JsonResource(array( 'data'=>  DashboardSettingResource::collection($dashboardSettings), 'awardLetter' =>  AwardLetterResource::collection($contracts->load(['project','contractCategory','contractType']))));
 

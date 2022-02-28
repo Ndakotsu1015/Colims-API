@@ -20,7 +20,7 @@ class AwardLetterController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetters = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'bankReferences', 'approvedBy')->get();
+        $awardLetters = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'bankReferences', 'approvedBy')->latest()->get();
 
         return new AwardLetterCollection($awardLetters);
     }
@@ -74,7 +74,7 @@ class AwardLetterController extends Controller
 
     public function pending(Request $request)
     {
-        $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->get();
+        $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->latest()->get();
 
         return new AwardLetterCollection($pendingAwardLetters->load('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
@@ -89,7 +89,7 @@ class AwardLetterController extends Controller
 
     public function awardLetterRenewals(Request $request)
     {     
-        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->get();
+        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->latest()->get();
     
         return new AwardLetterCollection($data->load('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
@@ -100,7 +100,7 @@ class AwardLetterController extends Controller
         //     $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
         // })->get();
 
-        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->get();
+        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->latest()->get();
 
         Log::debug("Reference Date:");
         foreach ($data as $datum) {

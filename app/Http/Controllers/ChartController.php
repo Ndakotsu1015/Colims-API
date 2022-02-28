@@ -17,7 +17,7 @@ class ChartController extends Controller
      */
     public function index(Request $request)
     {
-        $charts = Chart::with('module', 'chartType', 'chartCategory')->get();
+        $charts = Chart::with('module', 'chartType', 'chartCategory')->latest()->get();
 
         return new ChartCollection($charts);
     }
