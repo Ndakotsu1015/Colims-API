@@ -1,15 +1,16 @@
 created:
-    - app/Http/Controllers/CaseActivitySuitPartyController.php
-    - database/factories/CaseActivitySuitPartyFactory.php
-    - database/migrations/2022_02_28_133021_create_case_activity_suit_parties_table.php
-    - app/Models/CaseActivitySuitParty.php
-    - database/seeders/CaseActivitySuitPartySeeder.php
-    - tests/Feature/Http/Controllers/CaseActivitySuitPartyControllerTest.php
-    - app/Http/Requests/CaseActivitySuitPartyStoreRequest.php
-    - app/Http/Requests/CaseActivitySuitPartyUpdateRequest.php
-    - app/Http/Resources/CaseActivitySuitPartyCollection.php
-    - app/Http/Resources/CaseActivitySuitPartyResource.php
+    - app/Http/Controllers/NotificationController.php
+    - database/factories/NotificationFactory.php
+    - database/migrations/2022_03_01_114712_create_notifications_table.php
+    - app/Models/Notification.php
+    - database/seeders/NotificationSeeder.php
+    - tests/Feature/Http/Controllers/NotificationControllerTest.php
+    - app/Http/Requests/NotificationStoreRequest.php
+    - app/Http/Requests/NotificationUpdateRequest.php
+    - app/Http/Resources/NotificationCollection.php
+    - app/Http/Resources/NotificationResource.php
 updated:
     - routes/api.php
 models:
     CaseActivitySuitParty: { case_activity_id: 'id foreign', suit_party_id: 'id foreign', softdeletes: softDeletes }
+    Notification: { user_id: 'id foreign', subject: string, content: string, action_link: 'string nullable', is_read: 'boolean default:false', softdeletes: softDeletes }
