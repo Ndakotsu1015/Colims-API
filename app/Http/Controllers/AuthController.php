@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LoginSuccessful;
+use App\Models\Notification;
 use App\Models\User;
 use App\Traits\JsonResponse;
 use Carbon\Carbon;
@@ -9,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -29,23 +32,37 @@ class AuthController extends Controller
 
         return $this->success(['user' => $user], 201);
     }
-    
+
     public function login(Request $request)
     {
         $attr = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string|min:6'
         ]);
-        
 
-        if(auth()->attempt($request->only('email','password'))) {
+
+        if (auth()->attempt($request->only('email', 'password'))) {
+            Log::debug("Hi!");
+
+            $notification = new Notification();
+
+            $notification->user_id = auth()->user()->id;
+            $notification->subject = "Successful Login Attempt";
+            $notification->content = "You have successfully logged in @ " . now() . ".";
+            // $notification->action_link = env("CLIENT_URL") . "/auth/login";
+            $notification->save();
+
+            $recipientEmail = auth()->user()->email;
+            Log::debug("Email: " . $recipientEmail);
+            Mail::to($recipientEmail)->send(new LoginSuccessful($notification));
+
             return $this->success([
                 'access_token' => auth()->user()->createToken('access_token')->plainTextToken,
-                'token_type'=> 'Bearer',
+                'token_type' => 'Bearer',
                 'user' => auth()->user(),
             ]);
         }
-        
+
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.'],
         ]);
@@ -56,7 +73,6 @@ class AuthController extends Controller
     {
 
         return $this->success(auth()->user());
-
     }
 
     public function logout()

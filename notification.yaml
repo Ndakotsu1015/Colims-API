@@ -1,0 +1,13 @@
+models:
+  Notification:
+    user_id: id foreign
+    subject: string
+    content: string
+    action_link: string nullable
+    is_read: boolean default:false
+    softDeletes
+
+controllers:
+  Notification:
+    resource: api
+seeders: Notification
