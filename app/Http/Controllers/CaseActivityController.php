@@ -48,7 +48,7 @@ class CaseActivityController extends Controller
             }
         }        
 
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
 
     /**
@@ -58,7 +58,7 @@ class CaseActivityController extends Controller
      */
     public function show(Request $request, CaseActivity $caseActivity)
     {
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
 
     /**
@@ -70,7 +70,7 @@ class CaseActivityController extends Controller
     {
         $caseActivity->update($request->validated());
 
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
 
     /**

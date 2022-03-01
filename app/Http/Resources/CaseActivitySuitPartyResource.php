@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\SuitParty;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CaseActivitySuitPartyResource extends JsonResource
@@ -17,7 +18,7 @@ class CaseActivitySuitPartyResource extends JsonResource
         return [
             'id' => $this->id,
             'case_activity_id' => $this->case_activity_id,
-            'suit_party_id' => $this->suit_party_id,
+            'suitParty' => new SuitPartyResource(SuitParty::find($this->suit_party_id)),            
         ];
     }
 }
