@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\SuitParty;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SuitPartyResource extends JsonResource
+class CaseActivitySuitPartyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +17,8 @@ class SuitPartyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'fullname' => $this->fullname,
-            'phone_no' => $this->phone_no,
-            'residential_address' => $this->residential_address,
-            'courtCase' => new CourtCaseResource($this->whenLoaded('courtCase')),
-            'type' => $this->type,
+            'case_activity_id' => $this->case_activity_id,
+            'suitParty' => new SuitPartyResource(SuitParty::find($this->suit_party_id)),            
         ];
     }
 }

@@ -105,6 +105,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('users', App\Http\Controllers\UserController::class);
 
+    Route::apiResource('case-activity-suit-party', App\Http\Controllers\CaseActivitySuitPartyController::class);
+
     Route::get('/pending-award-letters', [AwardLetterController::class, 'pending'])->name('pending-award-letter');
 
     Route::get('/award-letters-with-bank-guarantee', [AwardLetterController::class, 'awardLetterWithBankGuarantee'])->name('award-letters-with-bank-guarantee');

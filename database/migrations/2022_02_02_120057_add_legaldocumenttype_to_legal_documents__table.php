@@ -13,8 +13,7 @@ class AddLegaldocumenttypeToLegalDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('legal_documents', function (Blueprint $table) {
-            // $table->foreignId('case_outcome_id')->constrained();  
+        Schema::table('legal_documents', function (Blueprint $table) {            
         });
     }
 

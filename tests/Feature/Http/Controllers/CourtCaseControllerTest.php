@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\CaseOutcome;
 use App\Models\CaseRequest;
 use App\Models\CaseStatus;
 use App\Models\CourtCase;

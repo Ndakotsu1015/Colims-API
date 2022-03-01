@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CourtCase extends Model
 {
-    use HasFactory, SoftDeletes;
-
-    // protected $with = ['suitParties', 'legalDocuments', 'caseActivities', 'handler', 'postedBy', 'caseStatus', 'caseOutcome'];
+    use HasFactory, SoftDeletes;    
 
     /**
      * The attributes that are mass assignable.

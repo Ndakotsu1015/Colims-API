@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CaseActivitySuitParty;
 use App\Models\CaseParticipant;
 use App\Models\CaseRequestMovement;
 use Illuminate\Database\Seeder;
@@ -49,9 +50,9 @@ class DatabaseSeeder extends Seeder
             SubmoduleSeeder::class,
             CaseParticipantSeeder::class,
             SuitPartySeeder::class,
-            CaseStatusSeeder::class,
-            CaseOutcomeSeeder::class,
+            CaseStatusSeeder::class,            
             LegalDocumentTypeSeeder::class,
+            CaseActivitySuitPartySeeder::class,
         ]);
     }
 }

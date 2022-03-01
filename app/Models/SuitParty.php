@@ -40,5 +40,15 @@ class SuitParty extends Model
     {
         return $this->belongsTo(CourtCase::class);
     }
+
+    public function caseActivitySuitParties()
+    {
+        return $this->belongsTo(CaseActivitySuitParty::class);
+    }
+
+    // public function caseActivitySuitParties()
+    // {
+    //     return $this->hasMany(CaseActivitySuitParty::class);
+    // }
     
 }

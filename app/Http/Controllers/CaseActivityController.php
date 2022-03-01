@@ -7,7 +7,10 @@ use App\Http\Requests\CaseActivityUpdateRequest;
 use App\Http\Resources\CaseActivityCollection;
 use App\Http\Resources\CaseActivityResource;
 use App\Models\CaseActivity;
+use App\Models\CaseActivitySuitParty;
+use App\Models\CourtCase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CaseActivityController extends Controller
 {
@@ -17,7 +20,7 @@ class CaseActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $caseActivities = CaseActivity::with('courtCase', 'user', 'caseOutcome', 'solicitor')->latest()->get();
+        $caseActivities = CaseActivity::with('courtCase', 'user', 'solicitor', 'caseActivitySuitParties')->latest()->get();
 
         return new CaseActivityCollection($caseActivities);
     }
@@ -28,9 +31,24 @@ class CaseActivityController extends Controller
      */
     public function store(CaseActivityStoreRequest $request)
     {
-        $caseActivity = CaseActivity::create($request->validated());
+        $data = $request->validated();
 
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome', 'solicitor'));
+        $courtCase = CourtCase::findOrFail($data['court_case_id']);
+        $data['user_id'] = auth()->user()->id;
+        $data['solicitor_id'] = $courtCase->solicitor_id;
+
+        $caseActivity = CaseActivity::create($data);   
+        
+        if (is_array($request->suit_parties)) {
+            foreach ($request->suit_parties as $suitPartyId) {
+                $caseActivitySuitParty = new CaseActivitySuitParty();
+                $caseActivitySuitParty->case_activity_id = $caseActivity->id;
+                $caseActivitySuitParty->suit_party_id = $suitPartyId;
+                $caseActivitySuitParty->save();
+            }
+        }        
+
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
 
     /**
@@ -40,7 +58,7 @@ class CaseActivityController extends Controller
      */
     public function show(Request $request, CaseActivity $caseActivity)
     {
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome', 'solicitor'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
 
     /**
@@ -52,7 +70,7 @@ class CaseActivityController extends Controller
     {
         $caseActivity->update($request->validated());
 
-        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'caseOutcome', 'solicitor'));
+        return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
 
     /**

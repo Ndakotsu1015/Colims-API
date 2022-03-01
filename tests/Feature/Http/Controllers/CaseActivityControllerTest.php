@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\CaseActivity;
-use App\Models\CaseOutcome;
 use App\Models\CourtCase;
 use App\Models\Solicitor;
 use App\Models\User;
@@ -80,8 +79,7 @@ class CaseActivityControllerTest extends TestCase
         $court_case = CourtCase::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();     
         $status = $this->faker->word;
-        $location = $this->faker->word;
-        $case_outcome = CaseOutcome::inRandomOrder()->first();
+        $location = $this->faker->word;        
         $solicitor = Solicitor::inRandomOrder()->first();
 
         $response = $this->post(route('case-activities.store'), [
@@ -89,8 +87,7 @@ class CaseActivityControllerTest extends TestCase
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
             'status' => $status,
-            'location' => $location,
-            'case_outcome_id' => $case_outcome->id,   
+            'location' => $location,            
             'solicitor_id' => $solicitor->id,         
         ]);
 
@@ -99,8 +96,7 @@ class CaseActivityControllerTest extends TestCase
             ->where('court_case_id', $court_case->id)
             ->where('user_id', $user->id)
             ->where('status', $status)
-            ->where('location', $location)
-            ->where('case_outcome_id', $case_outcome->id)
+            ->where('location', $location)            
             ->where('solicitor_id', $solicitor->id)
             ->get();
         $this->assertCount(1, $caseActivities);
@@ -147,8 +143,7 @@ class CaseActivityControllerTest extends TestCase
         $court_case = CourtCase::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();
         $status = $this->faker->word;
-        $location = $this->faker->word;
-        $case_outcome = CaseOutcome::inRandomOrder()->first();
+        $location = $this->faker->word;        
         $solicitor = Solicitor::inRandomOrder()->first();
 
         $response = $this->put(route('case-activities.update', $caseActivity), [
@@ -156,8 +151,7 @@ class CaseActivityControllerTest extends TestCase
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
             'status' => $status,
-            'location' => $location,
-            'case_outcome_id' => $case_outcome->id,
+            'location' => $location,            
             'solicitor_id' => $solicitor->id,
         ]);
 
@@ -170,8 +164,7 @@ class CaseActivityControllerTest extends TestCase
         $this->assertEquals($court_case->id, $caseActivity->court_case_id);
         $this->assertEquals($user->id, $caseActivity->user_id);
         $this->assertEquals($status, $caseActivity->status);
-        $this->assertEquals($location, $caseActivity->location);
-        $this->assertEquals($case_outcome->id, $caseActivity->case_outcome_id);
+        $this->assertEquals($location, $caseActivity->location);        
         $this->assertEquals($solicitor->id, $caseActivity->solicitor_id);
     }
 
