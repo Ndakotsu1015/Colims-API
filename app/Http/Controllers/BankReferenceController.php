@@ -79,10 +79,6 @@ class BankReferenceController extends Controller
     {        
         $exists = BankReference::where('reference_no', $refNo)->exists();
 
-        if ($exists) {
-            return response()->json(['status' => 'error', 'message' => 'Reference No. already exists.']);
-        } else {
-            return response()->json(['status' => 'success', 'message' => 'Reference No. is available.']);
-        }
+        return $this->success($exists);
     }
 }
