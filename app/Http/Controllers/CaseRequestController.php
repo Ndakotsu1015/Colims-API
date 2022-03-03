@@ -150,7 +150,7 @@ class CaseRequestController extends Controller
 
         $notification = new Notification();
 
-        $notification->user_id = $caseRequest->caseReviewer->id;
+        $notification->user_id = $caseRequest->case_reviewer_id;
         $notification->subject = "Case Reviewer Assigned";
         $notification->content = "You have been assigned to review a case request with Title : " . $caseRequest->title . " from". auth()->user()->name. "on ". now() . ".";
         $notification->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
