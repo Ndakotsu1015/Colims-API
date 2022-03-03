@@ -20,7 +20,7 @@ class CaseActivity extends Model
         'court_case_id',
         'user_id',        
         'solicitor_id',
-        'status',
+        'case_status_id',
         'location',
     ];
 
@@ -34,6 +34,7 @@ class CaseActivity extends Model
         'court_case_id' => 'integer',
         'user_id' => 'integer',        
         'solicitor_id' => 'integer',
+        'case_status_id' => 'integer',
     ];
 
     public function caseActivitySuitParties()
@@ -54,5 +55,10 @@ class CaseActivity extends Model
     public function solicitor()
     {
         return $this->belongsTo(Solicitor::class);
+    }
+
+    public function caseStatus()
+    {
+        return $this->belongsTo(CaseStatus::class);
     }
 }
