@@ -9,6 +9,7 @@ use App\Http\Resources\CaseActivityResource;
 use App\Models\CaseActivity;
 use App\Models\CaseActivitySuitParty;
 use App\Models\CourtCase;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -46,7 +47,27 @@ class CaseActivityController extends Controller
                 $caseActivitySuitParty->suit_party_id = $suitPartyId;
                 $caseActivitySuitParty->save();
             }
-        }        
+        }
+        
+        $notification = new Notification();
+
+        $notification->user_id = auth()->user()->id;
+        $notification->subject = 'New Case Activity Recorded';
+        $notification->message = 'You just recorded a new case activity entry for Case with Case No: ' . $courtCase->case_no. "on ". now() . ".";        
+        $notification->save();
+        
+        $recipientEmail = auth()->user()->email;
+        Mail::to($recipientEmail)->send(new \App\Mail\CaseActivity ($notification));
+
+        $notification2 = new Notification();
+
+        $notification2->user_id = $courtCase->postedBy->id;
+        $notification2->subject = 'New Case Activity Recorded';
+        $notification2->message = 'Case Handler: ' . $courtCase->handler->name." just recorded a new case activity entry for Case with Case No.: ".$courtCase->case_no. "on ". now() . ".";
+        $notification2->save();
+
+        $recipientEmail2 = $courtCase->postedBy->email;
+        Mail::to($recipientEmail2)->send(new \App\Mail\CaseActivity ($notification2));
 
         return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }

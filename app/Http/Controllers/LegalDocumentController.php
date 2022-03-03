@@ -7,6 +7,7 @@ use App\Http\Requests\LegalDocumentUpdateRequest;
 use App\Http\Resources\LegalDocumentCollection;
 use App\Http\Resources\LegalDocumentResource;
 use App\Models\LegalDocument;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +31,30 @@ class LegalDocumentController extends Controller
     public function store(LegalDocumentStoreRequest $request)
     {
         $legalDocument = LegalDocument::create($request->validated());
+
+        $notification = new Notification();
+        
+        $notification->user_id = $legalDocument->courtCase->handler_id;        
+        $notification->subject = 'New legal document has been uploaded';
+        $notification->content = 'You just uploaded a new legal document for case with case no: ' . $legalDocument->courtCase->case_no. 'on ' . now();        
+        $notification->action_link = env('APP_URL') . '/court-cases/' . $legalDocument->courtCase->id;
+        $notification->save();
+
+        $recipientEmail = $legalDocument->courtCase->handler->email;
+
+        Mail::to($recipientEmail)->send(new \App\Mail\LegalDocument ($notification));
+
+        $notification1 = new Notification();
+
+        $notification1->user_id = $legalDocument->courtCase->postedBy->id;
+        $notification1->subject = 'New legal document has been uploaded';
+        $notification1->content = 'Case Handler: ' . $legalDocument->courtCase->handler->name . ' just uploaded a new legal document for Case with Case No.: ' .$legalDocument->courtCase->case_no. 'on '.  now() . '.';
+        $notification1->action_link = env('APP_URL') . '/court-cases/' . $legalDocument->courtCase->id;
+        $notification1->save();
+
+        $recipientEmail1 = $legalDocument->courtCase->postedBy->email;
+
+        Mail::to($recipientEmail1)->send(new \App\Mail\LegalDocument ($notification1));
 
         return new LegalDocumentResource($legalDocument->load('courtCase', 'user', 'documentType'));
     }
@@ -66,15 +91,5 @@ class LegalDocumentController extends Controller
         $legalDocument->delete();
 
         return response()->noContent();
-    }
-    
-    public function getCourtCase($id)
-    {
-    	Log::debug("Legal Document");
-    	Log::debug($id);
-    	
-    	CourtCase::
-    	
-    	return response()->json([ "id" => $id ]);
-    }
+    }        
 }

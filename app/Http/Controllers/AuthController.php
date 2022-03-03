@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\LoginSuccessful;
+use App\Mail\RegestrationSuccessful;
 use App\Models\Notification;
 use App\Models\User;
 use App\Traits\JsonResponse;
@@ -30,6 +31,17 @@ class AuthController extends Controller
         $validated['password'] = bcrypt($request->password);
         $user = User::create($validated);
 
+        $notification = new Notification();
+
+        $notification->user_id = $user->id;
+        $notification->subject = "Registration Successful";
+        $notification->content = "Your account has been successfully created @ " . now() . ". Please login to your account.";
+        $notification->action_link = env("CLIENT_URL") . "/auth/login";
+        $notification->save();
+
+        $recipientEmail = $user->email;        
+        Mail::to($recipientEmail)->send(new RegestrationSuccessful ($notification));
+
         return $this->success(['user' => $user], 201);
     }
 
@@ -41,9 +53,7 @@ class AuthController extends Controller
         ]);
 
 
-        if (auth()->attempt($request->only('email', 'password'))) {
-            Log::debug("Hi!");
-
+        if (auth()->attempt($request->only('email', 'password'))) {            
             $notification = new Notification();
 
             $notification->user_id = auth()->user()->id;

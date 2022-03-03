@@ -10,6 +10,7 @@ use App\Http\Resources\CourtCaseResource;
 use App\Models\CaseRequest;
 use App\Models\CourtCase;
 use App\Models\CaseStatus;
+use App\Models\Notification;
 use App\Models\SuitParty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -38,6 +39,17 @@ class CaseRequestController extends Controller
         $data["initiator_id"] = auth()->user()->id;
         $data["status"] = "Pending";
         $caseRequest = CaseRequest::create($data);
+
+        $notification = new Notification();
+
+        $notification->user_id = auth()->user()->id;
+        $notification->subject = "Case Request Created";
+        $notification->content = "A new case request with Title : " . $caseRequest->title . "was created by you on". now() . ".";
+        $notification->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
+        $notification->save();
+
+        $recipientEmail = auth()->user()->email;
+        Mail::to($recipientEmail)->send(new \App\Mail\CaseRequest ($notification));
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
@@ -136,6 +148,28 @@ class CaseRequestController extends Controller
         $caseRequest->status = 'case_created';
         $caseRequest->save();
 
+        $notification = new Notification();
+
+        $notification->user_id = $caseRequest->caseReviewer->id;
+        $notification->subject = "Case Reviewer Assigned";
+        $notification->content = "You have been assigned to review a case request with Title : " . $caseRequest->title . " from". auth()->user()->name. "on ". now() . ".";
+        $notification->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
+        $notification->save();
+
+        $recipientEmail = $caseRequest->caseReviewer->email;
+        Mail::to($recipientEmail)->send(new \App\Mail\CaseReviewerAssignment ($notification));
+
+        $notification1 = new Notification();
+
+        $notification1->user_id = auth()->user()->email;
+        $notification1->subject = "Case Reviewer Assigned";
+        $notification1->content = "You have assigned a case request with Title : " . $caseRequest->title . "to " . $caseRequest->caseReviewer->name . "to reviewer on ". now() . ".";
+        // $notification1->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
+        $notification1->save();
+
+        $recipientEmail1 = auth()->user()->email;
+        Mail::to($recipientEmail1)->send(new \App\Mail\CaseReviewerAssignment ($notification1));
+
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
 
@@ -152,6 +186,17 @@ class CaseRequestController extends Controller
         $caseRequest->should_go_to_trial = $data['should_go_to_trial'];
         $caseRequest->status = 'awaiting_approval';
         $caseRequest->save();
+
+        $notification = new Notification();
+
+        $notification->user_id = auth()->user()->id;
+        $notification->subject = "Case Recommendation";
+        $notification->content = "You just made a recommendation to a Case Request with title : " . $caseRequest->title ."on ". now() . ".";
+        // $notification->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
+        $notification->save();
+
+        $recipientEmail = auth()->user()->email;
+        Mail::to($recipientEmail)->send(new \App\Mail\CaseRequestRecommendation ($notification));
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
@@ -190,6 +235,39 @@ class CaseRequestController extends Controller
         $caseRequest->is_case_closed = true;
         $caseRequest->save();
 
+        $notification = new Notification();
+
+        $notification->user_id = auth()->user()->id;
+        $notification->subject = "Case Approved";
+        $notification->content = "You have just approved a Case Request with Case No : " . $courtCase->case_no ."on ". now() . ". You have also assigned a Case Handler: " . $courtCase->handler->name . "and External Solicitor: " . $courtCase->solicitor->name . ". to the case";
+        $notification->action_link = env("CLIENT_URL") . "/court-cases/" . $courtCase->id;
+        $notification->save();
+
+        $recipientEmail = auth()->user()->email;
+        Mail::to($recipientEmail)->send(new \App\Mail\CaseRequestApproval ($notification));
+
+        $notification1 = new Notification();
+
+        $notification1->user_id = auth()->user()->id;
+        $notification1->subject = "Case Created";
+        $notification1->content = "You have just created a Case with Case No : " . $courtCase->case_no ."on ". now() . ".";
+        $notification1->action_link = env("CLIENT_URL") . "/court-cases/" . $courtCase->id;
+        $notification1->save();
+        
+        $recipientEmail1 = auth()->user()->email;
+        Mail::to($recipientEmail1)->send(new \App\Mail\CaseRequestApproval ($notification1));
+
+        $notification2 = new Notification();
+
+        $notification2->user_id = $courtCase->handler->id;
+        $notification2->subject = "Case Created";
+        $notification2->content = "You have been assigned as a Case Handler to a case with Case No : " . $courtCase->case_no ."on ". now() . ".";
+        $notification2->action_link = env("CLIENT_URL") . "/court-cases/" . $courtCase->id;
+        $notification2->save();
+
+        $recipientEmail2 = $courtCase->handler->email;
+        Mail::to($recipientEmail2)->send(new \App\Mail\CaseRequestApproval ($notification2));        
+
         return new CourtCaseResource($courtCase->load('postedBy', 'handler', 'solicitor', 'suitParties'));
     }
 
@@ -203,6 +281,15 @@ class CaseRequestController extends Controller
         $caseRequest->status = 'discarded';
         $caseRequest->is_case_closed = true;
         $caseRequest->save();
+        
+        $notification = new Notification();
+        $notification->user_id = auth()->user()->id;
+        $notification->subject = "Case Request Discarded";
+        $notification->content = "You just discarded a Case Request with title : " . $caseRequest->title ."on ". now() . ".";
+        $notification->save();
+        
+        $recipientEmail = auth()->user()->email;
+        Mail::to($recipientEmail)->send(new \App\Mail\CaseRequestDiscarded ($notification));
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
     }
