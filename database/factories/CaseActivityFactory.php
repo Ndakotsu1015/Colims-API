@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\CaseActivity;
+use App\Models\CaseStatus;
 use App\Models\CourtCase;
 use App\Models\Solicitor;
 use App\Models\User;
@@ -30,7 +31,7 @@ class CaseActivityFactory extends Factory
             'court_case_id' => CourtCase::factory(),
             'user_id' => User::factory(),            
             'solicitor_id' => Solicitor::factory(),
-            'status' => $this->faker->word,
+            'case_status_id' => CaseStatus::inRandomOrder()->first()->id,
             'location' => $this->faker->word,
         ];
     }

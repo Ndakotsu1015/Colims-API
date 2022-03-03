@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\CaseActivity;
+use App\Models\CaseStatus;
 use App\Models\CourtCase;
 use App\Models\Solicitor;
 use App\Models\User;
@@ -78,7 +79,7 @@ class CaseActivityControllerTest extends TestCase
         $description = $this->faker->text;
         $court_case = CourtCase::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();     
-        $status = $this->faker->word;
+        $caseStatus = CaseStatus::inRandomOrder()->first();        
         $location = $this->faker->word;        
         $solicitor = Solicitor::inRandomOrder()->first();
 
@@ -86,7 +87,7 @@ class CaseActivityControllerTest extends TestCase
             'description' => $description,
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
-            'status' => $status,
+            'case_status_id' => $caseStatus->id,            
             'location' => $location,            
             'solicitor_id' => $solicitor->id,         
         ]);
@@ -95,7 +96,7 @@ class CaseActivityControllerTest extends TestCase
             ->where('description', $description)
             ->where('court_case_id', $court_case->id)
             ->where('user_id', $user->id)
-            ->where('status', $status)
+            ->where('case_status_id', $caseStatus->id)            
             ->where('location', $location)            
             ->where('solicitor_id', $solicitor->id)
             ->get();
@@ -142,7 +143,7 @@ class CaseActivityControllerTest extends TestCase
         $description = $this->faker->text;
         $court_case = CourtCase::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();
-        $status = $this->faker->word;
+        $caseStatus = CaseStatus::inRandomOrder()->first();        
         $location = $this->faker->word;        
         $solicitor = Solicitor::inRandomOrder()->first();
 
@@ -150,7 +151,7 @@ class CaseActivityControllerTest extends TestCase
             'description' => $description,
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
-            'status' => $status,
+            'case_status_id' => $caseStatus->id,            
             'location' => $location,            
             'solicitor_id' => $solicitor->id,
         ]);
@@ -163,7 +164,7 @@ class CaseActivityControllerTest extends TestCase
         $this->assertEquals($description, $caseActivity->description);
         $this->assertEquals($court_case->id, $caseActivity->court_case_id);
         $this->assertEquals($user->id, $caseActivity->user_id);
-        $this->assertEquals($status, $caseActivity->status);
+        $this->assertEquals($caseStatus->id, $caseActivity->case_status_id);        
         $this->assertEquals($location, $caseActivity->location);        
         $this->assertEquals($solicitor->id, $caseActivity->solicitor_id);
     }
