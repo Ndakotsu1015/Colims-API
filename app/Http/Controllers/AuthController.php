@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\LoginSuccessful;
-use App\Mail\RegestrationSuccessful;
+use App\Mail\RegistrationSuccessful;
 use App\Models\Notification;
 use App\Models\User;
 use App\Traits\JsonResponse;
@@ -25,6 +25,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
             'name' => 'required|string|max:500',
+            'profile_picture' => 'nullable|string|max:500',
         ];
 
         $validated = $request->validate($rules);
@@ -40,7 +41,7 @@ class AuthController extends Controller
         $notification->save();
 
         $recipientEmail = $user->email;        
-        Mail::to($recipientEmail)->send(new RegestrationSuccessful ($notification));
+        Mail::to($recipientEmail)->send(new RegistrationSuccessful ($notification));
 
         return $this->success(['user' => $user], 201);
     }
