@@ -108,19 +108,19 @@
                                                             {{ $notification->content }}
                                                         </p>
 
-                                                        <!-- @if($notification->action_link)
+                                                        @if($notification->action_link)
                                                         <a href="{{ $notification->action_link }}" target="_blank" style="display: block; font-size: 14px; line-height: 100%; margin-bottom: 24px; --text-opacity: 1; color: #08a51d; color: #08a51d; text-decoration: none;">{{ $notification->action_link }}</a>
                                                         <table style="font-family: 'Montserrat',Arial,sans-serif;" cellpadding="0" cellspacing="0" role="presentation">
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="mso-padding-alt: 16px 24px; --bg-opacity: 1; background-color: #08a51d; background-color: #08a51d; border-radius: 4px; font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif;" bgcolor="rgba(115, 103, 240, var(--bg-opacity))">
 
-                                                                        <a target="_blank" href="{{ $notification->action_link }}" style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: rgba(255, 255, 255, var(--text-opacity)); text-decoration: none;">View Award Letter →</a>
+                                                                        <a target="_blank" href="{{ $notification->action_link }}" style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: #ffffff; text-decoration: none;"> View Case Request →</a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        @endif -->
+                                                        @endif
                                                         <!-- <table style="font-family: 'Montserrat',Arial,sans-serif; width: 100%;" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                                             <tbody>
                                                                 <tr>
