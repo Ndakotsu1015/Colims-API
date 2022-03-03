@@ -9,6 +9,7 @@ use App\Http\Resources\CalendarEventResource;
 use App\Models\CalendarEvent;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CalendarEventController extends Controller
 {

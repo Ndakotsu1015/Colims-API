@@ -158,6 +158,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('court-cases/{id}/case-activities', [App\Http\Controllers\CourtCaseController::class, 'getCaseActivities']);
 
     Route::get('court-cases/{id}/suit-parties', [App\Http\Controllers\CourtCaseController::class, 'getSuitParties']);
+
+    Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
@@ -165,6 +167,3 @@ Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.uplo
 Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
 
 Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumentController::class, 'getCourtCase']);
-
-
-Route::apiResource('notification', App\Http\Controllers\NotificationController::class);

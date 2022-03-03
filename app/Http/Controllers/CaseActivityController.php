@@ -12,6 +12,7 @@ use App\Models\CourtCase;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CaseActivityController extends Controller
 {

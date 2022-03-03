@@ -9,6 +9,7 @@ use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
 use App\Models\BankReference;
 use App\Models\Notification;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -111,10 +112,6 @@ class AwardLetterController extends Controller
 
         $exists = AwardLetter::where('reference_no', $refNo)->first();
 
-        if ($exists) {
-            return response()->json(['status' => 'error', 'message' => 'Reference No. already exists.']);
-        } else {
-            return response()->json(['status' => 'success', 'message' => 'Reference No. is available.']);
-        }            
+        return $this->success($exists);         
     }
 }
