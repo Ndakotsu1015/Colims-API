@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CaseRequestDiscarded extends Mailable
+class CaseRequestDiscarded extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

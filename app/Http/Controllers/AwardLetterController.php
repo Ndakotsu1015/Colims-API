@@ -108,20 +108,13 @@ class AwardLetterController extends Controller
     
     public function checkRefNo(Request $request, string $refNo)
     {
-        // $data = AwardLetter::with('bankReferences')->whereHas('bankReferences', function ($query) {
-        //     $query->take(1)->where('reference_date', '<', now())->orderBy('id', 'desc');
-        // })->get();
 
-        $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->latest()->get();
+        $exists = AwardLetter::where('reference_no', $refNo)->first();
 
-        Log::debug("Reference Date:");
-        foreach ($data as $datum) {
-            // Log::debug("Date: {$datum->reference_date}");
-            Log::debug($datum);
-            Log::debug(now());
-        }
-
-
-        return $this->success($data);
+        if ($exists) {
+            return response()->json(['status' => 'error', 'message' => 'Reference No. already exists.']);
+        } else {
+            return response()->json(['status' => 'success', 'message' => 'Reference No. is available.']);
+        }            
     }
 }

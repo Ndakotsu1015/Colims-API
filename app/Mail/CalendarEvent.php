@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CalendarEvent extends Mailable
+class CalendarEvent extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
