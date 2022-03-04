@@ -23,10 +23,12 @@ class SuitPartyUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [            
-            'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
-            'case_participant_id' => ['required', 'integer', 'exists:case_participants,id'],
-            'type' => ['required', 'string'],
+        return [
+            'name' => ['nullable', 'string'],
+            'phone_no' => ['nullable', 'string'],
+            'address' => ['nullable', 'string'],
+            'email' => ['nullable', 'string'],
+            'type' => ['nullable', 'string'],
         ];
     }
 }

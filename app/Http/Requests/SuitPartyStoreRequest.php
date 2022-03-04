@@ -23,9 +23,12 @@ class SuitPartyStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [            
-            'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],            
-            'case_participant_id' => ['required', 'integer', 'exists:case_participants,id'],
+        return [
+            'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
+            'name' => ['required', 'string'],
+            'phone_no' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'email' => ['required', 'string'],
             'type' => ['required', 'string'],
         ];
     }

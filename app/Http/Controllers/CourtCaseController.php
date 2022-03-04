@@ -56,7 +56,9 @@ class CourtCaseController extends Controller
      */
     public function update(CourtCaseUpdateRequest $request, CourtCase $courtCase)
     {
-        $courtCase->update($request->validated());
+        $data = $request->validated();
+
+        $courtCase->update();
 
         return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
@@ -93,4 +95,10 @@ class CourtCaseController extends Controller
 
         return new SuitPartyCollection($suitParties);
     }
+
+    // public function addSuitParty(Request $request) 
+    // {
+    //     $data = $request->all();
+
+    // }
 }
