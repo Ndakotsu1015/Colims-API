@@ -8,6 +8,7 @@ use App\Http\Resources\LegalDocumentCollection;
 use App\Http\Resources\LegalDocumentResource;
 use App\Models\LegalDocument;
 use App\Models\Notification;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -43,7 +44,11 @@ class LegalDocumentController extends Controller
 
         $recipientEmail = $legalDocument->courtCase->handler->email;
 
-        Mail::to($recipientEmail)->send(new \App\Mail\LegalDocument ($notification));
+        try {
+            Mail::to($recipientEmail)->send(new \App\Mail\LegalDocument ($notification));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
 
         $notification1 = new Notification();
 
@@ -55,7 +60,11 @@ class LegalDocumentController extends Controller
 
         $recipientEmail1 = $legalDocument->courtCase->postedBy->email;
 
-        Mail::to($recipientEmail1)->send(new \App\Mail\LegalDocument ($notification1));
+        try {
+            Mail::to($recipientEmail1)->send(new \App\Mail\LegalDocument ($notification1));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }        
 
         return new LegalDocumentResource($legalDocument->load('courtCase', 'user', 'documentType'));
     }

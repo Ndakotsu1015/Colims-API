@@ -8,7 +8,9 @@ use App\Http\Resources\CalendarEventCollection;
 use App\Http\Resources\CalendarEventResource;
 use App\Models\CalendarEvent;
 use App\Models\Notification;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CalendarEventController extends Controller
@@ -40,8 +42,12 @@ class CalendarEventController extends Controller
         $notification->save();
 
         $recipientEmail = auth()->user()->email;
-        
-        Mail::to($recipientEmail)->send(new \App\Mail\CalendarEvent ($notification));
+
+        try {
+            Mail::to($recipientEmail)->send(new \App\Mail\CalendarEvent ($notification));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
 
         $notification1 = new Notification();
 
@@ -52,7 +58,12 @@ class CalendarEventController extends Controller
         $notification1->save();
 
         $recipientEmail1 = $calendarEvent->courtCase->postedBy->email;
-        Mail::to($recipientEmail1)->send(new \App\Mail\CalendarEvent ($notification1));
+
+        try {
+            Mail::to($recipientEmail1)->send(new \App\Mail\CalendarEvent ($notification1));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }       
 
         return new CalendarEventResource($calendarEvent->load('postedBy', 'courtCase'));
     }
