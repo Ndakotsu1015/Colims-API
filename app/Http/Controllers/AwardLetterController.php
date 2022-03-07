@@ -9,6 +9,7 @@ use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
 use App\Models\BankReference;
 use App\Models\Notification;
+use Exception;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
@@ -40,12 +41,17 @@ class AwardLetterController extends Controller
         
         $notification->user_id = auth()->user()->id;
         $notification->subject = "Award Letter Created";
-        $notification->content = "A new award letter with Reference No.: " . $awardLetter->reference_no . "was created by you on". now() . ".";
-        $notification->action_link = env("CLIENT_URL") . "/award-letters/" . $awardLetter->id;
+        $notification->content = "A new award letter with Reference No. : " . $awardLetter->reference_no . "was created by you on ". now() . ".";
+        $notification->action_link = env("CLIENT_URL") . "/contracts/award-letters/history";
         $notification->save();
 
         $recipientEmail = auth()->user()->email;
-        Mail::to($recipientEmail)->send(new \App\Mail\AwardLeter ($notification));        
+
+        try {
+            Mail::to($recipientEmail)->queue(new \App\Mail\AwardLetter ($notification));        
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
 
         return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
     }

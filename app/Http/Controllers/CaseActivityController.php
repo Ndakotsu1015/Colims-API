@@ -10,6 +10,7 @@ use App\Models\CaseActivity;
 use App\Models\CaseActivitySuitParty;
 use App\Models\CourtCase;
 use App\Models\Notification;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -61,7 +62,12 @@ class CaseActivityController extends Controller
         $notification->save();
         
         $recipientEmail = auth()->user()->email;
-        Mail::to($recipientEmail)->send(new \App\Mail\CaseActivity ($notification));
+
+        try {
+            Mail::to($recipientEmail)->send(new \App\Mail\CaseActivity ($notification));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }        
 
         $notification2 = new Notification();
 
@@ -71,7 +77,12 @@ class CaseActivityController extends Controller
         $notification2->save();
 
         $recipientEmail2 = $courtCase->postedBy->email;
-        Mail::to($recipientEmail2)->send(new \App\Mail\CaseActivity ($notification2));
+
+        try {
+            Mail::to($recipientEmail2)->send(new \App\Mail\CaseActivity ($notification2));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }        
 
         $notification3 = new Notification();
 
@@ -81,7 +92,12 @@ class CaseActivityController extends Controller
         $notification3->save();
 
         $recipientEmail3 = $courtCase->postedBy->email;
-        Mail::to($recipientEmail3)->send(new \App\Mail\CaseActivity ($notification3));
+
+        try {
+            Mail::to($recipientEmail3)->send(new \App\Mail\CaseActivity ($notification3));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }        
 
         return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
