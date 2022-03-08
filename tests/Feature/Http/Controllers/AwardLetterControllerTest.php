@@ -9,7 +9,6 @@ use App\Models\ContractType;
 use App\Models\Duration;
 use App\Models\Employee;
 use App\Models\Project;
-use App\Models\State;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -80,10 +79,8 @@ class AwardLetterControllerTest extends TestCase
      * @test_
      */
     public function store_saves()
-    {
-        $unit_price = $this->faker->randomFloat(/** float_attributes **/);
-        $contract_sum = $this->faker->randomFloat(/** float_attributes **/);
-        $no_units = $this->faker->randomNumber();        
+    {        
+        $contract_sum = $this->faker->randomFloat(/** float_attributes **/);        
         $date_awarded = $this->faker->date();
         $last_bank_ref_date = $this->faker->date();
         $reference_no = $this->faker->word;        
@@ -93,14 +90,12 @@ class AwardLetterControllerTest extends TestCase
         $contract_category = ContractCategory::inRandomOrder()->first();
         $contractor = Contractor::inRandomOrder()->first();
         $contract_type = ContractType::inRandomOrder()->first();
-        $state = State::inRandomOrder()->first();
+        $project_location = $this->faker->word;        
         $project = Project::inRandomOrder()->first();
         $approvedBy = Employee::inRandomOrder()->first();
 
-        $response = $this->post(route('award-letters.store'), [
-            'unit_price' => $unit_price,
-            'contract_sum' => $contract_sum,
-            'no_units' => $no_units,           
+        $response = $this->post(route('award-letters.store'), [            
+            'contract_sum' => $contract_sum,                   
             'date_awarded' => $date_awarded,
             'last_bank_ref_date' => $last_bank_ref_date,
             'reference_no' => $reference_no,            
@@ -110,15 +105,13 @@ class AwardLetterControllerTest extends TestCase
             'contract_title' => $contract_title,
             'contract_detail' => $contract_detail,
             'duration_id' => $duration->id,
-            'state_id' => $state->id,
+            'project_location' => $project_location,            
             'project_id' => $project->id,
             'approved_by' => $approvedBy->id,
         ]);
 
-        $awardLetters = AwardLetter::query()
-            ->where('unit_price', $unit_price)
-            ->where('contract_sum', $contract_sum)
-            ->where('no_units', $no_units)            
+        $awardLetters = AwardLetter::query()            
+            ->where('contract_sum', $contract_sum)                       
             ->where('date_awarded', Carbon::parse($date_awarded))
             ->where('last_bank_ref_date', Carbon::parse($last_bank_ref_date))
             ->where('reference_no', $reference_no)            
@@ -128,7 +121,7 @@ class AwardLetterControllerTest extends TestCase
             ->where('contract_title', $contract_title)
             ->where('contract_detail', $contract_detail)
             ->where('duration_id', $duration->id)            
-            ->where('state_id', $state->id)
+            ->where('project_location', $project_location)            
             ->where('project_id', $project->id)
             ->where('approved_by', $approvedBy->id)
             ->get();
@@ -171,10 +164,8 @@ class AwardLetterControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {        
-        $awardLetter = AwardLetter::inRandomOrder()->first();
-        $unit_price = $this->faker->randomFloat(2);
-        $contract_sum = $this->faker->randomFloat(2);
-        $no_units = $this->faker->randomNumber();         
+        $awardLetter = AwardLetter::inRandomOrder()->first();        
+        $contract_sum = $this->faker->randomFloat(2);              
         $date_awarded = $this->faker->date();
         $last_bank_ref_date = $this->faker->date();
         $reference_no = $this->faker->word;        
@@ -184,7 +175,7 @@ class AwardLetterControllerTest extends TestCase
         $contract_title = $this->faker->word;
         $contract_detail = $this->faker->word;
         $duration = Duration::inRandomOrder()->first();        
-        $state = State::inRandomOrder()->first();
+        $project_location = $this->faker->word;        
         $project = Project::inRandomOrder()->first();
         $approvedBy = Employee::inRandomOrder()->first();
 
@@ -192,10 +183,8 @@ class AwardLetterControllerTest extends TestCase
 
         Log::debug($awardLetter);
 
-        $response = $this->put(route('award-letters.update', $awardLetter), [
-            'unit_price' => $unit_price,
-            'contract_sum' => $contract_sum,
-            'no_units' => $no_units,            
+        $response = $this->put(route('award-letters.update', $awardLetter), [            
+            'contract_sum' => $contract_sum,                      
             'date_awarded' => $date_awarded,
             'last_bank_ref_date' => $last_bank_ref_date,
             'reference_no' => $reference_no,            
@@ -205,7 +194,7 @@ class AwardLetterControllerTest extends TestCase
             'contract_title' => $contract_title,
             'contract_detail' => $contract_detail,
             'duration_id' => $duration->id,
-            'state_id' => $state->id,
+            'project_location' => $project_location,            
             'project_id' => $project->id,
             'approved_by' => $approvedBy->id,
         ]);
@@ -214,10 +203,8 @@ class AwardLetterControllerTest extends TestCase
 
         $response->assertOk();
         $response->assertJsonStructure([]);
-
-        $this->assertEquals($unit_price, $awardLetter->unit_price);
-        $this->assertEquals($contract_sum, $awardLetter->contract_sum);
-        $this->assertEquals($no_units, $awardLetter->no_units);        
+        
+        $this->assertEquals($contract_sum, $awardLetter->contract_sum);          
         $this->assertEquals(Carbon::parse($date_awarded), $awardLetter->date_awarded);
         $this->assertEquals(Carbon::parse($last_bank_ref_date), $awardLetter->last_bank_ref_date);
         $this->assertEquals($reference_no, $awardLetter->reference_no);        
@@ -226,8 +213,8 @@ class AwardLetterControllerTest extends TestCase
         $this->assertEquals($contract_category->id, $awardLetter->contract_category_id);
         $this->assertEquals($contract_title, $awardLetter->contract_title);
         $this->assertEquals($contract_detail, $awardLetter->contract_detail);
-        $this->assertEquals($duration->id, $awardLetter->duration_id);        
-        $this->assertEquals($state->id, $awardLetter->state_id);
+        $this->assertEquals($duration->id, $awardLetter->duration_id);                
+        $this->assertEquals($project_location, $awardLetter->project_location);
         $this->assertEquals($project->id, $awardLetter->project_id);
         $this->assertEquals($approvedBy->id, $awardLetter->approved_by);
     }

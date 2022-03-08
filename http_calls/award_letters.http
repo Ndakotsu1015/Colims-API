@@ -1,9 +1,7 @@
 POST http://localhost:8000/api/award-letter HTTP/1.1
 # Content-Type: application/json
 
-{
-    "unit_price": 3456765,
-    "no_units": 456564,
+{        
     "date_awarded": "2022-12-12",
     "last_bank_ref_date": '2022-12-12',
     "reference_no": "KS/2BRB/VOL506/21",    

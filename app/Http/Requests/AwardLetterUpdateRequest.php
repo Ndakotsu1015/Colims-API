@@ -23,10 +23,8 @@ class AwardLetterUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'unit_price' => ['required', 'numeric'],
-            'contract_sum' => ['required', 'numeric'],
-            'no_units' => ['required', 'integer', 'gt:0'],            
+        return [            
+            'contract_sum' => ['required', 'numeric'],                   
             'date_awarded' => ['required', 'date'],
             'last_bank_ref_date' => ['nullable', 'date'],
             'reference_no' => ['required', 'string'],            
@@ -36,7 +34,7 @@ class AwardLetterUpdateRequest extends FormRequest
             'duration_id' => ['required', 'integer', 'exists:durations,id'],
             'contract_title' => ['required', 'string'],
             'contract_detail' => ['required', 'string'],
-            'state_id' => ['required', 'integer', 'exists:states,id'],
+            'project_location' => ['nullable', 'string'],
             'project_id' => ['required', 'integer', 'exists:projects,id'],
             'approved_by' => ['nullable'],
         ];

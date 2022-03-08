@@ -47,7 +47,7 @@ class CaseRequestController extends Controller
         $notification->user_id = auth()->user()->id;
         $notification->subject = "Case Request Created";
         $notification->content = "A new case request with Title : " . $caseRequest->title . "was created by you on". now() . ".";
-        $notification->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
+        $notification->action_link = env("CLIENT_URL") . "/#/litigations/case-requests/list";
         $notification->save();
 
         $recipientEmail = auth()->user()->email;
@@ -160,7 +160,7 @@ class CaseRequestController extends Controller
         $notification->user_id = $caseRequest->case_reviewer_id;
         $notification->subject = "Case Reviewer Assigned";
         $notification->content = "You have been assigned to review a case request with Title : " . $caseRequest->title . " from". auth()->user()->name. "on ". now() . ".";
-        $notification->action_link = env("CLIENT_URL") . "/case-requests/" . $caseRequest->id;
+        $notification->action_link = env("CLIENT_URL") . "/#/litigations/case-requests/assign-case-reviewer/" . $caseRequest->id;
         $notification->save();
 
         $recipientEmail = $caseRequest->caseReviewer->email;
@@ -259,7 +259,7 @@ class CaseRequestController extends Controller
         $notification->user_id = auth()->user()->id;
         $notification->subject = "Case Approved";
         $notification->content = "You have just approved a Case Request with Case No : " . $courtCase->case_no ."on ". now() . ". You have also assigned a Case Handler: " . $courtCase->handler->name . "and External Solicitor: " . $courtCase->solicitor->name . ". to the case";
-        $notification->action_link = env("CLIENT_URL") . "/court-cases/" . $courtCase->id;
+        $notification->action_link = env("CLIENT_URL") . "/#/litigations/case/details/" . $courtCase->id;
         $notification->save();
 
         $recipientEmail = auth()->user()->email;
@@ -274,7 +274,7 @@ class CaseRequestController extends Controller
         $notification1->user_id = auth()->user()->id;
         $notification1->subject = "Case Created";
         $notification1->content = "You have just created a Case with Case No : " . $courtCase->case_no ."on ". now() . ".";
-        $notification1->action_link = env("CLIENT_URL") . "/court-cases/" . $courtCase->id;
+        $notification1->action_link = env("CLIENT_URL") . "/#/litigations/court-cases/" . $courtCase->id;
         $notification1->save();
         
         $recipientEmail1 = auth()->user()->email;
@@ -289,7 +289,7 @@ class CaseRequestController extends Controller
         $notification2->user_id = $courtCase->handler->id;
         $notification2->subject = "Case Created";
         $notification2->content = "You have been assigned as a Case Handler to a case with Case No : " . $courtCase->case_no ."on ". now() . ".";
-        $notification2->action_link = env("CLIENT_URL") . "/court-cases/" . $courtCase->id;
+        $notification2->action_link = env("CLIENT_URL") . "/#/litigations/court-cases/" . $courtCase->id;
         $notification2->save();
 
         $recipientEmail2 = $courtCase->handler->email;

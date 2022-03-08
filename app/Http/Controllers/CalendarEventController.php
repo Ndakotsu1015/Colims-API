@@ -54,7 +54,7 @@ class CalendarEventController extends Controller
         $notification1->user_id = $calendarEvent->courtCase->postedBy->id;
         $notification1->subject = 'New Calendar Event Posted';
         $notification1->content = 'Case Handler: ' . $calendarEvent->courtCase->handler->name . ' just added a new calendar event entry for Case with Case No.: ' .$calendarEvent->courtCase->case_no. 'on '.  now() . '.';
-        $notification1->action_link = env('APP_URL') . '/calendar-events/' . $calendarEvent->id;
+        $notification1->action_link = env('APP_URL') . '/#/litigations/calendar-events/' . $calendarEvent->id;
         $notification1->save();
 
         $recipientEmail1 = $calendarEvent->courtCase->postedBy->email;

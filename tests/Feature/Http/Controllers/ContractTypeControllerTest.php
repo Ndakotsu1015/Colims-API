@@ -46,7 +46,7 @@ class ContractTypeControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $contractTypes = ContractType::factory()->count(3)->create();
+        $contractTypes = ContractType::inRandomOrder()->first();
 
         $response = $this->get(route('contract-types.index'));
 
@@ -94,7 +94,7 @@ class ContractTypeControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $contractType = ContractType::factory()->create();
+        $contractType = ContractType::inRandomOrder()->first();
 
         $response = $this->get(route('contract-types.show', $contractType));
 
@@ -120,7 +120,7 @@ class ContractTypeControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $contractType = ContractType::factory()->create();
+        $contractType = ContractType::inRandomOrder()->first();
         $name = $this->faker->name;
 
         $response = $this->put(route('contract-types.update', $contractType), [
@@ -141,7 +141,7 @@ class ContractTypeControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $contractType = ContractType::factory()->create();
+        $contractType = ContractType::inRandomOrder()->first();
 
         $response = $this->delete(route('contract-types.destroy', $contractType));
 

@@ -28,8 +28,8 @@ class SolicitorUpdateRequest extends FormRequest
             'office_address' => ['required', 'string'],
             'contact_name' => ['required', 'string'],
             'contact_phone' => ['required', 'string'],
-            'location' => ['required', 'string'],
-            'state_id' => ['required', 'integer', 'exists:states,id'],
+            'location' => ['required', 'string'],                        
+            'project_location' => ['nullable', 'string'],
         ];
     }
 }
