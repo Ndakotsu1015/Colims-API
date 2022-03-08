@@ -29,7 +29,7 @@ class SolicitorStoreRequest extends FormRequest
             'contact_name' => ['required', 'string'],
             'contact_phone' => ['required', 'string'],
             'location' => ['required', 'string'],
-            'state_id' => ['required', 'integer', 'exists:states,id'],
+            'project_location' => ['nullable', 'string'],            
         ];
     }
 }

@@ -15,6 +15,15 @@ class ContractTypeFactory extends Factory
      */
     protected $model = ContractType::class;
 
+    public static $contractTypes = [
+        [1, "Fixed Price Contract (FP)"],
+        [2, "Time and Material Contract (TMC)"],
+        [3, "Labour Contract (LC)"],
+        [4, "Subcontractor Contract (SC)"],
+        [5, "Cost Reimbursable Contract (CR)"],
+        [6, "Other Contract (OC)"],
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -22,8 +31,10 @@ class ContractTypeFactory extends Factory
      */
     public function definition()
     {
+        $contractType =  $this->faker->unique()->randomElement(self::$contractTypes);
         return [
-            'name' => $this->faker->name,
+            'id' => $contractType[0],
+            'name' => $contractType[1],
         ];
     }
 }

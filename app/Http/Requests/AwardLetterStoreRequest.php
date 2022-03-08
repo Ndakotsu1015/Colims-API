@@ -23,16 +23,14 @@ class AwardLetterStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'unit_price' => ['required', 'numeric'],
-            'contract_sum' => ['required', 'numeric'],
-            'no_units' => ['required', 'integer', 'gt:0'],            
+        return [            
+            'contract_sum' => ['required', 'numeric'],                      
             'date_awarded' => ['required', 'date'],
             'last_bank_ref_date' => ['nullable', 'date'],
             'reference_no' => ['required', 'string'],            
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
             'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],
-            'state_id' => ['required', 'integer', 'exists:states,id'],
+            'project_location' => ['nullable', 'string'],
             'project_id' => ['required', 'integer', 'exists:projects,id'],
             'approved_by' => ['nullable'],
             'contract_title' => ['required', 'string'],
