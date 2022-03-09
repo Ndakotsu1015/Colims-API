@@ -9,6 +9,7 @@ use App\Http\Resources\CalendarEventResource;
 use App\Models\CalendarEvent;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CalendarEventController extends Controller
@@ -30,7 +31,11 @@ class CalendarEventController extends Controller
      */
     public function store(CalendarEventStoreRequest $request)
     {
-        $calendarEvent = CalendarEvent::create($request->validated());
+    	$data = $request->validated();
+    	Log::debug("Calendar Event Post Data");
+    	Log::debug($data);
+    	$data["posted_by"] = auth()->user()->id;
+        $calendarEvent = CalendarEvent::create($data);
 
         $notification = new Notification();
 
@@ -74,7 +79,8 @@ class CalendarEventController extends Controller
      */
     public function update(CalendarEventUpdateRequest $request, CalendarEvent $calendarEvent)
     {
-        $calendarEvent->update($request->validated());
+    	$data = $request->validated();
+        $calendarEvent->update($data);
 
         return new CalendarEventResource($calendarEvent->load('postedBy', 'courtCase'));
     }
@@ -86,6 +92,9 @@ class CalendarEventController extends Controller
      */
     public function destroy(Request $request, CalendarEvent $calendarEvent)
     {
+    	Log::debug("Deleting something...");
+    	Log::debug($calendarEvent);
+    	
         $calendarEvent->delete();
 
         return response()->noContent();

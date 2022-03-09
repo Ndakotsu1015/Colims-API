@@ -65,7 +65,7 @@ class AuthController extends Controller
 
             $recipientEmail = auth()->user()->email;
             Log::debug("Email: " . $recipientEmail);
-            Mail::to($recipientEmail)->send(new LoginSuccessful($notification));
+            Mail::to($recipientEmail)->queue(new LoginSuccessful($notification));
 
             return $this->success([
                 'access_token' => auth()->user()->createToken('access_token')->plainTextToken,
