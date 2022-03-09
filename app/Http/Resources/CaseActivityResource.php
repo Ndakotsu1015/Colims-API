@@ -22,6 +22,7 @@ class CaseActivityResource extends JsonResource
             'location' => $this->location,
             'caseActivitySuitParties' => CaseActivitySuitPartyCollection::make($this->whenLoaded('caseActivitySuitParties')),            
             'solicitor' => new SolicitorResource($this->whenLoaded('solicitor')),
+            'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
         ];
     }
 }

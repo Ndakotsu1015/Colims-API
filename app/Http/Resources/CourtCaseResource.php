@@ -17,8 +17,8 @@ class CourtCaseResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'case_no' => $this->case_no,            
-            'status' => $this->status,
+            'case_no' => $this->case_no,
+            'court_pronouncement' => $this->court_pronouncement,
             'is_case_closed' => $this->is_case_closed,           
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,            

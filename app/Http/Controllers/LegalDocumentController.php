@@ -32,7 +32,11 @@ class LegalDocumentController extends Controller
      */
     public function store(LegalDocumentStoreRequest $request)
     {
-        $legalDocument = LegalDocument::create($request->validated());
+    	$data = $request->validated();
+    	Log::debug('About to Log LegalDocument Data');
+    	Log::debug($data);
+    	$data['user_id'] = auth()->user()->id;
+        $legalDocument = LegalDocument::create($data);
 
         $notification = new Notification();
         

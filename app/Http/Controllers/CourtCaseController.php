@@ -8,12 +8,15 @@ use App\Http\Resources\CalendarEventCollection;
 use App\Http\Resources\CaseActivityCollection;
 use App\Http\Resources\CourtCaseCollection;
 use App\Http\Resources\CourtCaseResource;
+use App\Http\Resources\LegalDocumentCollection;
 use App\Http\Resources\SuitPartyCollection;
 use App\Models\CalendarEvent;
 use App\Models\CaseActivity;
 use App\Models\CourtCase;
+use App\Models\LegalDocument;
 use App\Models\SuitParty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CourtCaseController extends Controller
 {
@@ -56,7 +59,9 @@ class CourtCaseController extends Controller
      */
     public function update(CourtCaseUpdateRequest $request, CourtCase $courtCase)
     {
-        $courtCase->update($request->validated());
+        $data = $request->validated();
+
+        $courtCase->update();
 
         return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
@@ -82,9 +87,16 @@ class CourtCaseController extends Controller
 
     public function getCaseActivities($id)
     {
-        $caseActivities = CaseActivity::where('court_case_id', $id)->latest()->get();
+        $caseActivities = CaseActivity::where('court_case_id', $id)->with('caseStatus', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty')->latest()->get();
 
         return new CaseActivityCollection($caseActivities);
+    }
+    
+    public function getLegalDocuments($id)
+    {
+        $legalDocuments = LegalDocument::where('court_case_id', $id)->with('documentType', 'user')->latest()->get();
+
+        return new LegalDocumentCollection($legalDocuments);
     }
 
     public function getSuitParties($id)
@@ -93,4 +105,44 @@ class CourtCaseController extends Controller
 
         return new SuitPartyCollection($suitParties);
     }
+    
+    public function updateCourtPronouncement($id, Request $request)
+    {
+    	Log::debug('Update Pronouncement');
+    	Log::debug($request->all());
+    	$rules = [
+    		'court_pronouncement' => 'required|string'
+    	];
+    	$data = $request->validate($rules);
+    	Log::debug($data);
+    	
+    	$courtCase = CourtCase::where('id', $id)->first();
+    	$courtCase->update($data);
+    	
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
+    }
+    
+    public function activeCases(Request $request)
+    {
+        $activeCases = CourtCase::where('is_case_closed', false)
+            ->with('caseStatus', 'postedBy', 'solicitor', 'handler', 'caseActivities')
+            ->orderBy('updated_at', 'desc')->latest()->get();
+
+        return new CourtCaseCollection($activeCases);
+    }
+
+    public function closedCases(Request $request)
+    {
+        $closedCases = CourtCase::where('is_case_closed', true)
+            ->with('caseStatus', 'postedBy', 'solicitor', 'handler', 'caseActivities')
+            ->orderBy('updated_at', 'desc')->latest()->get();
+
+        return new CourtCaseCollection($closedCases);
+    }
+
+    // public function addSuitParty(Request $request) 
+    // {
+    //     $data = $request->all();
+
+    // }
 }

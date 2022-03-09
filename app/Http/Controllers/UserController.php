@@ -32,4 +32,11 @@ class UserController extends Controller
         }
         
     }
+
+    public function destroy(Request $request, User $user)
+    {
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
+    }
 }

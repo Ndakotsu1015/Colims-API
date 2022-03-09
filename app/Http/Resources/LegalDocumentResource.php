@@ -18,7 +18,7 @@ class LegalDocumentResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'filename' => $this->filename,
-            'user_id' => $this->user_id,
+            'user' => new UserResource($this->whenLoaded('user')),
             'courtCase' => new CourtCaseResource($this->whenLoaded('courtCase')),
             'documentType' => new LegalDocumentTypeResource($this->whenLoaded('documentType')),
         ];
