@@ -36,7 +36,7 @@ class AwardLetterFactory extends Factory
             'contract_title' => $this->faker->word(),
             'contract_detail' => $this->faker->word(),            
             'contract_type_id' => ContractType::inRandomOrder()->first(),            
-            'duration_id' => Duration::factory(),
+            'duration_id' => Duration::inRandomOrder()->first(),
             'contract_category_id' => ContractCategory::inRandomOrder()->first(),
             'contractor_id' => Contractor::factory(),
             'project_location' => $this->faker->word(),            
