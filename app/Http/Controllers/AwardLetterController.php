@@ -38,17 +38,17 @@ class AwardLetterController extends Controller
         $awardLetter = AwardLetter::create($request->validated());
 
         $notification = new Notification();
-        
+
         $notification->user_id = auth()->user()->id;
         $notification->subject = "Award Letter Created";
-        $notification->content = "A new award letter with Reference No. : " . $awardLetter->reference_no . "was created by you on ". now() . ".";
+        $notification->content = "A new award letter with Reference No. : " . $awardLetter->reference_no . "was created by you on " . now() . ".";
         $notification->action_link = env("CLIENT_URL") . "/#/contracts/award-letters/history";
         $notification->save();
 
         $recipientEmail = auth()->user()->email;
 
         try {
-            Mail::to($recipientEmail)->queue(new \App\Mail\AwardLetter ($notification));        
+            Mail::to($recipientEmail)->queue(new \App\Mail\AwardLetter($notification));
         } catch (Exception $e) {
             Log::debug($e);
         }
@@ -107,17 +107,17 @@ class AwardLetterController extends Controller
     }
 
     public function awardLetterRenewals(Request $request)
-    {     
+    {
         $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->latest()->get();
-    
+
         return new AwardLetterCollection($data->load('contractor', 'contractType', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
-    
+
     public function checkRefNo(Request $request, string $refNo)
     {
 
         $exists = AwardLetter::where('reference_no', $refNo)->first();
 
-        return $this->success($exists);         
+        return $this->success($exists);
     }
 }

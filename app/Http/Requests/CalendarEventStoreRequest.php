@@ -28,7 +28,7 @@ class CalendarEventStoreRequest extends FormRequest
             'location' => ['required', 'string'],
             'start_time' => ['required'],
             'end_time' => ['required'],
-            'posted_by' => ['required'],
+            // 'posted_by' => ['required'],
             'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
         ];
     }

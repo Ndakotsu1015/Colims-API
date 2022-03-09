@@ -32,11 +32,11 @@ class BankReferenceController extends Controller
         $data = $request->validated();
         $data['created_by'] = auth()->user()->id;
         $bankReference = BankReference::create($data);
-        
+
         $awardLetter = AwardLetter::find($request->award_letter_id);
         $awardLetter->last_bank_ref_date = $bankReference->reference_date;
         $awardLetter->save();
-        
+
 
         return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy'));
     }
@@ -76,7 +76,7 @@ class BankReferenceController extends Controller
     }
 
     public function checkRefNo(Request $request, string $refNo)
-    {        
+    {
         $exists = BankReference::where('reference_no', $refNo)->exists();
 
         return $this->success($exists);
