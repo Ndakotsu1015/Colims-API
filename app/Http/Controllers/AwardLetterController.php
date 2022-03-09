@@ -9,6 +9,7 @@ use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
 use App\Models\BankReference;
 use App\Models\Notification;
+use Exception;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class AwardLetterController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetters = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'bankReferences', 'approvedBy')->latest()->get();
+        $awardLetters = AwardLetter::with('contractor', 'contractType', 'project', 'duration', 'contractCategory', 'bankReferences', 'approvedBy')->latest()->get();
 
         return new AwardLetterCollection($awardLetters);
     }
@@ -33,21 +34,26 @@ class AwardLetterController extends Controller
      */
     public function store(AwardLetterStoreRequest $request)
     {
-        // Log::debug($request->validated());
+        Log::debug($request->validated());
         $awardLetter = AwardLetter::create($request->validated());
 
         $notification = new Notification();
 
         $notification->user_id = auth()->user()->id;
         $notification->subject = "Award Letter Created";
-        $notification->content = "A new award letter with Reference No.: " . $awardLetter->reference_no . "was created by you on" . now() . ".";
-        $notification->action_link = env("CLIENT_URL") . "/award-letters/" . $awardLetter->id;
+        $notification->content = "A new award letter with Reference No. : " . $awardLetter->reference_no . "was created by you on " . now() . ".";
+        $notification->action_link = env("CLIENT_URL") . "/#/contracts/award-letters/history";
         $notification->save();
 
         $recipientEmail = auth()->user()->email;
-        Mail::to($recipientEmail)->send(new \App\Mail\AwardLeter($notification));
 
-        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
+        try {
+            Mail::to($recipientEmail)->queue(new \App\Mail\AwardLetter($notification));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
+
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy'));
     }
 
     /**
@@ -57,7 +63,7 @@ class AwardLetterController extends Controller
      */
     public function show(Request $request, AwardLetter $awardLetter)
     {
-        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy'));
     }
 
     /**
@@ -70,7 +76,7 @@ class AwardLetterController extends Controller
         // Log::debug($request->validated());
         $awardLetter->update($request->validated());
 
-        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'state', 'project', 'approvedBy'));
+        return new AwardLetterResource($awardLetter->load('duration', 'contractCategory', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy'));
     }
 
     /**
@@ -87,14 +93,14 @@ class AwardLetterController extends Controller
 
     public function pending(Request $request)
     {
-        $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy')->latest()->get();
+        $pendingAwardLetters = AwardLetter::doesntHave('bankReferences')->with('contractor', 'contractType', 'project', 'duration', 'contractCategory', 'approvedBy')->latest()->get();
 
-        return new AwardLetterCollection($pendingAwardLetters->load('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
+        return new AwardLetterCollection($pendingAwardLetters->load('contractor', 'contractType', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
 
     public function awardLetterWithBankGuarantee(Request $request)
     {
-        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')
+        $awardLetterWithBankGaurantee = AwardLetter::with('contractor', 'contractType', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences')
             ->has('bankReferences')->get();
 
         return new AwardLetterCollection($awardLetterWithBankGaurantee);
@@ -104,7 +110,7 @@ class AwardLetterController extends Controller
     {
         $data = AwardLetter::where('last_bank_ref_date', '<', now())->orderBy('id', 'desc')->latest()->get();
 
-        return new AwardLetterCollection($data->load('contractor', 'contractType', 'state', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
+        return new AwardLetterCollection($data->load('contractor', 'contractType', 'project', 'duration', 'contractCategory', 'approvedBy', 'bankReferences'));
     }
 
     public function checkRefNo(Request $request, string $refNo)

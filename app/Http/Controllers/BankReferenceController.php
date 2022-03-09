@@ -18,7 +18,7 @@ class BankReferenceController extends Controller
      */
     public function index(Request $request)
     {
-        $bankReferences = BankReference::with('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy', 'awardLetter.state')->latest()->get();
+        $bankReferences = BankReference::with('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy')->latest()->get();
 
         return new BankReferenceCollection($bankReferences);
     }
@@ -38,7 +38,7 @@ class BankReferenceController extends Controller
         $awardLetter->save();
 
 
-        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy', 'awardLetter.state'));
+        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy'));
     }
 
     /**
@@ -48,7 +48,7 @@ class BankReferenceController extends Controller
      */
     public function show(Request $request, BankReference $bankReference)
     {
-        return new BankReferenceResource($bankReference->load('awardLetter', 'affiliate', 'affiliate.bank', 'awardLetter.contractor', 'awardLetter.approvedBy', 'awardLetter.state'));
+        return new BankReferenceResource($bankReference->load('awardLetter', 'affiliate', 'affiliate.bank', 'awardLetter.contractor', 'awardLetter.approvedBy'));
     }
 
     /**
@@ -60,7 +60,7 @@ class BankReferenceController extends Controller
     {
         $bankReference->update($request->validated());
 
-        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy', 'awardLetter.state'));
+        return new BankReferenceResource($bankReference->load('affiliate', 'awardLetter', 'awardLetter.contractor', 'awardLetter.approvedBy'));
     }
 
     /**

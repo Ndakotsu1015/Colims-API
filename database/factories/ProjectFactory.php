@@ -15,6 +15,14 @@ class ProjectFactory extends Factory
      */
     protected $model = Project::class;
 
+    public static $projects = [
+        [1, "Support To Peace And Security Through The Joint Police Programme In Nigeria", "P2091"],
+        [2, "Powell River Recreation Complex Heat Recovery Project","P84993"],
+        [3, "Light Capital Paving From Beginning At Route 180 And Extending North 12.45 Miles To Route 9", "P35562"],
+        [4, "Health Science Education Center", "P090339"],
+        [5, "Construct Bridge At Kababu- Kibumburia At Magoto River", "P0998877"],        
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -22,9 +30,11 @@ class ProjectFactory extends Factory
      */
     public function definition()
     {
+        $project =  $this->faker->unique()->randomElement(self::$projects);
         return [
-            'name' => $this->faker->name,
-            'project_code' => $this->faker->word,
+            'id' => $project[0],
+            'name' => $project[1],
+            'project_code' => $project[2],
         ];
     }
 }

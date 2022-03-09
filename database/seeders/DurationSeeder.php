@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Duration;
+use Database\Factories\DurationFactory;
 use Illuminate\Database\Seeder;
 
 class DurationSeeder extends Seeder
@@ -14,6 +15,6 @@ class DurationSeeder extends Seeder
      */
     public function run()
     {
-        Duration::factory()->count(5)->create();
+        Duration::factory(count(DurationFactory::$durations))->create();
     }
 }

@@ -15,10 +15,8 @@ class AwardLetterResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'unit_price' => $this->unit_price,
-            'contract_sum' => $this->contract_sum,
-            'no_units' => $this->no_units,            
+            'id' => $this->id,            
+            'contract_sum' => $this->contract_sum,                      
             'date_awarded' => $this->date_awarded,
             'last_bank_ref_date' => $this->last_bank_ref_date,
             'reference_no' => $this->reference_no,            
@@ -28,7 +26,7 @@ class AwardLetterResource extends JsonResource
             'contract_category' => new ContractCategoryResource($this->whenLoaded('contractCategory')),
             'contractor' => new ContractorResource($this->whenLoaded('contractor')),
             'contractType' => new ContractTypeResource($this->whenLoaded('contractType')),
-            'state' => new StateResource($this->whenLoaded('state')),
+            'project_location' => $this->project_location,            
             'project' => new ProjectResource($this->whenLoaded('project')),
             'approvedBy' => new EmployeeResource($this->whenLoaded('approvedBy')),
             'bankReferences' => BankReferenceCollection::make($this->whenLoaded('bankReferences')),

@@ -97,10 +97,8 @@ models:
     softDeletes
     relationships:
       hasMany: AwardLetter
-  AwardLetter:
-    unit_price: float
-    contract_sum: float
-    no_units: unsignedInteger    
+  AwardLetter:    
+    contract_sum: float        
     contract_title: string
     contract_detail: text
     date_awarded: date
@@ -108,7 +106,7 @@ models:
     reference_no: string    
     contractor_id: id foreign
     contract_type_id: id foreign
-    state_id: id foreign
+    project_location: string nullable
     project_id: id foreign
     duration_id: id foreign
     contract_category_id: id foreign

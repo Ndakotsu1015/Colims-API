@@ -115,7 +115,7 @@
                                                                 <tr>
                                                                     <td style="mso-padding-alt: 16px 24px; --bg-opacity: 1; background-color: #08a51d; background-color: #08a51d; border-radius: 4px; font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif;" bgcolor="rgba(115, 103, 240, var(--bg-opacity))">
 
-                                                                        <a target="_blank" href="{{ $notification->action_link }}" style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: #ffffff; text-decoration: none;">View Award Leter →</a>
+                                                                        <a target="_blank" href="{{ $notification->action_link }}" style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: #ffffff; text-decoration: none;">View Award Letter →</a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>

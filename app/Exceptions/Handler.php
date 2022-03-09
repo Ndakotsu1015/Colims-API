@@ -45,6 +45,16 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function(HttpException $exception, $request) {
+            if ($request->is('api/*') && $exception->getStatusCode() == 500) {
+                return response()->json([
+                    'message' => 'Internal Server Error',
+                    'status' => $exception->getStatusCode(),
+                    'cause' => $exception->getMessage(),
+                ], $exception->getStatusCode());
+            }
+        });
     }
 
     /**

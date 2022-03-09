@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ContractType;
+use Database\Factories\ContractTypeFactory;
 use Illuminate\Database\Seeder;
 
 class ContractTypeSeeder extends Seeder
@@ -13,7 +14,7 @@ class ContractTypeSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        ContractType::factory()->count(5)->create();
+    {        
+        ContractType::factory(count(ContractTypeFactory::$contractTypes))->create();
     }
 }

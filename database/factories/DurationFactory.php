@@ -15,6 +15,13 @@ class DurationFactory extends Factory
      */
     protected $model = Duration::class;
 
+    public static $durations = [
+        [1, "Day", 1],
+        [2, "Week", 7],
+        [3, "Month", 30],
+        [4, "Year", 365],
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -22,9 +29,11 @@ class DurationFactory extends Factory
      */
     public function definition()
     {
+        $duration = $this->faker->unique()->randomElement(self::$durations);
         return [
-            'name' => $this->faker->name,
-            'number_of_days' => $this->faker->randomNumber(),
+            'id' => $duration[0],
+            'name' => $duration[1],
+            'number_of_days' => $duration[2],
         ];
     }
 }

@@ -40,8 +40,13 @@ class AuthController extends Controller
         $notification->action_link = env("CLIENT_URL") . "/auth/login";
         $notification->save();
 
-        $recipientEmail = $user->email;        
-        Mail::to($recipientEmail)->send(new RegistrationSuccessful ($notification));
+        $recipientEmail = $user->email;
+
+        try {
+            Mail::to($recipientEmail)->queue(new RegistrationSuccessful($notification));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
 
         return $this->success(['user' => $user], 201);
     }
@@ -54,7 +59,7 @@ class AuthController extends Controller
         ]);
 
 
-        if (auth()->attempt($request->only('email', 'password'))) {            
+        if (auth()->attempt($request->only('email', 'password'))) {
             $notification = new Notification();
 
             $notification->user_id = auth()->user()->id;
@@ -64,8 +69,12 @@ class AuthController extends Controller
             $notification->save();
 
             $recipientEmail = auth()->user()->email;
-            Log::debug("Email: " . $recipientEmail);
-            Mail::to($recipientEmail)->queue(new LoginSuccessful($notification));
+
+            try {
+                Mail::to($recipientEmail)->queue(new LoginSuccessful($notification));
+            } catch (Exception $e) {
+                Log::debug($e);
+            }
 
             return $this->success([
                 'access_token' => auth()->user()->createToken('access_token')->plainTextToken,

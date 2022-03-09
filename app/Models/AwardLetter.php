@@ -15,16 +15,14 @@ class AwardLetter extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'unit_price',
-        'contract_sum',
-        'no_units',        
+    protected $fillable = [        
+        'contract_sum',            
         'date_awarded',
         'last_bank_ref_date',
         'reference_no',        
         'contractor_id',
         'contract_type_id',
-        'state_id',
+        'project_location',        
         'project_id',
         'approved_by',
         'contract_title',
@@ -39,15 +37,12 @@ class AwardLetter extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'unit_price' => 'float',
-        'contract_sum' => 'float',
-        'no_units' => 'integer',        
+        'id' => 'integer',        
+        'contract_sum' => 'float',            
         'date_awarded' => 'date', 
         'last_bank_ref_date' => 'date',        
         'contractor_id' => 'integer',
-        'contract_type_id' => 'integer',
-        'state_id' => 'integer',
+        'contract_type_id' => 'integer',        
         'project_id' => 'integer',
         'approved_by' => 'integer',
         'duration_id' => 'integer',
@@ -67,11 +62,6 @@ class AwardLetter extends Model
     public function contractType()
     {
         return $this->belongsTo(ContractType::class);
-    }
-
-    public function state()
-    {
-        return $this->belongsTo(State::class);
     }
 
     public function project()
