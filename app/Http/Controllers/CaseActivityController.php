@@ -119,7 +119,13 @@ class CaseActivityController extends Controller
      */
     public function update(CaseActivityUpdateRequest $request, CaseActivity $caseActivity)
     {
-        $caseActivity->update($request->validated());
+    	$data = $request->validated();
+    	
+    	$courtCase = CourtCase::findOrFail($data['court_case_id']);
+    	$data['user_id'] = auth()->user()->id;
+        $data['solicitor_id'] = $courtCase->solicitor_id;
+    	
+        $caseActivity->update($data);
 
         return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }

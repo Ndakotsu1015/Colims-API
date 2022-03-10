@@ -60,8 +60,10 @@ class CourtCaseController extends Controller
     public function update(CourtCaseUpdateRequest $request, CourtCase $courtCase)
     {
         $data = $request->validated();
+        Log::debug("Court Case Request Data");
+        Log::debug($data);
 
-        $courtCase->update();
+        $courtCase->update($data);
 
         return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }

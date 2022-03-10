@@ -22,7 +22,7 @@ class AwardLetter extends Model
         'reference_no',        
         'contractor_id',
         'contract_type_id',
-        'project_location',        
+        'project_location',
         'project_id',
         'approved_by',
         'contract_title',
