@@ -124,6 +124,20 @@ class CaseActivityController extends Controller
     	$courtCase = CourtCase::findOrFail($data['court_case_id']);
     	$data['user_id'] = auth()->user()->id;
         $data['solicitor_id'] = $courtCase->solicitor_id;
+
+        // Delete previous suit parties
+        foreach($caseActivity->caseActivitySuitParties as $caseActivitySuitParty) {
+            $caseActivitySuitParty->delete();
+        }
+
+        if (is_array($request->suit_parties)) {
+            foreach ($request->suit_parties as $suitPartyId) {
+                $caseActivitySuitParty = new CaseActivitySuitParty();
+                $caseActivitySuitParty->case_activity_id = $caseActivity->id;
+                $caseActivitySuitParty->suit_party_id = $suitPartyId;
+                $caseActivitySuitParty->save();
+            }
+        }
     	
         $caseActivity->update($data);
 
