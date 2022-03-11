@@ -78,8 +78,7 @@ class CourtCaseControllerTest extends TestCase
     public function store_saves()
     {
         $title = $this->faker->sentence(4);
-        $case_no = $this->faker->word;
-        $status = $this->faker->word;
+        $case_no = $this->faker->word;        
         $is_case_closed = $this->faker->boolean;
         $court_pronouncement = $this->faker->word;
         $handler = User::inRandomOrder()->first();
@@ -152,8 +151,7 @@ class CourtCaseControllerTest extends TestCase
     {
         $courtCase = CourtCase::inRandomOrder()->first();
         $title = $this->faker->sentence(4);
-        $case_no = $this->faker->word;
-        $status = $this->faker->word;
+        $case_no = $this->faker->word;        
         $is_case_closed = $this->faker->boolean;
         $court_pronouncement = $this->faker->word;
         $handler = User::inRandomOrder()->first();
@@ -174,6 +172,7 @@ class CourtCaseControllerTest extends TestCase
             'case_request_id' => $case_request->id,
         ]);
 
+        
         Log::debug($response->getContent());
 
         $courtCase->refresh();
