@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'profile_image' => filter_var($this->profile_image, FILTER_VALIDATE_URL) ? $this->profile_image : (is_null($this->profile_image) ? null : config('app.url').'/file/get/' .$this->profile_image),
+            'profile_picture' => filter_var($this->profile_picture, FILTER_VALIDATE_URL) ? $this->profile_picture : (is_null($this->profile_picture) ? null : config('app.url').'/file/get/' .$this->profile_picture),
         ];
     }
 }

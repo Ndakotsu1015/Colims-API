@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Mail\LoginSuccessful;
 use App\Mail\RegistrationSuccessful;
 use App\Models\Notification;
@@ -79,7 +80,7 @@ class AuthController extends Controller
             return $this->success([
                 'access_token' => auth()->user()->createToken('access_token')->plainTextToken,
                 'token_type' => 'Bearer',
-                'user' => auth()->user(),
+                'user' => new UserResource(auth()->user()),
             ]);
         }
 
