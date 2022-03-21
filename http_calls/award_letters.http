@@ -22,3 +22,14 @@ Authorization: Bearer 1|axQ9G1Ke24qBsUXS2VZQK7Ie6ZLIBTdolQujpGJ7
 ###
 GET http://localhost:8000/api/case-requests HTTP/1.1
 Authorization: Bearer 2|dGmJePBstxValwTb7R8zYOiGSyJGH0JMr5YpauU5
+
+###
+POST http://localhost:8000/api/award-letter-internal-documents HTTP/1.1
+Authorization: Bearer 1|aFxtumLDc5s2GJavDczliHiXSufKV36COH1vEdDm
+# Content-Type: application/json
+
+{        
+    "name": "sdfghjkl",
+    "filename": '2022-12-12',   
+    "award_letter_id": 1,
+}

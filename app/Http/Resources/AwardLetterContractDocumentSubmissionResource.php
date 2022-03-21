@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AwardLetterContractDocumentSubmissionResource extends JsonResource
+class ContractDocumentSubmissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +20,7 @@ class AwardLetterContractDocumentSubmissionResource extends JsonResource
             'is_approved' => $this->is_approved,
             'due_date' => $this->due_date,
             'award_letter_id' => $this->award_letter_id,
-            'awardLetterContractDocumentSubmissionEntries' => AwardLetterContractDocumentSubmissionEntryCollection::make($this->whenLoaded('awardLetterContractDocumentSubmissionEntries')),
+            'ContractDocumentSubmissionEntries' => ContractDocumentSubmissionEntryCollection::make($this->whenLoaded('ContractDocumentSubmissionEntries')),
         ];
     }
 }

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\CaseActivitySuitParty;
 use App\Models\CaseParticipant;
 use App\Models\CaseRequestMovement;
+use App\Models\ContractDocumentSubmission;
+use App\Models\ContractDocumentSubmissionEntry;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -53,6 +55,11 @@ class DatabaseSeeder extends Seeder
             CaseStatusSeeder::class,            
             LegalDocumentTypeSeeder::class,
             CaseActivitySuitPartySeeder::class,
+            CaseDraftSeeder::class,
+            CaseDraftSuitPartySeeder::class,
+            ContractDocumentSubmissionSeeder::class,
+            ContractDocumentSubmissionEntrySeeder::class,
+            AwardLetterInternalDocumentSeeder::class,
         ]);
     }
 }

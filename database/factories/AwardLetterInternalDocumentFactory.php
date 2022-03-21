@@ -25,7 +25,7 @@ class AwardLetterInternalDocumentFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'filename' => $this->faker->word,
+            'filename' =>  $this->faker->imageUrl(),
             'award_letter_id' => AwardLetter::factory(),
         ];
     }

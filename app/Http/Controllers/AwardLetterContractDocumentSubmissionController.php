@@ -2,67 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AwardLetterContractDocumentSubmissionStoreRequest;
-use App\Http\Requests\AwardLetterContractDocumentSubmissionUpdateRequest;
-use App\Http\Resources\AwardLetterContractDocumentSubmissionCollection;
-use App\Http\Resources\AwardLetterContractDocumentSubmissionResource;
-use App\Models\AwardLetterContractDocumentSubmission;
+use App\Http\Requests\ContractDocumentSubmissionStoreRequest;
+use App\Http\Requests\ContractDocumentSubmissionUpdateRequest;
+use App\Http\Resources\ContractDocumentSubmissionCollection;
+use App\Http\Resources\ContractDocumentSubmissionResource;
+use App\Models\ContractDocumentSubmission;
 use Illuminate\Http\Request;
 
-class AwardLetterContractDocumentSubmissionController extends Controller
+class ContractDocumentSubmissionController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \App\Http\Resources\AwardLetterContractDocumentSubmissionCollection
+     * @return \App\Http\Resources\ContractDocumentSubmissionCollection
      */
     public function index(Request $request)
     {
-        $awardLetterContractDocumentSubmissions = AwardLetterContractDocumentSubmission::all();
+        $ContractDocumentSubmissions = ContractDocumentSubmission::all();
 
-        return new AwardLetterContractDocumentSubmissionCollection($awardLetterContractDocumentSubmissions);
+        return new ContractDocumentSubmissionCollection($ContractDocumentSubmissions);
     }
 
     /**
-     * @param \App\Http\Requests\AwardLetterContractDocumentSubmissionStoreRequest $request
-     * @return \App\Http\Resources\AwardLetterContractDocumentSubmissionResource
+     * @param \App\Http\Requests\ContractDocumentSubmissionStoreRequest $request
+     * @return \App\Http\Resources\ContractDocumentSubmissionResource
      */
-    public function store(AwardLetterContractDocumentSubmissionStoreRequest $request)
+    public function store(ContractDocumentSubmissionStoreRequest $request)
     {
-        $awardLetterContractDocumentSubmission = AwardLetterContractDocumentSubmission::create($request->validated());
+        $ContractDocumentSubmission = ContractDocumentSubmission::create($request->validated());
 
-        return new AwardLetterContractDocumentSubmissionResource($awardLetterContractDocumentSubmission);
+        return new ContractDocumentSubmissionResource($ContractDocumentSubmission);
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\AwardLetterContractDocumentSubmission $awardLetterContractDocumentSubmission
-     * @return \App\Http\Resources\AwardLetterContractDocumentSubmissionResource
+     * @param \App\Models\ContractDocumentSubmission $ContractDocumentSubmission
+     * @return \App\Http\Resources\ContractDocumentSubmissionResource
      */
-    public function show(Request $request, AwardLetterContractDocumentSubmission $awardLetterContractDocumentSubmission)
+    public function show(Request $request, ContractDocumentSubmission $ContractDocumentSubmission)
     {
-        return new AwardLetterContractDocumentSubmissionResource($awardLetterContractDocumentSubmission);
+        return new ContractDocumentSubmissionResource($ContractDocumentSubmission);
     }
 
     /**
-     * @param \App\Http\Requests\AwardLetterContractDocumentSubmissionUpdateRequest $request
-     * @param \App\Models\AwardLetterContractDocumentSubmission $awardLetterContractDocumentSubmission
-     * @return \App\Http\Resources\AwardLetterContractDocumentSubmissionResource
+     * @param \App\Http\Requests\ContractDocumentSubmissionUpdateRequest $request
+     * @param \App\Models\ContractDocumentSubmission $ContractDocumentSubmission
+     * @return \App\Http\Resources\ContractDocumentSubmissionResource
      */
-    public function update(AwardLetterContractDocumentSubmissionUpdateRequest $request, AwardLetterContractDocumentSubmission $awardLetterContractDocumentSubmission)
+    public function update(ContractDocumentSubmissionUpdateRequest $request, ContractDocumentSubmission $ContractDocumentSubmission)
     {
-        $awardLetterContractDocumentSubmission->update($request->validated());
+        $ContractDocumentSubmission->update($request->validated());
 
-        return new AwardLetterContractDocumentSubmissionResource($awardLetterContractDocumentSubmission);
+        return new ContractDocumentSubmissionResource($ContractDocumentSubmission);
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\AwardLetterContractDocumentSubmission $awardLetterContractDocumentSubmission
+     * @param \App\Models\ContractDocumentSubmission $ContractDocumentSubmission
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, AwardLetterContractDocumentSubmission $awardLetterContractDocumentSubmission)
+    public function destroy(Request $request, ContractDocumentSubmission $ContractDocumentSubmission)
     {
-        $awardLetterContractDocumentSubmission->delete();
+        $ContractDocumentSubmission->delete();
 
         return response()->noContent();
     }

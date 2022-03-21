@@ -21,7 +21,8 @@ class CreateCaseDraftsTable extends Migration
             $table->string('title');
             $table->boolean('dls_approved')->nullable();
             $table->boolean('review_submitted')->default(false);
-            $table->foreignId('hanler_id')->constrained('user');
+            $table->string('review_comment')->nullable();
+            $table->foreignId('hanler_id')->constrained('users');
             $table->foreignId('solicitor_id')->constrained();
             $table->foreignId('case_request_id')->constrained();
             $table->softDeletes();

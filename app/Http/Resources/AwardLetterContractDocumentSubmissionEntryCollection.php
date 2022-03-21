@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class AwardLetterContractDocumentSubmissionEntryCollection extends ResourceCollection
+class ContractDocumentSubmissionEntryCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

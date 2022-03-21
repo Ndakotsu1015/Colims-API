@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AwardLetterContractDocumentSubmission extends Model
+class ContractDocumentSubmission extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -35,9 +35,9 @@ class AwardLetterContractDocumentSubmission extends Model
         'award_letter_id' => 'integer',
     ];
 
-    public function awardLetterContractDocumentSubmissionEntries()
+    public function ContractDocumentSubmissionEntries()
     {
-        return $this->hasMany(AwardLetterContractDocumentSubmissionEntry::class);
+        return $this->hasMany(ContractDocumentSubmissionEntry::class);
     }
 
     public function awardLetter()

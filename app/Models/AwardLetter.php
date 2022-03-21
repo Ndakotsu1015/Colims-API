@@ -95,6 +95,6 @@ class AwardLetter extends Model
 
     public function contractDocumentSubmissions()
     {
-        return $this->hasMany(AwardLetterContractDocumentSubmission::class);
+        return $this->hasMany(ContractDocumentSubmission::class);
     }
 }

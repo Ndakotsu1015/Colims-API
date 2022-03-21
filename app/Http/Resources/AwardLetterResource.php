@@ -33,7 +33,7 @@ class AwardLetterResource extends JsonResource
             'commencement_date' => $this->commencement_date,
             'due_date' => $this->due_date,
             'internalDocuments' => AwardLetterInternalDocumentCollection::make($this->whenLoaded('internalDocuments')),
-            'contractDocumentSubmissions' => AwardLetterContractDocumentSubmissionCollection::make($this->whenLoaded('contractDocumentSubmissions')),
+            'contractDocumentSubmissions' => ContractDocumentSubmissionCollection::make($this->whenLoaded('contractDocumentSubmissions')),
         ];
     }
 }

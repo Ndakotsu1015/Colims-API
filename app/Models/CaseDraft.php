@@ -20,6 +20,7 @@ class CaseDraft extends Model
         'title',
         'dls_approved',
         'review_submitted',
+        'review_comment',
         'hanler_id',
         'solicitor_id',
         'case_request_id',

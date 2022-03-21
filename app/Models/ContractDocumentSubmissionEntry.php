@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AwardLetterContractDocumentSubmissionEntry extends Model
+class ContractDocumentSubmissionEntry extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -35,6 +35,6 @@ class AwardLetterContractDocumentSubmissionEntry extends Model
 
     public function entry()
     {
-        return $this->belongsTo(AwardLetterContractDocumentSubmission::class);
+        return $this->belongsTo(ContractDocumentSubmission::class);
     }
 }

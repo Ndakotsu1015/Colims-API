@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAwardLetterContractDocumentSubmissionsTable extends Migration
+class CreateContractDocumentSubmissionEntriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,12 @@ class CreateAwardLetterContractDocumentSubmissionsTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('award_letter_contract_document_submissions', function (Blueprint $table) {
+        Schema::create('contract_document_submission_entries', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_submitted')->default(false);
+            $table->string('name');
+            $table->string('filename');
             $table->boolean('is_approved')->default(false);
-            $table->date('due_date');
-            $table->foreignId('award_letter_id')->constrained();
+            $table->foreignId('entry_id')->constrained('contract_document_submissions');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +35,6 @@ class CreateAwardLetterContractDocumentSubmissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('award_letter_contract_document_submissions');
+        Schema::dropIfExists('award_letter_contract_document_submission_entries');
     }
 }

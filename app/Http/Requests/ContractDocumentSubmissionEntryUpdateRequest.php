@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AwardLetterContractDocumentSubmissionStoreRequest extends FormRequest
+class ContractDocumentSubmissionEntryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class AwardLetterContractDocumentSubmissionStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'is_submitted' => ['required'],
+            'name' => ['required', 'string'],
+            'filename' => ['required', 'string'],
             'is_approved' => ['required'],
-            'due_date' => ['required', 'date'],
-            'award_letter_id' => ['required', 'integer', 'exists:award_letters,id'],
+            'entry_id' => ['required', 'integer', 'exists:entries,id'],
         ];
     }
 }

@@ -4,17 +4,17 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\AwardLetter;
-use App\Models\AwardLetterContractDocumentSubmission;
+use App\Models\ContractDocumentSubmission;
+use App\Models\ContractDocumentSubmissionEntry;
 
-class AwardLetterContractDocumentSubmissionFactory extends Factory
+class ContractDocumentSubmissionEntryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = AwardLetterContractDocumentSubmission::class;
+    protected $model = ContractDocumentSubmissionEntry::class;
 
     /**
      * Define the model's default state.
@@ -24,10 +24,10 @@ class AwardLetterContractDocumentSubmissionFactory extends Factory
     public function definition()
     {
         return [
-            'is_submitted' => $this->faker->boolean,
+            'name' => $this->faker->name,
+            'filename' => $this->faker->word,
             'is_approved' => $this->faker->boolean,
-            'due_date' => $this->faker->date(),
-            'award_letter_id' => AwardLetter::factory(),
+            'entry_id' => ContractDocumentSubmission::inRandomOrder()->first(),
         ];
     }
 }

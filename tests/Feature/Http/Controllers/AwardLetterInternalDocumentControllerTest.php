@@ -48,7 +48,7 @@ class AwardLetterInternalDocumentControllerTest extends TestCase
     public function store_saves()
     {
         $name = $this->faker->name;
-        $filename = $this->faker->word;
+        $filename = $this->faker->imageUrl();
         $award_letter = AwardLetter::factory()->create();
 
         $response = $this->post(route('award-letter-internal-document.store'), [
@@ -103,7 +103,7 @@ class AwardLetterInternalDocumentControllerTest extends TestCase
     {
         $awardLetterInternalDocument = AwardLetterInternalDocument::factory()->create();
         $name = $this->faker->name;
-        $filename = $this->faker->word;
+        $filename = $this->faker->imageUrl();
         $award_letter = AwardLetter::factory()->create();
 
         $response = $this->put(route('award-letter-internal-document.update', $awardLetterInternalDocument), [

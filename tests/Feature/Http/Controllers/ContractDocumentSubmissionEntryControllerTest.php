@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\AwardLetterContractDocumentSubmissionEntry;
+use App\Models\ContractDocumentSubmissionEntry;
 use App\Models\Entry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,9 +10,9 @@ use JMac\Testing\Traits\AdditionalAssertions;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\AwardLetterContractDocumentSubmissionEntryController
+ * @see \App\Http\Controllers\ContractDocumentSubmissionEntryController
  */
-class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
+class ContractDocumentSubmissionEntryControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
 
@@ -21,7 +21,7 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $awardLetterContractDocumentSubmissionEntries = AwardLetterContractDocumentSubmissionEntry::factory()->count(3)->create();
+        $ContractDocumentSubmissionEntries = ContractDocumentSubmissionEntry::factory()->count(3)->create();
 
         $response = $this->get(route('award-letter-contract-document-submission-entry.index'));
 
@@ -36,9 +36,9 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\AwardLetterContractDocumentSubmissionEntryController::class,
+            \App\Http\Controllers\ContractDocumentSubmissionEntryController::class,
             'store',
-            \App\Http\Requests\AwardLetterContractDocumentSubmissionEntryStoreRequest::class
+            \App\Http\Requests\ContractDocumentSubmissionEntryStoreRequest::class
         );
     }
 
@@ -59,14 +59,14 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
             'entry_id' => $entry->id,
         ]);
 
-        $awardLetterContractDocumentSubmissionEntries = AwardLetterContractDocumentSubmissionEntry::query()
+        $ContractDocumentSubmissionEntries = ContractDocumentSubmissionEntry::query()
             ->where('name', $name)
             ->where('filename', $filename)
             ->where('is_approved', $is_approved)
             ->where('entry_id', $entry->id)
             ->get();
-        $this->assertCount(1, $awardLetterContractDocumentSubmissionEntries);
-        $awardLetterContractDocumentSubmissionEntry = $awardLetterContractDocumentSubmissionEntries->first();
+        $this->assertCount(1, $ContractDocumentSubmissionEntries);
+        $ContractDocumentSubmissionEntry = $ContractDocumentSubmissionEntries->first();
 
         $response->assertCreated();
         $response->assertJsonStructure([]);
@@ -78,9 +78,9 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $awardLetterContractDocumentSubmissionEntry = AwardLetterContractDocumentSubmissionEntry::factory()->create();
+        $ContractDocumentSubmissionEntry = ContractDocumentSubmissionEntry::factory()->create();
 
-        $response = $this->get(route('award-letter-contract-document-submission-entry.show', $awardLetterContractDocumentSubmissionEntry));
+        $response = $this->get(route('award-letter-contract-document-submission-entry.show', $ContractDocumentSubmissionEntry));
 
         $response->assertOk();
         $response->assertJsonStructure([]);
@@ -93,9 +93,9 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
     public function update_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\AwardLetterContractDocumentSubmissionEntryController::class,
+            \App\Http\Controllers\ContractDocumentSubmissionEntryController::class,
             'update',
-            \App\Http\Requests\AwardLetterContractDocumentSubmissionEntryUpdateRequest::class
+            \App\Http\Requests\ContractDocumentSubmissionEntryUpdateRequest::class
         );
     }
 
@@ -104,28 +104,28 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $awardLetterContractDocumentSubmissionEntry = AwardLetterContractDocumentSubmissionEntry::factory()->create();
+        $ContractDocumentSubmissionEntry = ContractDocumentSubmissionEntry::factory()->create();
         $name = $this->faker->name;
         $filename = $this->faker->word;
         $is_approved = $this->faker->boolean;
         $entry = Entry::factory()->create();
 
-        $response = $this->put(route('award-letter-contract-document-submission-entry.update', $awardLetterContractDocumentSubmissionEntry), [
+        $response = $this->put(route('award-letter-contract-document-submission-entry.update', $ContractDocumentSubmissionEntry), [
             'name' => $name,
             'filename' => $filename,
             'is_approved' => $is_approved,
             'entry_id' => $entry->id,
         ]);
 
-        $awardLetterContractDocumentSubmissionEntry->refresh();
+        $ContractDocumentSubmissionEntry->refresh();
 
         $response->assertOk();
         $response->assertJsonStructure([]);
 
-        $this->assertEquals($name, $awardLetterContractDocumentSubmissionEntry->name);
-        $this->assertEquals($filename, $awardLetterContractDocumentSubmissionEntry->filename);
-        $this->assertEquals($is_approved, $awardLetterContractDocumentSubmissionEntry->is_approved);
-        $this->assertEquals($entry->id, $awardLetterContractDocumentSubmissionEntry->entry_id);
+        $this->assertEquals($name, $ContractDocumentSubmissionEntry->name);
+        $this->assertEquals($filename, $ContractDocumentSubmissionEntry->filename);
+        $this->assertEquals($is_approved, $ContractDocumentSubmissionEntry->is_approved);
+        $this->assertEquals($entry->id, $ContractDocumentSubmissionEntry->entry_id);
     }
 
 
@@ -134,12 +134,12 @@ class AwardLetterContractDocumentSubmissionEntryControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $awardLetterContractDocumentSubmissionEntry = AwardLetterContractDocumentSubmissionEntry::factory()->create();
+        $ContractDocumentSubmissionEntry = ContractDocumentSubmissionEntry::factory()->create();
 
-        $response = $this->delete(route('award-letter-contract-document-submission-entry.destroy', $awardLetterContractDocumentSubmissionEntry));
+        $response = $this->delete(route('award-letter-contract-document-submission-entry.destroy', $ContractDocumentSubmissionEntry));
 
         $response->assertNoContent();
 
-        $this->assertSoftDeleted($awardLetterContractDocumentSubmissionEntry);
+        $this->assertSoftDeleted($ContractDocumentSubmissionEntry);
     }
 }

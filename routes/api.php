@@ -168,6 +168,18 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
 
     Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
+
+    
+    Route::apiResource('case-draft', App\Http\Controllers\CaseDraftController::class);
+
+    Route::apiResource('case-draft-suit-party', App\Http\Controllers\CaseDraftSuitPartyController::class);
+
+
+    Route::apiResource('award-letter-internal-documents', App\Http\Controllers\AwardLetterInternalDocumentController::class);
+
+    Route::apiResource('contract-document-submissions', App\Http\Controllers\ContractDocumentSubmissionController::class);
+
+    Route::apiResource('contract-document-submission-entries', App\Http\Controllers\ContractDocumentSubmissionEntryController::class);
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
@@ -175,15 +187,3 @@ Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.uplo
 Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
 
 Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumentController::class, 'getCourtCase']);
-
-
-Route::apiResource('case-draft', App\Http\Controllers\CaseDraftController::class);
-
-Route::apiResource('case-draft-suit-party', App\Http\Controllers\CaseDraftSuitPartyController::class);
-
-
-Route::apiResource('award-letter-internal-document', App\Http\Controllers\AwardLetterInternalDocumentController::class);
-
-Route::apiResource('award-letter-contract-document-submission', App\Http\Controllers\AwardLetterContractDocumentSubmissionController::class);
-
-Route::apiResource('award-letter-contract-document-submission-entry', App\Http\Controllers\AwardLetterContractDocumentSubmissionEntryController::class);
