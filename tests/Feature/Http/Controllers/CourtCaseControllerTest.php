@@ -85,7 +85,9 @@ class CourtCaseControllerTest extends TestCase
         $posted_by = User::inRandomOrder()->first();
         $case_status = CaseStatus::inRandomOrder()->first();        
         $solicitor = Solicitor::inRandomOrder()->first();  
-        $case_request = CaseRequest::inRandomOrder()->first();;  
+        $case_request = CaseRequest::inRandomOrder()->first();
+        $court_judgement = $this->faker->word;
+        $court_stage = $this->faker->randomNumber();
 
         $response = $this->post(route('court-cases.store'), [
             'title' => $title,
@@ -97,6 +99,8 @@ class CourtCaseControllerTest extends TestCase
             'case_status_id' => $case_status->id,            
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
+            'court_judgement' => $court_judgement,
+            'court_stage' => $court_stage,
         ]);
 
         $courtCases = CourtCase::query()
@@ -109,6 +113,8 @@ class CourtCaseControllerTest extends TestCase
             ->where('case_status_id', $case_status->id)            
             ->where('case_request_id', $case_request->id)
             ->where('solicitor_id', $solicitor->id)
+            ->where('court_judgement', $court_judgement)
+            ->where('court_stage', $court_stage)
             ->get();
         $this->assertCount(1, $courtCases);
         $courtCase = $courtCases->first();
@@ -159,6 +165,8 @@ class CourtCaseControllerTest extends TestCase
         $case_status = CaseStatus::inRandomOrder()->first();        
         $solicitor = Solicitor::inRandomOrder()->first();
         $case_request = CaseRequest::inRandomOrder()->first();
+        $court_judgement = $this->faker->word;
+        $court_stage = $this->faker->randomNumber();
 
         $response = $this->put(route('court-cases.update', $courtCase), [
             'title' => $title,
@@ -170,6 +178,8 @@ class CourtCaseControllerTest extends TestCase
             'case_status_id' => $case_status->id,            
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
+            'court_judgement' => $court_judgement,
+            'court_stage' => $court_stage,
         ]);
 
         
@@ -188,7 +198,9 @@ class CourtCaseControllerTest extends TestCase
         $this->assertEquals($posted_by->id, $courtCase->posted_by);
         $this->assertEquals($case_status->id, $courtCase->case_status_id);        
         $this->assertEquals($solicitor->id, $solicitor->solicitor_id);     
-        $this->assertEquals($case_request->id, $courtCase->case_request_id);                  
+        $this->assertEquals($case_request->id, $courtCase->case_request_id);   
+        $this->assertEquals($court_judgement, $courtCase->court_judgement);
+        $this->assertEquals($court_stage, $courtCase->court_stage);               
     }
 
 

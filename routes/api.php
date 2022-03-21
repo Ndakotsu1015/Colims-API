@@ -175,3 +175,15 @@ Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.uplo
 Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
 
 Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumentController::class, 'getCourtCase']);
+
+
+Route::apiResource('case-draft', App\Http\Controllers\CaseDraftController::class);
+
+Route::apiResource('case-draft-suit-party', App\Http\Controllers\CaseDraftSuitPartyController::class);
+
+
+Route::apiResource('award-letter-internal-document', App\Http\Controllers\AwardLetterInternalDocumentController::class);
+
+Route::apiResource('award-letter-contract-document-submission', App\Http\Controllers\AwardLetterContractDocumentSubmissionController::class);
+
+Route::apiResource('award-letter-contract-document-submission-entry', App\Http\Controllers\AwardLetterContractDocumentSubmissionEntryController::class);

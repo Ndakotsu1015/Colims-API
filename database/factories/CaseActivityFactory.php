@@ -33,6 +33,7 @@ class CaseActivityFactory extends Factory
             'solicitor_id' => Solicitor::factory(),
             'case_status_id' => CaseStatus::inRandomOrder()->first()->id,
             'location' => $this->faker->word,
+            'court_pronouncement' => $this->faker->word,
         ];
     }
 }

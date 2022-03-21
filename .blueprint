@@ -1,16 +1,41 @@
 created:
-    - app/Http/Controllers/NotificationController.php
-    - database/factories/NotificationFactory.php
-    - database/migrations/2022_03_01_114712_create_notifications_table.php
-    - app/Models/Notification.php
-    - database/seeders/NotificationSeeder.php
-    - tests/Feature/Http/Controllers/NotificationControllerTest.php
-    - app/Http/Requests/NotificationStoreRequest.php
-    - app/Http/Requests/NotificationUpdateRequest.php
-    - app/Http/Resources/NotificationCollection.php
-    - app/Http/Resources/NotificationResource.php
+    - app/Http/Controllers/AwardLetterInternalDocumentController.php
+    - app/Http/Controllers/AwardLetterContractDocumentSubmissionController.php
+    - app/Http/Controllers/AwardLetterContractDocumentSubmissionEntryController.php
+    - database/factories/AwardLetterInternalDocumentFactory.php
+    - database/factories/AwardLetterContractDocumentSubmissionFactory.php
+    - database/factories/AwardLetterContractDocumentSubmissionEntryFactory.php
+    - database/migrations/2022_03_21_112252_create_award_letter_internal_documents_table.php
+    - database/migrations/2022_03_21_112253_create_award_letter_contract_document_submissions_table.php
+    - database/migrations/2022_03_21_112254_create_award_letter_contract_document_submission_entries_table.php
+    - app/Models/AwardLetterInternalDocument.php
+    - app/Models/AwardLetterContractDocumentSubmission.php
+    - app/Models/AwardLetterContractDocumentSubmissionEntry.php
+    - database/seeders/AwardLetterInternalDocumentSeeder.php
+    - database/seeders/AwardLetterContractDocumentSubmissionSeeder.php
+    - database/seeders/AwardLetterContractDocumentSubmissionEntrySeeder.php
+    - tests/Feature/Http/Controllers/AwardLetterInternalDocumentControllerTest.php
+    - tests/Feature/Http/Controllers/AwardLetterContractDocumentSubmissionControllerTest.php
+    - tests/Feature/Http/Controllers/AwardLetterContractDocumentSubmissionEntryControllerTest.php
+    - app/Http/Requests/AwardLetterInternalDocumentStoreRequest.php
+    - app/Http/Requests/AwardLetterInternalDocumentUpdateRequest.php
+    - app/Http/Requests/AwardLetterContractDocumentSubmissionStoreRequest.php
+    - app/Http/Requests/AwardLetterContractDocumentSubmissionUpdateRequest.php
+    - app/Http/Requests/AwardLetterContractDocumentSubmissionEntryStoreRequest.php
+    - app/Http/Requests/AwardLetterContractDocumentSubmissionEntryUpdateRequest.php
+    - app/Http/Resources/AwardLetterInternalDocumentCollection.php
+    - app/Http/Resources/AwardLetterInternalDocumentResource.php
+    - app/Http/Resources/AwardLetterContractDocumentSubmissionCollection.php
+    - app/Http/Resources/AwardLetterContractDocumentSubmissionResource.php
+    - app/Http/Resources/AwardLetterContractDocumentSubmissionEntryCollection.php
+    - app/Http/Resources/AwardLetterContractDocumentSubmissionEntryResource.php
 updated:
     - routes/api.php
 models:
     CaseActivitySuitParty: { case_activity_id: 'id foreign', suit_party_id: 'id foreign', softdeletes: softDeletes }
     Notification: { user_id: 'id foreign', subject: string, content: string, action_link: 'string nullable', is_read: 'boolean default:false', softdeletes: softDeletes }
+    CaseDraft: { case_no: string, title: string, dls_approved: 'boolean nullable', review_submitted: 'boolean default:false', hanler_id: 'id foreign:user.id', solicitor_id: 'id foreign', case_request_id: 'id foreign', softdeletes: softDeletes }
+    CaseDraftSuitParty: { name: string, phone_no: string, address: string, email: string, type: string, case_draft_id: 'id foreign', softdeletes: softDeletes }
+    AwardLetterInternalDocument: { name: string, filename: string, award_letter_id: 'id foreign', softdeletes: softDeletes }
+    AwardLetterContractDocumentSubmission: { is_submitted: 'boolean default:false', is_approved: 'boolean default:false', due_date: date, award_letter_id: 'id foreign', relationships: { hasMany: AwardLetterContractDocumentSubmissionEntry }, softdeletes: softDeletes }
+    AwardLetterContractDocumentSubmissionEntry: { name: string, filename: string, is_approved: 'boolean default:false', entry_id: 'id foreign:AwardLetterContractDocumentSubmission.id', softdeletes: softDeletes }
