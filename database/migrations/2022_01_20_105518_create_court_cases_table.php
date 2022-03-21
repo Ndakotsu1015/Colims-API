@@ -26,6 +26,8 @@ class CreateCourtCasesTable extends Migration
             $table->foreignId('case_status_id')->constrained();              
             $table->foreignId('solicitor_id')->constrained();   //solicitor                     
             $table->foreignId('case_request_id')->constrained();
+            $table->string('court_judgement')->nullable();
+            $table->integer('court_stage');
             $table->softDeletes();
             $table->timestamps();
         });

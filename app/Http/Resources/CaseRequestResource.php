@@ -26,7 +26,8 @@ class CaseRequestResource extends JsonResource
             'status' => $this->status,        
             'recommendation_note' => $this->recommendation_note, 
             'should_go_to_trial' => $this->should_go_to_trial,
-            'is_case_closed' => $this->is_case_closed,    
+            'is_case_closed' => $this->is_case_closed,   
+            'CaseDraft' => new CaseDraftResource($this->whenLoaded('CaseDraft')), 
         ];
     }
 }

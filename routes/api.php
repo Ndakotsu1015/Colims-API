@@ -168,6 +168,18 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
 
     Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
+
+    
+    Route::apiResource('case-draft', App\Http\Controllers\CaseDraftController::class);
+
+    Route::apiResource('case-draft-suit-party', App\Http\Controllers\CaseDraftSuitPartyController::class);
+
+
+    Route::apiResource('award-letter-internal-documents', App\Http\Controllers\AwardLetterInternalDocumentController::class);
+
+    Route::apiResource('contract-document-submissions', App\Http\Controllers\ContractDocumentSubmissionController::class);
+
+    Route::apiResource('contract-document-submission-entries', App\Http\Controllers\ContractDocumentSubmissionEntryController::class);
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');

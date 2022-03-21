@@ -1,0 +1,28 @@
+models:
+  AwardLetterInternalDocument:
+    name: string
+    filename: string
+    award_letter_id: id foreign
+    softDeletes
+  ContractDocumentSubmission:
+    is_submitted: boolean default:false
+    is_approved: boolean default:false
+    due_date: date
+    award_letter_id: id foreign
+    relationships:
+      hasMany: ContractDocumentSubmissionEntry
+    softDeletes
+  ContractDocumentSubmissionEntry:
+    name: string
+    filename: string
+    is_approved: boolean default:false
+    entry_id: id foreign:ContractDocumentSubmission.id
+    softDeletes
+controllers:
+    AwardLetterInternalDocument:
+      resource: api
+    ContractDocumentSubmission:
+      resource: api
+    ContractDocumentSubmissionEntry:
+      resource: api
+seeders: AwardLetterInternalDocument, ContractDocumentSubmission, ContractDocumentSubmissionEntry

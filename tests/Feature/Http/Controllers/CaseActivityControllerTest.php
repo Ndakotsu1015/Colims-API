@@ -89,7 +89,8 @@ class CaseActivityControllerTest extends TestCase
             'user_id' => $user->id,
             'case_status_id' => $caseStatus->id,            
             'location' => $location,            
-            'solicitor_id' => $solicitor->id,         
+            'solicitor_id' => $solicitor->id,  
+            'court_pronouncement' => $this->faker->text,       
         ]);
 
         $caseActivities = CaseActivity::query()
@@ -99,6 +100,7 @@ class CaseActivityControllerTest extends TestCase
             ->where('case_status_id', $caseStatus->id)            
             ->where('location', $location)            
             ->where('solicitor_id', $solicitor->id)
+            ->where('court_pronouncement', $this->faker->text)
             ->get();
         $this->assertCount(1, $caseActivities);
         $caseActivity = $caseActivities->first();
@@ -154,6 +156,7 @@ class CaseActivityControllerTest extends TestCase
             'case_status_id' => $caseStatus->id,            
             'location' => $location,            
             'solicitor_id' => $solicitor->id,
+            'court_pronouncement' => $this->faker->text,
         ]);
 
         $caseActivity->refresh();
@@ -167,6 +170,7 @@ class CaseActivityControllerTest extends TestCase
         $this->assertEquals($caseStatus->id, $caseActivity->case_status_id);        
         $this->assertEquals($location, $caseActivity->location);        
         $this->assertEquals($solicitor->id, $caseActivity->solicitor_id);
+        $this->assertEquals($this->faker->text, $caseActivity->court_pronouncement);
     }
 
 

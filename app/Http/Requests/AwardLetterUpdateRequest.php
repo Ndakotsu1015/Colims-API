@@ -30,13 +30,15 @@ class AwardLetterUpdateRequest extends FormRequest
             'reference_no' => ['required', 'string'],            
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
             'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],
-            'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],
+            // 'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],
             'duration_id' => ['required', 'integer', 'exists:durations,id'],
             'contract_title' => ['required', 'string'],
-            'contract_detail' => ['required', 'string'],
-            'project_location' => ['nullable', 'string'],
+            // 'contract_detail' => ['required', 'string'],
+            // 'project_location' => ['nullable', 'string'],
             'project_id' => ['required', 'integer', 'exists:projects,id'],
             'approved_by' => ['nullable'],
+            'commencement_date' => ['nullable', 'date'],
+            'due_date' => ['nullable', 'date'],
         ];
     }
 }
