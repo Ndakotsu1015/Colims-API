@@ -22,6 +22,7 @@ class CaseActivity extends Model
         'solicitor_id',
         'case_status_id',
         'location',
+        'court_pronouncement',
     ];
 
     /**

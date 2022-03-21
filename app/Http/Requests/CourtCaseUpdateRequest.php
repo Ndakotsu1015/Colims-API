@@ -33,6 +33,8 @@ class CourtCaseUpdateRequest extends FormRequest
             //'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
             'is_case_closed' => ['nullable', 'boolean'],
             //'court_pronouncement' => ['nullable', 'string'],
+            'court_judgement' => ['nullable', 'string'],
+            'court_stage' => ['nullable', 'integer|gt:0'],
         ];
     }
 }

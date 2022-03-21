@@ -28,7 +28,8 @@ class CaseActivityStoreRequest extends FormRequest
             'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
             //'user_id' => ['required', 'integer', 'exists:users,id'],
             'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],            
-            'location' => ['required', 'string'],                        
+            'location' => ['required', 'string'],     
+            'court_pronouncement' => ['nullable', 'string'],                   
         ];
     }
 }

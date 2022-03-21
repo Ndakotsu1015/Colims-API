@@ -22,9 +22,11 @@ class CreateAwardLettersTable extends Migration
             $table->string('reference_no')->unique();            
             $table->foreignId('contractor_id')->constrained();
             $table->foreignId('contract_type_id')->constrained();
-            $table->string('project_location')->nullable();            
+            // $table->string('project_location')->nullable();            
             $table->foreignId('project_id')->constrained();            
             $table->foreignId('approved_by')->constrained('employees');
+            $table->date('commencement_date');
+            $table->date('due_date');
             $table->softDeletes();
             $table->timestamps();
         });

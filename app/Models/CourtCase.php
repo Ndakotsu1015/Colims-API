@@ -25,6 +25,8 @@ class CourtCase extends Model
         'case_request_id',
         'is_case_closed',
         'court_pronouncement',
+        'court_judgement',
+        'court_stage',
     ];
 
     /**
@@ -39,7 +41,8 @@ class CourtCase extends Model
         'case_status_id' => 'integer',        
         'solicitor_id' => 'integer',
         'case_request_id' => 'integer',
-        'is_case_closed' => 'boolean',        
+        'is_case_closed' => 'boolean',   
+        'court_stage' => 'integer',     
     ];
 
     public function suitParties()

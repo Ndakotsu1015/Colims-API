@@ -22,13 +22,15 @@ class AwardLetter extends Model
         'reference_no',        
         'contractor_id',
         'contract_type_id',
-        'project_location',
+        // 'project_location',
         'project_id',
         'approved_by',
         'contract_title',
-        'contract_detail',
+        // 'contract_detail',
         'duration_id',
-        'contract_category_id',
+        // 'contract_category_id',
+        'commencement_date',
+        'due_date',
     ];
 
     /**
@@ -46,7 +48,9 @@ class AwardLetter extends Model
         'project_id' => 'integer',
         'approved_by' => 'integer',
         'duration_id' => 'integer',
-        'contract_category_id' => 'integer',
+        // 'contract_category_id' => 'integer',
+        'commencement_date' => 'date',
+        'due_date' => 'date',        
     ];
 
     public function bankReferences()
@@ -74,13 +78,23 @@ class AwardLetter extends Model
         return $this->belongsTo(Duration::class);
     }
 
-    public function contractCategory()
-    {
-        return $this->belongsTo(ContractCategory::class);
-    }
+    // public function contractCategory()
+    // {
+    //     return $this->belongsTo(ContractCategory::class);
+    // }
 
     public function approvedBy()
     {
         return $this->belongsTo(Employee::class, 'approved_by');
+    }
+
+    public function internalDocuments()
+    {
+        return $this->hasMany(AwardLetterInternalDocument::class);
+    }
+
+    public function contractDocumentSubmissions()
+    {
+        return $this->hasMany(ContractDocumentSubmission::class);
     }
 }

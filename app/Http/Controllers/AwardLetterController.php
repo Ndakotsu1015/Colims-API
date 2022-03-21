@@ -41,7 +41,7 @@ class AwardLetterController extends Controller
 
         $notification->user_id = auth()->user()->id;
         $notification->subject = "Award Letter Created";
-        $notification->content = "A new award letter with Reference No. : " . $awardLetter->reference_no . "was created by you on " . now() . ".";
+        $notification->content = "A new award letter with Reference No. : " . $awardLetter->reference_no . " was created by you on " . now() . ".";
         $notification->action_link = env("CLIENT_URL") . "/#/contracts/award-letters/history";
         $notification->save();
 

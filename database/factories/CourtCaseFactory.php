@@ -34,7 +34,9 @@ class CourtCaseFactory extends Factory
             'posted_by' => User::factory(),
             'case_status_id' => CaseStatus::factory(),            
             'solicitor_id' => Solicitor::factory(),
-            'case_request_id' => CaseRequest::factory(),         
+            'case_request_id' => CaseRequest::factory(),      
+            'court_judgement' => $this->faker->word,
+            'court_stage' => $this->faker->randomNumber(),   
         ];
     }
 }

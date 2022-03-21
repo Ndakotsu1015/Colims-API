@@ -88,7 +88,7 @@ class CaseActivityController extends Controller
 
         $notification3->user_id = $courtCase->postedBy->id;
         $notification3->subject = 'Case Status Change';
-        $notification3->content = 'A case with the case no.: ' .$courtCase->case_no. ' was changed from ' .$caseActivity->caseStatus->name. 'status to' .$courtCase->caseStatus->name. 'status on' . now();
+        $notification3->content = 'A case with the case no.: ' .$courtCase->case_no. ' was changed from ' .$caseActivity->caseStatus->name. ' status to' .$courtCase->caseStatus->name. ' status on ' . now();
         $notification3->save();
 
         $recipientEmail3 = $courtCase->postedBy->email;

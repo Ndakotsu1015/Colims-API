@@ -30,6 +30,8 @@ class CourtCaseResource extends JsonResource
             'suitParties' => SuitPartyCollection::make($this->whenLoaded('suitParties')),
             'legalDocuments' => LegalDocumentCollection::make($this->whenLoaded('legalDocuments')),
             'caseRequest' => new CaseRequestResource($this->whenLoaded('caseRequest')),
+            'court_judgement' => $this->court_judgement,
+            'court_stage' => $this->court_stage,
         ];
     }
 }
