@@ -177,9 +177,9 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('award-letter-internal-documents', App\Http\Controllers\AwardLetterInternalDocumentController::class);
 
-    Route::apiResource('contract-document-submissions', App\Http\Controllers\ContractDocumentSubmissionController::class);
+    Route::apiResource('contract-doc-submissions', App\Http\Controllers\ContractDocumentSubmissionController::class);
 
-    Route::apiResource('contract-document-submission-entries', App\Http\Controllers\ContractDocumentSubmissionEntryController::class);
+    Route::apiResource('contract-doc-submission-entries', App\Http\Controllers\ContractDocumentSubmissionEntryController::class);
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');

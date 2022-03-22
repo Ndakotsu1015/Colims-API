@@ -18,12 +18,12 @@ class FileUploadController extends Controller
         Log::info(self::LOG_KEY . ' [upload] uploading...');
         $validated = $this->validate($request, [
             'file' => 'required|mimes:doc,docx,pdf,txt,csv,png,jpg,jpeg|max:2048',
-            'visibility' => ['required', Rule::in(['private', 'public'])]
+            'visibility' => ['nullable']
         ]);
 
 
         $file = $request->file('file');        
-        $visibility = $validated['visibility'];
+        $visibility = $validated['visibility']??'public';
         $path = $visibility == 'private' ? 'files' : 'public/files';
         Log::debug($path);
         $file->store($path);

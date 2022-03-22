@@ -17,7 +17,7 @@ class AwardLetterInternalDocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'filename' => filter_var($this->filename, FILTER_VALIDATE_URL) ? $this->filename : (is_null($this->filename) ? null : config('app.url').'/file/get/' .$this->filename),
+            'filename' => $this->filename,
             'award_letter_id' => $this->award_letter_id,
         ];
     }
