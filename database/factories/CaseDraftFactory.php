@@ -30,7 +30,7 @@ class CaseDraftFactory extends Factory
             'title' => $this->faker->sentence(4),
             'dls_approved' => $this->faker->boolean,
             'review_submitted' => $this->faker->boolean,
-            'hanler_id' => User::factory(),
+            'handler_id' => User::factory(),
             'solicitor_id' => Solicitor::factory(),
             'case_request_id' => CaseRequest::factory(),
         ];

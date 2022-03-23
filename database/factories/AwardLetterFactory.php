@@ -43,7 +43,8 @@ class AwardLetterFactory extends Factory
             'project_id' => Project::inRandomOrder()->first(),
             'approved_by' => Employee::factory(),
             'commencement_date' => $this->faker->date(),
-            'due_date' => $this->faker->date(),            
+            'due_date' => $this->faker->date(),    
+            'serial_no' => $this->faker->unique()->numberBetween(0,9999),        
         ];
     }
 }

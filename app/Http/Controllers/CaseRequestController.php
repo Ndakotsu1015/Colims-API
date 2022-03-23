@@ -7,6 +7,7 @@ use App\Http\Requests\CaseRequestUpdateRequest;
 use App\Http\Resources\CaseRequestCollection;
 use App\Http\Resources\CaseRequestResource;
 use App\Http\Resources\CourtCaseResource;
+use App\Models\CaseDraft;
 use App\Models\CaseRequest;
 use App\Models\CourtCase;
 use App\Models\CaseStatus;
@@ -50,6 +51,17 @@ class CaseRequestController extends Controller
         $notification->action_link = env("CLIENT_URL") . "/#/litigations/case-requests/list";
         $notification->save();
 
+        $caseDraft = new CaseDraft();
+        $caseDraft->case_no = $caseRequest->case_no;
+        $caseDraft->title = $caseRequest->title;
+        $caseDraft->dls_approved = $caseRequest->dls_approved;        
+        $caseDraft->review_submitted = false;
+        $caseDraft->review_comment = $caseRequest->review_comment;
+        $caseDraft->handler_id = $caseRequest->handler_id;
+        $caseDraft->solicitor_id = $caseRequest->solicitor_id;
+        $caseDraft->case_request_id = $caseRequest->id;
+        $caseDraft->save();        
+
         $recipientEmail = auth()->user()->email;
 
         try {
@@ -58,7 +70,7 @@ class CaseRequestController extends Controller
             Log::debug($e);
         }        
 
-        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer', 'caseDraft'));
     }
 
     /**

@@ -34,7 +34,7 @@ updated:
 models:
     CaseActivitySuitParty: { case_activity_id: 'id foreign', suit_party_id: 'id foreign', softdeletes: softDeletes }
     Notification: { user_id: 'id foreign', subject: string, content: string, action_link: 'string nullable', is_read: 'boolean default:false', softdeletes: softDeletes }
-    CaseDraft: { case_no: string, title: string, dls_approved: 'boolean nullable', review_submitted: 'boolean default:false', hanler_id: 'id foreign:user.id', solicitor_id: 'id foreign', case_request_id: 'id foreign', softdeletes: softDeletes }
+    CaseDraft: { case_no: string, title: string, dls_approved: 'boolean nullable', review_submitted: 'boolean default:false', handler_id: 'id foreign:user.id', solicitor_id: 'id foreign', case_request_id: 'id foreign', softdeletes: softDeletes }
     CaseDraftSuitParty: { name: string, phone_no: string, address: string, email: string, type: string, case_draft_id: 'id foreign', softdeletes: softDeletes }
     AwardLetterInternalDocument: { name: string, filename: string, award_letter_id: 'id foreign', softdeletes: softDeletes }
     ContractDocumentSubmission: { is_submitted: 'boolean default:false', is_approved: 'boolean default:false', due_date: date, award_letter_id: 'id foreign', relationships: { hasMany: ContractDocumentSubmissionEntry }, softdeletes: softDeletes }

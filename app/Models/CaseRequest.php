@@ -52,6 +52,6 @@ class CaseRequest extends Model
 
     public function caseDrafts()
     {
-        return $this->hasMany(CaseDraft::class);
+        return $this->hasOne(CaseDraft::class);
     }
 }
