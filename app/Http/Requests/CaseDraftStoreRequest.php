@@ -29,8 +29,8 @@ class CaseDraftStoreRequest extends FormRequest
             'dls_approved' => [''],
             'review_submitted' => ['nullable', 'string'],
             'review_comment' => ['nullable', 'string'],
-            'handler_id' => ['nuallable', 'integer', 'exists:users,id'],
-            'solicitor_id' => ['nuallable', 'integer', 'exists:solicitors,id'],
+            'handler_id' => ['nullable', 'integer', 'exists:users,id'],
+            'solicitor_id' => ['nullable', 'integer', 'exists:solicitors,id'],
             'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
         ];
     }

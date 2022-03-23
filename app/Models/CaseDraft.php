@@ -40,7 +40,7 @@ class CaseDraft extends Model
         'case_request_id' => 'integer',
     ];
 
-    public function hanler()
+    public function handler()
     {
         return $this->belongsTo(User::class);
     }
