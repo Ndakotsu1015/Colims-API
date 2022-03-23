@@ -27,16 +27,19 @@ class AwardLetterStoreRequest extends FormRequest
             'contract_sum' => ['required', 'numeric'],                      
             'date_awarded' => ['required', 'date'],
             'last_bank_ref_date' => ['nullable', 'date'],
-            'reference_no' => ['required', 'string'],            
+            // 'reference_no' => ['required', 'string'],            
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
             'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],
-            'project_location' => ['nullable', 'string'],
+            // 'project_location' => ['nullable', 'string'],
             'project_id' => ['required', 'integer', 'exists:projects,id'],
             'approved_by' => ['nullable'],
             'contract_title' => ['required', 'string'],
-            'contract_detail' => ['required', 'string'],
+            // 'contract_detail' => ['required', 'string'],
             'duration_id' => ['required', 'integer', 'exists:durations,id'],
-            'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],            
+            // 'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],            
+            'commencement_date' => ['required', 'date'],
+            'due_date' => ['required', 'date'],
+            // 'serial_no' => ['required', 'integer'],
         ];
     }
 }

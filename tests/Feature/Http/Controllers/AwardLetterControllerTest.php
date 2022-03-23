@@ -85,14 +85,16 @@ class AwardLetterControllerTest extends TestCase
         $last_bank_ref_date = $this->faker->date();
         $reference_no = $this->faker->word;        
         $contract_title = $this->faker->word;
-        $contract_detail = $this->faker->word;
+        // $contract_detail = $this->faker->word;
         $duration = Duration::inRandomOrder()->first();
-        $contract_category = ContractCategory::inRandomOrder()->first();
+        // $contract_category = ContractCategory::inRandomOrder()->first();
         $contractor = Contractor::inRandomOrder()->first();
         $contract_type = ContractType::inRandomOrder()->first();
-        $project_location = $this->faker->word;        
+        // $project_location = $this->faker->word;        
         $project = Project::inRandomOrder()->first();
         $approvedBy = Employee::inRandomOrder()->first();
+        $commencement_date = $this->faker->date();
+        $due_date = $this->faker->date();        
 
         $response = $this->post(route('award-letters.store'), [            
             'contract_sum' => $contract_sum,                   
@@ -101,13 +103,15 @@ class AwardLetterControllerTest extends TestCase
             'reference_no' => $reference_no,            
             'contractor_id' => $contractor->id,
             'contract_type_id' => $contract_type->id,
-            'contract_category_id' => $contract_category->id,
+            // 'contract_category_id' => $contract_category->id,
             'contract_title' => $contract_title,
-            'contract_detail' => $contract_detail,
+            // 'contract_detail' => $contract_detail,
             'duration_id' => $duration->id,
-            'project_location' => $project_location,            
+            // 'project_location' => $project_location,            
             'project_id' => $project->id,
             'approved_by' => $approvedBy->id,
+            'commencement_date' => $commencement_date,
+            'due_date' => $due_date,
         ]);
 
         $awardLetters = AwardLetter::query()            
@@ -117,13 +121,15 @@ class AwardLetterControllerTest extends TestCase
             ->where('reference_no', $reference_no)            
             ->where('contractor_id', $contractor->id)
              ->where('contract_type_id', $contract_type->id)
-            ->where('contract_category_id', $contract_category->id)
+            // ->where('contract_category_id', $contract_category->id)
             ->where('contract_title', $contract_title)
-            ->where('contract_detail', $contract_detail)
+            // ->where('contract_detail', $contract_detail)
             ->where('duration_id', $duration->id)            
-            ->where('project_location', $project_location)            
+            // ->where('project_location', $project_location)            
             ->where('project_id', $project->id)
             ->where('approved_by', $approvedBy->id)
+            ->where('commencement_date', Carbon::parse($commencement_date))
+            ->where('due_date', Carbon::parse($due_date))
             ->get();
         $this->assertCount(1, $awardLetters);
         $awardLetter = $awardLetters->first();
@@ -171,13 +177,15 @@ class AwardLetterControllerTest extends TestCase
         $reference_no = $this->faker->word;        
         $contractor = Contractor::inRandomOrder()->first();
         $contract_type = ContractType::inRandomOrder()->first();
-        $contract_category = ContractCategory::inRandomOrder()->first();
+        // $contract_category = ContractCategory::inRandomOrder()->first();
         $contract_title = $this->faker->word;
-        $contract_detail = $this->faker->word;
+        // $contract_detail = $this->faker->word;
         $duration = Duration::inRandomOrder()->first();        
-        $project_location = $this->faker->word;        
+        // $project_location = $this->faker->word;        
         $project = Project::inRandomOrder()->first();
         $approvedBy = Employee::inRandomOrder()->first();
+        $commencement_date = $this->faker->date();
+        $due_date = $this->faker->date();
 
         // Log::debug($contract_type);
 
@@ -190,13 +198,15 @@ class AwardLetterControllerTest extends TestCase
             'reference_no' => $reference_no,            
             'contractor_id' => $contractor->id,
             'contract_type_id' => $contract_type->id,
-            'contract_category_id' => $contract_category->id,
+            // 'contract_category_id' => $contract_category->id,
             'contract_title' => $contract_title,
-            'contract_detail' => $contract_detail,
+            // 'contract_detail' => $contract_detail,
             'duration_id' => $duration->id,
-            'project_location' => $project_location,            
+            // 'project_location' => $project_location,            
             'project_id' => $project->id,
             'approved_by' => $approvedBy->id,
+            'commencement_date' => $commencement_date,
+            'due_date' => $due_date,
         ]);
 
         $awardLetter->refresh();
@@ -210,13 +220,15 @@ class AwardLetterControllerTest extends TestCase
         $this->assertEquals($reference_no, $awardLetter->reference_no);        
         $this->assertEquals($contractor->id, $awardLetter->contractor_id);
         $this->assertEquals($contract_type->id, $awardLetter->contract_type_id);
-        $this->assertEquals($contract_category->id, $awardLetter->contract_category_id);
+        // $this->assertEquals($contract_category->id, $awardLetter->contract_category_id);
         $this->assertEquals($contract_title, $awardLetter->contract_title);
-        $this->assertEquals($contract_detail, $awardLetter->contract_detail);
+        // $this->assertEquals($contract_detail, $awardLetter->contract_detail);
         $this->assertEquals($duration->id, $awardLetter->duration_id);                
-        $this->assertEquals($project_location, $awardLetter->project_location);
+        // $this->assertEquals($project_location, $awardLetter->project_location);
         $this->assertEquals($project->id, $awardLetter->project_id);
         $this->assertEquals($approvedBy->id, $awardLetter->approved_by);
+        $this->assertEquals(Carbon::parse($commencement_date), $awardLetter->commencement_date);
+        $this->assertEquals(Carbon::parse($due_date), $awardLetter->due_date);
     }
 
 

@@ -1,16 +1,41 @@
 created:
-    - app/Http/Controllers/NotificationController.php
-    - database/factories/NotificationFactory.php
-    - database/migrations/2022_03_01_114712_create_notifications_table.php
-    - app/Models/Notification.php
-    - database/seeders/NotificationSeeder.php
-    - tests/Feature/Http/Controllers/NotificationControllerTest.php
-    - app/Http/Requests/NotificationStoreRequest.php
-    - app/Http/Requests/NotificationUpdateRequest.php
-    - app/Http/Resources/NotificationCollection.php
-    - app/Http/Resources/NotificationResource.php
+    - app/Http/Controllers/AwardLetterInternalDocumentController.php
+    - app/Http/Controllers/ContractDocumentSubmissionController.php
+    - app/Http/Controllers/ContractDocumentSubmissionEntryController.php
+    - database/factories/AwardLetterInternalDocumentFactory.php
+    - database/factories/ContractDocumentSubmissionFactory.php
+    - database/factories/ContractDocumentSubmissionEntryFactory.php
+    - database/migrations/2022_03_21_112252_create_award_letter_internal_documents_table.php
+    - database/migrations/2022_03_21_112253_create_contract_document_submissions_table.php
+    - database/migrations/2022_03_21_112254_create_award_letter_contract_document_submission_entries_table.php
+    - app/Models/AwardLetterInternalDocument.php
+    - app/Models/ContractDocumentSubmission.php
+    - app/Models/ContractDocumentSubmissionEntry.php
+    - database/seeders/AwardLetterInternalDocumentSeeder.php
+    - database/seeders/ContractDocumentSubmissionSeeder.php
+    - database/seeders/ContractDocumentSubmissionEntrySeeder.php
+    - tests/Feature/Http/Controllers/AwardLetterInternalDocumentControllerTest.php
+    - tests/Feature/Http/Controllers/ContractDocumentSubmissionControllerTest.php
+    - tests/Feature/Http/Controllers/ContractDocumentSubmissionEntryControllerTest.php
+    - app/Http/Requests/AwardLetterInternalDocumentStoreRequest.php
+    - app/Http/Requests/AwardLetterInternalDocumentUpdateRequest.php
+    - app/Http/Requests/ContractDocumentSubmissionStoreRequest.php
+    - app/Http/Requests/ContractDocumentSubmissionUpdateRequest.php
+    - app/Http/Requests/ContractDocumentSubmissionEntryStoreRequest.php
+    - app/Http/Requests/ContractDocumentSubmissionEntryUpdateRequest.php
+    - app/Http/Resources/AwardLetterInternalDocumentCollection.php
+    - app/Http/Resources/AwardLetterInternalDocumentResource.php
+    - app/Http/Resources/ContractDocumentSubmissionCollection.php
+    - app/Http/Resources/ContractDocumentSubmissionResource.php
+    - app/Http/Resources/ContractDocumentSubmissionEntryCollection.php
+    - app/Http/Resources/ContractDocumentSubmissionEntryResource.php
 updated:
     - routes/api.php
 models:
     CaseActivitySuitParty: { case_activity_id: 'id foreign', suit_party_id: 'id foreign', softdeletes: softDeletes }
     Notification: { user_id: 'id foreign', subject: string, content: string, action_link: 'string nullable', is_read: 'boolean default:false', softdeletes: softDeletes }
+    CaseDraft: { case_no: string, title: string, dls_approved: 'boolean nullable', review_submitted: 'boolean default:false', handler_id: 'id foreign:user.id', solicitor_id: 'id foreign', case_request_id: 'id foreign', softdeletes: softDeletes }
+    CaseDraftSuitParty: { name: string, phone_no: string, address: string, email: string, type: string, case_draft_id: 'id foreign', softdeletes: softDeletes }
+    AwardLetterInternalDocument: { name: string, filename: string, award_letter_id: 'id foreign', softdeletes: softDeletes }
+    ContractDocumentSubmission: { is_submitted: 'boolean default:false', is_approved: 'boolean default:false', due_date: date, award_letter_id: 'id foreign', relationships: { hasMany: ContractDocumentSubmissionEntry }, softdeletes: softDeletes }
+    ContractDocumentSubmissionEntry: { name: string, filename: string, is_approved: 'boolean default:false', entry_id: 'id foreign:ContractDocumentSubmission.id', softdeletes: softDeletes }

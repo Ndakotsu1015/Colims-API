@@ -42,7 +42,7 @@ class LegalDocumentController extends Controller
         
         $notification->user_id = $legalDocument->courtCase->handler_id;        
         $notification->subject = 'New legal document has been uploaded';
-        $notification->content = 'You just uploaded a new legal document for case with case no: ' . $legalDocument->courtCase->case_no. 'on ' . now();        
+        $notification->content = 'You just uploaded a new legal document for case with case no: ' . $legalDocument->courtCase->case_no. ' on ' . now();        
         $notification->action_link = env('APP_URL') . '/#/litigations/court-cases/' . $legalDocument->courtCase->id;
         $notification->save();
 
@@ -58,7 +58,7 @@ class LegalDocumentController extends Controller
 
         $notification1->user_id = $legalDocument->courtCase->postedBy->id;
         $notification1->subject = 'New legal document has been uploaded';
-        $notification1->content = 'Case Handler: ' . $legalDocument->courtCase->handler->name . ' just uploaded a new legal document for Case with Case No.: ' .$legalDocument->courtCase->case_no. 'on '.  now() . '.';
+        $notification1->content = 'Case Handler: ' . $legalDocument->courtCase->handler->name . ' just uploaded a new legal document for Case with Case No.: ' .$legalDocument->courtCase->case_no. ' on '.  now() . '.';
         $notification1->action_link = env('APP_URL') . '/#/litigations/court-cases/' . $legalDocument->courtCase->id;
         $notification1->save();
 

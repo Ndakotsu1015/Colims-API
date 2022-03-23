@@ -34,6 +34,8 @@ models:
     should_go_to_trial: boolean nullable
     is_case_closed: boolean nullable
     softDeletes
+    relationships:
+      hasMany: CaseDraft     
   CaseRequestMovement:
     case_request_id: id foreign
     user_id: id foreign
@@ -100,20 +102,23 @@ models:
   AwardLetter:    
     contract_sum: float        
     contract_title: string
-    contract_detail: text
+    # contract_detail: text
     date_awarded: date
     last_bank_ref_date: date nullable
     reference_no: string    
     contractor_id: id foreign
     contract_type_id: id foreign
-    project_location: string nullable
+    # project_location: string nullable
     project_id: id foreign
     duration_id: id foreign
-    contract_category_id: id foreign
+    # contract_category_id: id foreign
     approved_by: id foreign:user.id
+    commencement_date: date nullable
+    due_date: date nullable
+    serial_no: unsignedInteger autoIncrement
     softDeletes
     relationships:
-      hasMany: BankReference
+      hasMany: BankReference, InternalDocument, ContractDocumentSubmission
   Bank:
     name: string
     created_by: unsignedInteger
@@ -192,7 +197,9 @@ models:
     posted_by: id foreign:user.id
     solicitor_id: id foreign
     is_case_closed: boolean default:false
-    court_pronouncement: string nullable    
+    court_pronouncement: string nullable
+    court_judgement: string nullable
+    court_stage: bigInteger
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
@@ -238,7 +245,22 @@ models:
     location: string
     state_id: id foreign
     softDeletes        
-
+  case_no: string
+    title: string
+    dls_approved: boolean nullable
+    review_submitted: boolean default:false
+    handler_id: id foreign:user.id
+    solicitor_id: id foreign
+    case_request_id: id foreign
+    softDeletes
+  CaseDraftSuitParty:
+    name: string
+    phone_no: string
+    address: string
+    email: string
+    type: string
+    case_draft_id: id foreign
+    softDeletes
 controllers:
   AwardLetter:
     resource: api
