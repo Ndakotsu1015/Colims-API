@@ -27,6 +27,7 @@ class CreateAwardLettersTable extends Migration
             $table->foreignId('approved_by')->constrained('employees');
             $table->date('commencement_date');
             $table->date('due_date');
+            $table->unsignedBigInteger('serial_no');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -17,13 +17,13 @@ class CreateCaseDraftsTable extends Migration
 
         Schema::create('case_drafts', function (Blueprint $table) {
             $table->id();
-            $table->string('case_no');
-            $table->string('title');
+            $table->string('case_no')->nullable();
+            $table->string('title')->nullable();
             $table->boolean('dls_approved')->nullable();
             $table->boolean('review_submitted')->default(false);
             $table->string('review_comment')->nullable();
-            $table->foreignId('hanler_id')->constrained('users');
-            $table->foreignId('solicitor_id')->constrained();
+            $table->foreignId('handler_id')->nullable()->constrained('users');
+            $table->foreignId('solicitor_id')->nullable()->constrained();
             $table->foreignId('case_request_id')->constrained();
             $table->softDeletes();
             $table->timestamps();

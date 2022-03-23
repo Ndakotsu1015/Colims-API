@@ -24,13 +24,13 @@ class CaseDraftStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'case_no' => ['required', 'string'],
-            'title' => ['required', 'string'],
+            'case_no' => ['nullable', 'string'],
+            'title' => ['nuallable', 'string'],
             'dls_approved' => [''],
             'review_submitted' => ['nullable', 'string'],
             'review_comment' => ['nullable', 'string'],
-            'hanler_id' => ['required', 'integer', 'exists:hanlers,id'],
-            'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
+            'handler_id' => ['nuallable', 'integer', 'exists:users,id'],
+            'solicitor_id' => ['nuallable', 'integer', 'exists:solicitors,id'],
             'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
         ];
     }

@@ -31,6 +31,7 @@ class AwardLetter extends Model
         // 'contract_category_id',
         'commencement_date',
         'due_date',
+        'serial_no',
     ];
 
     /**
@@ -50,7 +51,8 @@ class AwardLetter extends Model
         'duration_id' => 'integer',
         // 'contract_category_id' => 'integer',
         'commencement_date' => 'date',
-        'due_date' => 'date',        
+        'due_date' => 'date',   
+        'serial_no' => 'integer',     
     ];
 
     public function bankReferences()

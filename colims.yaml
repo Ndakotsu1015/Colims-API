@@ -4,7 +4,7 @@ models:
     title: string
     dls_approved: boolean nullable
     review_submitted: boolean default:false
-    hanler_id: id foreign:user.id
+    handler_id: id foreign:user.id
     solicitor_id: id foreign
     case_request_id: id foreign
     softDeletes
