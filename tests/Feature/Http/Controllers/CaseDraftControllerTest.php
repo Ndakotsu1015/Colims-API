@@ -60,7 +60,7 @@ class CaseDraftControllerTest extends TestCase
             'case_no' => $case_no,
             'title' => $title,
             'review_submitted' => $review_submitted,
-            'hanler_id' => $hanler->id,
+            'handler_id' => $hanler->id,
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
         ]);
@@ -69,7 +69,7 @@ class CaseDraftControllerTest extends TestCase
             ->where('case_no', $case_no)
             ->where('title', $title)
             ->where('review_submitted', $review_submitted)
-            ->where('hanler_id', $hanler->id)
+            ->where('handler_id', $hanler->id)
             ->where('solicitor_id', $solicitor->id)
             ->where('case_request_id', $case_request->id)
             ->get();
@@ -124,7 +124,7 @@ class CaseDraftControllerTest extends TestCase
             'case_no' => $case_no,
             'title' => $title,
             'review_submitted' => $review_submitted,
-            'hanler_id' => $hanler->id,
+            'handler_id' => $hanler->id,
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
         ]);
@@ -137,7 +137,7 @@ class CaseDraftControllerTest extends TestCase
         $this->assertEquals($case_no, $caseDraft->case_no);
         $this->assertEquals($title, $caseDraft->title);
         $this->assertEquals($review_submitted, $caseDraft->review_submitted);
-        $this->assertEquals($hanler->id, $caseDraft->hanler_id);
+        $this->assertEquals($hanler->id, $caseDraft->handler_id);
         $this->assertEquals($solicitor->id, $caseDraft->solicitor_id);
         $this->assertEquals($case_request->id, $caseDraft->case_request_id);
     }

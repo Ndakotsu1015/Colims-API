@@ -21,7 +21,7 @@ class CaseDraft extends Model
         'dls_approved',
         'review_submitted',
         'review_comment',
-        'hanler_id',
+        'handler_id',
         'solicitor_id',
         'case_request_id',
     ];
@@ -35,7 +35,7 @@ class CaseDraft extends Model
         'id' => 'integer',
         'dls_approved' => 'boolean',
         'review_submitted' => 'boolean',
-        'hanler_id' => 'integer',
+        'handler_id' => 'integer',
         'solicitor_id' => 'integer',
         'case_request_id' => 'integer',
     ];

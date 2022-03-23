@@ -24,14 +24,14 @@ class CaseDraftUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'case_no' => ['required', 'string'],
-            'title' => ['required', 'string'],
+            'case_no' => ['nullable', 'string'],
+            'title' => ['nullable', 'string'],
             'dls_approved' => [''],
             'review_submitted' => ['nullaable', 'string'],
             'review_comment' => ['nullable', 'string'],
-            'hanler_id' => ['required', 'integer', 'exists:hanlers,id'],
-            'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
-            'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
+            'handler_id' => ['nullable', 'integer', 'exists:hanlers,id'],
+            'solicitor_id' => ['nullable', 'integer', 'exists:solicitors,id'],
+            'case_request_id' => ['nullable', 'integer', 'exists:case_requests,id'],
         ];
     }
 }
