@@ -17,17 +17,17 @@ class CaseRequestResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => $this->content,                        
-            'memo_file' => filter_var($this->memo_file, FILTER_VALIDATE_URL) ? $this->memo_file : (is_null($this->memo_file) ? null : config('app.url').'/file/get/' .$this->memo_file),
+            'content' => $this->content,
+            'memo_file' => filter_var($this->memo_file, FILTER_VALIDATE_URL) ? $this->memo_file : (is_null($this->memo_file) ? null : config('app.url') . '/file/get/' . $this->memo_file),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'initiator' => new UserResource($this->whenLoaded('initiator')),
             'caseReviewer' => new UserResource($this->whenLoaded('caseReviewer')),
-            'status' => $this->status,        
-            'recommendation_note' => $this->recommendation_note, 
+            'status' => $this->status,
+            'recommendation_note' => $this->recommendation_note,
             'should_go_to_trial' => $this->should_go_to_trial,
-            'is_case_closed' => $this->is_case_closed,   
-            'CaseDraft' => new CaseDraftResource($this->whenLoaded('CaseDraft')), 
+            'is_case_closed' => $this->is_case_closed,
+            'caseDraft' => new CaseDraftResource($this->whenLoaded('caseDraft')),
         ];
     }
 }
