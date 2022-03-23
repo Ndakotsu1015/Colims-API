@@ -17,6 +17,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use LogicException;
 
 class CaseRequestController extends Controller
 {
@@ -60,13 +61,13 @@ class CaseRequestController extends Controller
         $caseDraft = new CaseDraft();
         $caseDraft->case_no = $caseRequest->case_no;
         $caseDraft->title = $caseRequest->title;
-        $caseDraft->dls_approved = $caseRequest->dls_approved;        
+        $caseDraft->dls_approved = $caseRequest->dls_approved;
         $caseDraft->review_submitted = false;
         $caseDraft->review_comment = $caseRequest->review_comment;
         $caseDraft->handler_id = $caseRequest->handler_id;
         $caseDraft->solicitor_id = $caseRequest->solicitor_id;
         $caseDraft->case_request_id = $caseRequest->id;
-        $caseDraft->save();        
+        $caseDraft->save();
 
         $recipientEmail = auth()->user()->email;
 
@@ -86,7 +87,7 @@ class CaseRequestController extends Controller
      */
     public function show(Request $request, CaseRequest $caseRequest)
     {
-        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer', 'caseDraft'));
     }
 
     /**
@@ -101,7 +102,7 @@ class CaseRequestController extends Controller
         $caseRequest->update($data);
         Log::debug($caseRequest);
 
-        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer', 'caseDraft'));
     }
 
     /**
@@ -203,7 +204,7 @@ class CaseRequestController extends Controller
             Log::debug($e);
         }
 
-        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer', 'caseDraft'));
     }
 
     public function caseReviewerRecommendation(Request $request)
@@ -235,7 +236,7 @@ class CaseRequestController extends Controller
             Log::debug($e);
         }
 
-        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer'));
+        return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer', 'caseDraft'));
     }
 
     public function caseRequestApproval(Request $request)
@@ -352,5 +353,23 @@ class CaseRequestController extends Controller
         $exists = CourtCase::where('case_request_id', $id)->exists();
 
         return $this->success($exists);
+    }
+
+    public function makeApproval(Request $request)
+    {
+        $rules = [
+            'case_no'       => ['nullable', 'string', 'min:3', 'unique:case_requests,case_no'],
+            'title'         => ['nullable', 'string'],
+            'dls_approved'  => ['required', 'boolean'],
+            'handler_id'    => ['nullable', 'integer', 'exists:users,id'],
+            'solicitor_id'  => ['nullable', 'integer', 'exists:users,id'],
+            'suitParties'   => []
+        ];
+
+        $data = $request->validate($rules);
+
+        Log::debug('Logging Make Approval Request');
+        Log::debug($data);
+        throw new LogicException('Yo!');
     }
 }

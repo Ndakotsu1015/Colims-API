@@ -1,0 +1,6 @@
+Task: Retrieve the last character from the Calculator Output section
+
+1. get a reference to the Output div (done)
+2. store the current text from the Output to a variable called currentText
+3. get the last character from currentText and store in a variable called lastChar
+
