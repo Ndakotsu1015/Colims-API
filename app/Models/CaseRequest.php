@@ -17,7 +17,7 @@ class CaseRequest extends Model
      */
     protected $fillable = [
         'title',
-        'content',        
+        'content',
         'memo_file',
         'initiator_id',
         'case_reviewer_id',
@@ -50,7 +50,7 @@ class CaseRequest extends Model
         return $this->belongsTo(User::class, 'case_reviewer_id');
     }
 
-    public function caseDrafts()
+    public function caseDraft()
     {
         return $this->hasOne(CaseDraft::class);
     }

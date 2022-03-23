@@ -133,6 +133,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('case-requests/{id}/is-case-created', [App\Http\Controllers\CaseRequestController::class, 'isCaseCreated']);
 
+    Route::get('case-requests/{id}/make-approval', [App\Http\Controllers\CaseRequestController::class, 'makeApproval']);
+
     Route::get('/case-request-awaiting-reviewer-assignment', [CaseRequestController::class, 'awaitingReviewerAssignment'])->name('case-request-awaiting-reviewer-assignment');
 
     Route::get('/case-request-awaiting-recommendation', [CaseRequestController::class, 'awaitingRecommendation'])->name('case-request-awaiting-recommendation');
@@ -156,20 +158,20 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('court-cases/{id}/calendar-events', [App\Http\Controllers\CourtCaseController::class, 'getCalendarEvents']);
 
     Route::get('court-cases/{id}/case-activities', [App\Http\Controllers\CourtCaseController::class, 'getCaseActivities']);
-    
+
     Route::get('court-cases/{id}/legal-documents', [App\Http\Controllers\CourtCaseController::class, 'getLegalDocuments']);
 
     Route::get('court-cases/{id}/suit-parties', [App\Http\Controllers\CourtCaseController::class, 'getSuitParties']);
-    
+
     Route::post('court-cases/{id}/court-pronouncement', [App\Http\Controllers\CourtCaseController::class, 'updateCourtPronouncement']);
-    
+
     Route::get('/active-cases', [CourtCaseController::class, 'activeCases'])->name('active-cases');
 
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
 
     Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
 
-    
+
     Route::apiResource('case-draft', App\Http\Controllers\CaseDraftController::class);
 
     Route::apiResource('case-draft-suit-party', App\Http\Controllers\CaseDraftSuitPartyController::class);
