@@ -103,6 +103,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
 
+    Route::get('get-encoded-signature/{id}', [App\Http\Controllers\EmployeeController::class, 'getEncodedSignature']);
+
     Route::get('get-current-approver', [App\Http\Controllers\EmployeeController::class, 'getCurrentApprover']);
 
     Route::put('employees/{id}/assign-staff-as-approver', [App\Http\Controllers\EmployeeController::class, 'assignStaffAsApprover']);

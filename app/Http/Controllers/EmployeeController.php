@@ -92,4 +92,21 @@ class EmployeeController extends Controller
 
         return new EmployeeResource($currentApprover);
     }
+
+
+    public function getEncodedSignature($id){
+        $employee = Employee::findOrFail($id);
+        $newEmployee = new EmployeeResource($employee);
+        $signature = $newEmployee->signature_file;
+
+        //convert to base64encode
+        $path = $signature;
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64Signature = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return response([
+            "signFile" => $base64Signature
+        ]);
+    }
 }
