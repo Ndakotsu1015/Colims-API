@@ -56,6 +56,7 @@ models:
     title: string
     designation: string
     signature_file: string
+    is_approver: boolean default:false
     softDeletes
   ContractCategory:
     name: string
