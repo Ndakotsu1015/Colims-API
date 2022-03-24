@@ -77,12 +77,14 @@ class EmployeeControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $designation = $this->faker->word;
         $signature_file = $this->faker->word;
+        $is_approver = $this->faker->boolean;
 
         $response = $this->post(route('employees.store'), [
             'full_name' => $full_name,
             'title' => $title,
             'designation' => $designation,
             'signature_file' => $signature_file,
+            'is_approver' => $is_approver,
         ]);
 
         $employees = Employee::query()
@@ -90,6 +92,7 @@ class EmployeeControllerTest extends TestCase
             ->where('title', $title)
             ->where('designation', $designation)
             ->where('signature_file', $signature_file)
+            ->where('is_approver', $is_approver)
             ->get();
         $this->assertCount(1, $employees);
         $employee = $employees->first();
@@ -135,12 +138,14 @@ class EmployeeControllerTest extends TestCase
         $title = $this->faker->sentence(4);
         $designation = $this->faker->word;
         $signature_file = $this->faker->word;
+        $is_approver = $this->faker->boolean;
 
         $response = $this->put(route('employees.update', $employee), [
             'full_name' => $full_name,
             'title' => $title,
             'designation' => $designation,
             'signature_file' => $signature_file,
+            'is_approver' => $is_approver,
         ]);
 
         $employee->refresh();
@@ -152,6 +157,7 @@ class EmployeeControllerTest extends TestCase
         $this->assertEquals($title, $employee->title);
         $this->assertEquals($designation, $employee->designation);
         $this->assertEquals($signature_file, $employee->signature_file);
+        $this->assertEquals($is_approver, $employee->is_approver);
     }
 
 

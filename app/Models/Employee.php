@@ -20,6 +20,7 @@ class Employee extends Model
         'title',
         'designation',
         'signature_file',
+        'is_approver',
     ];
 
     /**
