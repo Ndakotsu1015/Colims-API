@@ -50,6 +50,7 @@ class AwardLetterController extends Controller
         //     'serial_no' => $serial_no,
         //     'reference_no' => $reference_no,
         // ]);
+        $data['approved_by'] = $currentApprover->id;
         $data['serial_no'] = $serial_no;
         $data['reference_no'] = $reference_no;
         Log::info($data);
