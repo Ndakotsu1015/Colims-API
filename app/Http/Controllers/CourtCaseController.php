@@ -93,7 +93,7 @@ class CourtCaseController extends Controller
 
         return new CaseActivityCollection($caseActivities);
     }
-    
+
     public function getLegalDocuments($id)
     {
         $legalDocuments = LegalDocument::where('court_case_id', $id)->with('documentType', 'user')->latest()->get();
@@ -107,23 +107,23 @@ class CourtCaseController extends Controller
 
         return new SuitPartyCollection($suitParties);
     }
-    
-    public function updateCourtPronouncement($id, Request $request)
+
+    public function updateCourtJudgement($id, Request $request)
     {
-    	Log::debug('Update Pronouncement');
-    	Log::debug($request->all());
-    	$rules = [
-    		'court_pronouncement' => 'required|string'
-    	];
-    	$data = $request->validate($rules);
-    	Log::debug($data);
-    	
-    	$courtCase = CourtCase::where('id', $id)->first();
-    	$courtCase->update($data);
-    	
+        Log::debug('Update Judgement');
+        Log::debug($request->all());
+        $rules = [
+            'court_judgement' => 'required|string'
+        ];
+        $data = $request->validate($rules);
+        Log::debug($data);
+
+        $courtCase = CourtCase::where('id', $id)->first();
+        $courtCase->update($data);
+
         return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
-    
+
     public function activeCases(Request $request)
     {
         $activeCases = CourtCase::where('is_case_closed', false)

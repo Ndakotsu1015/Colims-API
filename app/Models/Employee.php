@@ -30,5 +30,6 @@ class Employee extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'is_approver' => 'boolean'
     ];
 }

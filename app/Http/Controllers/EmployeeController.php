@@ -66,4 +66,30 @@ class EmployeeController extends Controller
 
         return response()->noContent();
     }
+
+    public function assignStaffAsApprover(int $id, Request $request)
+    {
+        $employee = Employee::findOrFail($id);
+
+        $currentApprover = Employee::where('is_approver', true)->first();
+        if ($currentApprover != null) {
+            $currentApprover->is_approver = false;
+            $currentApprover->save();
+        }
+
+        $employee->is_approver = true;
+        $employee->save();
+
+        return new EmployeeResource($employee);
+    }
+
+    public function getCurrentApprover()
+    {
+        $currentApprover = Employee::where('is_approver', true)->first();
+        if ($currentApprover == null) {
+            return response()->noContent();
+        }
+
+        return new EmployeeResource($currentApprover);
+    }
 }

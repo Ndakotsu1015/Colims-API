@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CaseDraftSuitPartyCollection extends ResourceCollection
 {
+    // public static $wrap = null;
+
     /**
      * Transform the resource collection into an array.
      *
@@ -14,8 +16,6 @@ class CaseDraftSuitPartyCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => $this->collection,
-        ];
+        return $this->collection;
     }
 }
