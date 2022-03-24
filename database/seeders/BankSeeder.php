@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Bank;
+use Database\Factories\BankFactory;
 use Illuminate\Database\Seeder;
 
 class BankSeeder extends Seeder
@@ -13,7 +14,8 @@ class BankSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        Bank::factory()->count(5)->create();
+    {        
+        Bank::factory(10)->create();
+        // Bank::factory(count(BankFactory::$banks))->create();
     }
 }

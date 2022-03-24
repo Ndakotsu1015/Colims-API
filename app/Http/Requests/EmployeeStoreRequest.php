@@ -28,6 +28,7 @@ class EmployeeStoreRequest extends FormRequest
             'title' => ['required', 'string'],
             'designation' => ['required', 'string'],
             'signature_file' => ['required', 'string'],
+            'is_approver' => ['required', 'boolean'],
         ];
     }
 }

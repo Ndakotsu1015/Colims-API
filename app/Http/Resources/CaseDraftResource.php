@@ -20,8 +20,10 @@ class CaseDraftResource extends JsonResource
             'title' => $this->title,
             'dls_approved' => $this->dls_approved,
             'review_submitted' => $this->review_submitted,
-            'handler_id' => $this->handler_id,
-            'solicitor_id' => $this->solicitor_id,
+            'review_comment' => $this->review_comment,
+            'handler' => (new UserResource($this->handler)),
+            'solicitor' => (new SolicitorResource($this->solicitor)),
+            'suitParties' => CaseDraftSuitPartyCollection::make($this->suitParties),
             'case_request_id' => $this->case_request_id,
         ];
     }

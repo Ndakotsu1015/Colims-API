@@ -75,7 +75,7 @@ class SuitPartyControllerTest extends TestCase
      */
     public function store_saves()
     {        
-        $court_case = CourtCase::inRandomOrder()->first();
+        $court_case = CourtCase::factory()->create();
         $case_participant = CaseParticipant::inRandomOrder()->first();
         $type = $this->faker->word;
 
@@ -129,7 +129,7 @@ class SuitPartyControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $suitParty = SuitParty::inRandomOrder()->first();
+        $suitParty = SuitParty::factory()->create();
         
         $court_case = CourtCase::inRandomOrder()->first();
         $case_participant = CaseParticipant::inRandomOrder()->first();

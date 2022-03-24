@@ -35,7 +35,7 @@ class AwardLetterUpdateRequest extends FormRequest
             'contract_title' => ['required', 'string'],
             // 'contract_detail' => ['required', 'string'],
             // 'project_location' => ['nullable', 'string'],
-            'project_id' => ['required', 'integer', 'exists:projects,id'],
+            'project_id' => ['nullable', 'integer', 'exists:projects,id'],
             'approved_by' => ['nullable'],
             'commencement_date' => ['nullable', 'date'],
             'due_date' => ['nullable', 'date'],

@@ -10,6 +10,10 @@ class CaseDraft extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = [
+        'handler', 'solicitor',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,7 +44,7 @@ class CaseDraft extends Model
         'case_request_id' => 'integer',
     ];
 
-    public function hanler()
+    public function handler()
     {
         return $this->belongsTo(User::class);
     }
@@ -53,5 +57,10 @@ class CaseDraft extends Model
     public function caseRequest()
     {
         return $this->belongsTo(CaseRequest::class);
+    }
+
+    public function suitParties()
+    {
+        return $this->hasMany(CaseDraftSuitParty::class);
     }
 }

@@ -19,6 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('title');
             $table->string('designation');
             $table->string('signature_file');
+            $table->boolean('is_approver')->default(false);
             $table->timestamps();
         });
     }
