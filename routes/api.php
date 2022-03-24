@@ -103,6 +103,10 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('employees', App\Http\Controllers\EmployeeController::class);
 
+    Route::get('get-current-approver', [App\Http\Controllers\EmployeeController::class, 'getCurrentApprover']);
+
+    Route::put('employees/{id}/assign-staff-as-approver', [App\Http\Controllers\EmployeeController::class, 'assignStaffAsApprover']);
+
     Route::apiResource('users', App\Http\Controllers\UserController::class);
 
     Route::apiResource('case-activity-suit-party', App\Http\Controllers\CaseActivitySuitPartyController::class);
@@ -133,13 +137,21 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('case-requests/{id}/is-case-created', [App\Http\Controllers\CaseRequestController::class, 'isCaseCreated']);
 
-    Route::get('case-requests/{id}/make-approval', [App\Http\Controllers\CaseRequestController::class, 'makeApproval']);
+    Route::post('case-requests/{id}/make-approval', [App\Http\Controllers\CaseRequestController::class, 'makeApproval']);
+
+    Route::post('case-requests/{id}/confirm-approval', [App\Http\Controllers\CaseRequestController::class, 'confirmApproval']);
+
+    Route::post('case-requests/{id}/discard-request-approval', [App\Http\Controllers\CaseRequestController::class, 'discardRequestApproval']);
+
+    Route::post('case-requests/{id}/discard-request', [App\Http\Controllers\CaseRequestController::class, 'discardRequest']);
 
     Route::get('/case-request-awaiting-reviewer-assignment', [CaseRequestController::class, 'awaitingReviewerAssignment'])->name('case-request-awaiting-reviewer-assignment');
 
     Route::get('/case-request-awaiting-recommendation', [CaseRequestController::class, 'awaitingRecommendation'])->name('case-request-awaiting-recommendation');
 
     Route::get('/case-request-awaiting-approval', [CaseRequestController::class, 'awaitingApproval'])->name('case-request-awaiting-approval');
+
+    Route::get('/case-request-awaiting-approval-final', [CaseRequestController::class, 'awaitingApprovalFinal'])->name('case-request-awaiting-approval-final');
 
     Route::get('/active-case-requests', [CaseRequestController::class, 'activeCaseRequests'])->name('active-case-request');
 
@@ -163,7 +175,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('court-cases/{id}/suit-parties', [App\Http\Controllers\CourtCaseController::class, 'getSuitParties']);
 
-    Route::post('court-cases/{id}/court-pronouncement', [App\Http\Controllers\CourtCaseController::class, 'updateCourtPronouncement']);
+    Route::post('court-cases/{id}/court-judgement', [App\Http\Controllers\CourtCaseController::class, 'updateCourtJudgement']);
 
     Route::get('/active-cases', [CourtCaseController::class, 'activeCases'])->name('active-cases');
 

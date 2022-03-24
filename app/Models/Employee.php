@@ -20,6 +20,7 @@ class Employee extends Model
         'title',
         'designation',
         'signature_file',
+        'is_approver',
     ];
 
     /**
@@ -29,5 +30,6 @@ class Employee extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'is_approver' => 'boolean'
     ];
 }

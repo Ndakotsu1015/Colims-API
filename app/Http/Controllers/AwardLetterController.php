@@ -7,13 +7,13 @@ use App\Http\Requests\AwardLetterUpdateRequest;
 use App\Http\Resources\AwardLetterCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
-use App\Models\BankReference;
+use App\Models\Employee;
 use App\Models\Notification;
 use Exception;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class AwardLetterController extends Controller
 {
@@ -35,6 +35,14 @@ class AwardLetterController extends Controller
     public function store(AwardLetterStoreRequest $request)
     {
         $data = $request->validated();
+        $currentApprover = Employee::where('is_approver', true)->first();
+        if ($currentApprover == null) {
+            // return response([
+            //     'message'   => 'An approver has not been assigned. Please go to the Staff section to assign an Approver.'
+            // ], Response::HTTP_BAD_REQUEST);
+            throw new BadRequestException('An approver has not been assigned. Please go to the Staff section to assign an Approver.');
+        }
+
         $lastAwardLetter = AwardLetter::latest('id')->first();
         $serial_no = $lastAwardLetter ? $lastAwardLetter->id + 1 : 1;
         $reference_no = "NCDMB/DLS/002/" . date('y') . "/" . $serial_no;
@@ -44,7 +52,7 @@ class AwardLetterController extends Controller
         // ]);
         $data['serial_no'] = $serial_no;
         $data['reference_no'] = $reference_no;
-        Log::info($data);      
+        Log::info($data);
         $awardLetter = AwardLetter::create($data);
 
         $notification = new Notification();
@@ -129,5 +137,5 @@ class AwardLetterController extends Controller
         $exists = AwardLetter::where('reference_no', $refNo)->first();
 
         return $this->success($exists);
-    }    
+    }
 }
