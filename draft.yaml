@@ -109,7 +109,7 @@ models:
     contractor_id: id foreign
     contract_type_id: id foreign
     # project_location: string nullable
-    project_id: id foreign
+    project_id: id foreign nullable
     duration_id: id foreign
     # contract_category_id: id foreign
     approved_by: id foreign:user.id

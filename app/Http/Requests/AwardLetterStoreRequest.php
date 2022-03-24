@@ -31,7 +31,7 @@ class AwardLetterStoreRequest extends FormRequest
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
             'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],
             // 'project_location' => ['nullable', 'string'],
-            'project_id' => ['required', 'integer', 'exists:projects,id'],
+            'project_id' => ['nullable', 'integer', 'exists:projects,id'],
             'approved_by' => ['nullable'],
             'contract_title' => ['required', 'string'],
             // 'contract_detail' => ['required', 'string'],

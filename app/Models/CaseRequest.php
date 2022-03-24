@@ -50,7 +50,7 @@ class CaseRequest extends Model
         return $this->belongsTo(User::class, 'case_reviewer_id');
     }
 
-    public function caseDrafts()
+    public function caseDraft()
     {
         return $this->hasOne(CaseDraft::class);
     }

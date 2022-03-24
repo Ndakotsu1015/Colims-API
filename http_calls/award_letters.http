@@ -15,8 +15,8 @@ POST http://localhost:8000/api/award-letter HTTP/1.1
 }
 
 ###
-GET http://localhost:8000/api/award-letters HTTP/1.1
-Authorization: Bearer 3|mJlN0g0ekiY5BrNeiraegRg2bghED8jq3CUka8NR
+GET http://localhost:8000/api/case-draft HTTP/1.1
+Authorization: Bearer 5|u9ksZwkk0Pin1Xy3OgUclFIBvuKrQfr37gILKqoj
 
 
 ###
