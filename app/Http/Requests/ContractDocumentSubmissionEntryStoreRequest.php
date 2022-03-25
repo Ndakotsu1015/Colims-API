@@ -28,6 +28,7 @@ class ContractDocumentSubmissionEntryStoreRequest extends FormRequest
             'filename' => ['required', 'string'],
             'is_approved' => ['required'],
             'entry_id' => ['required', 'integer', 'exists:entries,id'],
+            'contract_document_type_id' => ['required', 'integer', 'exists:contract_document_types,id'],
         ];
     }
 }

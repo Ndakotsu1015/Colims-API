@@ -201,3 +201,6 @@ Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.uplo
 Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, 'getFile'])->name('file.get');
 
 Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumentController::class, 'getCourtCase']);
+
+
+Route::apiResource('contract-document-type', App\Http\Controllers\ContractDocumentTypeController::class);

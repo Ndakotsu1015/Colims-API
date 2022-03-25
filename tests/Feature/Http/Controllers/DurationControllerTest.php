@@ -47,7 +47,7 @@ class DurationControllerTest extends TestCase
      */
     public function index_behaves_as_expected()
     {
-        $durations = Duration::factory()->count(3)->create();
+        $durations = Duration::inRandomOrder()->first();
 
         $response = $this->get(route('durations.index'));
 
@@ -98,7 +98,7 @@ class DurationControllerTest extends TestCase
      */
     public function show_behaves_as_expected()
     {
-        $duration = Duration::factory()->create();
+        $duration = Duration::inRandomOrder()->first();
 
         $response = $this->get(route('durations.show', $duration));
 
@@ -124,7 +124,7 @@ class DurationControllerTest extends TestCase
      */
     public function update_behaves_as_expected()
     {
-        $duration = Duration::factory()->create();
+        $duration = Duration::inRandomOrder()->first();
         $name = $this->faker->name;
         $number_of_days = $this->faker->randomNumber();
 
@@ -148,7 +148,7 @@ class DurationControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with()
     {
-        $duration = Duration::inRandomOrder()->first();
+        $duration = Duration::factory()->create();
 
         $response = $this->delete(route('durations.destroy', $duration));
 

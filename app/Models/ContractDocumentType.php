@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContractDocumentSubmissionEntry extends Model
+class ContractDocumentType extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,10 +17,6 @@ class ContractDocumentSubmissionEntry extends Model
      */
     protected $fillable = [
         'name',
-        'filename',
-        'is_approved',
-        'entry_id',
-        'document_type_id',
     ];
 
     /**
@@ -30,18 +26,5 @@ class ContractDocumentSubmissionEntry extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'is_approved' => 'boolean',
-        'entry_id' => 'integer',
-        'document_type_id' => 'integer',
     ];
-
-    public function entry()
-    {
-        return $this->belongsTo(ContractDocumentSubmission::class);
-    }
-
-    public function contractDocumentType()
-    {
-        return $this->belongsTo(ContractDocumentType::class, 'document_type_id');
-    }
 }

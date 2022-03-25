@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ContractDocumentSubmissionEntryResource extends JsonResource
+class ContractDocumentTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,6 @@ class ContractDocumentSubmissionEntryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'filename' => $this->filename,
-            'is_approved' => $this->is_approved,
-            'entry_id' => $this->entry_id,
-            'contractDocumentType' => new ContractDocumentTypeResource($this->whenLoaded('contractDocumentType')),
         ];
     }
 }
