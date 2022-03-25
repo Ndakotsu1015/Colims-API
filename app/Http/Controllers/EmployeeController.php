@@ -8,6 +8,7 @@ use App\Http\Resources\EmployeeCollection;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -97,12 +98,12 @@ class EmployeeController extends Controller
     public function getEncodedSignature($id){
         $employee = Employee::findOrFail($id);
         $newEmployee = new EmployeeResource($employee);
-        $signature = $newEmployee->signature_file;
+        $signature = $employee->signature_file;
 
         //convert to base64encode
-        $path = $signature;
+        $path = 'public/files/' . $signature;
         $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
+        $data = file_get_contents(Storage::path($path));
         $base64Signature = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
         return response([
