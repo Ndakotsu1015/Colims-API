@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,     
             ProjectSeeder::class,   
             DurationSeeder::class,    
-            AwardLetterSeeder::class,
-            BankReferenceSeeder::class,
+            // AwardLetterSeeder::class,
+            // BankReferenceSeeder::class,
             BankSeeder::class,
             CalendarEventSeeder::class,
             CaseActivitySeeder::class,
@@ -57,9 +57,9 @@ class DatabaseSeeder extends Seeder
             CaseActivitySuitPartySeeder::class,
             CaseDraftSeeder::class,
             CaseDraftSuitPartySeeder::class,
-            ContractDocumentSubmissionSeeder::class,
-            ContractDocumentSubmissionEntrySeeder::class,
-            AwardLetterInternalDocumentSeeder::class,
+            // ContractDocumentSubmissionSeeder::class,
+            // ContractDocumentSubmissionEntrySeeder::class,
+            // AwardLetterInternalDocumentSeeder::class,
         ]);
     }
 }
