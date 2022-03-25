@@ -21,6 +21,7 @@ class CreateContractDocumentSubmissionEntriesTable extends Migration
             $table->string('filename');
             $table->boolean('is_approved')->default(false);
             $table->foreignId('entry_id')->constrained('contract_document_submissions');
+            $table->foreignId('document_type_id')->constrained('contract_document_types');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +36,6 @@ class CreateContractDocumentSubmissionEntriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('award_letter_contract_document_submission_entries');
+        Schema::dropIfExists('contract_document_submission_entries');
     }
 }

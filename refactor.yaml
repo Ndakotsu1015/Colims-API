@@ -1,33 +1,14 @@
 models:
-  ContractCategory:
+  ContractDocumentType:
     name: string
     softDeletes
-
-  ContractType:
-    name: string   
-    softDeletes 
-
-  Duration: 
-    name: string
-    number_of_days: unsignInteger  
-    softDeletes          
-
-  Employee:
-    full_name: string
-    title: string
-    designation: string
-    signature_file: string
-    softDeletes
+    relationships:
+      hasMany:
+        AwardLetterRequiredDocument
 
 controllers:
-  ContractCategory: 
-    resource: api
-  ContractType: 
-    resource: api
-  Duration: 
-    resource: api
-  Employee:
+  ContractDocumentType:
     resource: api
 
-seeders: ContractCategory, ContractType, Duration, Employee
+seeders: ContractDocumentType
 

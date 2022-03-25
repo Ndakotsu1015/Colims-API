@@ -50,13 +50,14 @@ class ContractDocumentSubmissionEntryControllerTest extends TestCase
         $name = $this->faker->name;
         $filename = $this->faker->word;
         $is_approved = $this->faker->boolean;
-        $entry = Entry::factory()->create();
+        $entry = ContractDocumentSubmissionEntry::factory()->create();
 
         $response = $this->post(route('award-letter-contract-document-submission-entry.store'), [
             'name' => $name,
             'filename' => $filename,
             'is_approved' => $is_approved,
             'entry_id' => $entry->id,
+            'document_type_id' => $entry->document_type_id,
         ]);
 
         $ContractDocumentSubmissionEntries = ContractDocumentSubmissionEntry::query()
@@ -64,6 +65,7 @@ class ContractDocumentSubmissionEntryControllerTest extends TestCase
             ->where('filename', $filename)
             ->where('is_approved', $is_approved)
             ->where('entry_id', $entry->id)
+            ->where('document_type_id', $entry->document_type_id)
             ->get();
         $this->assertCount(1, $ContractDocumentSubmissionEntries);
         $ContractDocumentSubmissionEntry = $ContractDocumentSubmissionEntries->first();
@@ -108,13 +110,14 @@ class ContractDocumentSubmissionEntryControllerTest extends TestCase
         $name = $this->faker->name;
         $filename = $this->faker->word;
         $is_approved = $this->faker->boolean;
-        $entry = Entry::factory()->create();
+        $entry = ContractDocumentSubmissionEntry::factory()->create();
 
         $response = $this->put(route('award-letter-contract-document-submission-entry.update', $ContractDocumentSubmissionEntry), [
             'name' => $name,
             'filename' => $filename,
             'is_approved' => $is_approved,
             'entry_id' => $entry->id,
+            'document_type_id' => $entry->document_type_id,
         ]);
 
         $ContractDocumentSubmissionEntry->refresh();
@@ -126,6 +129,7 @@ class ContractDocumentSubmissionEntryControllerTest extends TestCase
         $this->assertEquals($filename, $ContractDocumentSubmissionEntry->filename);
         $this->assertEquals($is_approved, $ContractDocumentSubmissionEntry->is_approved);
         $this->assertEquals($entry->id, $ContractDocumentSubmissionEntry->entry_id);
+        $this->assertEquals($entry->document_type_id, $ContractDocumentSubmissionEntry->document_type_id);
     }
 
 

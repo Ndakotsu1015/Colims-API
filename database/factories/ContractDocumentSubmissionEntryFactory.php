@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\ContractDocumentSubmission;
 use App\Models\ContractDocumentSubmissionEntry;
+use App\Models\ContractDocumentType;
 
 class ContractDocumentSubmissionEntryFactory extends Factory
 {
@@ -28,6 +29,7 @@ class ContractDocumentSubmissionEntryFactory extends Factory
             'filename' => $this->faker->word,
             'is_approved' => $this->faker->boolean,
             'entry_id' => ContractDocumentSubmission::inRandomOrder()->first(),
+            'document_type_id' => ContractDocumentType::inRandomOrder()->first(),
         ];
     }
 }
