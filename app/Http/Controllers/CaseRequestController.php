@@ -395,14 +395,17 @@ class CaseRequestController extends Controller
             CaseDraftSuitParty::destroy($suitParty->id);
         }
 
-        // Create new Suit Parties
-        $suitParties = $data['suitParties'];
-        if (is_array($suitParties)) {
-            foreach ($suitParties as $suitParty) {
-                $suitParty['case_draft_id'] = $caseDraft->id;
-                CaseDraftSuitParty::create($suitParty);
+        if ($caseDraft->dls_approved == true) {
+            // Create new Suit Parties
+            $suitParties = $data['suitParties'];
+            if (is_array($suitParties)) {
+                foreach ($suitParties as $suitParty) {
+                    $suitParty['case_draft_id'] = $caseDraft->id;
+                    CaseDraftSuitParty::create($suitParty);
+                }
             }
         }
+
 
         return new CaseRequestResource($caseRequest->load('initiator', 'caseReviewer', 'caseDraft'));
     }
