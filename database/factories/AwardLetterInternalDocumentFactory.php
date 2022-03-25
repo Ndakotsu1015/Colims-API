@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\AwardLetter;
 use App\Models\AwardLetterInternalDocument;
+use App\Models\User;
 
 class AwardLetterInternalDocumentFactory extends Factory
 {
@@ -27,6 +28,7 @@ class AwardLetterInternalDocumentFactory extends Factory
             'name' => $this->faker->name,
             'filename' =>  $this->faker->imageUrl(),
             'award_letter_id' => AwardLetter::factory(),
+            'posted_by' => User::inRandomOrder()->first(),
         ];
     }
 }

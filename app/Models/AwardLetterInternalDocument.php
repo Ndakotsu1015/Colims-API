@@ -19,6 +19,7 @@ class AwardLetterInternalDocument extends Model
         'name',
         'filename',
         'award_letter_id',
+        'posted_by'
     ];
 
     /**
@@ -29,10 +30,16 @@ class AwardLetterInternalDocument extends Model
     protected $casts = [
         'id' => 'integer',
         'award_letter_id' => 'integer',
+        'posted_by' => 'integer'
     ];
 
     public function awardLetter()
     {
         return $this->belongsTo(AwardLetter::class);
+    }
+
+    public function postedBy()
+    {
+        return $this->belongsTo(User::class, 'posted_by');
     }
 }
