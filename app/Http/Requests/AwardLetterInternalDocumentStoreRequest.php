@@ -27,6 +27,7 @@ class AwardLetterInternalDocumentStoreRequest extends FormRequest
             'name' => ['required', 'string'],
             'filename' => ['required', 'string'],
             'award_letter_id' => ['required', 'integer', 'exists:award_letters,id'],
+            'posted_by' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 }
