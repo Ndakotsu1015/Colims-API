@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\AwardLetter;
 use App\Models\AwardLetterInternalDocument;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -50,17 +51,20 @@ class AwardLetterInternalDocumentControllerTest extends TestCase
         $name = $this->faker->name;
         $filename = $this->faker->imageUrl();
         $award_letter = AwardLetter::factory()->create();
+        $posted_by = User::inRandomOrder()->first();
 
         $response = $this->post(route('award-letter-internal-document.store'), [
             'name' => $name,
             'filename' => $filename,
             'award_letter_id' => $award_letter->id,
+            'posted_by' => $posted_by->id,
         ]);
 
         $awardLetterInternalDocuments = AwardLetterInternalDocument::query()
             ->where('name', $name)
             ->where('filename', $filename)
             ->where('award_letter_id', $award_letter->id)
+            ->where('posted_by', $posted_by->id)
             ->get();
         $this->assertCount(1, $awardLetterInternalDocuments);
         $awardLetterInternalDocument = $awardLetterInternalDocuments->first();
@@ -105,11 +109,13 @@ class AwardLetterInternalDocumentControllerTest extends TestCase
         $name = $this->faker->name;
         $filename = $this->faker->imageUrl();
         $award_letter = AwardLetter::factory()->create();
+        $posted_by = User::inRandomOrder()->first();
 
         $response = $this->put(route('award-letter-internal-document.update', $awardLetterInternalDocument), [
             'name' => $name,
             'filename' => $filename,
             'award_letter_id' => $award_letter->id,
+            'posted_by' => $posted_by->id,
         ]);
 
         $awardLetterInternalDocument->refresh();
@@ -120,6 +126,7 @@ class AwardLetterInternalDocumentControllerTest extends TestCase
         $this->assertEquals($name, $awardLetterInternalDocument->name);
         $this->assertEquals($filename, $awardLetterInternalDocument->filename);
         $this->assertEquals($award_letter->id, $awardLetterInternalDocument->award_letter_id);
+        $this->assertEquals($posted_by->id, $awardLetterInternalDocument->posted_by);
     }
 
 
