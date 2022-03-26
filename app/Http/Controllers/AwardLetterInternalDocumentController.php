@@ -17,7 +17,7 @@ class AwardLetterInternalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetterInternalDocuments = AwardLetterInternalDocument::all();
+        $awardLetterInternalDocuments = AwardLetterInternalDocument::with('postedBy')->get();
 
         return new AwardLetterInternalDocumentCollection($awardLetterInternalDocuments);
     }

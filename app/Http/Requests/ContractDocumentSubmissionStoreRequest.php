@@ -28,6 +28,8 @@ class ContractDocumentSubmissionStoreRequest extends FormRequest
             'is_approved' => ['required'],
             'due_date' => ['required', 'date'],
             'award_letter_id' => ['required', 'integer', 'exists:award_letters,id'],
+            'url_token' => ['required', 'string', 'max:255'],
+            'access_code' => ['required', 'string', 'max:255'],
         ];
     }
 }
