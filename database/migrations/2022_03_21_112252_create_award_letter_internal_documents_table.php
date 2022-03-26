@@ -20,7 +20,7 @@ class CreateAwardLetterInternalDocumentsTable extends Migration
             $table->string('name');
             $table->string('filename');
             $table->foreignId('award_letter_id')->constrained();
-            $table->foreignId('posted_by')->constrained();
+            $table->foreignId('posted_by')->constrained('users');
             $table->softDeletes();
             $table->timestamps();
         });
