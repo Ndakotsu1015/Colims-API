@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AwardLetterStoreRequest extends FormRequest
 {
@@ -23,8 +24,8 @@ class AwardLetterStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [            
-            'contract_sum' => ['required', 'numeric'],                      
+        return [
+            'contract_sum' => ['required', 'numeric'],
             'date_awarded' => ['required', 'date'],
             'last_bank_ref_date' => ['nullable', 'date'],
             // 'reference_no' => ['required', 'string'],            
@@ -39,6 +40,8 @@ class AwardLetterStoreRequest extends FormRequest
             // 'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],            
             'commencement_date' => ['required', 'date'],
             'due_date' => ['required', 'date'],
+            'document_submission_due_date' => ['required', 'date'],
+            'required_document_ids' => ['required', 'array']
             // 'serial_no' => ['required', 'integer'],
         ];
     }

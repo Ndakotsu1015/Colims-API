@@ -7,6 +7,8 @@ use App\Http\Requests\AwardLetterUpdateRequest;
 use App\Http\Resources\AwardLetterCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
+use App\Models\ContractDocumentSubmission;
+use App\Models\ContractDocumentSubmissionEntry;
 use App\Models\Employee;
 use App\Models\Notification;
 use Exception;
@@ -56,6 +58,21 @@ class AwardLetterController extends Controller
         Log::info($data);
         $awardLetter = AwardLetter::create($data);
 
+        // Create Award Letter Submission
+        $submissionData = ContractDocumentSubmission::create([
+            'due_date'  => $data['document_submission_due_date']
+        ]);
+        $submission = ContractDocumentSubmission::create($submissionData);
+
+        foreach ($data['required_document_ids'] as $reqDocId) {
+            ContractDocumentSubmissionEntry::create([
+                'entry_id'  => $submission->id,
+                'document_type_id' => $reqDocId,
+            ]);
+        }
+
+        // Create Submission Entries
+
         $notification = new Notification();
 
         $notification->user_id = auth()->user()->id;
@@ -72,7 +89,7 @@ class AwardLetterController extends Controller
             Log::debug($e);
         }
 
-        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy'));
+        return new AwardLetterResource($awardLetter->load('duration', 'contractor', 'contractType', 'project', 'approvedBy'));
     }
 
     /**
