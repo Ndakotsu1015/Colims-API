@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AwardLetterStoreRequest;
 use App\Http\Requests\AwardLetterUpdateRequest;
 use App\Http\Resources\AwardLetterCollection;
+use App\Http\Resources\AwardLetterInternalDocumentCollection;
 use App\Http\Resources\AwardLetterResource;
 use App\Models\AwardLetter;
+use App\Models\AwardLetterInternalDocument;
 use App\Models\ContractDocumentSubmission;
 use App\Models\ContractDocumentSubmissionEntry;
 use App\Models\Employee;
 use App\Models\Notification;
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AwardLetterController extends Controller
 {
@@ -37,6 +42,7 @@ class AwardLetterController extends Controller
     public function store(AwardLetterStoreRequest $request)
     {
         $data = $request->validated();
+        $data = $request->all();
         $currentApprover = Employee::where('is_approver', true)->first();
         if ($currentApprover == null) {
             // return response([
@@ -56,20 +62,26 @@ class AwardLetterController extends Controller
         $data['serial_no'] = $serial_no;
         $data['reference_no'] = $reference_no;
         Log::info($data);
-        $awardLetter = AwardLetter::create($data);
+        $awardLetter = new AwardLetter();
+        DB::transaction(function () use ($data) {
+            $awardLetter = AwardLetter::create($data);
 
-        // Create Award Letter Submission
-        $submissionData = ContractDocumentSubmission::create([
-            'due_date'  => $data['document_submission_due_date']
-        ]);
-        $submission = ContractDocumentSubmission::create($submissionData);
-
-        foreach ($data['required_document_ids'] as $reqDocId) {
-            ContractDocumentSubmissionEntry::create([
-                'entry_id'  => $submission->id,
-                'document_type_id' => $reqDocId,
+            // Create Award Letter Submission
+            $submission = ContractDocumentSubmission::create([
+                'url_token'     => uniqid('cds_'),
+                'access_code'   => Str::random(6),
+                'award_letter_id'   => $awardLetter->id,
+                'due_date'  => $data['document_submission_due_date']
             ]);
-        }
+
+            foreach ($data['required_document_ids'] as $reqDocId) {
+                ContractDocumentSubmissionEntry::create([
+                    'entry_id'  => $submission->id,
+                    'document_type_id' => $reqDocId,
+                ]);
+            }
+        });
+
 
         // Create Submission Entries
 
@@ -99,7 +111,8 @@ class AwardLetterController extends Controller
      */
     public function show(Request $request, AwardLetter $awardLetter)
     {
-        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy'));
+        // return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission', 'contractDocumentSubmission.contractDocumentSubmissionEntries'));
+        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission')); //, 'contractDocumentSubmission.contractDocumentSubmissionEntries'));
     }
 
     /**
@@ -112,7 +125,7 @@ class AwardLetterController extends Controller
         // Log::debug($request->validated());
         $awardLetter->update($request->validated());
 
-        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy'));
+        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission', 'contractDocumentSubmission.contractDocumentSubmissionEntries'));
     }
 
     /**
@@ -155,5 +168,12 @@ class AwardLetterController extends Controller
         $exists = AwardLetter::where('reference_no', $refNo)->first();
 
         return $this->success($exists);
+    }
+
+    public function getInternalDocuments(int $id)
+    {
+        $documents = AwardLetterInternalDocument::where('award_letter_id', $id);
+
+        return new AwardLetterInternalDocumentCollection($documents);
     }
 }

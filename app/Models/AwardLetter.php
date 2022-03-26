@@ -15,11 +15,11 @@ class AwardLetter extends Model
      *
      * @var array
      */
-    protected $fillable = [        
-        'contract_sum',            
+    protected $fillable = [
+        'contract_sum',
         'date_awarded',
         'last_bank_ref_date',
-        'reference_no',        
+        'reference_no',
         'contractor_id',
         'contract_type_id',
         // 'project_location',
@@ -40,19 +40,19 @@ class AwardLetter extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',        
-        'contract_sum' => 'float',            
-        'date_awarded' => 'date', 
-        'last_bank_ref_date' => 'date',        
+        'id' => 'integer',
+        'contract_sum' => 'float',
+        'date_awarded' => 'date',
+        'last_bank_ref_date' => 'date',
         'contractor_id' => 'integer',
-        'contract_type_id' => 'integer',        
+        'contract_type_id' => 'integer',
         'project_id' => 'integer',
         'approved_by' => 'integer',
         'duration_id' => 'integer',
         // 'contract_category_id' => 'integer',
         'commencement_date' => 'date',
-        'due_date' => 'date',   
-        'serial_no' => 'integer',     
+        'due_date' => 'date',
+        'serial_no' => 'integer',
     ];
 
     public function bankReferences()
@@ -95,8 +95,8 @@ class AwardLetter extends Model
         return $this->hasMany(AwardLetterInternalDocument::class);
     }
 
-    public function contractDocumentSubmissions()
+    public function contractDocumentSubmission()
     {
-        return $this->hasMany(ContractDocumentSubmission::class);
+        return $this->hasOne(ContractDocumentSubmission::class);
     }
 }

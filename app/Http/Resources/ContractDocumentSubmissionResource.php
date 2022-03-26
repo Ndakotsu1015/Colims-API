@@ -20,7 +20,7 @@ class ContractDocumentSubmissionResource extends JsonResource
             'is_approved' => $this->is_approved,
             'due_date' => $this->due_date,
             'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),
-            'ContractDocumentSubmissionEntries' => ContractDocumentSubmissionEntryCollection::make($this->whenLoaded('ContractDocumentSubmissionEntries')),
+            'contractDocumentSubmissionEntries' => ContractDocumentSubmissionEntryCollection::make($this->contractDocumentSubmissionEntries),
             'url_token' => $this->url_token,
             'access_code' => $this->access_code,
         ];

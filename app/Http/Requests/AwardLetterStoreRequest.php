@@ -41,7 +41,7 @@ class AwardLetterStoreRequest extends FormRequest
             'commencement_date' => ['required', 'date'],
             'due_date' => ['required', 'date'],
             'document_submission_due_date' => ['required', 'date'],
-            'required_document_ids' => ['required', 'array']
+            // 'required_document_ids' => ['required', 'array']
             // 'serial_no' => ['required', 'integer'],
         ];
     }

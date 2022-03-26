@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('award-letters', App\Http\Controllers\AwardLetterController::class);
 
+    Route::get('/award-letters/{id}/internal-documents', [AwardLetterController::class, 'getInternalDocuments']);
+
     Route::apiResource('banks', App\Http\Controllers\BankController::class);
 
     Route::apiResource('bank-references', App\Http\Controllers\BankReferenceController::class);
