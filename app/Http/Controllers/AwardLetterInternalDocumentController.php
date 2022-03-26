@@ -28,7 +28,9 @@ class AwardLetterInternalDocumentController extends Controller
      */
     public function store(AwardLetterInternalDocumentStoreRequest $request)
     {
-        $awardLetterInternalDocument = AwardLetterInternalDocument::create($request->validated());
+        $data = $request->validated();
+        $data['posted_by'] = auth()->user()->id;
+        $awardLetterInternalDocument = AwardLetterInternalDocument::create($data);
 
         return new AwardLetterInternalDocumentResource($awardLetterInternalDocument);
     }
