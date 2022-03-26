@@ -17,8 +17,8 @@ class CreateContractDocumentSubmissionEntriesTable extends Migration
 
         Schema::create('contract_document_submission_entries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('filename');
+            $table->string('name')->nullable();
+            $table->string('filename')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->foreignId('entry_id')->constrained('contract_document_submissions');
             $table->foreignId('document_type_id')->constrained('contract_document_types');
