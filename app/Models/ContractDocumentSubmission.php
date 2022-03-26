@@ -20,6 +20,8 @@ class ContractDocumentSubmission extends Model
         'is_approved',
         'due_date',
         'award_letter_id',
+        'url_token',
+        'access_code',
     ];
 
     /**

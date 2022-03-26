@@ -9,6 +9,9 @@ models:
     is_approved: boolean default:false
     due_date: date
     award_letter_id: id foreign
+    url_token: string
+    access_code: string
+    softDeletes
     relationships:
       hasMany: ContractDocumentSubmissionEntry
     softDeletes

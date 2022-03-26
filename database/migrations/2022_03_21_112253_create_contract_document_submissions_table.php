@@ -21,6 +21,8 @@ class CreateContractDocumentSubmissionsTable extends Migration
             $table->boolean('is_approved')->default(false);
             $table->date('due_date');
             $table->foreignId('award_letter_id')->constrained();
+            $table->string('url_token');
+            $table->string('access_code');
             $table->softDeletes();
             $table->timestamps();
         });
