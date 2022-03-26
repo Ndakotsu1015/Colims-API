@@ -19,7 +19,7 @@ class ContractDocumentSubmissionEntryResource extends JsonResource
             'name' => $this->name,
             'filename' => $this->filename,
             'is_approved' => $this->is_approved,
-            'entry_id' => $this->entry_id,
+            'entry' => new ContractDocumentSubmissionResource($this->entry),
             'contractDocumentType' => new ContractDocumentTypeResource($this->whenLoaded('contractDocumentType')),
         ];
     }
