@@ -52,12 +52,16 @@ class ContractDocumentSubmissionControllerTest extends TestCase
         $is_approved = $this->faker->boolean;
         $due_date = $this->faker->date();
         $award_letter = AwardLetter::factory()->create();
+        $url_token = $this->faker->word;
+        $access_code = $this->faker->word;
 
         $response = $this->post(route('award-letter-contract-document-submission.store'), [
             'is_submitted' => $is_submitted,
             'is_approved' => $is_approved,
             'due_date' => $due_date,
             'award_letter_id' => $award_letter->id,
+            'url_token' => $url_token,
+            'access_code' => $access_code,
         ]);
 
         $ContractDocumentSubmissions = ContractDocumentSubmission::query()
@@ -65,6 +69,8 @@ class ContractDocumentSubmissionControllerTest extends TestCase
             ->where('is_approved', $is_approved)
             ->where('due_date', $due_date)
             ->where('award_letter_id', $award_letter->id)
+            ->where('url_token', $url_token)
+            ->where('access_code', $access_code)
             ->get();
         $this->assertCount(1, $ContractDocumentSubmissions);
         $ContractDocumentSubmission = $ContractDocumentSubmissions->first();
@@ -110,12 +116,16 @@ class ContractDocumentSubmissionControllerTest extends TestCase
         $is_approved = $this->faker->boolean;
         $due_date = $this->faker->date();
         $award_letter = AwardLetter::factory()->create();
+        $url_token = $this->faker->word;
+        $access_code = $this->faker->word;
 
         $response = $this->put(route('award-letter-contract-document-submission.update', $ContractDocumentSubmission), [
             'is_submitted' => $is_submitted,
             'is_approved' => $is_approved,
             'due_date' => $due_date,
             'award_letter_id' => $award_letter->id,
+            'url_token' => $url_token,
+            'access_code' => $access_code,
         ]);
 
         $ContractDocumentSubmission->refresh();
@@ -127,6 +137,8 @@ class ContractDocumentSubmissionControllerTest extends TestCase
         $this->assertEquals($is_approved, $ContractDocumentSubmission->is_approved);
         $this->assertEquals(Carbon::parse($due_date), $ContractDocumentSubmission->due_date);
         $this->assertEquals($award_letter->id, $ContractDocumentSubmission->award_letter_id);
+        $this->assertEquals($url_token, $ContractDocumentSubmission->url_token);
+        $this->assertEquals($access_code, $ContractDocumentSubmission->access_code);
     }
 
 

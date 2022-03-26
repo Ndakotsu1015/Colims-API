@@ -28,6 +28,8 @@ class ContractDocumentSubmissionFactory extends Factory
             'is_approved' => $this->faker->boolean,
             'due_date' => $this->faker->date(),
             'award_letter_id' => AwardLetter::factory(),
+            'url_token' => Str::random(10),
+            'access_code' => Str::random(10),
         ];
     }
 }

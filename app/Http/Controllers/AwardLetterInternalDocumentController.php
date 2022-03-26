@@ -17,7 +17,7 @@ class AwardLetterInternalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetterInternalDocuments = AwardLetterInternalDocument::all();
+        $awardLetterInternalDocuments = AwardLetterInternalDocument::with('postedBy')->get();
 
         return new AwardLetterInternalDocumentCollection($awardLetterInternalDocuments);
     }
@@ -28,7 +28,9 @@ class AwardLetterInternalDocumentController extends Controller
      */
     public function store(AwardLetterInternalDocumentStoreRequest $request)
     {
-        $awardLetterInternalDocument = AwardLetterInternalDocument::create($request->validated());
+        $data = $request->validated();
+        $data['posted_by'] = auth()->user()->id;
+        $awardLetterInternalDocument = AwardLetterInternalDocument::create($data);
 
         return new AwardLetterInternalDocumentResource($awardLetterInternalDocument);
     }
