@@ -111,8 +111,7 @@ class AwardLetterController extends Controller
      */
     public function show(Request $request, AwardLetter $awardLetter)
     {
-        // return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission', 'contractDocumentSubmission.contractDocumentSubmissionEntries'));
-        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission')); //, 'contractDocumentSubmission.contractDocumentSubmissionEntries'));
+        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission', 'contractDocumentSubmission.entries'));
     }
 
     /**
