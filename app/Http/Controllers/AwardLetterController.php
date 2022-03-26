@@ -82,6 +82,11 @@ class AwardLetterController extends Controller
             }
         });
 
+        Log::debug("Just Stored Award Letter");
+        Log::debug($awardLetter);
+        Log::debug("====");
+        Log::debug($awardLetter->fresh());
+
 
         // Create Submission Entries
 
@@ -111,7 +116,7 @@ class AwardLetterController extends Controller
      */
     public function show(Request $request, AwardLetter $awardLetter)
     {
-        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission', 'contractDocumentSubmission.entries'));
+        return new AwardLetterResource($awardLetter->load('duration', 'bankReferences', 'contractor', 'contractType', 'project', 'approvedBy', 'contractDocumentSubmission')); //, 'contractDocumentSubmission.entries'));
     }
 
     /**
