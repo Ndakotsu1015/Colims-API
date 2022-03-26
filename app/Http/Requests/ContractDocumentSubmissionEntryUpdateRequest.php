@@ -24,8 +24,8 @@ class ContractDocumentSubmissionEntryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string'],
-            'filename' => ['required', 'string'],
+            'name' => ['nullable', 'string'],
+            'filename' => ['nullable', 'string'],
             'is_approved' => ['required'],
             'entry_id' => ['required', 'integer', 'exists:entries,id'],
             'document_type_id' => ['required', 'integer', 'exists:contract_document_types,id'],
