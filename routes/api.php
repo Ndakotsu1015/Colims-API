@@ -205,4 +205,4 @@ Route::get('/file/get/{filename}/{visibility?}', [FileUploadController::class, '
 Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumentController::class, 'getCourtCase']);
 
 
-Route::apiResource('contract-document-type', App\Http\Controllers\ContractDocumentTypeController::class);
+Route::apiResource('contract-document-types', App\Http\Controllers\ContractDocumentTypeController::class);
