@@ -181,6 +181,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::post('court-cases/{id}/court-judgement', [App\Http\Controllers\CourtCaseController::class, 'updateCourtJudgement']);
 
+    Route::post('court-cases/{id}/close-case', [App\Http\Controllers\CourtCaseController::class, 'closeCase']);
+
     Route::get('/active-cases', [CourtCaseController::class, 'activeCases'])->name('active-cases');
 
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');

@@ -28,15 +28,15 @@ class CourtCaseFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(4),
-            'case_no' => $this->faker->randomNumber(),            
-            'is_case_closed' => $this->faker->boolean,            
+            'case_no' => $this->faker->randomNumber(),
+            'is_case_closed' => $this->faker->boolean,
             'handler_id' => User::factory(),
             'posted_by' => User::factory(),
-            'case_status_id' => CaseStatus::factory(),            
+            'case_status_id' => CaseStatus::factory(),
             'solicitor_id' => Solicitor::factory(),
-            'case_request_id' => CaseRequest::factory(),      
+            'case_request_id' => CaseRequest::factory(),
             'court_judgement' => $this->faker->word,
-            'court_stage' => $this->faker->randomNumber(),   
+            'court_stage' => 1,
         ];
     }
 }
