@@ -42,7 +42,8 @@ class AwardLetterInternalDocumentController extends Controller
      */
     public function show(Request $request, AwardLetterInternalDocument $awardLetterInternalDocument)
     {
-        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument);
+        // $awardLetterInternalDocument->load('postedBy');
+        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument->load('postedBy'));
     }
 
     /**
@@ -54,7 +55,7 @@ class AwardLetterInternalDocumentController extends Controller
     {
         $awardLetterInternalDocument->update($request->validated());
 
-        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument);
+        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument->load('postedBy'));
     }
 
     /**

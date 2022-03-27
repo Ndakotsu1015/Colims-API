@@ -17,7 +17,9 @@ class AwardLetterInternalDocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'filename' => filter_var($this->filename, FILTER_VALIDATE_URL) ? $this->filename : asset('storage/' . $this->filename),
+            'filename' => filter_var($this->filename, FILTER_VALIDATE_URL) ? $this->filename : (is_null($this->filename) ? null : config('app.url').'/file/get/' .$this->filename),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'awardLetter' => new AwardLetterResource($this->whenLoaded('awardLetter')),
             'postedBy' => new UserResource($this->whenLoaded('postedBy')),
         ];
