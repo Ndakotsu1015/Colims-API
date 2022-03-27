@@ -142,9 +142,13 @@ class CourtCaseController extends Controller
         return new CourtCaseCollection($closedCases);
     }
 
-    // public function addSuitParty(Request $request) 
-    // {
-    //     $data = $request->all();
+    public function closeCase(int $id)
+    {
+        /** @var CourtCase $courtCase */
+        $courtCase = CourtCase::findOrFail($id);
+        $courtCase->is_case_closed = true;
+        $courtCase->save();
 
-    // }
+        return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
+    }
 }

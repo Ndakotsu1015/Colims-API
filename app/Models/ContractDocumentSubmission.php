@@ -39,7 +39,7 @@ class ContractDocumentSubmission extends Model
 
     public function entries()
     {
-        return $this->hasMany(ContractDocumentSubmissionEntry::class);
+        return $this->hasMany(ContractDocumentSubmissionEntry::class, 'entry_id');
     }
 
     public function awardLetter()
