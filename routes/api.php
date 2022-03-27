@@ -210,3 +210,5 @@ Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumen
 
 
 Route::apiResource('contract-document-types', App\Http\Controllers\ContractDocumentTypeController::class);
+
+Route::post('authenticate/{token}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'authenticate'])->name('authenticate');
