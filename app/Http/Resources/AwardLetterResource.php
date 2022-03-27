@@ -35,7 +35,7 @@ class AwardLetterResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'internalDocuments' => AwardLetterInternalDocumentCollection::make($this->whenLoaded('internalDocuments')),
-            'contractDocumentSubmissions' => ContractDocumentSubmissionCollection::make($this->whenLoaded('contractDocumentSubmissions')),
+            'contractDocumentSubmission' => new ContractDocumentSubmissionResource($this->contractDocumentSubmission),
         ];
     }
 }

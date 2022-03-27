@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('award-letters', App\Http\Controllers\AwardLetterController::class);
 
+    Route::get('/award-letters/{id}/internal-documents', [AwardLetterController::class, 'getInternalDocuments']);
+
     Route::apiResource('banks', App\Http\Controllers\BankController::class);
 
     Route::apiResource('bank-references', App\Http\Controllers\BankReferenceController::class);
@@ -179,6 +181,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::post('court-cases/{id}/court-judgement', [App\Http\Controllers\CourtCaseController::class, 'updateCourtJudgement']);
 
+    Route::post('court-cases/{id}/close-case', [App\Http\Controllers\CourtCaseController::class, 'closeCase']);
+
     Route::get('/active-cases', [CourtCaseController::class, 'activeCases'])->name('active-cases');
 
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
@@ -206,3 +210,5 @@ Route::get('legal-documents/{id}/court-case', [App\Http\Controllers\LegalDocumen
 
 
 Route::apiResource('contract-document-types', App\Http\Controllers\ContractDocumentTypeController::class);
+
+Route::post('authenticate/{token}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'authenticate'])->name('authenticate');
