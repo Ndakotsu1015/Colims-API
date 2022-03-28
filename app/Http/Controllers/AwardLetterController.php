@@ -64,22 +64,22 @@ class AwardLetterController extends Controller
         Log::info($data);
         $awardLetter = new AwardLetter();
         // DB::transaction(function () use ($data) {
-            $awardLetter = AwardLetter::create($data);
+        $awardLetter = AwardLetter::create($data);
 
-            // Create Award Letter Submission
-            $submission = ContractDocumentSubmission::create([
-                'url_token'     => uniqid('cds_'),
-                'access_code'   => Str::random(6),
-                'award_letter_id'   => $awardLetter->id,
-                'due_date'  => $data['document_submission_due_date']
+        // Create Award Letter Submission
+        $submission = ContractDocumentSubmission::create([
+            'url_token'     => uniqid('cds_'),
+            'access_code'   => Str::random(6),
+            'award_letter_id'   => $awardLetter->id,
+            'due_date'  => $data['document_submission_due_date']
+        ]);
+
+        foreach ($data['required_document_ids'] as $reqDocId) {
+            ContractDocumentSubmissionEntry::create([
+                'entry_id'  => $submission->id,
+                'document_type_id' => $reqDocId,
             ]);
-
-            foreach ($data['required_document_ids'] as $reqDocId) {
-                ContractDocumentSubmissionEntry::create([
-                    'entry_id'  => $submission->id,
-                    'document_type_id' => $reqDocId,
-                ]);
-            }
+        }
         // });
 
         Log::debug("Just Stored Award Letter");
@@ -100,6 +100,28 @@ class AwardLetterController extends Controller
 
         try {
             Mail::to($recipientEmail)->queue(new \App\Mail\AwardLetter($notification));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
+
+        // $notification1 = new Notification();
+        // // $notification->user_id = $awardLetter->contractor->user_id;
+        // $notification->subject = "Required Documents for Award Letter";
+        // $notification->content == "You are required to submit the following documents for the award letter with Reference No. : " . $awardLetter->reference_no . "." . "Document To be Submitted: "  . "Submission Due Date: " . $data['document_submission_due_date'] . "Submission Link: " . env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token . " Access Code: " . $submission->access_code;
+        // $notification->action_link = env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token;
+        // // $notification->save();
+
+        $details = [
+            'subject' => 'Required Documents for Award Letter',
+            'content' => "You are required to submit the following documents for the award letter with Reference No. : " . $awardLetter->reference_no . "." . "Document To be Submitted: "  . "Submission Due Date: " . $data['document_submission_due_date'] . "Submission Link: " . env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token . " Access Code: " . $submission->access_code,
+            'action_link' => env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token,
+            'required_document_ids' => $data['required_document_ids'],
+        ];
+
+        $recipientEmail1 = $awardLetter->contractor->email;
+
+        try {
+            Mail::to($recipientEmail1)->queue(new \App\Mail\Contractor($details));
         } catch (Exception $e) {
             Log::debug($e);
         }
