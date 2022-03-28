@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CourtStageType;
 use App\Http\Requests\CourtCaseStoreRequest;
 use App\Http\Requests\CourtCaseUpdateRequest;
 use App\Http\Resources\CalendarEventCollection;
@@ -12,11 +13,13 @@ use App\Http\Resources\LegalDocumentCollection;
 use App\Http\Resources\SuitPartyCollection;
 use App\Models\CalendarEvent;
 use App\Models\CaseActivity;
+use App\Models\CaseStatus;
 use App\Models\CourtCase;
 use App\Models\LegalDocument;
 use App\Models\SuitParty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 class CourtCaseController extends Controller
 {
@@ -142,6 +145,36 @@ class CourtCaseController extends Controller
         return new CourtCaseCollection($closedCases);
     }
 
+    public function activeTrialCases(Request $request)
+    {
+        $cases = CourtCase::where('is_case_closed', false)
+            ->where('court_stage', CourtStageType::TRIAL_COURT)
+            ->with('caseStatus', 'postedBy', 'solicitor', 'handler', 'caseActivities')
+            ->orderBy('updated_at', 'desc')->latest()->get();
+
+        return new CourtCaseCollection($cases);
+    }
+
+    public function activeAppealCases(Request $request)
+    {
+        $cases = CourtCase::where('is_case_closed', false)
+            ->whereIn('court_stage', [CourtStageType::APPEAL_COURT, CourtStageType::FINAL_COURT])
+            ->with('caseStatus', 'postedBy', 'solicitor', 'handler', 'caseActivities')
+            ->orderBy('updated_at', 'desc')->latest()->get();
+
+        return new CourtCaseCollection($cases);
+    }
+
+    public function activeFinalAppealCases(Request $request)
+    {
+        $cases = CourtCase::where('is_case_closed', false)
+            ->where('court_stage', CourtStageType::FINAL_COURT)
+            ->with('caseStatus', 'postedBy', 'solicitor', 'handler', 'caseActivities')
+            ->orderBy('updated_at', 'desc')->latest()->get();
+
+        return new CourtCaseCollection($cases);
+    }
+
     public function closeCase(int $id)
     {
         /** @var CourtCase $courtCase */
@@ -150,5 +183,42 @@ class CourtCaseController extends Controller
         $courtCase->save();
 
         return new CourtCaseResource($courtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
+    }
+
+    public function reopenCase(int $id)
+    {
+        /** @var CourtCase $courtCase */
+        $courtCase = CourtCase::findOrFail($id)->load('suitParties');
+
+        if ($courtCase->court_stage >= 3) {
+            return response([
+                'message'   => 'This case has reached its final stage and can no longer be reopened.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $courtCase->has_moved = true;
+        $courtCase->save();
+
+        $courtStage = $courtCase->court_stage + 1;
+        $newCourtCase = CourtCase::create([
+            'title'             => $courtCase->title,
+            'case_no'           => $courtCase->case_no . "-" . $courtStage,
+            'court_stage'       => $courtStage,
+            'is_case_closed'    => false,
+            'case_request_id'   => $courtCase->case_request_id,
+            'handler_id'        => $courtCase->handler_id,
+            'solicitor_id'      => $courtCase->solicitor_id,
+            'posted_by'         => auth()->user()->id,
+            'case_status_id'    => CaseStatus::first()->id,
+        ]);
+
+        /** @var SuitParty $suitParty */
+        foreach ($courtCase->suitParties as $suitParty) {
+            $data = $suitParty->toArray();
+            $data['court_case_id'] = $newCourtCase->id;
+            SuitParty::create($data);
+        }
+
+        return new CourtCaseResource($newCourtCase->load('handler', 'postedBy', 'caseStatus', 'solicitor', 'caseRequest', 'suitParties'));
     }
 }
