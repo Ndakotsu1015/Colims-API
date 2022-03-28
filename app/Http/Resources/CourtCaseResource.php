@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\CourtStageType;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourtCaseResource extends JsonResource
@@ -33,6 +34,20 @@ class CourtCaseResource extends JsonResource
             'court_judgement' => $this->court_judgement,
             'court_stage' => $this->court_stage,
             'has_moved' => $this->has_moved,
+            'court_stage_label' => $this->computeCourtStageLabel($this->court_stage),
         ];
+    }
+
+    public function computeCourtStageLabel(int $courtStage)
+    {
+        if ($courtStage == CourtStageType::TRIAL_COURT) {
+            return 'Trial Court';
+        } elseif ($courtStage == CourtStageType::APPEAL_COURT) {
+            return 'Appeal Court';
+        } elseif ($courtStage == CourtStageType::FINAL_COURT) {
+            return 'Final Appeal Court';
+        } else {
+            return 'Pending';
+        }
     }
 }

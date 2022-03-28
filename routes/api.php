@@ -183,7 +183,15 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::post('court-cases/{id}/close-case', [App\Http\Controllers\CourtCaseController::class, 'closeCase']);
 
+    Route::post('court-cases/{id}/reopen-case', [App\Http\Controllers\CourtCaseController::class, 'reopenCase']);
+
     Route::get('/active-cases', [CourtCaseController::class, 'activeCases'])->name('active-cases');
+
+    Route::get('/active-trial-cases', [CourtCaseController::class, 'activeTrialCases'])->name('active-trial-cases');
+
+    Route::get('/active-appeal-cases', [CourtCaseController::class, 'activeAppealCases'])->name('active-appeal-cases');
+
+    Route::get('/active-final-appeal-cases', [CourtCaseController::class, 'activeFinalAppealCases'])->name('active-final-appeal-cases');
 
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
 
