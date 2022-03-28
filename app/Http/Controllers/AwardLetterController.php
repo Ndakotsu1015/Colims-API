@@ -113,10 +113,15 @@ class AwardLetterController extends Controller
 
         $details = [
             'subject' => 'Required Documents for Award Letter',
-            'content' => "You are required to submit the following documents for the award letter with Reference No. : " . $awardLetter->reference_no . "." . "Document To be Submitted: "  . "Submission Due Date: " . $data['document_submission_due_date'] . "Submission Link: " . env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token . " Access Code: " . $submission->access_code,
+            'content' => "You are required to submit the following documents for the award letter with Reference No. : " . $awardLetter->reference_no . ".",
             'action_link' => env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token,
-            'required_document_ids' => $data['required_document_ids'],
+            'entries' => $awardLetter->contractDocumentSubmission->entries,
+            'submission_date' => " Submission Due Date: " . $data['document_submission_due_date'],
+            'submission_link' => "Submission Link: " . env("CLIENT_URL") . "/#/contractor-document-submission/" . $submission->url_token,
+            'access_code' => " Access Code: " . $submission->access_code,
         ];
+
+        info($details);
 
         $recipientEmail1 = $awardLetter->contractor->email;
 

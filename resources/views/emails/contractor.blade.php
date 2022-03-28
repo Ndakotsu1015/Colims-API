@@ -125,8 +125,21 @@
                                                         <p style="margin: 0 0 24px;">
                                                             {{ $details['content'] }}
                                                         </p>
-
-                                                        @if ($details['action_link'])
+                                                        @foreach ($details['entries'] as $entry)
+                                                            <ul>
+                                                                <li>{{ $entry->contractDocumentType->name }}</li>
+                                                            </ul>
+                                                        @endforeach
+                                                        <p style="margin: 0 0 24px;">
+                                                            <b>{{ $details['submission_date'] }}</b>
+                                                        </p>
+                                                        <p style="margin: 0 0 24px;">
+                                                            <b>{{ $details['submission_link'] }}</b>
+                                                        </p>
+                                                        <p style="margin: 0 0 24px;">
+                                                            <b>{{ $details['access_code'] }}</b>
+                                                        </p>
+                                                        {{-- @if ($details['action_link'])
                                                             <a href="{{ $details['action_link'] }}" target="_blank"
                                                                 style="display: block; font-size: 14px; line-height: 100%; margin-bottom: 24px; --text-opacity: 1; color: #08a51d; color: #08a51d; text-decoration: none;">{{ $details['action_link'] }}</a>
                                                             <table style="font-family: 'Montserrat',Arial,sans-serif;"
@@ -144,7 +157,7 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                        @endif
+                                                        @endif --}}
                                                         <!-- <table style="font-family: 'Montserrat',Arial,sans-serif; width: 100%;" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                                             <tbody>
                                                                 <tr>
