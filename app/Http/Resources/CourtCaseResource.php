@@ -19,19 +19,20 @@ class CourtCaseResource extends JsonResource
             'title' => $this->title,
             'case_no' => $this->case_no,
             'court_pronouncement' => $this->court_pronouncement,
-            'is_case_closed' => $this->is_case_closed,           
+            'is_case_closed' => $this->is_case_closed,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,            
+            'updated_at' => $this->updated_at,
             'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
             'handler' => new UserResource($this->whenLoaded('handler')),
             'solicitor' => new SolicitorResource($this->whenLoaded('solicitor')),
             'postedBy' => new UserResource($this->whenLoaded('postedBy')),
-            'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),            
+            'caseActivities' => CaseActivityCollection::make($this->whenLoaded('caseActivities')),
             'suitParties' => SuitPartyCollection::make($this->whenLoaded('suitParties')),
             'legalDocuments' => LegalDocumentCollection::make($this->whenLoaded('legalDocuments')),
             'caseRequest' => new CaseRequestResource($this->whenLoaded('caseRequest')),
             'court_judgement' => $this->court_judgement,
             'court_stage' => $this->court_stage,
+            'has_moved' => $this->has_moved,
         ];
     }
 }

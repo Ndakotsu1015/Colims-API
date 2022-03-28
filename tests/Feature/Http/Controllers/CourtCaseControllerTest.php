@@ -33,7 +33,7 @@ class CourtCaseControllerTest extends TestCase
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
-        
+
         User::withoutEvents(function () {
             $this->user = User::factory()->create([
                 'name' => 'abdul',
@@ -78,43 +78,46 @@ class CourtCaseControllerTest extends TestCase
     public function store_saves()
     {
         $title = $this->faker->sentence(4);
-        $case_no = $this->faker->word;        
+        $case_no = $this->faker->word;
         $is_case_closed = $this->faker->boolean;
         $court_pronouncement = $this->faker->word;
         $handler = User::inRandomOrder()->first();
         $posted_by = User::inRandomOrder()->first();
-        $case_status = CaseStatus::inRandomOrder()->first();        
-        $solicitor = Solicitor::inRandomOrder()->first();  
+        $case_status = CaseStatus::inRandomOrder()->first();
+        $solicitor = Solicitor::inRandomOrder()->first();
         $case_request = CaseRequest::inRandomOrder()->first();
         $court_judgement = $this->faker->word;
         $court_stage = $this->faker->randomNumber();
+        $has_moved = false;
 
         $response = $this->post(route('court-cases.store'), [
             'title' => $title,
-            'case_no' => $case_no,            
+            'case_no' => $case_no,
             'is_case_closed' => $is_case_closed,
             'court_pronouncement' => $court_pronouncement,
             'handler_id' => $handler->id,
             'posted_by' => $posted_by->id,
-            'case_status_id' => $case_status->id,            
+            'case_status_id' => $case_status->id,
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
             'court_judgement' => $court_judgement,
             'court_stage' => $court_stage,
+            'has_moved' => $has_moved,
         ]);
 
         $courtCases = CourtCase::query()
             ->where('title', $title)
-            ->where('case_no', $case_no)            
+            ->where('case_no', $case_no)
             ->where('is_case_closed', $is_case_closed)
             ->where('court_pronouncement', $court_pronouncement)
             ->where('handler_id', $handler->id)
             ->where('posted_by', $posted_by->id)
-            ->where('case_status_id', $case_status->id)            
+            ->where('case_status_id', $case_status->id)
             ->where('case_request_id', $case_request->id)
             ->where('solicitor_id', $solicitor->id)
             ->where('court_judgement', $court_judgement)
             ->where('court_stage', $court_stage)
+            ->where('has_moved', $has_moved)
             ->get();
         $this->assertCount(1, $courtCases);
         $courtCase = $courtCases->first();
@@ -157,26 +160,28 @@ class CourtCaseControllerTest extends TestCase
     {
         $courtCase = CourtCase::inRandomOrder()->first();
         $title = $this->faker->sentence(4);
-        $case_no = $this->faker->word;        
+        $case_no = $this->faker->word;
         $is_case_closed = $this->faker->boolean;
         $handler = User::inRandomOrder()->first();
         $solicitor = Solicitor::inRandomOrder()->first();
         $case_request = CaseRequest::inRandomOrder()->first();
         $court_judgement = $this->faker->word;
         $court_stage = $this->faker->randomNumber();
+        $has_moved = false;
 
         $response = $this->put(route('court-cases.update', $courtCase), [
             'title' => $title,
-            'case_no' => $case_no,        
-            'is_case_closed' => $is_case_closed,           
-            'handler_id' => $handler->id,           
+            'case_no' => $case_no,
+            'is_case_closed' => $is_case_closed,
+            'handler_id' => $handler->id,
             'solicitor_id' => $solicitor->id,
             'case_request_id' => $case_request->id,
             'court_judgement' => $court_judgement,
             'court_stage' => $court_stage,
+            'has_moved' => $has_moved,
         ]);
 
-        
+
         Log::debug($response->getContent());
 
         $courtCase->refresh();
@@ -185,13 +190,14 @@ class CourtCaseControllerTest extends TestCase
         $response->assertJsonStructure([]);
 
         $this->assertEquals($title, $courtCase->title);
-        $this->assertEquals($case_no, $courtCase->case_no);        
+        $this->assertEquals($case_no, $courtCase->case_no);
         $this->assertEquals($is_case_closed, $courtCase->is_case_closed);
         $this->assertEquals($handler->id, $courtCase->handler_id);
-        $this->assertEquals($solicitor->id, $solicitor->solicitor_id);     
-        $this->assertEquals($case_request->id, $courtCase->case_request_id);   
+        $this->assertEquals($solicitor->id, $solicitor->solicitor_id);
+        $this->assertEquals($case_request->id, $courtCase->case_request_id);
         $this->assertEquals($court_judgement, $courtCase->court_judgement);
-        $this->assertEquals($court_stage, $courtCase->court_stage);               
+        $this->assertEquals($court_stage, $courtCase->court_stage);
+        $this->assertEquals($has_moved, $courtCase->has_moved);
     }
 
 

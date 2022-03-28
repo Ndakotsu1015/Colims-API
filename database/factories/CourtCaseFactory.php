@@ -37,6 +37,7 @@ class CourtCaseFactory extends Factory
             'case_request_id' => CaseRequest::factory(),
             'court_judgement' => $this->faker->word,
             'court_stage' => 1,
+            'has_moved' => false,
         ];
     }
 }

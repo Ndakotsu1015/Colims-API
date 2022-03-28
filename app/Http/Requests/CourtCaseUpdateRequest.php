@@ -25,9 +25,9 @@ class CourtCaseUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'case_no' => ['required', 'string'],            
+            'case_no' => ['required', 'string'],
             'handler_id' => ['required', 'integer', 'exists:users,id'],
-            //'posted_by' => ['required'],            
+            //'posted_by' => ['required'],
             //'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
             'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
             //'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
@@ -35,6 +35,7 @@ class CourtCaseUpdateRequest extends FormRequest
             //'court_pronouncement' => ['nullable', 'string'],
             'court_judgement' => ['nullable', 'string'],
             'court_stage' => ['nullable', 'integer|gt:0'],
+            'has_moved' => ['nullable', 'boolean'],
         ];
     }
 }

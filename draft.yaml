@@ -4,17 +4,17 @@ models:
     softDeletes
   PrivilegeClass:
     name: string
-    softDeletes  
+    softDeletes
   PrivilegeDetail:
     privilege_class_id: id foreign
     user_id: id foreign
     privilege_id: id foreign
     softDeletes
-  Menu:    
+  Menu:
     title: string nullable
     link: string
     order: string nullable
-    is_active: boolean default:false  
+    is_active: boolean default:false
     icon: string nullable
     parent_id: id foreign:menu.id
     module_id: id foreign
@@ -25,7 +25,7 @@ models:
     softDeletes
   CaseRequest:
     title: string
-    content: text    
+    content: text
     memo_file: string nullable
     initiator_id: id foreign:user.id
     case_reviewer_id: id foreign:user.id
@@ -35,7 +35,7 @@ models:
     is_case_closed: boolean nullable
     softDeletes
     relationships:
-      hasMany: CaseDraft     
+      hasMany: CaseDraft
   CaseRequestMovement:
     case_request_id: id foreign
     user_id: id foreign
@@ -50,7 +50,7 @@ models:
     name: string
     module_id: unsignedInteger
     is_active: boolean default:true
-    softDeletes  
+    softDeletes
   Employee:
     full_name: string
     title: string
@@ -62,12 +62,12 @@ models:
     name: string
     softDeletes
   ContractType:
-    name: string   
-    softDeletes 
-  Duration: 
     name: string
-    number_of_days: unsignInteger  
-    softDeletes 
+    softDeletes
+  Duration:
+    name: string
+    number_of_days: unsignInteger
+    softDeletes
   ChartProvider:
     chart_provider: string
     softDeletes
@@ -100,13 +100,13 @@ models:
     softDeletes
     relationships:
       hasMany: AwardLetter
-  AwardLetter:    
-    contract_sum: float        
+  AwardLetter:
+    contract_sum: float
     contract_title: string
     # contract_detail: text
     date_awarded: date
     last_bank_ref_date: date nullable
-    reference_no: string    
+    reference_no: string
     contractor_id: id foreign
     contract_type_id: id foreign
     # project_location: string nullable
@@ -129,7 +129,7 @@ models:
     relationships:
       hasMany: ContractorAffliate
   BankReference:
-    reference_date: datetime    
+    reference_date: datetime
     reference_no: string
     created_by: unsignedInteger
     in_name_of: string
@@ -184,23 +184,24 @@ models:
     name: string
     order_by: unsignedInteger
     active_id: unsignedInteger
-    url: string    
+    url: string
     icon: string
     bg_class: string
     softDeletes
     relationships:
       hasMany: DashboardSetting
-  CourtCase: 
+  CourtCase:
     title: string
     case_no: string unique
     status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
-    handler_id: id foreign:user.id  
+    handler_id: id foreign:user.id
     posted_by: id foreign:user.id
     solicitor_id: id foreign
     is_case_closed: boolean default:false
     court_pronouncement: string nullable
     court_judgement: string nullable
     court_stage: bigInteger
+    has_moved: boolean default:false
     softDeletes
     relationships:
       hasMany: SuitParty, LegalDocument, CaseActivity
@@ -210,21 +211,21 @@ models:
     address: text
     email: string nullable
     softDeletes
-  SuitParty:      
+  SuitParty:
     type: string # (Petitioner | Respondent)
-    court_case_id: id foreign    
+    court_case_id: id foreign
     case_participant_id: id foreign
     softDeletes
-  LegalDocument: 
+  LegalDocument:
     title: string
-    filename: string    
+    filename: string
     user_id: id foreign
     court_case_id: id foreign
     softDeletes
   CaseActivity:
     description: text
     court_case_id: id foreign
-    user_id: id foreign    
+    user_id: id foreign
     status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
     location: string
     softDeletes
@@ -234,7 +235,7 @@ models:
     description: text
     location: string
     start_time: datetime
-    end_time: datetime 
+    end_time: datetime
     posted_by: id foreign:user.id
     court_case_id: id foreign
     softDeletes
@@ -245,7 +246,7 @@ models:
     contact_phone: string
     location: string
     state_id: id foreign
-    softDeletes        
+    softDeletes
   case_no: string
     title: string
     dls_approved: boolean nullable
@@ -297,11 +298,11 @@ controllers:
     resource: api
   Submodule:
     resource: api
-  ContractCategory: 
+  ContractCategory:
     resource: api
-  ContractType: 
+  ContractType:
     resource: api
-  Duration: 
+  Duration:
     resource: api
   Employee:
     resource: api
@@ -314,7 +315,7 @@ controllers:
   Menu:
     resource: api
   MenuAuthorization:
-    resource: api    
+    resource: api
   CourtCase:
     resource: api
   CaseParticipant:
@@ -326,8 +327,8 @@ controllers:
   CaseActivity:
     resource: api
   CalendarEvent:
-    resource: api   
-  Solicitor: 
-    resource: api 
+    resource: api
+  Solicitor:
+    resource: api
 
 seeders: AwardLetter, Bank, BankReference, Chart, ChartCategory, ChartProvider, ChartType, Contractor, ContractorAffliate, DashboardSetting, Module, CaseRequest,CaseRequestMovement, Project, PropertyType, State, Submodule, ContractCategory, ContractType, Duration, Employee, CourtCase, CaseParticipant, SuitParty, LegalDocument, CaseActivity, CalendarEvent, Solicitor

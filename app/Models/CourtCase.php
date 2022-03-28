@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CourtCase extends Model
 {
-    use HasFactory, SoftDeletes;    
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,16 +17,17 @@ class CourtCase extends Model
      */
     protected $fillable = [
         'title',
-        'case_no',        
+        'case_no',
         'handler_id',
         'posted_by',
-        'case_status_id',        
+        'case_status_id',
         'solicitor_id',
         'case_request_id',
         'is_case_closed',
         'court_pronouncement',
         'court_judgement',
         'court_stage',
+        'has_moved',
     ];
 
     /**
@@ -38,11 +39,12 @@ class CourtCase extends Model
         'id' => 'integer',
         'handler_id' => 'integer',
         'posted_by' => 'integer',
-        'case_status_id' => 'integer',        
+        'case_status_id' => 'integer',
         'solicitor_id' => 'integer',
         'case_request_id' => 'integer',
-        'is_case_closed' => 'boolean',   
-        'court_stage' => 'integer',     
+        'is_case_closed' => 'boolean',
+        'court_stage' => 'integer',
+        'has_moved' => 'boolean',
     ];
 
     public function suitParties()
@@ -74,7 +76,7 @@ class CourtCase extends Model
     {
         return $this->belongsTo(CaseStatus::class, 'case_status_id');
     }
-    
+
     public function solicitor()
     {
         return $this->belongsTo(Solicitor::class);
