@@ -63,7 +63,7 @@ class AwardLetterController extends Controller
         $data['reference_no'] = $reference_no;
         Log::info($data);
         $awardLetter = new AwardLetter();
-        DB::transaction(function () use ($data) {
+        // DB::transaction(function () use ($data) {
             $awardLetter = AwardLetter::create($data);
 
             // Create Award Letter Submission
@@ -80,12 +80,10 @@ class AwardLetterController extends Controller
                     'document_type_id' => $reqDocId,
                 ]);
             }
-        });
+        // });
 
         Log::debug("Just Stored Award Letter");
         Log::debug($awardLetter);
-        Log::debug("====");
-        Log::debug($awardLetter->fresh());
 
 
         // Create Submission Entries
@@ -176,8 +174,8 @@ class AwardLetterController extends Controller
 
     public function getInternalDocuments(int $id)
     {
-        $documents = AwardLetterInternalDocument::where('award_letter_id', $id);
+        $documents = AwardLetterInternalDocument::where('award_letter_id', $id)->latest()->get();
 
-        return new AwardLetterInternalDocumentCollection($documents);
+        return new AwardLetterInternalDocumentCollection($documents->load('postedBy'));
     }
 }
