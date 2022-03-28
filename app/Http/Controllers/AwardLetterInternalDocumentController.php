@@ -32,7 +32,7 @@ class AwardLetterInternalDocumentController extends Controller
         $data['posted_by'] = auth()->user()->id;
         $awardLetterInternalDocument = AwardLetterInternalDocument::create($data);
 
-        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument);
+        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument->load('postedBy'));
     }
 
     /**
