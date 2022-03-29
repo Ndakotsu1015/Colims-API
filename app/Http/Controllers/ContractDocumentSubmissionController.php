@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContractDocumentSubmissionEntryUpdateRequest;
 use App\Http\Requests\ContractDocumentSubmissionStoreRequest;
 use App\Http\Requests\ContractDocumentSubmissionUpdateRequest;
 use App\Http\Resources\ContractDocumentSubmissionCollection;
+use App\Http\Resources\ContractDocumentSubmissionEntryResource;
 use App\Http\Resources\ContractDocumentSubmissionResource;
 use App\Models\ContractDocumentSubmission;
+use App\Models\ContractDocumentSubmissionEntry;
 use Illuminate\Http\Request;
 
 class ContractDocumentSubmissionController extends Controller
@@ -93,5 +96,18 @@ class ContractDocumentSubmissionController extends Controller
                 'message' => 'Invalid Access Code. Please check and try again...',
             ], 400);
         }
+    }
+
+    public function uploadSubmissionEntry(int $id, Request $request)
+    {
+        $rules = [
+            'name'  => ['required', 'string'],
+            'filename'  => ['required', 'string'],
+        ];
+        $data = $request->validate($rules);
+        $entry = ContractDocumentSubmissionEntry::findOrFail($id);
+        $entry->update($data);
+
+        return new ContractDocumentSubmissionEntryResource($entry);
     }
 }
