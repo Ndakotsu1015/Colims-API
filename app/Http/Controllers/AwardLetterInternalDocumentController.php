@@ -17,7 +17,7 @@ class AwardLetterInternalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $awardLetterInternalDocuments = AwardLetterInternalDocument::with('postedBy')->get();
+        $awardLetterInternalDocuments = AwardLetterInternalDocument::with('awardLetter', 'postedBy')->get();
 
         return new AwardLetterInternalDocumentCollection($awardLetterInternalDocuments);
     }
@@ -43,7 +43,7 @@ class AwardLetterInternalDocumentController extends Controller
     public function show(Request $request, AwardLetterInternalDocument $awardLetterInternalDocument)
     {
         // $awardLetterInternalDocument->load('postedBy');
-        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument->load('postedBy'));
+        return new AwardLetterInternalDocumentResource($awardLetterInternalDocument->load('awardLetter', 'postedBy'));
     }
 
     /**
