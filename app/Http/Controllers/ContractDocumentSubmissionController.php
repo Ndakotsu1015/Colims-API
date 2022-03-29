@@ -70,7 +70,7 @@ class ContractDocumentSubmissionController extends Controller
     public function authenticate($token, Request $request)
     {
         $rule = [
-           'access_code' => 'required|string',
+            'access_code' => 'required|string',
         ];
         $request->validate($rule);
         $ContractDocumentSubmission = ContractDocumentSubmission::where('url_token', $token)->first();
@@ -80,15 +80,15 @@ class ContractDocumentSubmissionController extends Controller
                 'message' => 'Invalid Document Submission Link. Please check and try again...',
             ], 400);
         }
-        if($ContractDocumentSubmission->access_code == $request->access_code){
-            if($ContractDocumentSubmission->due_date < date('Y-m-d')){
+        if ($ContractDocumentSubmission->access_code == $request->access_code) {
+            if ($ContractDocumentSubmission->due_date < date('Y-m-d')) {
                 return response()->json([
                     'message' => 'You can no longer use this link as the due date for document submission has been exceeded...',
                 ], 400);
-            }else{
-                return new ContractDocumentSubmissionResource($ContractDocumentSubmission);
+            } else {
+                return new ContractDocumentSubmissionResource($ContractDocumentSubmission->load('entries', 'entries.contractDocumentType'));
             }
-        }else{
+        } else {
             return response()->json([
                 'message' => 'Invalid Access Code. Please check and try again...',
             ], 400);
