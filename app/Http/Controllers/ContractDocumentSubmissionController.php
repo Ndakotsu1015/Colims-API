@@ -83,19 +83,31 @@ class ContractDocumentSubmissionController extends Controller
                 'message' => 'Invalid Document Submission Link. Please check and try again...',
             ], 400);
         }
-        if ($ContractDocumentSubmission->access_code == $request->access_code) {
-            if ($ContractDocumentSubmission->due_date < date('Y-m-d')) {
-                return response()->json([
-                    'message' => 'You can no longer use this link as the due date for document submission has been exceeded...',
-                ], 400);
-            } else {
-                return new ContractDocumentSubmissionResource($ContractDocumentSubmission->load('entries', 'entries.contractDocumentType'));
-            }
-        } else {
+        if ($ContractDocumentSubmission->access_code != $request->access_code) {
             return response()->json([
                 'message' => 'Invalid Access Code. Please check and try again...',
             ], 400);
         }
+
+        if ($ContractDocumentSubmission->due_date < date('Y-m-d')) {
+            return response()->json([
+                'message' => 'You can no longer use this link as the due date for document submission has been exceeded...',
+            ], 400);
+        }
+
+        if ($ContractDocumentSubmission->is_submitted == true) {
+            return response()->json([
+                'message' => 'Your document submission was successful and is awaiting approval',
+            ], 400);
+        }
+
+        if ($ContractDocumentSubmission->is_approved == true) {
+            return response()->json([
+                'message' => 'You can no longer use this link as the document submission has been approved...',
+            ], 400);
+        }
+
+        return new ContractDocumentSubmissionResource($ContractDocumentSubmission->load('entries', 'entries.contractDocumentType'));
     }
 
     public function uploadSubmissionEntry(int $id, Request $request)
@@ -109,5 +121,29 @@ class ContractDocumentSubmissionController extends Controller
         $entry->update($data);
 
         return new ContractDocumentSubmissionEntryResource($entry);
+    }
+
+    public function submitForApproval(int $id)
+    {
+        $submission = ContractDocumentSubmission::findOrFail($id);
+        $submission->load('entries');
+        $upload_not_completed = false;
+        foreach ($submission->entries as $entry) {
+            if ($entry->filename == null) {
+                $upload_not_completed = true;
+                break;
+            }
+        }
+
+        if ($upload_not_completed) {
+            return response()->json([
+                'message' => 'Document Submission not yet completed. Please verify and try again...',
+            ], 400);
+        }
+
+        $submission->is_submitted = true;
+        $submission->save();
+
+        return new ContractDocumentSubmissionResource($submission->load('entries', 'entries.contractDocumentType'));
     }
 }
