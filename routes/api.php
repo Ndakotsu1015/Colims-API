@@ -222,3 +222,5 @@ Route::apiResource('contract-document-types', App\Http\Controllers\ContractDocum
 Route::post('cds-authenticate/{token}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'authenticate'])->name('cds_authenticate');
 
 Route::put('cds-upload-submission-entry/{id}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'uploadSubmissionEntry'])->name('cds_upload_entry');
+
+Route::post('cds-submit-for-approval/{id}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'submitForApproval'])->name('cds_submit_for_approval');
