@@ -32,7 +32,7 @@ class CourtCaseFactory extends Factory
             'is_case_closed' => $this->faker->boolean,
             'handler_id' => User::factory(),
             'posted_by' => User::factory(),
-            'case_status_id' => CaseStatus::factory(),
+            'case_status_id' => CaseStatus::inRandomOrder()->first(),
             'solicitor_id' => Solicitor::factory(),
             'case_request_id' => CaseRequest::factory(),
             'court_judgement' => $this->faker->word,

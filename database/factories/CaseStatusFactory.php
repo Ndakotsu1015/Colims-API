@@ -15,6 +15,12 @@ class CaseStatusFactory extends Factory
      */
     protected $model = CaseStatus::class;
 
+    public static $case_statuses = [
+        [1, "Mention"],
+        [2, "Motion"],
+        [3, "Trial"],
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -22,8 +28,10 @@ class CaseStatusFactory extends Factory
      */
     public function definition()
     {
+        $case_status =  $this->faker->unique()->randomElement(self::$case_statuses);
         return [
-            'name' => $this->faker->name,
+            'id' => $case_status[0],
+            'name' => $case_status[1],
         ];
     }
 }

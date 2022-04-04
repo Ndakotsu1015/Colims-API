@@ -28,7 +28,7 @@ class CaseActivityUpdateRequest extends FormRequest
             'court_case_id' => ['required', 'integer', 'exists:court_cases,id'],
             //'user_id' => ['required', 'integer', 'exists:users,id'],
             'case_status_id' => ['nullable', 'integer', 'exists:case_statuses,id'],
-            'location' => ['required', 'string'],            
+            'location' => ['nullable', 'string'],
             //'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
             'court_pronouncement' => ['nullable', 'string'],
         ];
