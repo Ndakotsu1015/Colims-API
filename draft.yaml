@@ -228,6 +228,7 @@ models:
     user_id: id foreign
     status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
     location: string nullable
+    next_adjourned_date: date nullable
     softDeletes
     relationships:
       hasMany: SuitParty

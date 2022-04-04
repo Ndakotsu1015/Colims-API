@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CaseActivity extends Model
 {
-    use HasFactory, SoftDeletes;    
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,11 +18,12 @@ class CaseActivity extends Model
     protected $fillable = [
         'description',
         'court_case_id',
-        'user_id',        
+        'user_id',
         'solicitor_id',
         'case_status_id',
         'location',
         'court_pronouncement',
+        'next_adjourned_date',
     ];
 
     /**
@@ -33,9 +34,10 @@ class CaseActivity extends Model
     protected $casts = [
         'id' => 'integer',
         'court_case_id' => 'integer',
-        'user_id' => 'integer',        
+        'user_id' => 'integer',
         'solicitor_id' => 'integer',
         'case_status_id' => 'integer',
+        'next_adjourned_date' => 'date',
     ];
 
     public function caseActivitySuitParties()
@@ -51,7 +53,7 @@ class CaseActivity extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }   
+    }
 
     public function solicitor()
     {

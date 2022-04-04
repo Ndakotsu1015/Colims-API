@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             ContractTypeSeeder::class,
             ContractCategorySeeder::class,
             StateSeeder::class,
-            ProjectSeeder::class,
+            // ProjectSeeder::class,
             DurationSeeder::class,
             CaseStatusSeeder::class,
             // AwardLetterSeeder::class,
