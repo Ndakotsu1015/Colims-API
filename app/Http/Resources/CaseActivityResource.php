@@ -24,6 +24,7 @@ class CaseActivityResource extends JsonResource
             'solicitor' => new SolicitorResource($this->whenLoaded('solicitor')),
             'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
             'court_pronouncement' => $this->court_pronouncement ?? '(not set)',
+            'next_adjourned_date' => $this->next_adjourned_date,
         ];
     }
 }

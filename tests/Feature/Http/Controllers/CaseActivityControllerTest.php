@@ -32,7 +32,7 @@ class CaseActivityControllerTest extends TestCase
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
-        
+
         User::withoutEvents(function () {
             $this->user = User::factory()->create([
                 'name' => 'abdul',
@@ -78,29 +78,31 @@ class CaseActivityControllerTest extends TestCase
     {
         $description = $this->faker->text;
         $court_case = CourtCase::inRandomOrder()->first();
-        $user = User::inRandomOrder()->first();     
-        $caseStatus = CaseStatus::inRandomOrder()->first();        
-        $location = $this->faker->word;        
+        $user = User::inRandomOrder()->first();
+        $caseStatus = CaseStatus::inRandomOrder()->first();
+        $location = $this->faker->word;
         $solicitor = Solicitor::inRandomOrder()->first();
 
         $response = $this->post(route('case-activities.store'), [
             'description' => $description,
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
-            'case_status_id' => $caseStatus->id,            
-            'location' => $location,            
-            'solicitor_id' => $solicitor->id,  
-            'court_pronouncement' => $this->faker->text,       
+            'case_status_id' => $caseStatus->id,
+            'location' => $location,
+            'solicitor_id' => $solicitor->id,
+            'court_pronouncement' => $this->faker->text,
+            'next_adjourned_date' => $this->faker->date(),
         ]);
 
         $caseActivities = CaseActivity::query()
             ->where('description', $description)
             ->where('court_case_id', $court_case->id)
             ->where('user_id', $user->id)
-            ->where('case_status_id', $caseStatus->id)            
-            ->where('location', $location)            
+            ->where('case_status_id', $caseStatus->id)
+            ->where('location', $location)
             ->where('solicitor_id', $solicitor->id)
             ->where('court_pronouncement', $this->faker->text)
+            ->where('next_adjourned_date', $this->faker->date())
             ->get();
         $this->assertCount(1, $caseActivities);
         $caseActivity = $caseActivities->first();
@@ -145,18 +147,19 @@ class CaseActivityControllerTest extends TestCase
         $description = $this->faker->text;
         $court_case = CourtCase::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();
-        $caseStatus = CaseStatus::inRandomOrder()->first();        
-        $location = $this->faker->word;        
+        $caseStatus = CaseStatus::inRandomOrder()->first();
+        $location = $this->faker->word;
         $solicitor = Solicitor::inRandomOrder()->first();
 
         $response = $this->put(route('case-activities.update', $caseActivity), [
             'description' => $description,
             'court_case_id' => $court_case->id,
             'user_id' => $user->id,
-            'case_status_id' => $caseStatus->id,            
-            'location' => $location,            
+            'case_status_id' => $caseStatus->id,
+            'location' => $location,
             'solicitor_id' => $solicitor->id,
             'court_pronouncement' => $this->faker->text,
+            'next_adjourned_date' => $this->faker->date(),
         ]);
 
         $caseActivity->refresh();
@@ -167,10 +170,11 @@ class CaseActivityControllerTest extends TestCase
         $this->assertEquals($description, $caseActivity->description);
         $this->assertEquals($court_case->id, $caseActivity->court_case_id);
         $this->assertEquals($user->id, $caseActivity->user_id);
-        $this->assertEquals($caseStatus->id, $caseActivity->case_status_id);        
-        $this->assertEquals($location, $caseActivity->location);        
+        $this->assertEquals($caseStatus->id, $caseActivity->case_status_id);
+        $this->assertEquals($location, $caseActivity->location);
         $this->assertEquals($solicitor->id, $caseActivity->solicitor_id);
         $this->assertEquals($this->faker->text, $caseActivity->court_pronouncement);
+        $this->assertEquals($this->faker->date(), $caseActivity->next_adjourned_date);
     }
 
 

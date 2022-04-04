@@ -24,6 +24,7 @@ class CreateCaseActivitiesTable extends Migration
             $table->foreignId('case_status_id')->constrained();
             $table->string('location')->nullable();
             $table->string('court_pronouncement')->nullable();
+            $table->date('next_adjourned_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

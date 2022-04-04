@@ -31,6 +31,7 @@ class CaseActivityUpdateRequest extends FormRequest
             'location' => ['nullable', 'string'],
             //'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
             'court_pronouncement' => ['nullable', 'string'],
+            'next_adjourned_date' => ['nullable', 'date'],
         ];
     }
 }
