@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CaseStatus;
+use Database\Factories\CaseStatusFactory;
 use Illuminate\Database\Seeder;
 
 class CaseStatusSeeder extends Seeder
@@ -14,6 +15,6 @@ class CaseStatusSeeder extends Seeder
      */
     public function run()
     {
-        CaseStatus::factory()->count(5)->create();
+        CaseStatus::factory(count(CaseStatusFactory::$case_statuses))->create();
     }
 }

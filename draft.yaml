@@ -227,7 +227,7 @@ models:
     court_case_id: id foreign
     user_id: id foreign
     status: string # (in-review | discarded | solicited | in-trial-court | in-appeal-court | closed)
-    location: string
+    location: string nullable
     softDeletes
     relationships:
       hasMany: SuitParty
