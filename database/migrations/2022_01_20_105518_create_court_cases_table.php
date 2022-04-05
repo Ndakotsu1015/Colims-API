@@ -29,6 +29,7 @@ class CreateCourtCasesTable extends Migration
             $table->string('court_judgement')->nullable();
             $table->integer('court_stage');
             $table->boolean('has_moved')->default(false);
+            $table->string('judgement_document_file')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

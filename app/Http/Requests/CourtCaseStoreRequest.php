@@ -25,14 +25,15 @@ class CourtCaseStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'case_no' => ['required', 'string', 'unique:court_cases,case_no'],            
+            'case_no' => ['required', 'string', 'unique:court_cases,case_no'],
             'handler_id' => ['required', 'integer', 'exists:users,id'],
-            'posted_by' => ['required'],            
+            'posted_by' => ['required'],
             'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
             'solicitor_id' => ['required', 'integer', 'exists:solicitors,id'],
             'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
             'case_request_id' => ['required', 'integer', 'exists:case_requests,id'],
             'court_pronouncement' => ['nullable', 'string'],
+            'judgement_document_file' => ['nullable', 'string'],
         ];
     }
 }

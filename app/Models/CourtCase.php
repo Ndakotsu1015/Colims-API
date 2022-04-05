@@ -28,6 +28,7 @@ class CourtCase extends Model
         'court_judgement',
         'court_stage',
         'has_moved',
+        'judgement_document_file',
     ];
 
     /**

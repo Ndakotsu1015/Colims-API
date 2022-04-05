@@ -36,6 +36,7 @@ class CourtCaseUpdateRequest extends FormRequest
             'court_judgement' => ['nullable', 'string'],
             'court_stage' => ['nullable', 'integer|gt:0'],
             'has_moved' => ['nullable', 'boolean'],
+            'judgement_document_file' => ['nullable', 'string']
         ];
     }
 }
