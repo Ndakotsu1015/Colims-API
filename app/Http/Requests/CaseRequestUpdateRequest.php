@@ -25,12 +25,13 @@ class CaseRequestUpdateRequest extends FormRequest
     {
         return [
             'title' => ['nullable', 'string'],
-            'content' => ['nullable', 'string'],            
+            'content' => ['nullable', 'string'],
             'memo_file' => ['nullable', 'string'],
             'recommendation_note' => ['nullable', 'string'],
             'should_go_to_trial' => ['nullable', 'boolean'],
             'status' => ['nullable', 'string'],
             'case_reviewer_id' => ['nullable', 'int'],
+            'recommendation_note_file' => ['nullable', 'string'],
         ];
     }
 }

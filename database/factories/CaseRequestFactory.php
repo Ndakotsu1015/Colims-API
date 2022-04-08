@@ -25,7 +25,7 @@ class CaseRequestFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(4),
-            'content' => $this->faker->paragraphs(3, true),            
+            'content' => $this->faker->paragraphs(3, true),
             'memo_file' => 'https://picsum.photos/seed/signature/200/200',
             'initiator_id' => User::factory(),
             // 'case_reviewer_id' => User::factory(),
@@ -33,6 +33,7 @@ class CaseRequestFactory extends Factory
             //'recomendation_note' => $this->faker->paragraphs(3, true),
             //'should_go_to_trial' => $this->faker->boolean,
             'is_case_closed' => $this->faker->boolean,
+            'recommendation_note_file' => 'https://picsum.photos/seed/signature/200/200',
         ];
     }
 }

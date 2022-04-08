@@ -30,7 +30,7 @@ class CaseRequestControllerTest extends TestCase
         $this->withHeader('X-Requested-With', 'XMLHttpRequest');
         $this->withHeader('Accept', 'application/json');
 
-        
+
         User::withoutEvents(function () {
             $this->user = User::factory()->create([
                 'name' => 'abdul',
@@ -74,34 +74,37 @@ class CaseRequestControllerTest extends TestCase
     public function store_saves()
     {
         $title = $this->faker->sentence(4);
-        $content = $this->faker->paragraphs(3, true);        
+        $content = $this->faker->paragraphs(3, true);
         $initiator = User::inRandomOrder()->first();
         $caseReviewer = User::inRandomOrder()->first();
         $status = $this->faker->word;
         $recomendation_note = $this->faker->paragraphs(3, true);
         $should_go_to_trial = $this->faker->boolean;
         $is_case_closed = $this->faker->boolean;
+        $recommendation_note_file = 'https://picsum.photos/seed/signature/200/200';
 
         $response = $this->post(route('case-requests.store'), [
             'title' => $title,
-            'content' => $content,            
+            'content' => $content,
             'initiator_id' => $initiator->id,
             'case_reviewer_id' => $caseReviewer->id,
             'status' => $status,
             'recomendation_note' => $recomendation_note,
             'should_go_to_trial' => $should_go_to_trial,
             'is_case_closed' => $is_case_closed,
+            'recommendation_note_file' => $recommendation_note_file,
         ]);
 
         $caseRequests = CaseRequest::query()
             ->where('title', $title)
-            ->where('content', $content)            
+            ->where('content', $content)
             ->where('initiator_id', $initiator->id)
             ->where('case_reviewer_id', $caseReviewer->id)
             ->where('status', $status)
             ->where('recomendation_note', $recomendation_note)
             ->where('should_go_to_trial', $should_go_to_trial)
             ->where('is_case_closed', $is_case_closed)
+            ->where('recommendation_note_file', $recommendation_note_file)
             ->get();
         $this->assertCount(1, $caseRequests);
         $caseRequest = $caseRequests->first();
@@ -144,23 +147,25 @@ class CaseRequestControllerTest extends TestCase
     {
         $caseRequest = CaseRequest::inRandomOrder()->first();
         $title = $this->faker->sentence(4);
-        $content = $this->faker->paragraphs(3, true);        
+        $content = $this->faker->paragraphs(3, true);
         $initiator = User::inRandomOrder()->first();
         $caseReviewer = User::inRandomOrder()->first();
         $status = $this->faker->word;
         $recomendation_note = $this->faker->paragraphs(3, true);
         $should_go_to_trial = $this->faker->boolean;
         $is_case_closed = $this->faker->boolean;
+        $recommendation_note_file = 'https://picsum.photos/seed/signature/200/200';
 
         $response = $this->put(route('case-requests.update', $caseRequest), [
             'title' => $title,
-            'content' => $content,            
+            'content' => $content,
             'initiator_id' => $initiator->id,
             'case_reviewer_id' => $caseReviewer->id,
             'status' => $status,
             'recomendation_note' => $recomendation_note,
             'should_go_to_trial' => $should_go_to_trial,
             'is_case_closed' => $is_case_closed,
+            'recommendation_note_file' => $recommendation_note_file,
         ]);
 
         $caseRequest->refresh();
@@ -169,13 +174,14 @@ class CaseRequestControllerTest extends TestCase
         $response->assertJsonStructure([]);
 
         $this->assertEquals($title, $caseRequest->title);
-        $this->assertEquals($content, $caseRequest->content);        
+        $this->assertEquals($content, $caseRequest->content);
         $this->assertEquals($initiator->id, $caseRequest->initiator_id);
         $this->assertEquals($caseReviewer->id, $caseRequest->case_reviewer_id);
         $this->assertEquals($status, $caseRequest->status);
         $this->assertEquals($recomendation_note, $caseRequest->recomendation_note);
         $this->assertEquals($should_go_to_trial, $caseRequest->should_go_to_trial);
         $this->assertEquals($is_case_closed, $caseRequest->is_case_closed);
+        $this->assertEquals($recommendation_note_file, $caseRequest->recommendation_note_file);
     }
 
 
