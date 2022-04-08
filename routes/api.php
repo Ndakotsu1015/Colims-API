@@ -195,13 +195,13 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
 
-    Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
+    Route::post('send-award-letter/{id}', [AwardLetterController::class, 'sendAwardLetter'])->name('send-award-letter');
 
+    Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
 
     Route::apiResource('case-draft', App\Http\Controllers\CaseDraftController::class);
 
     Route::apiResource('case-draft-suit-party', App\Http\Controllers\CaseDraftSuitPartyController::class);
-
 
     Route::apiResource('award-letter-internal-documents', App\Http\Controllers\AwardLetterInternalDocumentController::class);
 
@@ -224,3 +224,5 @@ Route::post('cds-authenticate/{token}', [App\Http\Controllers\ContractDocumentSu
 Route::put('cds-upload-submission-entry/{id}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'uploadSubmissionEntry'])->name('cds_upload_entry');
 
 Route::post('cds-submit-for-approval/{id}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'submitForApproval'])->name('cds_submit_for_approval');
+
+Route::get('html-pdf', [App\Http\Controllers\AwardLetterController::class, 'htmlToPdf'])->name('html_to_pdf');

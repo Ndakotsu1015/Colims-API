@@ -33,6 +33,7 @@ models:
     recommendation_note: string nullable
     should_go_to_trial: boolean nullable
     is_case_closed: boolean nullable
+    recommendation_note_file: string nullable
     softDeletes
     relationships:
       hasMany: CaseDraft

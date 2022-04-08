@@ -25,6 +25,7 @@ class CaseRequest extends Model
         'recommendation_note',
         'should_go_to_trial',
         'is_case_closed',
+        'recommendation_note_file'
     ];
 
     /**

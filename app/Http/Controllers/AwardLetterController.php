@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use PDF;
 
 class AwardLetterController extends Controller
 {
@@ -204,5 +206,48 @@ class AwardLetterController extends Controller
         $documents = AwardLetterInternalDocument::where('award_letter_id', $id)->latest()->get();
 
         return new AwardLetterInternalDocumentCollection($documents->load('postedBy'));
+    }
+
+    public function sendAwardLetter(Request $request, int $id)
+    {
+        $awardLetter = AwardLetter::findOrFail($id);
+
+        $recipient_emails = $request->recipient_emails;
+
+        if (!empty($recipient_emails)) {
+            $recipient_emails = explode(',', $recipient_emails);
+        }
+
+        $include_contractor = $request->include_contractor;
+
+        if ($include_contractor == 'true') {
+            $recipient_emails[] = $awardLetter->contractor->email;
+        }
+
+        $details = [
+            'subject' => 'Award Letter',
+            'content' => "Award Letter with Reference No. : " . $awardLetter->reference_no . ".",
+        ];
+
+        $file = storage_path('app/public/files/4RqamMFQ1esXaLK1som3cX45HtV5eLktaNfCk1bV.pdf');
+
+        $recipient_emails = array_unique($recipient_emails);
+
+        try {
+            Mail::to($recipient_emails)->queue(new \App\Mail\AwardLetterDoc($details, $file));
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
+    }
+
+    public function htmlToPdf()
+    {
+        // return view('htmlView');
+
+        // selecting PDF view
+        $pdf = PDF::loadView('htmlView');
+
+        // download pdf file
+        return $pdf->download('pdfview.pdf');
     }
 }
