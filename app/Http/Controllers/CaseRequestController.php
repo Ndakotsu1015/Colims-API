@@ -224,11 +224,13 @@ class CaseRequestController extends Controller
         $data = $request->validate([
             'case_request_id' => 'required|integer',
             'recommendation_note' => 'required|string',
+            'recommendation_note_file'  => 'required|string',
             'should_go_to_trial' => 'required|boolean',
         ]);
 
         $caseRequest = CaseRequest::findOrFail($data['case_request_id']);
         $caseRequest->recommendation_note = $data['recommendation_note'];
+        $caseRequest->recommendation_note_file = $data['recommendation_note_file'];
         $caseRequest->should_go_to_trial = $data['should_go_to_trial'];
         $caseRequest->status = 'awaiting_approval';
         $caseRequest->save();

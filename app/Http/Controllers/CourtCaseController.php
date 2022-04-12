@@ -116,7 +116,8 @@ class CourtCaseController extends Controller
         Log::debug('Update Judgement');
         Log::debug($request->all());
         $rules = [
-            'court_judgement' => 'required|string'
+            'court_judgement' => ['required', 'string'],
+            'judgement_document_file' => ['required', 'string']
         ];
         $data = $request->validate($rules);
         Log::debug($data);
