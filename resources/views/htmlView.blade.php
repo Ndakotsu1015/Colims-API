@@ -6,9 +6,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HTML 2 PDF</title>
-    <style type="text/css">
+    <style type="text/css" media="all">
         .center {
             text-align: center;
+        }
+
+        .head1 {
+            color: #00ff00 !important;
+        }
+
+        .p1 {
+            color: #ff0000 !important;
         }
 
     </style>
@@ -16,9 +24,9 @@
 
 <body>
     <div class="center">
-        <h1 style="color: #00ff00 !important;">This is heading from century</h1>
+        <h1 class="head1">This is heading from century</h1>
     </div>
-    <p style="color: #ff0000 !important;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    <p class="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse

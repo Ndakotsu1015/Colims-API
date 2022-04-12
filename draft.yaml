@@ -118,6 +118,7 @@ models:
     commencement_date: date nullable
     due_date: date nullable
     serial_no: unsignedInteger autoIncrement
+    award_letter_document_file: string nullable
     softDeletes
     relationships:
       hasMany: BankReference, InternalDocument, ContractDocumentSubmission

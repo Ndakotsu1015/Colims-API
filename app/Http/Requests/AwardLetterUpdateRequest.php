@@ -23,11 +23,11 @@ class AwardLetterUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [            
-            'contract_sum' => ['required', 'numeric'],                   
+        return [
+            'contract_sum' => ['required', 'numeric'],
             'date_awarded' => ['required', 'date'],
             'last_bank_ref_date' => ['nullable', 'date'],
-            'reference_no' => ['required', 'string'],            
+            'reference_no' => ['required', 'string'],
             'contractor_id' => ['required', 'integer', 'exists:contractors,id'],
             'contract_type_id' => ['required', 'integer', 'exists:contract_types,id'],
             // 'contract_category_id' => ['required', 'integer', 'exists:contract_categories,id'],
@@ -39,6 +39,7 @@ class AwardLetterUpdateRequest extends FormRequest
             'approved_by' => ['nullable'],
             'commencement_date' => ['nullable', 'date'],
             'due_date' => ['nullable', 'date'],
+            'award_letter_document_file' => ['nullable', 'string']
         ];
     }
 }

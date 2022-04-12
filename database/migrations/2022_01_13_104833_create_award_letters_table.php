@@ -16,18 +16,19 @@ class CreateAwardLettersTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('award_letters', function (Blueprint $table) {
-            $table->id();                               
-            $table->date('date_awarded');            
+            $table->id();
+            $table->date('date_awarded');
             $table->date('last_bank_ref_date')->nullable();
-            $table->string('reference_no')->unique();            
+            $table->string('reference_no')->unique();
             $table->foreignId('contractor_id')->constrained();
             $table->foreignId('contract_type_id')->constrained();
-            // $table->string('project_location')->nullable();            
-            $table->foreignId('project_id')->nullable()->constrained();            
+            // $table->string('project_location')->nullable();
+            $table->foreignId('project_id')->nullable()->constrained();
             $table->foreignId('approved_by')->constrained('employees');
             $table->date('commencement_date');
             $table->date('due_date');
             $table->unsignedBigInteger('serial_no');
+            $table->string('award_letter_document_file')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

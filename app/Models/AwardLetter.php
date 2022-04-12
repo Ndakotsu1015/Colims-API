@@ -32,6 +32,7 @@ class AwardLetter extends Model
         'commencement_date',
         'due_date',
         'serial_no',
+        'award_letter_document_file'
     ];
 
     /**

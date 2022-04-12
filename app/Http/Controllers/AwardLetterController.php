@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use NumberFormatter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use PDF;
@@ -133,6 +134,8 @@ class AwardLetterController extends Controller
             Log::debug($e);
         }
 
+        $this->generateAwardLetter($awardLetter->id);
+
         return new AwardLetterResource($awardLetter->load('duration', 'contractor', 'contractType', 'project', 'approvedBy'));
     }
 
@@ -229,12 +232,16 @@ class AwardLetterController extends Controller
             'content' => "Award Letter with Reference No. : " . $awardLetter->reference_no . ".",
         ];
 
-        $file = storage_path('app/public/files/4RqamMFQ1esXaLK1som3cX45HtV5eLktaNfCk1bV.pdf');
 
+        $file_name = str_replace("/", "_", $awardLetter->reference_no . '.pdf');
+
+        $file = storage_path('/app/public/award_letters/' . $file_name);
         $recipient_emails = array_unique($recipient_emails);
 
         try {
+            info('Sending email to ' . implode(', ', $recipient_emails));
             Mail::to($recipient_emails)->queue(new \App\Mail\AwardLetterDoc($details, $file));
+            info('sent');
         } catch (Exception $e) {
             Log::debug($e);
         }
@@ -245,9 +252,31 @@ class AwardLetterController extends Controller
         // return view('htmlView');
 
         // selecting PDF view
-        $pdf = PDF::loadView('htmlView');
+        $pdf = PDF::loadView('award_letter');
 
         // download pdf file
         return $pdf->download('pdfview.pdf');
+    }
+
+    public function generateAwardLetter($id)
+    {
+        $awardLetter = AwardLetter::findOrFail($id);
+
+        $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+        $contract_sum_in_words =  $digit->format($awardLetter->contract_sum);
+        $contract_sum_in_words = ucwords($contract_sum_in_words);
+
+        $response = view('award_letter', compact('awardLetter', 'contract_sum_in_words'));
+
+        $html = $response->render();
+
+        $pdf = PDF::loadHtml($html);
+
+        $pdf->render();
+        // write pdf to a file
+        $pdfFile = $pdf->output();
+
+        $file_name = str_replace("/", "_", $awardLetter->reference_no . '.pdf');
+        Storage::put('public/award_letters/' . $file_name, $pdfFile);
     }
 }
