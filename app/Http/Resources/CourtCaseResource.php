@@ -35,7 +35,7 @@ class CourtCaseResource extends JsonResource
             'court_stage' => $this->court_stage,
             'has_moved' => $this->has_moved,
             'court_stage_label' => $this->computeCourtStageLabel($this->court_stage),
-            'judgement_document_file' => filter_var($this->judgement_document_file, FILTER_VALIDATE_URL) ? $this->judgement_document_file : (is_null($this->judgement_document_file) ? null : config('app.url') . '/file/get/' . $this->judgement_document_file),
+            'judgement_document_file' => filter_var($this->memo_file, FILTER_VALIDATE_URL) ? $this->judgement_document_file : (is_null($this->judgement_document_file) ? null : config('app.url') . '/file/get/' . $this->judgement_document_file),
         ];
     }
 

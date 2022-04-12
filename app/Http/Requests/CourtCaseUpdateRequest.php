@@ -34,7 +34,7 @@ class CourtCaseUpdateRequest extends FormRequest
             'is_case_closed' => ['nullable', 'boolean'],
             //'court_pronouncement' => ['nullable', 'string'],
             'court_judgement' => ['nullable', 'string'],
-            'court_stage' => ['nullable', 'integer|gt:0'],
+            'court_stage' => ['nullable', 'integer'],
             'has_moved' => ['nullable', 'boolean'],
             'judgement_document_file' => ['nullable', 'string']
         ];

@@ -29,6 +29,7 @@ class CaseActivityStoreRequest extends FormRequest
             //'user_id' => ['required', 'integer', 'exists:users,id'],
             'case_status_id' => ['required', 'integer', 'exists:case_statuses,id'],
             'location' => ['nullable', 'string'],
+            'next_adjourned_date' => ['nullable', 'date'],
             'court_pronouncement' => ['nullable', 'string'],
             'next_adjourned_date' => ['nullable', 'date'],
         ];

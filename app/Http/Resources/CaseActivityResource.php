@@ -19,12 +19,12 @@ class CaseActivityResource extends JsonResource
             'description' => $this->description,
             'courtCase' => new CourtCaseResource($this->whenLoaded('courtCase')),
             'user' => new UserResource($this->whenLoaded('user')),
-            'location' => $this->location,
+            'location' => $this->location ?? '(not set)',
+            'next_adjourned_date' => $this->next_adjourned_date ?? '(not set)',
             'caseActivitySuitParties' => CaseActivitySuitPartyCollection::make($this->whenLoaded('caseActivitySuitParties')),
             'solicitor' => new SolicitorResource($this->whenLoaded('solicitor')),
             'caseStatus' => new CaseStatusResource($this->whenLoaded('caseStatus')),
             'court_pronouncement' => $this->court_pronouncement ?? '(not set)',
-            'next_adjourned_date' => $this->next_adjourned_date,
         ];
     }
 }

@@ -40,8 +40,8 @@ class CaseActivityController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['solicitor_id'] = $courtCase->solicitor_id;
 
-        $caseActivity = CaseActivity::create($data);   
-        
+        $caseActivity = CaseActivity::create($data);
+
         if (is_array($request->suit_parties)) {
             foreach ($request->suit_parties as $suitPartyId) {
                 $caseActivitySuitParty = new CaseActivitySuitParty();
@@ -53,51 +53,51 @@ class CaseActivityController extends Controller
 
         $courtCase->case_status_id = $caseActivity->case_status_id;
         $courtCase->save();
-        
+
         $notification = new Notification();
 
         $notification->user_id = auth()->user()->id;
         $notification->subject = 'New Case Activity Recorded';
-        $notification->content = 'You just recorded a new case activity entry for Case with Case No: ' . $courtCase->case_no. "on ". now() . ".";        
+        $notification->content = 'You just recorded a new case activity entry for Case with Case No: ' . $courtCase->case_no . "on " . now() . ".";
         $notification->save();
-        
+
         $recipientEmail = auth()->user()->email;
 
         try {
-            Mail::to($recipientEmail)->send(new \App\Mail\CaseActivity ($notification));
+            Mail::to($recipientEmail)->send(new \App\Mail\CaseActivity($notification));
         } catch (Exception $e) {
             Log::debug($e);
-        }        
+        }
 
         $notification2 = new Notification();
 
         $notification2->user_id = $courtCase->postedBy->id;
         $notification2->subject = 'New Case Activity Recorded';
-        $notification2->content = 'Case Handler: ' . $courtCase->handler->name." just recorded a new case activity entry for Case with Case No.: ".$courtCase->case_no. "on ". now() . ".";
+        $notification2->content = 'Case Handler: ' . $courtCase->handler->name . " just recorded a new case activity entry for Case with Case No.: " . $courtCase->case_no . "on " . now() . ".";
         $notification2->save();
 
         $recipientEmail2 = $courtCase->postedBy->email;
 
         try {
-            Mail::to($recipientEmail2)->send(new \App\Mail\CaseActivity ($notification2));
+            Mail::to($recipientEmail2)->send(new \App\Mail\CaseActivity($notification2));
         } catch (Exception $e) {
             Log::debug($e);
-        }        
+        }
 
         $notification3 = new Notification();
 
         $notification3->user_id = $courtCase->postedBy->id;
         $notification3->subject = 'Case Status Change';
-        $notification3->content = 'A case with the case no.: ' .$courtCase->case_no. ' was changed from ' .$caseActivity->caseStatus->name. ' status to' .$courtCase->caseStatus->name. ' status on ' . now();
+        $notification3->content = 'A case with the case no.: ' . $courtCase->case_no . ' was changed from ' . $caseActivity->caseStatus->name . ' status to' . $courtCase->caseStatus->name . ' status on ' . now();
         $notification3->save();
 
         $recipientEmail3 = $courtCase->postedBy->email;
 
         try {
-            Mail::to($recipientEmail3)->send(new \App\Mail\CaseActivity ($notification3));
+            Mail::to($recipientEmail3)->send(new \App\Mail\CaseActivity($notification3));
         } catch (Exception $e) {
             Log::debug($e);
-        }        
+        }
 
         return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
     }
@@ -119,14 +119,14 @@ class CaseActivityController extends Controller
      */
     public function update(CaseActivityUpdateRequest $request, CaseActivity $caseActivity)
     {
-    	$data = $request->validated();
-    	
-    	$courtCase = CourtCase::findOrFail($data['court_case_id']);
-    	$data['user_id'] = auth()->user()->id;
+        $data = $request->validated();
+
+        $courtCase = CourtCase::findOrFail($data['court_case_id']);
+        $data['user_id'] = auth()->user()->id;
         $data['solicitor_id'] = $courtCase->solicitor_id;
 
         // Delete previous suit parties
-        foreach($caseActivity->caseActivitySuitParties as $caseActivitySuitParty) {
+        foreach ($caseActivity->caseActivitySuitParties as $caseActivitySuitParty) {
             $caseActivitySuitParty->delete();
         }
 
@@ -138,7 +138,7 @@ class CaseActivityController extends Controller
                 $caseActivitySuitParty->save();
             }
         }
-    	
+
         $caseActivity->update($data);
 
         return new CaseActivityResource($caseActivity->load('courtCase', 'user', 'solicitor', 'caseActivitySuitParties', 'caseActivitySuitParties.suitParty'));
