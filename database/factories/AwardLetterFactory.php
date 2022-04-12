@@ -28,23 +28,24 @@ class AwardLetterFactory extends Factory
      */
     public function definition()
     {
-        return [            
-            'contract_sum' => $this->faker->numberBetween(0,9999999999),                   
+        return [
+            'contract_sum' => $this->faker->numberBetween(0, 9999999999),
             'date_awarded' => $this->faker->date(),
             'last_bank_ref_date' => $this->faker->date(),
-            'reference_no' => $this->faker->unique()->asciify("ref****"),            
+            'reference_no' => $this->faker->unique()->asciify("ref****"),
             'contract_title' => $this->faker->word(),
-            // 'contract_detail' => $this->faker->word(),            
-            'contract_type_id' => ContractType::inRandomOrder()->first(),            
+            // 'contract_detail' => $this->faker->word(),
+            'contract_type_id' => ContractType::inRandomOrder()->first(),
             'duration_id' => Duration::inRandomOrder()->first(),
             // 'contract_category_id' => ContractCategory::inRandomOrder()->first(),
             'contractor_id' => Contractor::factory(),
-            // 'project_location' => $this->faker->word(),            
+            // 'project_location' => $this->faker->word(),
             'project_id' => Project::inRandomOrder()->first(),
             'approved_by' => Employee::factory(),
             'commencement_date' => $this->faker->date(),
-            'due_date' => $this->faker->date(),    
-            'serial_no' => $this->faker->unique()->numberBetween(0,9999),        
+            'due_date' => $this->faker->date(),
+            'serial_no' => $this->faker->unique()->numberBetween(0, 9999),
+            'award_letter_document_file' => 'https://picsum.photos/seed/signature/200/200',
         ];
     }
 }

@@ -195,6 +195,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::get('/closed-cases', [CourtCaseController::class, 'closedCases'])->name('inactive-cases');
 
+
     Route::post('send-award-letter/{id}', [AwardLetterController::class, 'sendAwardLetter'])->name('send-award-letter');
 
     Route::apiResource('notifications', App\Http\Controllers\NotificationController::class);
@@ -226,3 +227,5 @@ Route::put('cds-upload-submission-entry/{id}', [App\Http\Controllers\ContractDoc
 Route::post('cds-submit-for-approval/{id}', [App\Http\Controllers\ContractDocumentSubmissionController::class, 'submitForApproval'])->name('cds_submit_for_approval');
 
 Route::get('html-pdf', [App\Http\Controllers\AwardLetterController::class, 'htmlToPdf'])->name('html_to_pdf');
+
+Route::get('/generate-award-letter/{id}', [AwardLetterController::class, 'generateAwardLetter'])->name('generate-award-letter');

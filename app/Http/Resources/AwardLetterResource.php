@@ -31,6 +31,7 @@ class AwardLetterResource extends JsonResource
             'approvedBy' => new EmployeeResource($this->whenLoaded('approvedBy')),
             'bankReferences' => BankReferenceCollection::make($this->whenLoaded('bankReferences')),
             'commencement_date' => $this->commencement_date,
+            'award_letter_document_file' => filter_var($this->award_letter_document_file, FILTER_VALIDATE_URL) ? $this->award_letter_document_file : null,
             'due_date' => $this->due_date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
