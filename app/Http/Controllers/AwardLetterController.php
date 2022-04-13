@@ -24,6 +24,9 @@ use NumberFormatter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use PDF;
+use Dompdf\Dompdf;
+
+use function Psy\debug;
 
 class AwardLetterController extends Controller
 {
@@ -215,6 +218,10 @@ class AwardLetterController extends Controller
     {
         $awardLetter = AwardLetter::findOrFail($id);
 
+        $signature_file_path = storage_path('/app/public/files/' . $awardLetter->approvedBy->signature_file);
+
+        Log::debug($signature_file_path);
+
         $recipient_emails = $request->recipient_emails;
 
         if (!empty($recipient_emails)) {
@@ -228,7 +235,7 @@ class AwardLetterController extends Controller
         }
 
         $details = [
-            'subject' => 'Award Letter',
+            'subject' => 'NOTIFICATION OF CONTRACT AWARD',
             'content' => "Award Letter with Reference No. : " . $awardLetter->reference_no . ".",
         ];
 
@@ -254,29 +261,77 @@ class AwardLetterController extends Controller
         // selecting PDF view
         $pdf = PDF::loadView('award_letter');
 
+        $pdf->render();
+
         // download pdf file
         return $pdf->download('pdfview.pdf');
     }
 
     public function generateAwardLetter($id)
     {
+        Log::debug("generating award letter");
         $awardLetter = AwardLetter::findOrFail($id);
+
+        $signature_file_path = storage_path('/app/public/files/' . $awardLetter->approvedBy->signature_file);
+
+        $type = pathinfo($signature_file_path, PATHINFO_EXTENSION);
+        $data = file_get_contents($signature_file_path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        Log::debug($signature_file_path);
 
         $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
         $contract_sum_in_words =  $digit->format($awardLetter->contract_sum);
         $contract_sum_in_words = ucwords($contract_sum_in_words);
 
-        $response = view('award_letter', compact('awardLetter', 'contract_sum_in_words'));
+        $dompdf = new Dompdf();
 
-        $html = $response->render();
+        // $response = view('award_letter', compact('awardLetter', 'contract_sum_in_words'));
 
-        $pdf = PDF::loadHtml($html);
+        // $html = $response->render();
 
-        $pdf->render();
+        // $pdf = PDF::loadHtml($html);
+        // Log::debug('html loaded');
+
+        // $pdf->render();
+        // // write pdf to a file
+        // Log::debug('outputing file');
+        // $pdfFile = $pdf->output();
+        // Log::debug('file outputed');
+
+        // $file_name = str_replace("/", "_", $awardLetter->reference_no . '.pdf');
+        // Storage::put('public/award_letters/' . $file_name, $pdfFile);
+        // Log::debug("award letter generated");
+
+
+        $html = view('award_letter', compact('awardLetter', 'contract_sum_in_words', 'base64'));
+        $dompdf->loadHtml($html);
+
+        $dompdf->render();
         // write pdf to a file
-        $pdfFile = $pdf->output();
-
+        $pdf = $dompdf->output();
+        // file_put_contents("newfile555.pdf", $pdf);
         $file_name = str_replace("/", "_", $awardLetter->reference_no . '.pdf');
-        Storage::put('public/award_letters/' . $file_name, $pdfFile);
+        Storage::put('public/award_letters/' . $file_name, $pdf);
+        Log::debug("award letter generated");
+    }
+
+    public function viewPage($id)
+    {
+        $awardLetter = AwardLetter::findOrFail($id);
+
+        // $signature_file_path = storage_path('app/public/files/' . $awardLetter->approvedBy->signature_file);
+
+        // $signature_file_path = Storage::get('public/files/' . $awardLetter->approvedBy->signature_file);
+
+        $signature_file_path = $awardLetter->approvedBy->signature_file;
+
+        Log::debug($signature_file_path);
+
+        $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+        $contract_sum_in_words =  $digit->format($awardLetter->contract_sum);
+        $contract_sum_in_words = ucwords($contract_sum_in_words);
+
+        return view('award_letter', compact('awardLetter', 'contract_sum_in_words', 'signature_file_path'));
     }
 }

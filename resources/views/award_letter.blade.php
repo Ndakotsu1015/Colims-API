@@ -27,13 +27,13 @@
         </div>
     </div>
     <div style="float:right; margin-top: 30px;"> <strong> {{ $awardLetter->reference_no }} <br>
-        {{ \Carbon\Carbon::parse($awardLetter->date_awarded)->format('d/m/Y')}}</strong>
+            {{ \Carbon\Carbon::parse($awardLetter->date_awarded)->format('d/m/Y') }}</strong>
     </div>
     <div style="margin-top: 90px;">
         <h3 style="margin-bottom: 0ch;">The Managing Director </h3>
-        <p style="margin-top: 0ch;"> {{$awardLetter->contractor->contractor_name}} <br>
-            {{$awardLetter->contractor->address}}, <br> TTTTTTTT
-            {{$awardLetter->contractor->location}}
+        <p style="margin-top: 0ch;"> {{ $awardLetter->contractor->contractor_name }} <br>
+            {{ $awardLetter->contractor->address }}, <br>
+            {{ $awardLetter->contractor->location }}
         <p>
     </div>
     <p>Dear Sir,</p>
@@ -41,12 +41,14 @@
     <P>We are pleased to communicate to you the decision of the management of the Nigerian Content Development and
         Monitoring board to award your company the contract for <strong> {{ $awardLetter->contractType->name }}
         </strong></P>
-    <p>The contract price is <strong>N{{ number_format($awardLetter->contract_sum) }} ({{ $contract_sum_in_words }} Naira only)
+    <p>The contract price is <strong>N{{ number_format($awardLetter->contract_sum) }} ({{ $contract_sum_in_words }}
+            Naira only)
             inclusive of taxea and shall remain fixed throughout the duration of the contract.</strong></p>
     <p>If the award of the contract is acceptable to you, you are required within three (3) working days from the date
         of reciept of this notice to forward to the board your letter of acceptance.</p>
     <p>The contract duration shall be for the period of
-        <strong>{{ $awardLetter->duration->name }}({{ $awardLetter->duration->number_of_days }} Days)</strong> and shall
+        <strong>{{ $awardLetter->duration->name }}({{ $awardLetter->duration->number_of_days }} Days)</strong> and
+        shall
         take effect from
         the date of execution of the contract.
     </p>
@@ -66,10 +68,10 @@
     <p>Yours Faithfully <br>
         <strong>FOR: NIGERIAN CONTENT DEVELOPMENT & MONITORING BOARD</strong>
     </p>
-    <img src="{{ Storage::url("files/{$awardLetter->approvedBy->signature_file}") }}" alt="signature"
-        style="width: 70px;">
-    <p><strong>{{$awardLetter->approvedBy->full_name}}</strong>
-    <p>{{$awardLetter->approvedBy->designation}}
+    <img src="{{ $base64 }}" alt=""
+        style="width: 70px;">    
+    <p><strong>{{ strtoupper($awardLetter->approvedBy->full_name) }}</strong>
+    <p>{{ strtoupper($awardLetter->approvedBy->designation) }}
     </p>
 
 

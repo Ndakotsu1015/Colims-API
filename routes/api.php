@@ -229,3 +229,5 @@ Route::post('cds-submit-for-approval/{id}', [App\Http\Controllers\ContractDocume
 Route::get('html-pdf', [App\Http\Controllers\AwardLetterController::class, 'htmlToPdf'])->name('html_to_pdf');
 
 Route::get('/generate-award-letter/{id}', [AwardLetterController::class, 'generateAwardLetter'])->name('generate-award-letter');
+
+Route::get('view-page/{id}', [AwardLetterController::class, 'viewPage'])->name('view-page');
