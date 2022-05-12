@@ -44,5 +44,10 @@ class Module extends Model
     public function dashboardSettings()
     {
         return $this->hasMany(DashboardSetting::class);
-    }    
+    } 
+    
+    public function menus()
+    {
+        return $this->hasMany(Menu::class)->orderBy('order');
+    }
 }

@@ -21,7 +21,7 @@ class MenuResource extends JsonResource
             'order' => $this->order,
             'is_active' => $this->is_active,
             'icon' => $this->icon,
-            'parent' => new MenuResource($this->whenLoaded('parent')),
+            'parent' => new MenuResource($this->whenLoaded('parentMenu')),
             'module' => new ModuleResource($this->whenLoaded('module')),
         ];
     }

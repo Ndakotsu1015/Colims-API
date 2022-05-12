@@ -49,9 +49,13 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('privilege-details', App\Http\Controllers\PrivilegeDetailController::class);
 
+    Route::post('/privilege-details/add', [App\Http\Controllers\PrivilegeDetailController::class, 'add']);
+
     Route::apiResource('menus', App\Http\Controllers\MenuController::class);
 
     Route::apiResource('menu-authorizations', App\Http\Controllers\MenuAuthorizationController::class);
+
+    Route::post('/menu_authorizations/add', [App\Http\Controllers\MenuAuthorizationController::class, 'add']);
 
     Route::apiResource('award-letters', App\Http\Controllers\AwardLetterController::class);
 
@@ -78,6 +82,8 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
     Route::get('/dashboard-settings-contract', [App\Http\Controllers\DashboardSettingController::class, 'contract'])->name('contracts');
 
     Route::apiResource('modules', App\Http\Controllers\ModuleController::class);
+
+    Route::get('/my-list', [App\Http\Controllers\ModuleController::class, 'myList'])->name('myList');
 
     Route::apiResource('projects', App\Http\Controllers\ProjectController::class);
 

@@ -47,4 +47,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(AwardLetterInternalDocument::class);
     }
+
+    public function privilegeDetails()
+    {
+        return $this->hasMany('App\Models\PrivilegeDetail');
+    }
+
+    public function privileges()
+    {
+        return $this->hasManyThrough(Privilege::class, PrivilegeDetail::class, 'user_id', 'id', 'id', 'privilege_id'); 
+    }
 }

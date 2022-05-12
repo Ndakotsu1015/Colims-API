@@ -24,12 +24,12 @@ class MenuStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['string'],
+            'title' => ['nullable','string'],
             'link' => ['required', 'string'],
-            'order' => ['string'],
+            'order' => ['nullable','string'],
             'is_active' => ['required'],
-            'icon' => ['string'],
-            'parent_id' => ['exists:menus,id'],
+            'icon' => ['nullable','string'],
+            'parent_id' => ['nullable','exists:menus,id'],
             'module_id' => ['required', 'integer', 'exists:modules,id'],
         ];
     }

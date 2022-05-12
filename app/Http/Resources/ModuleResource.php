@@ -22,6 +22,7 @@ class ModuleResource extends JsonResource
             'url' => $this->url,
             'icon' => $this->icon,
             'bg_class' => $this->bg_class,
+            'menus' => MenuResource::collection($this->whenLoaded('menus')),
         ];
     }
 }

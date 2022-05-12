@@ -49,5 +49,10 @@ class Menu extends Model
     public function module()
     {
         return $this->belongsTo(Module::class);
-    }    
+    }  
+    
+    public function menuAuthorizations()
+    {
+        return $this->hasMany(MenuAuthorization::class);
+    }  
 }
