@@ -41,8 +41,7 @@ class DatabaseSeeder extends Seeder
             DashboardSettingSeeder::class,
             EmployeeSeeder::class,
             LegalDocumentSeeder::class,
-            MenuAuthorizationSeeder::class,
-            MenuSeeder::class,
+            // MenuAuthorizationSeeder::class,
             ModuleSeeder::class,
             PrivilegeClassSeeder::class,
             PrivilegeDetailSeeder::class,
@@ -61,6 +60,7 @@ class DatabaseSeeder extends Seeder
             // ContractDocumentSubmissionEntrySeeder::class,
             // AwardLetterInternalDocumentSeeder::class,
             ContractDocumentTypeSeeder::class,
+            MenuSeeder::class,
         ]);
     }
 }

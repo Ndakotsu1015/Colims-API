@@ -26,7 +26,7 @@ class MenuStoreRequest extends FormRequest
         return [
             'title' => ['nullable','string'],
             'link' => ['required', 'string'],
-            'order' => ['nullable','string'],
+            'order' => ['nullable','integer'],
             'is_active' => ['required'],
             'icon' => ['nullable','string'],
             'parent_id' => ['nullable','exists:menus,id'],

@@ -52,7 +52,8 @@ class MenuController extends Controller
     {
         $menu->update($request->validated());
 
-        return new MenuResource($menu->load('parentMenu', 'module'));
+        // return new MenuResource($menu->load('parentMenu', 'module'));
+        return new MenuResource($menu);
     }
 
     /**

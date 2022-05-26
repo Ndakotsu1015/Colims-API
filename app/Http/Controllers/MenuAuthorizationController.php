@@ -75,23 +75,37 @@ class MenuAuthorizationController extends Controller
     public function add(Request $request)
     {    
 
+        // dd($request);
+
         $rules = [
-            'menu_id' => 'required_if:AccessLevelOption,3|array',
-            'menu_id.*' => 'integer|numeric|exists:App\Models\Menu,id',
-            'privilege_id' => 'nullable|integer|numeric|exists:App\Models\Privilege,id',
             'access_level_option' => 'required|integer',
-            'privilege_to_copy' => 'required_if:AccessLevelOption,2|integer'
+            'privilege_id' => 'nullable|integer|numeric|exists:App\Models\Privilege,id',
+            // 'menu_id' => 'required_if:access_level_option,3|array',
+            // 'menu_id.*' => 'integer|numeric|exists:App\Models\Menu,id',
+            // 'privilege_to_copy' => 'required_if:access_level_option,2|integer'
         ];
         
-        $data = $this->validate($request, $rules);
 
-        if($data['access_level_option'] == 1)
+        if($request['access_level_option'] == 1)
         {
+
+            $data = $this->validate($request, $rules);
+
             $data['menu_id'] = Menu::all()->pluck('id')->toArray();
             
-        }else if($data['access_level_option'] == 2)
+        }else if($request['access_level_option'] == 2)
         {
+            
+            $rules['privilege_to_copy'] = 'required_if:access_level_option,2|integer';
+            $data = $this->validate($request, $rules);
+
             $data['menu_id'] = MenuAuthorization::where('privilege_id', $data['privilege_to_copy'])->get()->pluck('menu_id')->toArray();
+
+        }else if($request['access_level_option'] == 3)
+        {
+            $rules['menu_id'] = 'required_if:access_level_option,3|array';
+            $rules['menu_id.*'] = 'integer|numeric|exists:App\Models\Menu,id';
+            $data = $this->validate($request, $rules);
         }
           
         $authorizationIds = $this->addMenuAuthorizations($data);

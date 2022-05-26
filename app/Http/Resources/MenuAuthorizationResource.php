@@ -16,7 +16,7 @@ class MenuAuthorizationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'menu_id' => $this->menu_id,
+            'menu' => new MenuResource($this->whenLoaded('menu')),
             'privilege' => new PrivilegeResource($this->whenLoaded('privilege')),
         ];
     }

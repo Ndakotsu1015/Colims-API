@@ -26,10 +26,10 @@ class MenuUpdateRequest extends FormRequest
         return [
             'title' => ['string'],
             'link' => ['required', 'string'],
-            'order' => ['string'],
+            'order' => ['nullable','integer'],
             'is_active' => ['required'],
             'icon' => ['string'],
-            'parent_id' => ['required', 'integer', 'exists:parents,id'],
+            'parent_id' => ['nullable', 'integer', 'exists:menus,id'],
             'module_id' => ['required', 'integer', 'exists:modules,id'],
         ];
     }

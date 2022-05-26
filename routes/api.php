@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth:sanctum',], function () {
 
     Route::apiResource('menu-authorizations', App\Http\Controllers\MenuAuthorizationController::class);
 
-    Route::post('/menu_authorizations/add', [App\Http\Controllers\MenuAuthorizationController::class, 'add']);
+    Route::post('/menu-authorizations/add', [App\Http\Controllers\MenuAuthorizationController::class, 'add']);
 
     Route::apiResource('award-letters', App\Http\Controllers\AwardLetterController::class);
 
