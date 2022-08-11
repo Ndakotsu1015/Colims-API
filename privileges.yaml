@@ -1,17 +1,14 @@
 models:
   Privilege:
     name: string
-    softDeletes
 
   PrivilegeClass:
     name: string
-    softDeletes
   
   PrivilegeDetail:
     privilege_class_id: id foreign
     user_id: id foreign
     privilege_id: id foreign
-    softDeletes
 
   Menu:    
     title: string nullable
@@ -21,12 +18,10 @@ models:
     icon: string nullable
     parent_id: id foreign:menu.id
     module_id: id foreign
-    softDeletes
 
   MenuAuthorization:
     menu_id: id foreign
     privilege_id: id foreign
-    softDeletes
   
 controllers:
   Privilege:
